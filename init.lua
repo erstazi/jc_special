@@ -28,4 +28,8 @@ core.register_node("jc_special:day_button", {
       core.chat_send_all(puncher:get_player_name() .. " skipped the night.")
     end
   end,
+  after_place_node = function(pos, placer)
+    local meta = minetest.get_meta(pos);
+    meta:set_string("infotext",  "OOO I AM SO SCARED!!! MAKE IT DAY");
+  end,
 })

@@ -114,3 +114,25 @@ core.register_on_mods_loaded(function()
     core.log("warning", "[jc_special] carts mod not found")
   end
 end)
+
+local function get_mods_formspec()
+  local mods = core.get_modnames()
+  table.sort(mods)
+
+  return
+    "formspec_version[4]" ..
+    "size[12,10]" ..
+    "label[0.4,0.3;Loaded Mods (" .. #mods .. ")]" ..
+    "textarea[0.4,0.8;11.2,8;;;" ..
+    core.formspec_escape(table.concat(mods, ", ")) ..
+    "]" ..
+    "button_exit[4,9;4,0.8;close;Close]"
+end
+
+core.register_chatcommand("mods", {
+  description = "Show loaded mods",
+  func = function(name)
+    core.show_formspec(name, "jc_special:mods", get_mods_formspec())
+    return true
+  end,
+})

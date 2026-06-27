@@ -80,6 +80,7 @@ core.register_node("jc_special:day_button", {
   tiles = {
     "jc_special_day_button.png",
   },
+  light_source = 6,
   groups = {
     cracky = 2,
     not_in_creative_inventory = 1,
@@ -97,6 +98,7 @@ core.register_node("jc_special:day_button_pressed", {
     "jc_special_day_button_pressed.png",
   },
   drop = "jc_special:day_button",
+  light_source = 8,
   groups = {
     cracky = 2,
     not_in_creative_inventory = 1,

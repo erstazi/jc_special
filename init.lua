@@ -53,6 +53,7 @@ local function press_day_button(pos, node, puncher)
         name = "jc_special:day_button",
         param2 = n.param2,
       })
+      core.get_meta(pos):set_string("infotext", "Press to skip the night.")
     end
   end, vector.new(pos))
 

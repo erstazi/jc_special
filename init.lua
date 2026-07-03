@@ -161,37 +161,6 @@ minetest.register_chatcommand("greet", {
   end
 })
 
-local toolranks_storage = nil
-
-if core.get_modpath("toolranks") then
-  toolranks_storage = core.get_mod_storage("toolranks")
-end
-
-if toolranks_storage then
-  core.register_chatcommand("toptoolrank", {
-    description = "Shows the player with the most-used tool.",
-    privs = {
-      interact = true
-    },
-
-    func = function(name, param)
-      local most_digs = toolranks_storage:get_int("most_digs")
-      local most_digs_user = toolranks_storage:get_string("most_digs_user")
-
-      if most_digs <= 0 or most_digs_user == "" then
-        return true, "No tool usage has been recorded yet."
-      end
-
-      return true,
-        "Top Tool Rank: " ..
-        most_digs_user ..
-        " (" ..
-        most_digs ..
-        " uses)"
-    end
-  })
-end
-
 -- minetest.register_on_joinplayer(function(player)
   -- local name = player:get_player_name()
 

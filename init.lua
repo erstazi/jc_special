@@ -136,3 +136,96 @@ core.register_chatcommand("mods", {
     return true
   end,
 })
+
+local greet_enabled = false
+local join_queue = {}
+
+minetest.register_chatcommand("greet", {
+  params = "on | off",
+  description = "Enable or disable join greeter",
+  privs = {server = true},
+  func = function(name, param)
+    if name ~= "erstazi" then
+      return false, "Not allowed."
+    end
+
+    if param == "on" then
+      greet_enabled = true
+      return true, "Join greeter enabled"
+    elseif param == "off" then
+      greet_enabled = false
+      return true, "Join greeter disabled"
+    else
+      return false, "Use: /greet on | off"
+    end
+  end
+})
+
+local toolranks_storage = nil
+
+if core.get_modpath("toolranks") then
+  toolranks_storage = core.get_mod_storage("toolranks")
+end
+
+if toolranks_storage then
+  core.register_chatcommand("toptoolrank", {
+    description = "Shows the player with the most-used tool.",
+    privs = {
+      interact = true
+    },
+
+    func = function(name, param)
+      local most_digs = toolranks_storage:get_int("most_digs")
+      local most_digs_user = toolranks_storage:get_string("most_digs_user")
+
+      if most_digs <= 0 or most_digs_user == "" then
+        return true, "No tool usage has been recorded yet."
+      end
+
+      return true,
+        "Top Tool Rank: " ..
+        most_digs_user ..
+        " (" ..
+        most_digs ..
+        " uses)"
+    end
+  })
+end
+
+-- minetest.register_on_joinplayer(function(player)
+  -- local name = player:get_player_name()
+
+  -- if not greet_enabled then
+    -- return
+  -- end
+
+  -- if name == "erstazi" then
+    -- return
+  -- end
+
+  -- table.insert(join_queue, {
+    -- target = "erstazi",
+    -- guest = name,
+    -- t = os.time()
+  -- })
+-- end)
+
+-- minetest.register_globalstep(function(dtime)
+  -- if not greet_enabled then
+    -- return
+  -- end
+
+  -- for i = #join_queue, 1, -1 do
+    -- local entry = join_queue[i]
+
+    -- if os.time() - entry.t >= 3 then
+      -- local target = minetest.get_player_by_name(entry.target)
+
+      -- if target then
+        -- minetest.chat_send_player(entry.target, "hi " .. entry.guest)
+      -- end
+
+      -- table.remove(join_queue, i)
+    -- end
+  -- end
+-- end)

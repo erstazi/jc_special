@@ -144,11 +144,11 @@ minetest.register_on_newplayer(function(player)
 
   minetest.after(3, function()
     if player and player:is_player() then
-      minetest.chat_send_player(new_name, minetest.colorize("#00FF88", "====================================="))
+      minetest.chat_send_player(new_name, minetest.colorize("#00FF88", "======================================================="))
       minetest.chat_send_player(new_name, minetest.colorize("#FFFF00", "Welcome to the Just-Craft server, " .. new_name .. "!"))
       minetest.chat_send_player(new_name, "")
       minetest.chat_send_player(new_name, minetest.colorize("#88FF88", "Type: ") .. minetest.colorize("#FFFF00", "/apt") .. minetest.colorize("#88FF88", " to get your free apartment!"))
-      minetest.chat_send_player(new_name, minetest.colorize("#00FF88", "====================================="))
+      minetest.chat_send_player(new_name, minetest.colorize("#00FF88", "======================================================="))
     end
   end)
 end)

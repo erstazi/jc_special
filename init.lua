@@ -4,39 +4,6 @@ local day_button_pressed_sounds = {
   'day_button_pressed',
 }
 
--- core.register_node("jc_special:day_button", {
-  -- description = S("Day Button"),
-  -- tiles = {
-    -- "default_wood.png^default_mese_crystal.png",
-  -- },
-  -- groups = {
-    -- choppy = 2,
-    -- oddly_breakable_by_hand = 2,
-    -- not_in_creative_inventory = 1,
-  -- },
-  -- sounds = default.node_sound_wood_defaults(),
-
-  -- on_punch = function(pos, node, puncher)
-    -- local tod = core.get_timeofday()
-
-    -- if tod < 0.291667 or tod > 0.791667 then
-      -- core.set_timeofday(0.291667)
-
-      -- core.sound_play("default_place_node_hard", {
-        -- pos = pos,
-        -- gain = 1.0,
-        -- max_hear_distance = 16,
-      -- })
-
-      -- core.chat_send_all(puncher:get_player_name() .. " skipped the night.")
-    -- end
-  -- end,
-  -- after_place_node = function(pos, placer)
-    -- local meta = minetest.get_meta(pos);
-    -- meta:set_string("infotext",  "OOO I AM SO SCARED!!! MAKE IT DAY");
-  -- end,
--- })
-
 local function press_day_button(pos, node, puncher)
   -- Already pressed?
   if node.name == "jc_special:day_button_pressed" then
@@ -160,6 +127,31 @@ minetest.register_chatcommand("greet", {
     end
   end
 })
+
+minetest.register_on_newplayer(function(player)
+  local new_name = player:get_player_name()
+
+  -- Notify staff
+  minetest.after(3, function()
+    for _, p in ipairs(minetest.get_connected_players()) do
+      local staff_name = p:get_player_name()
+      if minetest.check_player_privs(staff_name, {server = true}) then
+        minetest.chat_send_player(staff_name,
+          minetest.colorize("#00FF00", "*** NEW PLAYER: " .. new_name .. " has joined the server for the first time. Information about apartments already sent to new player."))
+      end
+    end
+  end)
+
+  minetest.after(3, function()
+    if player and player:is_player() then
+      minetest.chat_send_player(new_name, minetest.colorize("#00FF88", "====================================="))
+      minetest.chat_send_player(new_name, minetest.colorize("#FFFF00", "Welcome to the Just-Craft server, " .. new_name .. "!"))
+      minetest.chat_send_player(new_name, "")
+      minetest.chat_send_player(new_name, minetest.colorize("#88FF88", "Type: ") .. minetest.colorize("#FFFF00", "/apt") .. minetest.colorize("#88FF88", " to get your free apartment!"))
+      minetest.chat_send_player(new_name, minetest.colorize("#00FF88", "====================================="))
+    end
+  end)
+end)
 
 -- minetest.register_on_joinplayer(function(player)
   -- local name = player:get_player_name()

@@ -153,6 +153,32 @@ minetest.register_on_newplayer(function(player)
   end)
 end)
 
+core.register_chatcommand("where", {
+  params = "<player>",
+  description = "Shows the coordinates of a player.",
+  privs = { server = true },
+
+  func = function(name, param)
+    local green = core.get_color_escape_sequence("#1eff00")
+    local gold  = core.get_color_escape_sequence("#ffdf00")
+    local white = core.get_color_escape_sequence("#ffffff")
+
+    if param == "" then
+      return false, gold .. "Usage: " .. white .. " /where " .. green .. "<player>"
+    end
+
+    local player = core.get_player_by_name(param)
+    if not player then
+      return false, white .. "Player " .. green .. param .. white .. " is not online."
+    end
+
+    local pos = vector.round(player:get_pos())
+
+    -- return true, string.format("%s is at %d,%d,%d", param, pos.x, pos.y, pos.z)
+    return true, string.format("%s%s%s is at %s%d,%d,%d", green, param, white, gold, pos.x, pos.y, pos.z )
+  end,
+})
+
 -- minetest.register_on_joinplayer(function(player)
   -- local name = player:get_player_name()
 

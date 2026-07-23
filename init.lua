@@ -107,7 +107,7 @@ core.register_chatcommand("mods", {
 local greet_enabled = false
 local join_queue = {}
 
-minetest.register_chatcommand("greet", {
+core.register_chatcommand("greet", {
   params = "on | off",
   description = "Enable or disable join greeter",
   privs = {server = true},
@@ -128,27 +128,61 @@ minetest.register_chatcommand("greet", {
   end
 })
 
-minetest.register_on_newplayer(function(player)
+local new_players = {}
+
+core.register_on_newplayer(function(player)
   local new_name = player:get_player_name()
+  new_players[new_name] = true
 
   -- Notify staff
-  minetest.after(3, function()
-    for _, p in ipairs(minetest.get_connected_players()) do
+  core.after(2, function()
+    for _, p in ipairs(core.get_connected_players()) do
       local staff_name = p:get_player_name()
-      if minetest.check_player_privs(staff_name, {server = true}) then
-        minetest.chat_send_player(staff_name,
-          minetest.colorize("#00FF00", "*** NEW PLAYER: " .. new_name .. " has joined the server for the first time. Information about apartments already sent to new player."))
+      if core.check_player_privs(staff_name, {ban = true}) then
+        core.chat_send_player(staff_name,
+          core.colorize("#00FF00", "*** NEW PLAYER: " .. new_name .. " has joined the server for the first time. Information about apartments already sent to new player."))
       end
     end
   end)
 
-  minetest.after(3, function()
-    if player and player:is_player() then
-      minetest.chat_send_player(new_name, minetest.colorize("#00FF88", "======================================================="))
-      minetest.chat_send_player(new_name, minetest.colorize("#FFFF00", "Welcome to the Just-Craft server, " .. new_name .. "!"))
-      minetest.chat_send_player(new_name, "")
-      minetest.chat_send_player(new_name, minetest.colorize("#88FF88", "Type: ") .. minetest.colorize("#FFFF00", "/apt") .. minetest.colorize("#88FF88", " to get your free apartment!"))
-      minetest.chat_send_player(new_name, minetest.colorize("#00FF88", "======================================================="))
+  core.after(2, function()
+    local p = core.get_player_by_name(new_name)
+    if not p then
+      new_players[new_name] = nil
+      return
+    end
+
+    core.chat_send_player(new_name, core.colorize("#00FF88", "======================================================="))
+    core.chat_send_player(new_name, core.colorize("#FFFF00", "Welcome to the Just-Craft server, " .. new_name .. "!"))
+    core.chat_send_player(new_name, "")
+    core.chat_send_player(new_name, core.colorize("#88FF88", "Type: ") .. core.colorize("#FFFF00", "/apt") .. core.colorize("#88FF88", " to get your free apartment!") )
+    core.chat_send_player(new_name, core.colorize("#00FF88", "======================================================="))
+
+    core.sound_play("welcome_stranger", {
+      to_player = new_name,
+      gain = 1.0,
+    })
+    new_players[new_name] = nil
+  end)
+end)
+
+core.register_on_joinplayer(function(player)
+  local name = player:get_player_name()
+  core.after(1, function()
+    if not core.get_player_by_name(name) then
+      return
+    end
+
+    core.sound_play("welcome", {
+      gain = 1.0,
+      exclude_player = name,
+    })
+
+    if not new_players[name] then
+      core.sound_play("glockenspiel", {
+        to_player = name,
+        gain = 1.0,
+      })
     end
   end)
 end)
@@ -179,18 +213,18 @@ core.register_chatcommand("where", {
   end,
 })
 
-local old_shutdown = minetest.registered_chatcommands["shutdown"]
+local old_shutdown = core.registered_chatcommands["shutdown"]
 if old_shutdown then
-  minetest.override_chatcommand("shutdown", {
+  core.override_chatcommand("shutdown", {
     func = function(name, param)
-      minetest.chat_send_player(name, "The /shutdown command has been disabled on this server.")
-      minetest.log("action", "[SHUTDOWN BLOCKED] " .. name .. " attempted /shutdown")
+      core.chat_send_player(name, "The /shutdown command has been disabled on this server.")
+      core.log("action", "[SHUTDOWN BLOCKED] " .. name .. " attempted /shutdown")
       return true
     end
   })
 end
 
--- minetest.register_on_joinplayer(function(player)
+-- core.register_on_joinplayer(function(player)
   -- local name = player:get_player_name()
 
   -- if not greet_enabled then
@@ -208,7 +242,7 @@ end
   -- })
 -- end)
 
--- minetest.register_globalstep(function(dtime)
+-- core.register_globalstep(function(dtime)
   -- if not greet_enabled then
     -- return
   -- end
@@ -217,10 +251,10 @@ end
     -- local entry = join_queue[i]
 
     -- if os.time() - entry.t >= 3 then
-      -- local target = minetest.get_player_by_name(entry.target)
+      -- local target = core.get_player_by_name(entry.target)
 
       -- if target then
-        -- minetest.chat_send_player(entry.target, "hi " .. entry.guest)
+        -- core.chat_send_player(entry.target, "hi " .. entry.guest)
       -- end
 
       -- table.remove(join_queue, i)

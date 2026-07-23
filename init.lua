@@ -179,6 +179,17 @@ core.register_chatcommand("where", {
   end,
 })
 
+local old_shutdown = minetest.registered_chatcommands["shutdown"]
+if old_shutdown then
+  minetest.override_chatcommand("shutdown", {
+    func = function(name, param)
+      minetest.chat_send_player(name, "The /shutdown command has been disabled on this server.")
+      minetest.log("action", "[SHUTDOWN BLOCKED] " .. name .. " attempted /shutdown")
+      return true
+    end
+  })
+end
+
 -- minetest.register_on_joinplayer(function(player)
   -- local name = player:get_player_name()
 

@@ -187,6 +187,43 @@ core.register_on_joinplayer(function(player)
   end)
 end)
 
+local welcome_sounds = {
+  welcome = true,
+  glockenspiel = true,
+  welcome_stranger = true,
+}
+
+core.register_chatcommand("welcome_sound", {
+  params = "[welcome|glockenspiel|welcome_stranger]",
+  description = "Play a welcome sound for all connected players.",
+  privs = {ban = true},
+
+  func = function(name, param)
+    param = (param or ""):trim()
+
+    if param == "" then
+      return true,
+        "Available sounds: welcome, glockenspiel, welcome_stranger\n" ..
+        "Usage: /welcome_sound <sound>"
+    end
+
+    if not welcome_sounds[param] then
+      return false,
+        "No sounds found with that name.\n" ..
+        "Available: welcome, glockenspiel, welcome_stranger"
+    end
+
+    core.sound_play(param, {
+      gain = 1.0,
+    })
+
+    core.log("action", name .. " played welcome sound: " .. param)
+
+    return true,
+      "Playing '" .. param .. "' for all connected players."
+  end,
+})
+
 core.register_chatcommand("where", {
   params = "<player>",
   description = "Shows the coordinates of a player.",

@@ -185,6 +185,18 @@ core.register_on_joinplayer(function(player)
       })
     end
   end)
+
+  core.after(3, function()
+    if not core.get_player_by_name(name) then
+      return
+    end
+
+    core.chat_send_player(name, core.colorize("#00FF88", "========================================================="))
+    core.chat_send_player(name, core.colorize("#FFFF00", " With memorial blocks, you can disable the audio loop "))
+    core.chat_send_player(name, core.colorize("#FFFF00", " that erstazi made with the command /memorial_sounds off. "))
+    core.chat_send_player(name, core.colorize("#FFB188", " This will keep the setting after you leave the game. "))
+    core.chat_send_player(name, core.colorize("#00FF88", "========================================================="))
+  end)
 end)
 
 local welcome_sounds = {

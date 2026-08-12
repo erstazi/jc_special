@@ -68,3 +68,9 @@ if old_shutdown then
     end
   })
 end
+
+if core.get_modpath("ethereal") then
+  core.override_item("ethereal:jungle_dirt", {
+    light_source = 4,
+  })
+end

@@ -74,3 +74,48 @@ if core.get_modpath("ethereal") then
     light_source = 4,
   })
 end
+
+if core.get_modpath("animalia") and core.get_modpath("creatura") then
+  local ambient_spawn_chance_override = 18000
+  creatura.register_abm_spawn("animalia:bat", {
+    chance = ambient_spawn_chance_override,
+    interval = 30,
+    min_light = 0,
+    max_light = 5,
+    min_height = -31000,
+    max_height = -30,
+    min_group = 3,
+    max_group = 5,
+    spawn_cap = 6,
+    nodes = {"default:stone"}
+  })
+end
+
+if core.get_modpath("animalia") and core.get_modpath("creatura") then
+  core.register_on_mods_loaded(function()
+    local found = false
+    for i = #core.registered_abms, 1, -1 do
+      local abm = core.registered_abms[i]
+      if abm.label == "animalia:bat spawning" then
+        table.remove(core.registered_abms, i)
+        found = true
+        break
+      end
+    end
+
+    core.log("action", "[jc_special] Animalia bat ABM found: " .. tostring(found))
+
+    creatura.register_abm_spawn("animalia:bat", {
+      chance = 18000,
+      interval = 30,
+      min_light = 0,
+      max_light = 5,
+      min_height = -31000,
+      max_height = -30,
+      min_group = 3,
+      max_group = 5,
+      spawn_cap = 6,
+      nodes = {"default:stone"},
+    })
+  end)
+end

@@ -118,4 +118,51 @@ if core.get_modpath("animalia") and core.get_modpath("creatura") then
       nodes = {"default:stone"},
     })
   end)
+
+  core.register_chatcommand("batcount", {
+    description = "Count Animalia bats",
+    privs = {server = true},
+    func = function(name)
+      local count = 0
+
+      for _, object in ipairs(core.get_objects_inside_radius(
+        core.get_player_by_name(name):get_pos(),
+        31000
+      )) do
+        local ent = object:get_luaentity()
+        if ent and ent.name == "animalia:bat" then
+          count = count + 1
+        end
+      end
+
+      return true, "There are " .. count .. " Animalia bats nearby."
+    end,
+  })
+
+  core.register_chatcommand("batkill", {
+    description = "Remove all loaded Animalia bats",
+    privs = {server = true},
+    func = function(name)
+      local player = core.get_player_by_name(name)
+      if not player then
+        return false, "Player not found."
+      end
+
+      local count = 0
+
+      for _, object in ipairs(core.get_objects_inside_radius(
+        player:get_pos(),
+        31000
+      )) do
+        local ent = object:get_luaentity()
+
+        if ent and ent.name == "animalia:bat" then
+          object:remove()
+          count = count + 1
+        end
+      end
+
+      return true, "Removed " .. count .. " Animalia bats."
+    end,
+  })
 end

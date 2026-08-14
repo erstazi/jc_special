@@ -54,7 +54,16 @@ local function mailbox_formspec(pos)
     "listring[]"
 end
 
+local function update_mailbox_infotext(pos)
+  local meta = core.get_meta(pos)
+  local owner = meta:get_string("owner")
 
+  if owner ~= "" then
+    meta:set_string("infotext", "Mailbox\nOwner: " .. owner)
+  else
+    meta:set_string("infotext", "Mailbox\nUnowned")
+  end
+end
 
 -- Wait until ALL mods have registered their nodes.
 core.register_on_mods_loaded(function()
@@ -66,10 +75,19 @@ core.register_on_mods_loaded(function()
 
   local inbox_def = core.registered_nodes["homedecor:inbox"]
   local old_on_metadata_inventory_put = inbox_def.on_metadata_inventory_put
+  local old_on_construct = inbox_def.on_construct
 
   core.override_item("homedecor:inbox", {
+    on_construct = function(pos)
+      if old_on_construct then
+        old_on_construct(pos)
+      end
+
+      update_mailbox_infotext(pos)
+    end,
 
     on_rightclick = function(pos, node, clicker, itemstack)
+      update_mailbox_infotext(pos)
 
       local meta = core.get_meta(pos)
       local owner = meta:get_string("owner")
@@ -89,10 +107,19 @@ core.register_on_mods_loaded(function()
         -- Original deposit-only formspec
         local spos = pos.x .. "," .. pos.y .. "," .. pos.z
 
+        -- core.show_formspec(
+          -- player,
+          -- "jc_special_insert",
+          -- "size[8,9]" ..
+          -- "list[nodemeta:"..spos..";drop;3.5,2;1,1;]" ..
+          -- "list[current_player;main;0,5;8,4;]" ..
+          -- "listring[]"
+        -- )
         core.show_formspec(
           player,
           "jc_special_insert",
           "size[8,9]" ..
+          "label[0.5,0.3;Mailbox for: " .. core.formspec_escape(owner) .. "]" ..
           "list[nodemeta:"..spos..";drop;3.5,2;1,1;]" ..
           "list[current_player;main;0,5;8,4;]" ..
           "listring[]"

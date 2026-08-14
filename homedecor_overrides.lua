@@ -12,71 +12,70 @@ local function update_clock(pos)
   )
 end
 
-if core.get_modpath("homedecor_clocks") then
 
-  -- Wait until ALL mods have registered their nodes.
-  core.register_on_mods_loaded(function()
+-- Wait until ALL mods have registered their nodes.
+core.register_on_mods_loaded(function()
 
-    local def = core.registered_nodes["homedecor:grandfather_clock"]
+  local def = core.registered_nodes["homedecor:grandfather_clock"]
 
-    if not def then
-      core.log("error", "[jc_special] homedecor:grandfather_clock not found!")
-      return
-    end
+  if not def then
+    core.log("error", "[jc_special] homedecor:grandfather_clock not found!")
+    return
+  end
 
-    core.override_item("homedecor:grandfather_clock", {
-      on_rightclick = function(pos, node, clicker, itemstack)
-        update_clock(pos)
-        core.get_node_timer(pos):start(10)
-      end,
-      on_construct = function(pos)
-        if def.on_construct then
-          def.on_construct(pos)
-        end
+  core.override_item("homedecor:grandfather_clock", {
+    on_rightclick = function(pos, node, clicker, itemstack)
+      update_clock(pos)
+      core.get_node_timer(pos):start(10)
+    end,
+    on_construct = function(pos)
+      if def.on_construct then
+        def.on_construct(pos)
+      end
 
-        update_clock(pos)
-        core.get_node_timer(pos):start(10)
-      end,
-      on_timer = function(pos, elapsed)
-        update_clock(pos)
+      update_clock(pos)
+      core.get_node_timer(pos):start(10)
+    end,
+    on_timer = function(pos, elapsed)
+      update_clock(pos)
 
-        if def.on_timer then
-          return def.on_timer(pos, elapsed)
-        end
+      if def.on_timer then
+        return def.on_timer(pos, elapsed)
+      end
 
-        return true
-      end,
-    })
+      return true
+    end,
+  })
 
-    core.log("action", "[jc_special] grandfather_clock overridden successfully.")
-  end)
+  core.log("action", "[jc_special] grandfather_clock overridden successfully.")
+end)
 
 
-  -- local def = core.registered_nodes["homedecor:grandfather_clock"]
+-- local def = core.registered_nodes["homedecor:grandfather_clock"]
 
-  -- if def then
-    -- core.override_item("homedecor:grandfather_clock", {
-      -- on_construct = function(pos)
-        -- if def.on_construct then
-          -- def.on_construct(pos)
-        -- end
+-- if def then
+  -- core.override_item("homedecor:grandfather_clock", {
+    -- on_construct = function(pos)
+      -- if def.on_construct then
+        -- def.on_construct(pos)
+      -- end
 
-        -- update_clock(pos)
-        -- core.get_node_timer(pos):start(10)
-      -- end,
+      -- update_clock(pos)
+      -- core.get_node_timer(pos):start(10)
+    -- end,
 
-      -- on_timer = function(pos, elapsed)
-        -- update_clock(pos)
+    -- on_timer = function(pos, elapsed)
+      -- update_clock(pos)
 
-        -- if def.on_timer then
-          -- return def.on_timer(pos, elapsed)
-        -- end
+      -- if def.on_timer then
+        -- return def.on_timer(pos, elapsed)
+      -- end
 
-        -- return true
-      -- end,
-    -- })
-  -- end
-end
+      -- return true
+    -- end,
+  -- })
+-- end
+
 
 local function mailbox_formspec(pos)
   local spos = pos.x .. "," .. pos.y .. "," .. pos.z
@@ -93,99 +92,97 @@ local function mailbox_formspec(pos)
     "listring[]"
 end
 
-if core.get_modpath("homedecor_inbox") then
 
-  -- Wait until ALL mods have registered their nodes.
-  core.register_on_mods_loaded(function()
 
-    if not core.registered_nodes["homedecor:inbox"] then
-      core.log("error", "[jc_special] homedecor:inbox not found!")
-      return
-    end
+-- Wait until ALL mods have registered their nodes.
+core.register_on_mods_loaded(function()
 
-    core.override_item("homedecor:inbox", {
+  if not core.registered_nodes["homedecor:inbox"] then
+    core.log("error", "[jc_special] homedecor:inbox not found!")
+    return
+  end
 
-      on_rightclick = function(pos, node, clicker, itemstack)
+  core.override_item("homedecor:inbox", {
 
-        local meta = core.get_meta(pos)
-        local owner = meta:get_string("owner")
-        local player = clicker:get_player_name()
+    on_rightclick = function(pos, node, clicker, itemstack)
 
-        if player == owner or
-          (core.check_player_privs(player, "protection_bypass")
-          and clicker:get_player_control().aux1) then
+      local meta = core.get_meta(pos)
+      local owner = meta:get_string("owner")
+      local player = clicker:get_player_name()
 
-          core.show_formspec(
-            player,
-            "jc_special:" .. core.pos_to_string(pos),
-            mailbox_formspec(pos)
-          )
+      if player == owner or
+        (core.check_player_privs(player, "protection_bypass")
+        and clicker:get_player_control().aux1) then
 
-        else
-          -- Original deposit-only formspec
-          local spos = pos.x .. "," .. pos.y .. "," .. pos.z
+        core.show_formspec(
+          player,
+          "jc_special:" .. core.pos_to_string(pos),
+          mailbox_formspec(pos)
+        )
 
-          core.show_formspec(
-            player,
-            "jc_special_insert",
-            "size[8,9]" ..
-            "list[nodemeta:"..spos..";drop;3.5,2;1,1;]" ..
-            "list[current_player;main;0,5;8,4;]" ..
-            "listring[]"
-          )
-        end
+      else
+        -- Original deposit-only formspec
+        local spos = pos.x .. "," .. pos.y .. "," .. pos.z
 
-        return itemstack
-      end,
-    })
-
-    core.log("action", "[jc_special] Mailbox overridden successfully.")
-  end)
-
-  core.register_on_player_receive_fields(function(player, formname, fields)
-
-    if not fields.getitems then
-      return
-    end
-
-    local posstr = formname:match("^jc_special:(.*)$")
-    if not posstr then
-      return
-    end
-
-    local pos = core.string_to_pos(posstr)
-    if not pos then
-      return
-    end
-
-    local meta = core.get_meta(pos)
-
-    if meta:get_string("owner") ~= player:get_player_name() then
-      return
-    end
-
-    local mail = meta:get_inventory()
-    local inv = player:get_inventory()
-
-    for i = 1, mail:get_size("main") do
-      local stack = mail:get_stack("main", i)
-
-      if not stack:is_empty() then
-        local leftover = inv:add_item("main", stack)
-        mail:set_stack("main", i, leftover)
+        core.show_formspec(
+          player,
+          "jc_special_insert",
+          "size[8,9]" ..
+          "list[nodemeta:"..spos..";drop;3.5,2;1,1;]" ..
+          "list[current_player;main;0,5;8,4;]" ..
+          "listring[]"
+        )
       end
+
+      return itemstack
+    end,
+  })
+
+  core.log("action", "[jc_special] Mailbox overridden successfully.")
+end)
+
+core.register_on_player_receive_fields(function(player, formname, fields)
+
+  if not fields.getitems then
+    return
+  end
+
+  local posstr = formname:match("^jc_special:(.*)$")
+  if not posstr then
+    return
+  end
+
+  local pos = core.string_to_pos(posstr)
+  if not pos then
+    return
+  end
+
+  local meta = core.get_meta(pos)
+
+  if meta:get_string("owner") ~= player:get_player_name() then
+    return
+  end
+
+  local mail = meta:get_inventory()
+  local inv = player:get_inventory()
+
+  for i = 1, mail:get_size("main") do
+    local stack = mail:get_stack("main", i)
+
+    if not stack:is_empty() then
+      local leftover = inv:add_item("main", stack)
+      mail:set_stack("main", i, leftover)
     end
+  end
 
-    core.sound_play("default_item_smoke", {
-      to_player = player:get_player_name(),
-      gain = 0.6,
-    })
+  core.sound_play("default_item_smoke", {
+    to_player = player:get_player_name(),
+    gain = 0.6,
+  })
 
-    core.show_formspec(
-      player:get_player_name(),
-      formname,
-      mailbox_formspec(pos)
-    )
-  end)
-
-end
+  core.show_formspec(
+    player:get_player_name(),
+    formname,
+    mailbox_formspec(pos)
+  )
+end)

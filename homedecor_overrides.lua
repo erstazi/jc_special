@@ -110,6 +110,7 @@ core.register_on_mods_loaded(function()
 
       local depositor = player:get_player_name()
       local owner = core.get_meta(pos):get_string("owner")
+      local mailbox_pos = core.pos_to_string(pos)
 
       -- Sound for the person depositing
       core.sound_play("incoming_mailbox", {
@@ -129,7 +130,10 @@ core.register_on_mods_loaded(function()
 
           core.chat_send_player(
             owner,
-            "[Mailbox] " .. depositor .. " has deposited mail for you!"
+            "[Mailbox] " ..
+            core.colorize("#55FF55", depositor) ..
+            " has deposited mail for you at " ..
+            core.colorize("#AAAAAA", mailbox_pos)
           )
         end
       end

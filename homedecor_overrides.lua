@@ -64,6 +64,9 @@ core.register_on_mods_loaded(function()
     return
   end
 
+  local inbox_def = core.registered_nodes["homedecor:inbox"]
+  local old_on_metadata_inventory_put = inbox_def.on_metadata_inventory_put
+
   core.override_item("homedecor:inbox", {
 
     on_rightclick = function(pos, node, clicker, itemstack)
@@ -99,6 +102,12 @@ core.register_on_mods_loaded(function()
       return itemstack
     end,
     on_metadata_inventory_put = function(pos, listname, index, stack, player)
+
+      -- Let HomeDecor do its original mailbox processing
+      if old_on_metadata_inventory_put then
+        old_on_metadata_inventory_put(pos, listname, index, stack, player)
+      end
+
       local depositor = player:get_player_name()
       local owner = core.get_meta(pos):get_string("owner")
 
@@ -118,7 +127,10 @@ core.register_on_mods_loaded(function()
             gain = 0.6,
           })
 
-          core.chat_send_player(owner, "[Mailbox] " .. depositor .. " has deposited mail for you!")
+          core.chat_send_player(
+            owner,
+            "[Mailbox] " .. depositor .. " has deposited mail for you!"
+          )
         end
       end
     end,

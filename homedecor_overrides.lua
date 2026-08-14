@@ -13,44 +13,6 @@ local function update_clock(pos)
 end
 
 
--- Wait until ALL mods have registered their nodes.
-core.register_on_mods_loaded(function()
-
-  local def = core.registered_nodes["homedecor:grandfather_clock"]
-
-  if not def then
-    core.log("error", "[jc_special] homedecor:grandfather_clock not found!")
-    return
-  end
-
-  core.override_item("homedecor:grandfather_clock", {
-    on_rightclick = function(pos, node, clicker, itemstack)
-      update_clock(pos)
-      core.get_node_timer(pos):start(10)
-    end,
-    on_construct = function(pos)
-      if def.on_construct then
-        def.on_construct(pos)
-      end
-
-      update_clock(pos)
-      core.get_node_timer(pos):start(10)
-    end,
-    on_timer = function(pos, elapsed)
-      update_clock(pos)
-
-      if def.on_timer then
-        return def.on_timer(pos, elapsed)
-      end
-
-      return true
-    end,
-  })
-
-  core.log("action", "[jc_special] grandfather_clock overridden successfully.")
-end)
-
-
 -- local def = core.registered_nodes["homedecor:grandfather_clock"]
 
 -- if def then
@@ -139,6 +101,40 @@ core.register_on_mods_loaded(function()
   })
 
   core.log("action", "[jc_special] Mailbox overridden successfully.")
+
+
+  local def = core.registered_nodes["homedecor:grandfather_clock"]
+
+  if not def then
+    core.log("error", "[jc_special] homedecor:grandfather_clock not found!")
+    return
+  end
+
+  core.override_item("homedecor:grandfather_clock", {
+    on_rightclick = function(pos, node, clicker, itemstack)
+      update_clock(pos)
+      core.get_node_timer(pos):start(10)
+    end,
+    on_construct = function(pos)
+      if def.on_construct then
+        def.on_construct(pos)
+      end
+
+      update_clock(pos)
+      core.get_node_timer(pos):start(10)
+    end,
+    on_timer = function(pos, elapsed)
+      update_clock(pos)
+
+      if def.on_timer then
+        return def.on_timer(pos, elapsed)
+      end
+
+      return true
+    end,
+  })
+
+  core.log("action", "[jc_special] grandfather_clock overridden successfully.")
 end)
 
 core.register_on_player_receive_fields(function(player, formname, fields)

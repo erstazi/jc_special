@@ -6,7 +6,10 @@ dofile(modpath .. "/welcomeplayers.lua")
 dofile(modpath .. "/snowball.lua")
 
 if core.get_modpath("homedecor") then
-    dofile(modpath .. "/homedecor_overrides.lua")
+  dofile(modpath .. "/homedecor_overrides.lua")
+  core.log("action", "[jc_special] homedecor overrides should have ran")
+else
+  core.log("action", "[jc_special] homedecor not loaded?")
 end
 
 dofile(modpath .. "/animalworld_cleanup.lua")

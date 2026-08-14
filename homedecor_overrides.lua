@@ -1,4 +1,5 @@
 -- homedecor_overrides.lua
+
 local function update_clock(pos)
   local tod = core.get_timeofday()
 
@@ -11,28 +12,180 @@ local function update_clock(pos)
   )
 end
 
-local def = core.registered_nodes["homedecor:grandfather_clock"]
+if core.get_modpath("homedecor_clocks") then
 
-if def then
-  core.override_item("homedecor:grandfather_clock", {
-    on_construct = function(pos)
-      if def.on_construct then
-        def.on_construct(pos)
-      end
+  -- Wait until ALL mods have registered their nodes.
+  core.register_on_mods_loaded(function()
 
-      update_clock(pos)
-      core.get_node_timer(pos):start(10)
-    end,
+    local def = core.registered_nodes["homedecor:grandfather_clock"]
 
-    on_timer = function(pos, elapsed)
-      update_clock(pos)
+    if not def then
+      core.log("error", "[jc_special] homedecor:grandfather_clock not found!")
+      return
+    end
 
-      if def.on_timer then
-        return def.on_timer(pos, elapsed)
-      end
+    core.override_item("homedecor:grandfather_clock", {
+      on_rightclick = function(pos, node, clicker, itemstack)
+        update_clock(pos)
+        core.get_node_timer(pos):start(10)
+      end,
+      on_construct = function(pos)
+        if def.on_construct then
+          def.on_construct(pos)
+        end
 
-      return true
-    end,
-  })
+        update_clock(pos)
+        core.get_node_timer(pos):start(10)
+      end,
+      on_timer = function(pos, elapsed)
+        update_clock(pos)
+
+        if def.on_timer then
+          return def.on_timer(pos, elapsed)
+        end
+
+        return true
+      end,
+    })
+
+    core.log("action", "[jc_special] grandfather_clock overridden successfully.")
+  end)
+
+
+  -- local def = core.registered_nodes["homedecor:grandfather_clock"]
+
+  -- if def then
+    -- core.override_item("homedecor:grandfather_clock", {
+      -- on_construct = function(pos)
+        -- if def.on_construct then
+          -- def.on_construct(pos)
+        -- end
+
+        -- update_clock(pos)
+        -- core.get_node_timer(pos):start(10)
+      -- end,
+
+      -- on_timer = function(pos, elapsed)
+        -- update_clock(pos)
+
+        -- if def.on_timer then
+          -- return def.on_timer(pos, elapsed)
+        -- end
+
+        -- return true
+      -- end,
+    -- })
+  -- end
 end
 
+local function mailbox_formspec(pos)
+  local spos = pos.x .. "," .. pos.y .. "," .. pos.z
+
+  return
+    "size[10,11]" ..
+
+    "list[nodemeta:" .. spos .. ";main;1,0.5;8,4;]" ..
+
+    "button[3,5.0;4,0.8;getitems;Get Items]" ..
+
+    "list[current_player;main;1,6.6;8,4;]" ..
+
+    "listring[]"
+end
+
+if core.get_modpath("homedecor_inbox") then
+
+  -- Wait until ALL mods have registered their nodes.
+  core.register_on_mods_loaded(function()
+
+    if not core.registered_nodes["homedecor:inbox"] then
+      core.log("error", "[jc_special] homedecor:inbox not found!")
+      return
+    end
+
+    core.override_item("homedecor:inbox", {
+
+      on_rightclick = function(pos, node, clicker, itemstack)
+
+        local meta = core.get_meta(pos)
+        local owner = meta:get_string("owner")
+        local player = clicker:get_player_name()
+
+        if player == owner or
+          (core.check_player_privs(player, "protection_bypass")
+          and clicker:get_player_control().aux1) then
+
+          core.show_formspec(
+            player,
+            "jc_special:" .. core.pos_to_string(pos),
+            mailbox_formspec(pos)
+          )
+
+        else
+          -- Original deposit-only formspec
+          local spos = pos.x .. "," .. pos.y .. "," .. pos.z
+
+          core.show_formspec(
+            player,
+            "jc_special_insert",
+            "size[8,9]" ..
+            "list[nodemeta:"..spos..";drop;3.5,2;1,1;]" ..
+            "list[current_player;main;0,5;8,4;]" ..
+            "listring[]"
+          )
+        end
+
+        return itemstack
+      end,
+    })
+
+    core.log("action", "[jc_special] Mailbox overridden successfully.")
+  end)
+
+  core.register_on_player_receive_fields(function(player, formname, fields)
+
+    if not fields.getitems then
+      return
+    end
+
+    local posstr = formname:match("^jc_special:(.*)$")
+    if not posstr then
+      return
+    end
+
+    local pos = core.string_to_pos(posstr)
+    if not pos then
+      return
+    end
+
+    local meta = core.get_meta(pos)
+
+    if meta:get_string("owner") ~= player:get_player_name() then
+      return
+    end
+
+    local mail = meta:get_inventory()
+    local inv = player:get_inventory()
+
+    for i = 1, mail:get_size("main") do
+      local stack = mail:get_stack("main", i)
+
+      if not stack:is_empty() then
+        local leftover = inv:add_item("main", stack)
+        mail:set_stack("main", i, leftover)
+      end
+    end
+
+    core.sound_play("default_item_smoke", {
+      to_player = player:get_player_name(),
+      gain = 0.6,
+    })
+
+    core.show_formspec(
+      player:get_player_name(),
+      formname,
+      mailbox_formspec(pos)
+    )
+  end)
+
+end

@@ -139,3 +139,4 @@ if core.get_modpath("animalia") and core.get_modpath("creatura") then
     end,
   })
 end
+

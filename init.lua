@@ -9,4 +9,5 @@ if core.get_modpath("homedecor") then
     dofile(modpath .. "/homedecor_overrides.lua")
 end
 
+dofile(modpath .. "/animalworld_cleanup.lua")
 dofile(modpath .. "/misc_overrides.lua")

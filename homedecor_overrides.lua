@@ -59,7 +59,7 @@ local function update_mailbox_infotext(pos)
   local owner = meta:get_string("owner")
 
   if owner ~= "" then
-    meta:set_string("infotext", "Mailbox\nOwner: " .. owner)
+    meta:set_string("infotext", "Mailbox Owner: " .. owner)
   else
     meta:set_string("infotext", "Mailbox\nUnowned")
   end

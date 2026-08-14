@@ -1,5 +1,7 @@
 -- homedecor_overrides.lua
 
+minetest.register_alias("wardrobe:wardrobe", "homedecor:wardrobe")
+
 local function update_clock(pos)
   local tod = core.get_timeofday()
 

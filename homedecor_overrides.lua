@@ -98,6 +98,30 @@ core.register_on_mods_loaded(function()
 
       return itemstack
     end,
+    on_metadata_inventory_put = function(pos, listname, index, stack, player)
+      local depositor = player:get_player_name()
+      local owner = core.get_meta(pos):get_string("owner")
+
+      -- Sound for the person depositing
+      core.sound_play("incoming_mailbox", {
+        to_player = depositor,
+        gain = 0.6,
+      })
+
+      -- Notify the mailbox owner if they are online
+      if owner ~= "" and owner ~= depositor then
+        local owner_player = core.get_player_by_name(owner)
+
+        if owner_player then
+          core.sound_play("incoming_mailbox", {
+            to_player = owner,
+            gain = 0.6,
+          })
+
+          core.chat_send_player(owner, "[Mailbox] " .. depositor .. " has deposited mail for you!")
+        end
+      end
+    end,
   })
 
   core.log("action", "[jc_special] Mailbox overridden successfully.")

@@ -1,15 +1,22 @@
+core.log("warning", "[jc_special] INIT STARTED")
+
 local S = core.get_translator(core.get_current_modname())
 local modpath = core.get_modpath(core.get_current_modname())
+
+core.log("warning", "[jc_special] modpath = " .. tostring(modpath))
 
 dofile(modpath .. "/daybutton.lua")
 dofile(modpath .. "/welcomeplayers.lua")
 dofile(modpath .. "/snowball.lua")
 
+core.log("warning", "[jc_special] reached homedecor check")
+
 if core.get_modpath("homedecor") then
+  core.log("warning", "[jc_special] homedecor FOUND")
   dofile(modpath .. "/homedecor_overrides.lua")
   core.log("action", "[jc_special] homedecor overrides should have ran")
 else
-  core.log("action", "[jc_special] homedecor not loaded?")
+  core.log("warning", "[jc_special] homedecor NOT FOUND")
 end
 
 dofile(modpath .. "/animalworld_cleanup.lua")

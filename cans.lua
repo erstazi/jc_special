@@ -245,6 +245,8 @@ core.register_craft({
   },
 })
 
+
+-- homedecor:well compatibility
 if core.get_modpath("homedecor_exterior")
     and core.registered_nodes["homedecor:well"] then
 
@@ -262,14 +264,18 @@ if core.get_modpath("homedecor_exterior")
             and core.get_node(pointed_thing.under).name == "homedecor:well" then
 
           local charge = get_can_level(itemstack)
+          local sneak = user and user:get_player_control().sneak
 
           if charge >= capacity then
             return itemstack
           end
 
-          charge = charge + 1
+          if sneak then
+            charge = capacity
+          else
+            charge = charge + 1
+          end
 
-          -- itemstack:set_metadata(tostring(charge))
           itemstack:get_meta():set_int("level", charge)
           set_can_wear(itemstack, charge, capacity)
 

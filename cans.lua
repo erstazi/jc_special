@@ -23,16 +23,6 @@ local function set_can_wear(itemstack, level, max_level)
 end
 
 
-local function get_can_level_old(itemstack)
-  local metadata = itemstack:get_metadata()
-
-  if metadata == "" then
-    return 0
-  end
-
-  return tonumber(metadata) or 0
-end
-
 local function get_can_level(itemstack)
   local meta = itemstack:get_meta()
   local level = meta:get_int("level")
@@ -510,7 +500,7 @@ core.register_on_mods_loaded(function()
 
       -- Remove the can from the player's hand.
       wielded:take_item()
-      puncher:set_wielded_item(wielded)
+      -- puncher:set_wielded_item(wielded)
 
       -- Show the freshwater can in the well.
       local entity = core.add_entity(
@@ -594,7 +584,7 @@ core.register_on_mods_loaded(function()
         })
       end)
 
-      return
+      return wielded
     end,
   })
 

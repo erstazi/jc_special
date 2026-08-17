@@ -1,5 +1,6 @@
 local S = core.get_translator(core.get_current_modname())
 local modpath = core.get_modpath(core.get_current_modname())
+local tmp = {}
 
 local function set_can_wear(itemstack, level, max_level)
   local wear
@@ -22,7 +23,7 @@ local function set_can_wear(itemstack, level, max_level)
 end
 
 
-local function get_can_level(itemstack)
+local function get_can_level_old(itemstack)
   local metadata = itemstack:get_metadata()
 
   if metadata == "" then
@@ -32,6 +33,12 @@ local function get_can_level(itemstack)
   return tonumber(metadata) or 0
 end
 
+local function get_can_level(itemstack)
+  local meta = itemstack:get_meta()
+  local level = meta:get_int("level")
+
+  return level
+end
 
 function jc_special.register_can(data)
   core.register_tool(data.name, {
@@ -53,7 +60,19 @@ function jc_special.register_can(data)
 
       local node = core.get_node(pointed_thing.under)
 
+      -- Allow special nodes to handle punching with the can.
+      local def = core.registered_nodes[node.name]
+
       if node.name ~= data.source then
+        if def and def.on_punch then
+          def.on_punch(
+            pointed_thing.under,
+            node,
+            user,
+            pointed_thing
+          )
+        end
+
         return itemstack
       end
 
@@ -81,7 +100,8 @@ function jc_special.register_can(data)
 
       charge = charge + 1
 
-      itemstack:set_metadata(tostring(charge))
+      -- itemstack:set_metadata(tostring(charge))
+      itemstack:get_meta():set_int("level", charge)
       set_can_wear(itemstack, charge, data.capacity)
 
       return itemstack
@@ -147,14 +167,15 @@ function jc_special.register_can(data)
 
       charge = charge - 1
 
-      itemstack:set_metadata(tostring(charge))
+      itemstack:get_meta():set_int("level", charge)
       set_can_wear(itemstack, charge, data.capacity)
 
       return itemstack
     end,
 
     on_refill = function(itemstack)
-      itemstack:set_metadata(tostring(data.capacity))
+      -- itemstack:set_metadata(tostring(data.capacity))
+      itemstack:get_meta():set_int("level", data.capacity)
       set_can_wear(itemstack, data.capacity, data.capacity)
 
       return itemstack
@@ -254,7 +275,8 @@ if core.get_modpath("homedecor_exterior")
 
           charge = charge + 1
 
-          itemstack:set_metadata(tostring(charge))
+          -- itemstack:set_metadata(tostring(charge))
+          itemstack:get_meta():set_int("level", charge)
           set_can_wear(itemstack, charge, capacity)
 
           return itemstack
@@ -287,7 +309,7 @@ if core.get_modpath("wine") then
     core.override_item("wine:wine_barrel", {
       allow_metadata_inventory_put = function(pos, listname, index, stack, player)
         if listname == "src_b" and wine_cans[stack:get_name()] then
-          local level = tonumber(stack:get_metadata()) or 0
+          local level = tonumber(stack:get_meta():get_int("level")) or 0
           local water = core.get_meta(pos):get_int("water")
 
           if level <= 0 or water >= 100 then
@@ -310,7 +332,8 @@ if core.get_modpath("wine") then
           local inv = meta:get_inventory()
           local can = inv:get_stack("src_b", 1)
 
-          local level = tonumber(can:get_metadata()) or 0
+          -- local level = tonumber(can:get_metadata()) or 0
+          local level = tonumber(can:get_meta():get_int("level")) or 0
 
           if level > 0 then
             local water = meta:get_int("water")
@@ -329,7 +352,8 @@ if core.get_modpath("wine") then
             water = water + water_added
             level = level - charges_used
 
-            can:set_metadata(tostring(level))
+            -- can:set_metadata(tostring(level))
+            can:get_meta():set_int("level", level)
 
             -- Update can wear.
             local capacity = wine_cans[can:get_name()]
@@ -364,3 +388,209 @@ if core.get_modpath("wine") then
     })
   end
 end
+
+-- Cottage freshwater can compatibility
+core.register_on_mods_loaded(function()
+  if not core.get_modpath("cottages") then
+    return
+  end
+
+  local well = core.registered_nodes["cottages:water_gen"]
+
+  if not well then
+    return
+  end
+
+  local old_on_punch = well.on_punch
+
+  core.override_item("cottages:water_gen", {
+    on_punch = function(pos, node, puncher, pointed_thing)
+      if not puncher then
+        return
+      end
+
+      local name = puncher:get_player_name()
+      local wielded = puncher:get_wielded_item()
+
+      local meta = core.get_meta(pos)
+      local bucket = meta:get_string("bucket")
+
+      -- If the well contains our freshwater can, handle retrieval
+      -- regardless of what the player is currently holding.
+      if bucket == "jc_special:freshwater_can" then
+        local stored_level = meta:get_int("can_level")
+
+        if stored_level < 15 then
+          core.chat_send_player(name, S("Please wait until your can has been filled.") )
+          return
+        end
+
+        local can = ItemStack("jc_special:freshwater_can")
+        -- can:set_metadata("15")
+        can:get_meta():set_int("level", 15)
+        set_can_wear(can, 15, 15)
+
+        local inv = puncher:get_inventory()
+
+        if not inv:room_for_item("main", can) then
+          core.chat_send_player(
+            name,
+            S("You don't have room for the filled can.")
+          )
+
+          return
+        end
+
+        for _, obj in ipairs(core.get_objects_inside_radius(pos, 0.5)) do
+          local ent = obj:get_luaentity()
+
+          if ent and ent.name == "cottages:bucket_entity" then
+            obj:remove()
+          end
+        end
+
+        inv:add_item("main", can)
+
+        meta:set_string("bucket", "")
+        meta:set_string("fillstarttime", "")
+        meta:set_string("can_owner", "")
+        meta:set_int("can_level", 0)
+
+        return
+      end
+
+      -- If this is not our stored can, only intercept a freshwater
+      -- can being punched into the well.
+      if wielded:get_name() ~= "jc_special:freshwater_can" then
+        if old_on_punch then
+          return old_on_punch(pos, node, puncher, pointed_thing)
+        end
+
+        return
+      end
+
+      local meta = core.get_meta(pos)
+      local owner = meta:get_string("owner")
+      local public = meta:get_string("public")
+      local bucket = meta:get_string("bucket")
+      local level = wielded:get_meta():get_int("level")
+
+
+      -- Respect Cottage's public/private setting.
+      if name ~= owner and public ~= "public" then
+        core.chat_send_player(name, S("This tree trunk well is owned by %s. You can't use it."):format(owner))
+        return
+      end
+
+      -- Something else is already in the well.
+      if bucket ~= "" then
+        core.chat_send_player(name, S("The well is already being used.") )
+        return
+      end
+
+      -- Don't fill an already-full can.
+      if level >= 15 then
+
+        core.chat_send_player(name, S("Your Freshwater Can is already full."))
+        return
+      end
+
+      -- Put the can into the well.
+      meta:set_string("bucket", "jc_special:freshwater_can")
+      meta:set_int("can_level", level)
+      meta:set_string("can_owner", name)
+      meta:set_string(
+        "fillstarttime",
+        tostring(core.get_us_time() / 1000000)
+      )
+
+      -- Remove the can from the player's hand.
+      wielded:take_item()
+      puncher:set_wielded_item(wielded)
+
+      -- Show the freshwater can in the well.
+      local entity = core.add_entity(
+        {
+          x = pos.x,
+          y = pos.y + (4 / 16),
+          z = pos.z
+        },
+        "cottages:bucket_entity"
+      )
+
+      if entity then
+        entity:set_properties({
+          textures = {"jc_special:freshwater_can"}
+        })
+
+        local ent = entity:get_luaentity()
+
+        if ent then
+          ent.nodename = "jc_special:freshwater_can"
+          ent.texture = "jc_special:freshwater_can"
+        end
+      end
+
+      -- Fill the can after Cottage's normal fill time.
+      core.after(cottages.water_fill_time, function()
+        local meta = core.get_meta(pos)
+        local bucket = meta:get_string("bucket")
+
+        if bucket ~= "jc_special:freshwater_can" then
+          return
+        end
+
+        local owner = meta:get_string("can_owner")
+
+        meta:set_int("can_level", 15)
+
+        if owner ~= "" then
+          core.chat_send_player(owner, S("Your Freshwater Can is now full!") )
+        end
+
+        core.add_particlespawner({
+          amount = 20,
+          time = 0.5,
+          minpos = {
+            x = pos.x - 0.25,
+            y = pos.y + 0.2,
+            z = pos.z - 0.25,
+          },
+          maxpos = {
+            x = pos.x + 0.25,
+            y = pos.y + 0.6,
+            z = pos.z + 0.25,
+          },
+          minvel = {
+            x = -0.3,
+            y = 0.5,
+            z = -0.3,
+          },
+          maxvel = {
+            x = 0.3,
+            y = 1.0,
+            z = 0.3,
+          },
+          minacc = {
+            x = 0,
+            y = -0.5,
+            z = 0,
+          },
+          maxacc = {
+            x = 0,
+            y = -0.5,
+            z = 0,
+          },
+          minexptime = 0.5,
+          maxexptime = 1.0,
+          minsize = 1,
+          maxsize = 2,
+          texture = "default_water.png",
+          glow = 2,
+        })
+      end)
+    end,
+  })
+
+  core.log("action", "[jc_special] Cottage freshwater can override installed")
+end)

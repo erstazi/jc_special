@@ -65,12 +65,16 @@ function jc_special.register_can(data)
 
       if node.name ~= data.source then
         if def and def.on_punch then
-          def.on_punch(
+          local result = def.on_punch(
             pointed_thing.under,
             node,
             user,
             pointed_thing
           )
+
+          if result then
+            return result
+          end
         end
 
         return itemstack
@@ -589,6 +593,8 @@ core.register_on_mods_loaded(function()
           glow = 2,
         })
       end)
+
+      return
     end,
   })
 

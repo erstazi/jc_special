@@ -1,0 +1,142 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Water Can"
+msgstr ""
+
+msgid "Jumbo Water Can"
+msgstr ""
+
+msgid "Freshwater Can"
+msgstr ""
+
+msgid "Lava Can"
+msgstr ""
+
+msgid "Please wait until your can has been filled."
+msgstr ""
+
+msgid "You don't have room for the filled can."
+msgstr ""
+
+msgid "This tree trunk well is owned by %s. You can't use it."
+msgstr ""
+
+msgid "The well is already being used."
+msgstr ""
+
+msgid "Your Freshwater Can is already full."
+msgstr ""
+
+msgid "Your Freshwater Can is now full!"
+msgstr ""
+
+msgid "Day Button"
+msgstr ""
+
+msgid "Press to skip the night."
+msgstr ""
+
+msgid "@1 skipped the night."
+msgstr ""
+
+msgid "MrPhil's Wooden Bag"
+msgstr ""
+
+msgid "Enable or disable join greeter"
+msgstr ""
+
+msgid "Not allowed."
+msgstr ""
+
+msgid "Join greeter enabled"
+msgstr ""
+
+msgid "Join greeter disabled"
+msgstr ""
+
+msgid "Use: /greet on | off"
+msgstr ""
+
+msgid "Show loaded mods"
+msgstr ""
+
+msgid "Loaded Mods"
+msgstr ""
+
+msgid "Close"
+msgstr ""
+
+msgid "@1 is at @2"
+msgstr ""
+
+msgid "Shows the coordinates of a player."
+msgstr ""
+
+msgid "Usage: /where <player>"
+msgstr ""
+
+msgid "Player @1 is not online."
+msgstr ""
+
+msgid "The /shutdown command has been disabled on this server."
+msgstr ""
+
+msgid "Count Animalia bats"
+msgstr ""
+
+msgid "There are @1 Animalia bats nearby."
+msgstr ""
+
+msgid "Remove all loaded Animalia bats"
+msgstr ""
+
+msgid "Player not found."
+msgstr ""
+
+msgid "Removed @1 Animalia bats."
+msgstr ""
+
+msgid "Play a welcome sound for all connected players."
+msgstr ""
+
+msgid "Available sounds: welcome, glockenspiel, welcome_stranger\nUsage: /welcome_sound <sound>"
+msgstr ""
+
+msgid "No sounds found with that name.\nAvailable: welcome, glockenspiel, welcome_stranger"
+msgstr ""
+
+msgid "Playing '@1' for all connected players."
+msgstr ""
+
+msgid "Welcome to the Just-Craft server, @1!"
+msgstr ""
+
+msgid "Type: @1 to get your free apartment!"
+msgstr ""
+
+msgid "*** NEW PLAYER: @1 has joined the server for the first time. Information about apartments already sent to new player."
+msgstr ""
+
+msgid "Mailbox for: @1"
+msgstr ""
+
+msgid "Get Items"
+msgstr ""
+
+msgid "Mailbox Owner: @1"
+msgstr ""
+
+msgid "Mailbox\nUnowned"
+msgstr ""
+
+msgid "has deposited mail for you at"
+msgstr ""
+
+msgid "[Mailbox] @1 has deposited mail for you at @2."
+msgstr ""
+
+msgid "Grandfather Clock\n@1"
+msgstr ""

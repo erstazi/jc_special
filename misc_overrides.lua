@@ -1,4 +1,6 @@
 -- misc_overrides.lua
+local S = core.get_translator(core.get_current_modname())
+local modpath = core.get_modpath(core.get_current_modname())
 
 core.register_on_mods_loaded(function()
   if carts then
@@ -16,15 +18,15 @@ local function get_mods_formspec()
   return
     "formspec_version[4]" ..
     "size[12,10]" ..
-    "label[0.4,0.3;Loaded Mods (" .. #mods .. ")]" ..
+    "label[0.4,0.3; " .. core.formspec_escape( S("Loaded Mods") ) .. " (" .. #mods .. ")]" ..
     "textarea[0.4,0.8;11.2,8;;;" ..
     core.formspec_escape(table.concat(mods, ", ")) ..
     "]" ..
-    "button_exit[4,9;4,0.8;close;Close]"
+    "button_exit[4,9;4,0.8;close;" .. core.formspec_escape( S("Close") ) .. "]"
 end
 
 core.register_chatcommand("mods", {
-  description = "Show loaded mods",
+  description = S("Show loaded mods"),
   func = function(name)
     core.show_formspec(name, "jc_special:mods", get_mods_formspec())
     return true
@@ -34,7 +36,7 @@ core.register_chatcommand("mods", {
 
 core.register_chatcommand("where", {
   params = "<player>",
-  description = "Shows the coordinates of a player.",
+  description = S("Shows the coordinates of a player."),
   privs = { server = true },
 
   func = function(name, param)
@@ -43,18 +45,22 @@ core.register_chatcommand("where", {
     local white = core.get_color_escape_sequence("#ffffff")
 
     if param == "" then
-      return false, gold .. "Usage: " .. white .. " /where " .. green .. "<player>"
+      return false, gold .. S("Usage: /where <player>")
     end
 
     local player = core.get_player_by_name(param)
     if not player then
-      return false, white .. "Player " .. green .. param .. white .. " is not online."
+      return false, white .. S("Player @1 is not online.", param )
     end
 
     local pos = vector.round(player:get_pos())
 
     -- return true, string.format("%s is at %d,%d,%d", param, pos.x, pos.y, pos.z)
-    return true, string.format("%s%s%s is at %s%d,%d,%d", green, param, white, gold, pos.x, pos.y, pos.z )
+    -- return true, string.format("%s%s%s is at %s%d,%d,%d", green, param, white, gold, pos.x, pos.y, pos.z )
+    return true, S("@1 is at @2",
+        core.colorize("#55FF55", param),
+        core.colorize("#FFD700", string.format("%d,%d,%d", pos.x, pos.y, pos.z))
+      )
   end,
 })
 
@@ -62,7 +68,7 @@ local old_shutdown = core.registered_chatcommands["shutdown"]
 if old_shutdown then
   core.override_chatcommand("shutdown", {
     func = function(name, param)
-      core.chat_send_player(name, "The /shutdown command has been disabled on this server.")
+      core.chat_send_player(name, S("The /shutdown command has been disabled on this server.") )
       core.log("action", "[SHUTDOWN BLOCKED] " .. name .. " attempted /shutdown")
       return true
     end
@@ -93,7 +99,7 @@ end
 
 if core.get_modpath("animalia") and core.get_modpath("creatura") then
   core.register_chatcommand("batcount", {
-    description = "Count Animalia bats",
+    description = S("Count Animalia bats"),
     privs = {server = true},
     func = function(name)
       local count = 0
@@ -108,17 +114,17 @@ if core.get_modpath("animalia") and core.get_modpath("creatura") then
         end
       end
 
-      return true, "There are " .. count .. " Animalia bats nearby."
+      return true, S("There are @1 Animalia bats nearby.", count)
     end,
   })
 
   core.register_chatcommand("batkill", {
-    description = "Remove all loaded Animalia bats",
+    description = S("Remove all loaded Animalia bats"),
     privs = {server = true},
     func = function(name)
       local player = core.get_player_by_name(name)
       if not player then
-        return false, "Player not found."
+        return false, S("Player not found.")
       end
 
       local count = 0
@@ -135,7 +141,7 @@ if core.get_modpath("animalia") and core.get_modpath("creatura") then
         end
       end
 
-      return true, "Removed " .. count .. " Animalia bats."
+      return true, S("Removed @1 Animalia bats.", count)
     end,
   })
 end

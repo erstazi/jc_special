@@ -1,4 +1,5 @@
 local S = core.get_translator(core.get_current_modname())
+local modpath = core.get_modpath(core.get_current_modname())
 
 if core.get_modpath("unified_inventory") then
   core.register_tool(":unified_inventory:bag_wooden", {

@@ -1,5 +1,6 @@
 local S = core.get_translator(core.get_current_modname())
 local modpath = core.get_modpath(core.get_current_modname())
+
 local tmp = {}
 
 local function set_can_wear(itemstack, level, max_level)
@@ -179,7 +180,7 @@ end
 
 jc_special.register_can({
   name = "jc_special:water_can",
-  description = "Water Can",
+  description = S("Water Can"),
   inventory_image = "jc_special_water_can.png",
   capacity = 15,
   source = "default:water_source",
@@ -187,7 +188,7 @@ jc_special.register_can({
 
 jc_special.register_can({
   name = "jc_special:water_jumbo_can",
-  description = "Jumbo Water Can",
+  description = S("Jumbo Water Can"),
   inventory_image = "jc_special_water_can_jumbo.png",
   capacity = 35,
   source = "default:water_source",
@@ -195,7 +196,7 @@ jc_special.register_can({
 
 jc_special.register_can({
   name = "jc_special:freshwater_can",
-  description = "Freshwater Can",
+  description = S("Freshwater Can"),
   inventory_image = "jc_special_freshwater_can.png",
   capacity = 15,
   source = "default:river_water_source",
@@ -203,7 +204,7 @@ jc_special.register_can({
 
 jc_special.register_can({
   name = "jc_special:lava_can",
-  description = "Lava Can",
+  description = S("Lava Can"),
   inventory_image = "jc_special_lava_can.png",
   capacity = 10,
   source = "default:lava_source",
@@ -478,7 +479,7 @@ core.register_on_mods_loaded(function()
 
       -- Respect Cottage's public/private setting.
       if name ~= owner and public ~= "public" then
-        core.chat_send_player(name, S("This tree trunk well is owned by %s. You can't use it."):format(owner))
+        core.chat_send_player(name, S("This tree trunk well is owned by @1. You can't use it.", owner) )
         return
       end
 

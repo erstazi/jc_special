@@ -1,0 +1,143 @@
+msgid ""
+msgstr ""
+"Language: nl\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Water Can"
+msgstr "Gieter"
+
+msgid "Jumbo Water Can"
+msgstr "Grote gieter"
+
+msgid "Freshwater Can"
+msgstr "Zoetwatergieter"
+
+msgid "Lava Can"
+msgstr "Lavagieter"
+
+msgid "Please wait until your can has been filled."
+msgstr "Wacht tot je gieter is gevuld."
+
+msgid "You don't have room for the filled can."
+msgstr "Je hebt geen ruimte voor de gevulde gieter."
+
+msgid "This tree trunk well is owned by %s. You can't use it."
+msgstr "Deze boomstamput is eigendom van %s. Je kunt hem niet gebruiken."
+
+msgid "The well is already being used."
+msgstr "De put wordt al gebruikt."
+
+msgid "Your Freshwater Can is already full."
+msgstr "Je zoetwatergieter is al vol."
+
+msgid "Your Freshwater Can is now full!"
+msgstr "Je zoetwatergieter is nu vol!"
+
+msgid "Day Button"
+msgstr "Dagknop"
+
+msgid "Press to skip the night."
+msgstr "Druk om de nacht over te slaan."
+
+msgid "@1 skipped the night."
+msgstr "@1 heeft de nacht overgeslagen."
+
+msgid "MrPhil's Wooden Bag"
+msgstr "Houten tas van MrPhil"
+
+msgid "Enable or disable join greeter"
+msgstr "Welkomstbericht bij binnenkomst in- of uitschakelen"
+
+msgid "Not allowed."
+msgstr "Niet toegestaan."
+
+msgid "Join greeter enabled"
+msgstr "Welkomstbericht bij binnenkomst ingeschakeld"
+
+msgid "Join greeter disabled"
+msgstr "Welkomstbericht bij binnenkomst uitgeschakeld"
+
+msgid "Use: /greet on | off"
+msgstr "Gebruik: /greet on | off"
+
+msgid "Show loaded mods"
+msgstr "Geladen mods tonen"
+
+msgid "Loaded Mods"
+msgstr "Geladen mods"
+
+msgid "Close"
+msgstr "Sluiten"
+
+msgid "@1 is at @2"
+msgstr "@1 bevindt zich op @2"
+
+msgid "Shows the coordinates of a player."
+msgstr "Toont de coördinaten van een speler."
+
+msgid "Usage: /where <player>"
+msgstr "Gebruik: /where <player>"
+
+msgid "Player @1 is not online."
+msgstr "Speler @1 is niet online."
+
+msgid "The /shutdown command has been disabled on this server."
+msgstr "Het commando /shutdown is uitgeschakeld op deze server."
+
+msgid "Count Animalia bats"
+msgstr "Animalia-vleermuizen tellen"
+
+msgid "There are @1 Animalia bats nearby."
+msgstr "Er zijn @1 Animalia-vleermuizen in de buurt."
+
+msgid "Remove all loaded Animalia bats"
+msgstr "Alle geladen Animalia-vleermuizen verwijderen"
+
+msgid "Player not found."
+msgstr "Speler niet gevonden."
+
+msgid "Removed @1 Animalia bats."
+msgstr "@1 Animalia-vleermuizen verwijderd."
+
+msgid "Play a welcome sound for all connected players."
+msgstr "Een welkomstgeluid afspelen voor alle verbonden spelers."
+
+msgid "Available sounds: welcome, glockenspiel, welcome_stranger\nUsage: /welcome_sound <sound>"
+msgstr "Beschikbare geluiden: welcome, glockenspiel, welcome_stranger\nGebruik: /welcome_sound <sound>"
+
+msgid "No sounds found with that name.\nAvailable: welcome, glockenspiel, welcome_stranger"
+msgstr "Geen geluiden met die naam gevonden.\nBeschikbaar: welcome, glockenspiel, welcome_stranger"
+
+msgid "Playing '@1' for all connected players."
+msgstr "'@1' wordt afgespeeld voor alle verbonden spelers."
+
+msgid "Welcome to the Just-Craft server, @1!"
+msgstr "Welkom op de Just-Craft-server, @1!"
+
+msgid "Type: @1 to get your free apartment!"
+msgstr "Typ @1 om je gratis appartement te krijgen!"
+
+msgid "*** NEW PLAYER: @1 has joined the server for the first time. Information about apartments already sent to new player."
+msgstr "*** NIEUWE SPELER: @1 is voor het eerst toegetreden tot de server. Informatie over appartementen is al naar de nieuwe speler gestuurd."
+
+msgid "Mailbox for: @1"
+msgstr "Brievenbus voor: @1"
+
+msgid "Get Items"
+msgstr "Items ophalen"
+
+msgid "Mailbox Owner: @1"
+msgstr "Eigenaar van de brievenbus: @1"
+
+msgid "Mailbox\nUnowned"
+msgstr "Brievenbus\nZonder eigenaar"
+
+msgid "has deposited mail for you at"
+msgstr "heeft post voor je afgegeven bij"
+
+msgid "[Mailbox] @1 has deposited mail for you at @2."
+msgstr "[Brievenbus] @1 heeft post voor u achtergelaten bij @2."
+
+msgid "Grandfather Clock\n@1"
+msgstr "Staande klok\n@1"

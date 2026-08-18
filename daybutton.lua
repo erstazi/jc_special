@@ -1,4 +1,5 @@
 local S = core.get_translator(core.get_current_modname())
+local modpath = core.get_modpath(core.get_current_modname())
 
 local day_button_pressed_sounds = {
   'day_button_pressed',
@@ -9,6 +10,7 @@ local function press_day_button(pos, node, puncher)
   if node.name == "jc_special:day_button_pressed" then
     return
   end
+  local player_name = puncher:get_player_name()
   -- Press the button in
   core.swap_node(pos, {name = "jc_special:day_button_pressed", param2 = node.param2, })
 
@@ -20,7 +22,7 @@ local function press_day_button(pos, node, puncher)
         name = "jc_special:day_button",
         param2 = n.param2,
       })
-      core.get_meta(pos):set_string("infotext", "Press to skip the night.")
+      core.get_meta(pos):set_string("infotext", S("Press to skip the night.") )
     end
   end, vector.new(pos))
 
@@ -32,7 +34,7 @@ local function press_day_button(pos, node, puncher)
       gain = 1.0,
       max_hear_distance = 16,
     })
-    core.chat_send_all(puncher:get_player_name() .. " skipped the night.")
+    core.chat_send_all( S("@1 skipped the night.", player_name ) )
   else
     core.sound_play("default_click", {
       pos = pos,
@@ -55,7 +57,7 @@ core.register_node("jc_special:day_button", {
   sounds = default.node_sound_stone_defaults(),
   on_punch = press_day_button,
   after_place_node = function(pos)
-    core.get_meta(pos):set_string("infotext", "Press to skip the night.")
+    core.get_meta(pos):set_string("infotext", S("Press to skip the night.") )
   end,
 })
 

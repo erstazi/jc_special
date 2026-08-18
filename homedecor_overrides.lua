@@ -1,4 +1,6 @@
 -- homedecor_overrides.lua
+local S = core.get_translator(core.get_current_modname())
+local modpath = core.get_modpath(core.get_current_modname())
 
 minetest.register_alias("wardrobe:wardrobe", "homedecor:wardrobe")
 
@@ -10,7 +12,7 @@ local function update_clock(pos)
 
   core.get_meta(pos):set_string(
     "infotext",
-    string.format("Grandfather Clock\n%02d:%02d", hours, minutes)
+    S("Grandfather Clock\n@1", string.format("%02d:%02d", hours, minutes))
   )
 end
 
@@ -49,7 +51,7 @@ local function mailbox_formspec(pos)
 
     "list[nodemeta:" .. spos .. ";main;1,0.5;8,4;]" ..
 
-    "button[3,5.0;4,0.8;getitems;Get Items]" ..
+    "button[3,5.0;4,0.8;getitems;" .. core.formspec_escape( S("Get Items") )  .. "]" ..
 
     "list[current_player;main;1,6.6;8,4;]" ..
 
@@ -61,9 +63,9 @@ local function update_mailbox_infotext(pos)
   local owner = meta:get_string("owner")
 
   if owner ~= "" then
-    meta:set_string("infotext", "Mailbox Owner: " .. owner)
+    meta:set_string("infotext", S("Mailbox Owner: @1", owner ) )
   else
-    meta:set_string("infotext", "Mailbox\nUnowned")
+    meta:set_string("infotext", S("Mailbox\nUnowned") )
   end
 end
 
@@ -121,7 +123,7 @@ core.register_on_mods_loaded(function()
           player,
           "jc_special_insert",
           "size[8,9]" ..
-          "label[0.5,0.3;Mailbox for: " .. core.formspec_escape(owner) .. "]" ..
+          "label[0.5,0.3;" .. S("Mailbox for: @1", core.formspec_escape(owner) ) .. "]" ..
           "list[nodemeta:"..spos..";drop;3.5,2;1,1;]" ..
           "list[current_player;main;0,5;8,4;]" ..
           "listring[]"
@@ -159,10 +161,9 @@ core.register_on_mods_loaded(function()
 
           core.chat_send_player(
             owner,
-            "[Mailbox] " ..
-            core.colorize("#55FF55", depositor) ..
-            " has deposited mail for you at " ..
-            core.colorize("#AAAAAA", mailbox_pos)
+            S("[Mailbox] @1 has deposited mail for you at @2.",
+              core.colorize("#55FF55", depositor),
+              core.colorize("#AAAAAA", mailbox_pos))
           )
         end
       end

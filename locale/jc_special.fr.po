@@ -1,0 +1,143 @@
+msgid ""
+msgstr ""
+"Language: fr\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Water Can"
+msgstr "Arrosoir"
+
+msgid "Jumbo Water Can"
+msgstr "Grand arrosoir"
+
+msgid "Freshwater Can"
+msgstr "Arrosoir d'eau douce"
+
+msgid "Lava Can"
+msgstr "Arrosoir de lave"
+
+msgid "Please wait until your can has been filled."
+msgstr "Veuillez patienter jusqu'à ce que votre arrosoir soit rempli."
+
+msgid "You don't have room for the filled can."
+msgstr "Vous n'avez pas de place pour l'arrosoir rempli."
+
+msgid "This tree trunk well is owned by %s. You can't use it."
+msgstr "Ce puits en tronc d'arbre appartient à %s. Vous ne pouvez pas l'utiliser."
+
+msgid "The well is already being used."
+msgstr "Le puits est déjà utilisé."
+
+msgid "Your Freshwater Can is already full."
+msgstr "Votre arrosoir d'eau douce est déjà plein."
+
+msgid "Your Freshwater Can is now full!"
+msgstr "Votre arrosoir d'eau douce est maintenant plein !"
+
+msgid "Day Button"
+msgstr "Bouton de jour"
+
+msgid "Press to skip the night."
+msgstr "Appuyez pour passer la nuit."
+
+msgid "@1 skipped the night."
+msgstr "@1 a passé la nuit."
+
+msgid "MrPhil's Wooden Bag"
+msgstr "Sac en bois de MrPhil"
+
+msgid "Enable or disable join greeter"
+msgstr "Activer ou désactiver le message d'accueil à la connexion"
+
+msgid "Not allowed."
+msgstr "Non autorisé."
+
+msgid "Join greeter enabled"
+msgstr "Message d'accueil à la connexion activé"
+
+msgid "Join greeter disabled"
+msgstr "Message d'accueil à la connexion désactivé"
+
+msgid "Use: /greet on | off"
+msgstr "Utilisation : /greet on | off"
+
+msgid "Show loaded mods"
+msgstr "Afficher les mods chargés"
+
+msgid "Loaded Mods"
+msgstr "Mods chargés"
+
+msgid "Close"
+msgstr "Fermer"
+
+msgid "@1 is at @2"
+msgstr "@1 se trouve à @2"
+
+msgid "Shows the coordinates of a player."
+msgstr "Affiche les coordonnées d'un joueur."
+
+msgid "Usage: /where <player>"
+msgstr "Utilisation: /where <player>"
+
+msgid "Player @1 is not online."
+msgstr "Le joueur @1 n'est pas en ligne."
+
+msgid "The /shutdown command has been disabled on this server."
+msgstr "La commande /shutdown a été désactivée sur ce serveur."
+
+msgid "Count Animalia bats"
+msgstr "Compter les chauves-souris d'Animalia"
+
+msgid "There are @1 Animalia bats nearby."
+msgstr "Il y a @1 chauves-souris d'Animalia à proximité."
+
+msgid "Remove all loaded Animalia bats"
+msgstr "Supprimer toutes les chauves-souris d'Animalia chargées"
+
+msgid "Player not found."
+msgstr "Joueur introuvable."
+
+msgid "Removed @1 Animalia bats."
+msgstr "@1 chauves-souris d'Animalia supprimées."
+
+msgid "Play a welcome sound for all connected players."
+msgstr "Jouer un son d'accueil pour tous les joueurs connectés."
+
+msgid "Available sounds: welcome, glockenspiel, welcome_stranger\nUsage: /welcome_sound <sound>"
+msgstr "Sons disponibles : welcome, glockenspiel, welcome_stranger\nUtilisation : /welcome_sound <sound>"
+
+msgid "No sounds found with that name.\nAvailable: welcome, glockenspiel, welcome_stranger"
+msgstr "Aucun son trouvé avec ce nom.\nDisponibles : welcome, glockenspiel, welcome_stranger"
+
+msgid "Playing '@1' for all connected players."
+msgstr "Lecture de « @1 » pour tous les joueurs connectés."
+
+msgid "Welcome to the Just-Craft server, @1!"
+msgstr "Bienvenue sur le serveur Just-Craft, @1 !"
+
+msgid "Type: @1 to get your free apartment!"
+msgstr "Tapez @1 pour obtenir votre appartement gratuit !"
+
+msgid "*** NEW PLAYER: @1 has joined the server for the first time. Information about apartments already sent to new player."
+msgstr "*** NOUVEAU JOUEUR : @1 a rejoint le serveur pour la première fois. Les informations sur les appartements ont déjà été envoyées au nouveau joueur."
+
+msgid "Mailbox for: @1"
+msgstr "Boîte aux lettres de : @1"
+
+msgid "Get Items"
+msgstr "Récupérer les objets"
+
+msgid "Mailbox Owner: @1"
+msgstr "Propriétaire de la boîte aux lettres : @1"
+
+msgid "Mailbox\nUnowned"
+msgstr "Boîte aux lettres\nSans propriétaire"
+
+msgid "has deposited mail for you at"
+msgstr "a déposé du courrier pour vous à"
+
+msgid "[Mailbox] @1 has deposited mail for you at @2."
+msgstr "[Boîte aux lettres] @1 vous a déposé du courrier à @2."
+
+msgid "Grandfather Clock\n@1"
+msgstr "Horloge de parquet\n@1"

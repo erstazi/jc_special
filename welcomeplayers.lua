@@ -1,24 +1,26 @@
 local S = core.get_translator(core.get_current_modname())
+local modpath = core.get_modpath(core.get_current_modname())
+
 local greet_enabled = false
 local join_queue = {}
 
 core.register_chatcommand("greet", {
   params = "on | off",
-  description = "Enable or disable join greeter",
+  description = S("Enable or disable join greeter"),
   privs = {server = true},
   func = function(name, param)
     if name ~= "erstazi" then
-      return false, "Not allowed."
+      return false, S("Not allowed.")
     end
 
     if param == "on" then
       greet_enabled = true
-      return true, "Join greeter enabled"
+      return true, S("Join greeter enabled")
     elseif param == "off" then
       greet_enabled = false
-      return true, "Join greeter disabled"
+      return true, S("Join greeter disabled")
     else
-      return false, "Use: /greet on | off"
+      return false, S("Use: /greet on | off")
     end
   end
 })
@@ -35,7 +37,8 @@ core.register_on_newplayer(function(player)
       local staff_name = p:get_player_name()
       if core.check_player_privs(staff_name, {ban = true}) then
         core.chat_send_player(staff_name,
-          core.colorize("#00FF00", "*** NEW PLAYER: " .. new_name .. " has joined the server for the first time. Information about apartments already sent to new player."))
+          core.colorize("#00FF00", S("*** NEW PLAYER: @1 has joined the server for the first time. Information about apartments already sent to new player.", new_name) )
+        )
       end
     end
   end)
@@ -48,9 +51,9 @@ core.register_on_newplayer(function(player)
     end
 
     core.chat_send_player(new_name, core.colorize("#00FF88", "======================================================="))
-    core.chat_send_player(new_name, core.colorize("#FFFF00", "Welcome to the Just-Craft server, " .. new_name .. "!"))
+    core.chat_send_player(new_name, core.colorize("#FFFF00", S("Welcome to the Just-Craft server, @1!", new_name) ))
     core.chat_send_player(new_name, "")
-    core.chat_send_player(new_name, core.colorize("#88FF88", "Type: ") .. core.colorize("#FFFF00", "/apt") .. core.colorize("#88FF88", " to get your free apartment!") )
+    core.chat_send_player(new_name, core.colorize("#FFFFFF", S("Type: @1 to get your free apartment!", core.colorize("#FFFF00", "/apt") ) ) )
     core.chat_send_player(new_name, core.colorize("#00FF88", "======================================================="))
 
     core.sound_play("welcome_stranger", {
@@ -90,22 +93,18 @@ local welcome_sounds = {
 
 core.register_chatcommand("welcome_sound", {
   params = "[welcome|glockenspiel|welcome_stranger]",
-  description = "Play a welcome sound for all connected players.",
+  description = S("Play a welcome sound for all connected players."),
   privs = {ban = true},
 
   func = function(name, param)
     param = (param or ""):trim()
 
     if param == "" then
-      return true,
-        "Available sounds: welcome, glockenspiel, welcome_stranger\n" ..
-        "Usage: /welcome_sound <sound>"
+      return true, S("Available sounds: welcome, glockenspiel, welcome_stranger\nUsage: /welcome_sound <sound>")
     end
 
     if not welcome_sounds[param] then
-      return false,
-        "No sounds found with that name.\n" ..
-        "Available: welcome, glockenspiel, welcome_stranger"
+      return false, S("No sounds found with that name.\nAvailable: welcome, glockenspiel, welcome_stranger")
     end
 
     core.sound_play(param, {
@@ -114,7 +113,6 @@ core.register_chatcommand("welcome_sound", {
 
     core.log("action", name .. " played welcome sound: " .. param)
 
-    return true,
-      "Playing '" .. param .. "' for all connected players."
+    return true, S("Playing '@1' for all connected players.", param)
   end,
 })

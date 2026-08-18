@@ -1,0 +1,143 @@
+msgid ""
+msgstr ""
+"Language: uk\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Water Can"
+msgstr "Лійка з водою"
+
+msgid "Jumbo Water Can"
+msgstr "Велика лійка з водою"
+
+msgid "Freshwater Can"
+msgstr "Лійка з прісною водою"
+
+msgid "Lava Can"
+msgstr "Лійка з лавою"
+
+msgid "Please wait until your can has been filled."
+msgstr "Зачекайте, поки лійка наповниться."
+
+msgid "You don't have room for the filled can."
+msgstr "У вас немає місця для наповненої лійки."
+
+msgid "This tree trunk well is owned by %s. You can't use it."
+msgstr "Цей колодязь зі стовбура дерева належить гравцеві %s. Ви не можете ним користуватися."
+
+msgid "The well is already being used."
+msgstr "Колодязь уже використовується."
+
+msgid "Your Freshwater Can is already full."
+msgstr "Ваша лійка з прісною водою вже повна."
+
+msgid "Your Freshwater Can is now full!"
+msgstr "Ваша лійка з прісною водою тепер повна!"
+
+msgid "Day Button"
+msgstr "Кнопка дня"
+
+msgid "Press to skip the night."
+msgstr "Натисніть, щоб пропустити ніч."
+
+msgid "@1 skipped the night."
+msgstr "@1 пропустив ніч."
+
+msgid "MrPhil's Wooden Bag"
+msgstr "Дерев'яна сумка MrPhil"
+
+msgid "Enable or disable join greeter"
+msgstr "Увімкнути або вимкнути привітання при вході"
+
+msgid "Not allowed."
+msgstr "Не дозволено."
+
+msgid "Join greeter enabled"
+msgstr "Привітання при вході увімкнено"
+
+msgid "Join greeter disabled"
+msgstr "Привітання при вході вимкнено"
+
+msgid "Use: /greet on | off"
+msgstr "Використання: /greet on | off"
+
+msgid "Show loaded mods"
+msgstr "Показати завантажені моди"
+
+msgid "Loaded Mods"
+msgstr "Завантажені моди"
+
+msgid "Close"
+msgstr "Закрити"
+
+msgid "@1 is at @2"
+msgstr "@1 знаходиться за адресою @2"
+
+msgid "Shows the coordinates of a player."
+msgstr "Показує координати гравця."
+
+msgid "Usage: /where <player>"
+msgstr "Використання: /where <player>"
+
+msgid "Player @1 is not online."
+msgstr "Гравець @1 не в мережі."
+
+msgid "The /shutdown command has been disabled on this server."
+msgstr "Команду /shutdown вимкнено на цьому сервері."
+
+msgid "Count Animalia bats"
+msgstr "Порахувати кажанів Animalia"
+
+msgid "There are @1 Animalia bats nearby."
+msgstr "Поблизу є кажанів Animalia: @1."
+
+msgid "Remove all loaded Animalia bats"
+msgstr "Видалити всіх завантажених кажанів Animalia"
+
+msgid "Player not found."
+msgstr "Гравця не знайдено."
+
+msgid "Removed @1 Animalia bats."
+msgstr "Видалено кажанів Animalia: @1."
+
+msgid "Play a welcome sound for all connected players."
+msgstr "Відтворити звук привітання для всіх підключених гравців."
+
+msgid "Available sounds: welcome, glockenspiel, welcome_stranger\nUsage: /welcome_sound <sound>"
+msgstr "Доступні звуки: welcome, glockenspiel, welcome_stranger\nВикористання: /welcome_sound <sound>"
+
+msgid "No sounds found with that name.\nAvailable: welcome, glockenspiel, welcome_stranger"
+msgstr "Звуків із такою назвою не знайдено.\nДоступні: welcome, glockenspiel, welcome_stranger"
+
+msgid "Playing '@1' for all connected players."
+msgstr "Відтворюється «@1» для всіх підключених гравців."
+
+msgid "Welcome to the Just-Craft server, @1!"
+msgstr "Ласкаво просимо на сервер Just-Craft, @1!"
+
+msgid "Type: @1 to get your free apartment!"
+msgstr "Введіть @1, щоб отримати безкоштовну квартиру!"
+
+msgid "*** NEW PLAYER: @1 has joined the server for the first time. Information about apartments already sent to new player."
+msgstr "*** НОВИЙ ГРАВЕЦЬ: @1 уперше приєднався до сервера. Інформацію про квартири вже надіслано новому гравцеві."
+
+msgid "Mailbox for: @1"
+msgstr "Поштова скринька для: @1"
+
+msgid "Get Items"
+msgstr "Забрати предмети"
+
+msgid "Mailbox Owner: @1"
+msgstr "Власник поштової скриньки: @1"
+
+msgid "Mailbox\nUnowned"
+msgstr "Поштова скринька\nБез власника"
+
+msgid "has deposited mail for you at"
+msgstr "залишив для вас пошту в"
+
+msgid "[Mailbox] @1 has deposited mail for you at @2."
+msgstr "[Поштова скринька] @1 залишив для вас пошту за адресою @2."
+
+msgid "Grandfather Clock\n@1"
+msgstr "Підлоговий годинник\n@1"

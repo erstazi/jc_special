@@ -1,0 +1,143 @@
+msgid ""
+msgstr ""
+"Language: ru\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Water Can"
+msgstr "Лейка с водой"
+
+msgid "Jumbo Water Can"
+msgstr "Большая лейка с водой"
+
+msgid "Freshwater Can"
+msgstr "Лейка с пресной водой"
+
+msgid "Lava Can"
+msgstr "Лейка с лавой"
+
+msgid "Please wait until your can has been filled."
+msgstr "Подождите, пока лейка наполнится."
+
+msgid "You don't have room for the filled can."
+msgstr "У вас нет места для наполненной лейки."
+
+msgid "This tree trunk well is owned by %s. You can't use it."
+msgstr "Этот колодец из ствола дерева принадлежит игроку %s. Вы не можете им пользоваться."
+
+msgid "The well is already being used."
+msgstr "Колодец уже используется."
+
+msgid "Your Freshwater Can is already full."
+msgstr "Ваша лейка с пресной водой уже полна."
+
+msgid "Your Freshwater Can is now full!"
+msgstr "Ваша лейка с пресной водой теперь полна!"
+
+msgid "Day Button"
+msgstr "Кнопка дня"
+
+msgid "Press to skip the night."
+msgstr "Нажмите, чтобы пропустить ночь."
+
+msgid "@1 skipped the night."
+msgstr "@1 пропустил ночь."
+
+msgid "MrPhil's Wooden Bag"
+msgstr "Деревянная сумка MrPhil"
+
+msgid "Enable or disable join greeter"
+msgstr "Включить или отключить приветствие при входе"
+
+msgid "Not allowed."
+msgstr "Не разрешено."
+
+msgid "Join greeter enabled"
+msgstr "Приветствие при входе включено"
+
+msgid "Join greeter disabled"
+msgstr "Приветствие при входе отключено"
+
+msgid "Use: /greet on | off"
+msgstr "Использование: /greet on | off"
+
+msgid "Show loaded mods"
+msgstr "Показать загруженные моды"
+
+msgid "Loaded Mods"
+msgstr "Загруженные моды"
+
+msgid "Close"
+msgstr "Закрыть"
+
+msgid "@1 is at @2"
+msgstr "@1 находится по адресу @2"
+
+msgid "Shows the coordinates of a player."
+msgstr "Показывает координаты игрока."
+
+msgid "Usage: /where <player>"
+msgstr "Использование: /where <player>"
+
+msgid "Player @1 is not online."
+msgstr "Игрок @1 не в сети."
+
+msgid "The /shutdown command has been disabled on this server."
+msgstr "Команда /shutdown отключена на этом сервере."
+
+msgid "Count Animalia bats"
+msgstr "Посчитать летучих мышей Animalia"
+
+msgid "There are @1 Animalia bats nearby."
+msgstr "Поблизости находится летучих мышей Animalia: @1."
+
+msgid "Remove all loaded Animalia bats"
+msgstr "Удалить всех загруженных летучих мышей Animalia"
+
+msgid "Player not found."
+msgstr "Игрок не найден."
+
+msgid "Removed @1 Animalia bats."
+msgstr "Удалено летучих мышей Animalia: @1."
+
+msgid "Play a welcome sound for all connected players."
+msgstr "Воспроизвести приветственный звук для всех подключенных игроков."
+
+msgid "Available sounds: welcome, glockenspiel, welcome_stranger\nUsage: /welcome_sound <sound>"
+msgstr "Доступные звуки: welcome, glockenspiel, welcome_stranger\nИспользование: /welcome_sound <sound>"
+
+msgid "No sounds found with that name.\nAvailable: welcome, glockenspiel, welcome_stranger"
+msgstr "Звуки с таким названием не найдены.\nДоступны: welcome, glockenspiel, welcome_stranger"
+
+msgid "Playing '@1' for all connected players."
+msgstr "Воспроизводится «@1» для всех подключенных игроков."
+
+msgid "Welcome to the Just-Craft server, @1!"
+msgstr "Добро пожаловать на сервер Just-Craft, @1!"
+
+msgid "Type: @1 to get your free apartment!"
+msgstr "Введите @1, чтобы получить бесплатную квартиру!"
+
+msgid "*** NEW PLAYER: @1 has joined the server for the first time. Information about apartments already sent to new player."
+msgstr "*** НОВЫЙ ИГРОК: @1 впервые присоединился к серверу. Информация о квартирах уже отправлена новому игроку."
+
+msgid "Mailbox for: @1"
+msgstr "Почтовый ящик для: @1"
+
+msgid "Get Items"
+msgstr "Забрать предметы"
+
+msgid "Mailbox Owner: @1"
+msgstr "Владелец почтового ящика: @1"
+
+msgid "Mailbox\nUnowned"
+msgstr "Почтовый ящик\nБез владельца"
+
+msgid "has deposited mail for you at"
+msgstr "оставил для вас почту в"
+
+msgid "[Mailbox] @1 has deposited mail for you at @2."
+msgstr "[Почтовый ящик] @1 оставил для вас почту по адресу @2."
+
+msgid "Grandfather Clock\n@1"
+msgstr "Напольные часы\n@1"

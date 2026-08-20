@@ -5,6 +5,7 @@ jc_special = {}
 
 dofile(modpath .. "/daybutton.lua")
 dofile(modpath .. "/welcomeplayers.lua")
+dofile(modpath .. "/infotext.lua")
 dofile(modpath .. "/cans.lua")
 dofile(modpath .. "/snowball.lua")
 dofile(modpath .. "/homedecor_overrides.lua")

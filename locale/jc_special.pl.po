@@ -1,0 +1,143 @@
+msgid ""
+msgstr ""
+"Language: pl\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Water Can"
+msgstr "Konewka na wodę"
+
+msgid "Jumbo Water Can"
+msgstr "Duża konewka na wodę"
+
+msgid "Freshwater Can"
+msgstr "Konewka na świeżą wodę"
+
+msgid "Lava Can"
+msgstr "Konewka na lawę"
+
+msgid "Please wait until your can has been filled."
+msgstr "Poczekaj, aż Twoja konewka zostanie napełniona."
+
+msgid "You don't have room for the filled can."
+msgstr "Nie masz miejsca na napełnioną konewkę."
+
+msgid "This tree trunk well is owned by %s. You can't use it."
+msgstr "Ta studnia w pniu drzewa należy do %s. Nie możesz jej używać."
+
+msgid "The well is already being used."
+msgstr "Studnia jest już używana."
+
+msgid "Your Freshwater Can is already full."
+msgstr "Twoja konewka na świeżą wodę jest już pełna."
+
+msgid "Your Freshwater Can is now full!"
+msgstr "Twoja konewka na świeżą wodę jest teraz pełna!"
+
+msgid "Day Button"
+msgstr "Przycisk dnia"
+
+msgid "Press to skip the night."
+msgstr "Naciśnij, aby pominąć noc."
+
+msgid "@1 skipped the night."
+msgstr "@1 pominął noc."
+
+msgid "MrPhil's Wooden Bag"
+msgstr "Drewniana torba MrPhila"
+
+msgid "Enable or disable join greeter"
+msgstr "Włącz lub wyłącz powitanie przy dołączeniu"
+
+msgid "Not allowed."
+msgstr "Niedozwolone."
+
+msgid "Join greeter enabled"
+msgstr "Powitanie przy dołączeniu włączone"
+
+msgid "Join greeter disabled"
+msgstr "Powitanie przy dołączeniu wyłączone"
+
+msgid "Use: /greet on | off"
+msgstr "Użycie: /greet on | off"
+
+msgid "Show loaded mods"
+msgstr "Pokaż załadowane mody"
+
+msgid "Loaded Mods"
+msgstr "Załadowane mody"
+
+msgid "Close"
+msgstr "Zamknij"
+
+msgid "@1 is at @2"
+msgstr "@1 jest w @2"
+
+msgid "Shows the coordinates of a player."
+msgstr "Pokazuje współrzędne gracza."
+
+msgid "Usage: /where <player>"
+msgstr "Użycie: /where <gracz>"
+
+msgid "Player @1 is not online."
+msgstr "Gracz @1 nie jest online."
+
+msgid "The /shutdown command has been disabled on this server."
+msgstr "Polecenie /shutdown zostało wyłączone na tym serwerze."
+
+msgid "Count Animalia bats"
+msgstr "Policz nietoperze Animalia"
+
+msgid "There are @1 Animalia bats nearby."
+msgstr "W pobliżu znajduje się @1 nietoperzy Animalia."
+
+msgid "Remove all loaded Animalia bats"
+msgstr "Usuń wszystkie załadowane nietoperze Animalia"
+
+msgid "Player not found."
+msgstr "Nie znaleziono gracza."
+
+msgid "Removed @1 Animalia bats."
+msgstr "Usunięto @1 nietoperzy Animalia."
+
+msgid "Play a welcome sound for all connected players."
+msgstr "Odtwórz dźwięk powitalny dla wszystkich połączonych graczy."
+
+msgid "Available sounds: welcome, glockenspiel, welcome_stranger\nUsage: /welcome_sound <sound>"
+msgstr "Dostępne dźwięki: welcome, glockenspiel, welcome_stranger\nUżycie: /welcome_sound <dźwięk>"
+
+msgid "No sounds found with that name.\nAvailable: welcome, glockenspiel, welcome_stranger"
+msgstr "Nie znaleziono dźwięków o tej nazwie.\nDostępne: welcome, glockenspiel, welcome_stranger"
+
+msgid "Playing '@1' for all connected players."
+msgstr "Odtwarzanie „@1” dla wszystkich połączonych graczy."
+
+msgid "Welcome to the Just-Craft server, @1!"
+msgstr "Witamy na serwerze Just-Craft, @1!"
+
+msgid "Type: @1 to get your free apartment!"
+msgstr "Wpisz: @1, aby otrzymać swoje darmowe mieszkanie!"
+
+msgid "*** NEW PLAYER: @1 has joined the server for the first time. Information about apartments already sent to new player."
+msgstr "*** NOWY GRACZ: @1 dołączył do serwera po raz pierwszy. Informacje o mieszkaniach zostały już wysłane do nowego gracza."
+
+msgid "Mailbox for: @1"
+msgstr "Skrzynka pocztowa: @1"
+
+msgid "Get Items"
+msgstr "Odbierz przedmioty"
+
+msgid "Mailbox Owner: @1"
+msgstr "Właściciel skrzynki: @1"
+
+msgid "Mailbox\nUnowned"
+msgstr "Skrzynka pocztowa\nBez właściciela"
+
+msgid "has deposited mail for you at"
+msgstr "zostawił dla Ciebie pocztę w"
+
+msgid "[Mailbox] @1 has deposited mail for you at @2."
+msgstr "[Skrzynka pocztowa] @1 zostawił dla Ciebie pocztę w @2."
+
+msgid "Grandfather Clock\n@1"
+msgstr "Zegar stojący\n@1"

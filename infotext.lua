@@ -10,6 +10,7 @@ local infotext_edit = {}
 core.register_tool("jc_special:infotext_wand", {
   description = "Infotext Wand",
   inventory_image = "default_stick.png^[colorize:#00ffff:100",
+  groups = {not_in_creative_inventory = 1},
   range = 10,
 
   -- Right-click: edit infotext

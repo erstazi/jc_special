@@ -141,3 +141,24 @@ msgstr "[Поштова скринька] @1 залишив для вас пош
 
 msgid "Grandfather Clock\n@1"
 msgstr "Підлоговий годинник\n@1"
+
+msgid "Open a text box to paste a message into chat."
+msgstr "Відкрийте текстове поле, щоб вставити повідомлення в чат."
+
+msgid "Paste Message"
+msgstr "Вставити повідомлення"
+
+msgid "Enter your chat message here (maximum 500 characters):"
+msgstr "Введіть або вставте тут повідомлення в чат (максимум 500 символів):"
+
+msgid "SEND"
+msgstr "НАДІСЛАТИ"
+
+msgid "CANCEL"
+msgstr "СКАСУВАТИ"
+
+msgid "Your message is limited to 500 characters."
+msgstr "Ваше повідомлення обмежено 500 символами."
+
+msgid "The message cannot be empty."
+msgstr "Повідомлення не може бути порожнім."

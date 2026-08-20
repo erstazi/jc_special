@@ -140,3 +140,24 @@ msgstr ""
 
 msgid "Grandfather Clock\n@1"
 msgstr ""
+
+msgid "Open a text box to paste a message into chat."
+msgstr ""
+
+msgid "Paste Message"
+msgstr ""
+
+msgid "Enter your chat message here (maximum 500 characters):"
+msgstr ""
+
+msgid "SEND"
+msgstr ""
+
+msgid "CANCEL"
+msgstr ""
+
+msgid "Your message is limited to 500 characters."
+msgstr ""
+
+msgid "The message cannot be empty."
+msgstr ""

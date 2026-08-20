@@ -141,3 +141,24 @@ msgstr "[Skrzynka pocztowa] @1 zostawił dla Ciebie pocztę w @2."
 
 msgid "Grandfather Clock\n@1"
 msgstr "Zegar stojący\n@1"
+
+msgid "Open a text box to paste a message into chat."
+msgstr "Otwórz pole tekstowe, aby wkleić wiadomość na czat."
+
+msgid "Paste Message"
+msgstr "Wklej wiadomość"
+
+msgid "Enter your chat message here (maximum 500 characters):"
+msgstr "Wpisz lub wklej tutaj wiadomość na czat (maksymalnie 500 znaków):"
+
+msgid "SEND"
+msgstr "WYŚLIJ"
+
+msgid "CANCEL"
+msgstr "ANULUJ"
+
+msgid "Your message is limited to 500 characters."
+msgstr "Twoja wiadomość jest ograniczona do 500 znaków."
+
+msgid "The message cannot be empty."
+msgstr "Wiadomość nie może być pusta."

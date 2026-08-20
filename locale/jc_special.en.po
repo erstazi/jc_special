@@ -141,3 +141,24 @@ msgstr "[Mailbox] @1 has deposited mail for you at @2."
 
 msgid "Grandfather Clock\n@1"
 msgstr "Grandfather Clock\n@1"
+
+msgid "Open a text box to paste a message into chat."
+msgstr "Open a text box to paste a message into chat."
+
+msgid "Paste Message"
+msgstr "Paste Message"
+
+msgid "Enter your chat message here (maximum 500 characters):"
+msgstr "Enter your chat message here (maximum 500 characters):"
+
+msgid "SEND"
+msgstr "SEND"
+
+msgid "CANCEL"
+msgstr "CANCEL"
+
+msgid "Your message is limited to 500 characters."
+msgstr "Your message is limited to 500 characters."
+
+msgid "The message cannot be empty."
+msgstr "The message cannot be empty."

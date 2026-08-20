@@ -141,3 +141,24 @@ msgstr "[Briefkasten] @1 hat für Sie bei @2 Post hinterlegt."
 
 msgid "Grandfather Clock\n@1"
 msgstr "Standuhr\n@1"
+
+msgid "Open a text box to paste a message into chat."
+msgstr "Öffnet ein Textfeld, um eine Nachricht in den Chat einzufügen."
+
+msgid "Paste Message"
+msgstr "Nachricht einfügen"
+
+msgid "Enter your chat message here (maximum 500 characters):"
+msgstr "Gib hier deine Chatnachricht ein (maximal 500 Zeichen):"
+
+msgid "SEND"
+msgstr "SENDEN"
+
+msgid "CANCEL"
+msgstr "ABBRECHEN"
+
+msgid "Your message is limited to 500 characters."
+msgstr "Deine Nachricht ist auf 500 Zeichen begrenzt."
+
+msgid "The message cannot be empty."
+msgstr "Die Nachricht darf nicht leer sein."

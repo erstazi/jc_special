@@ -141,3 +141,24 @@ msgstr "[Почтовый ящик] @1 оставил для вас почту �
 
 msgid "Grandfather Clock\n@1"
 msgstr "Напольные часы\n@1"
+
+msgid "Open a text box to paste a message into chat."
+msgstr "Откройте текстовое поле, чтобы вставить сообщение в чат."
+
+msgid "Paste Message"
+msgstr "Вставить сообщение"
+
+msgid "Enter your chat message here (maximum 500 characters):"
+msgstr "Введите или вставьте здесь сообщение в чат (максимум 500 символов):"
+
+msgid "SEND"
+msgstr "ОТПРАВИТЬ"
+
+msgid "CANCEL"
+msgstr "ОТМЕНА"
+
+msgid "Your message is limited to 500 characters."
+msgstr "Ваше сообщение ограничено 500 символами."
+
+msgid "The message cannot be empty."
+msgstr "Сообщение не может быть пустым."

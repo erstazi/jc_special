@@ -141,3 +141,24 @@ msgstr "[Caixa de correio] @1 deixou uma correspondência para você em @2."
 
 msgid "Grandfather Clock\n@1"
 msgstr "Relógio de pêndulo\n@1"
+
+msgid "Open a text box to paste a message into chat."
+msgstr "Abra uma caixa de texto para colar uma mensagem no chat."
+
+msgid "Paste Message"
+msgstr "Colar mensagem"
+
+msgid "Enter your chat message here (maximum 500 characters):"
+msgstr "Digite ou cole sua mensagem de chat aqui (máximo de 500 caracteres):"
+
+msgid "SEND"
+msgstr "ENVIAR"
+
+msgid "CANCEL"
+msgstr "CANCELAR"
+
+msgid "Your message is limited to 500 characters."
+msgstr "Sua mensagem está limitada a 500 caracteres."
+
+msgid "The message cannot be empty."
+msgstr "A mensagem não pode estar vazia."

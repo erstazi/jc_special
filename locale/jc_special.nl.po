@@ -141,3 +141,24 @@ msgstr "[Brievenbus] @1 heeft post voor u achtergelaten bij @2."
 
 msgid "Grandfather Clock\n@1"
 msgstr "Staande klok\n@1"
+
+msgid "Open a text box to paste a message into chat."
+msgstr "Open een tekstvak om een bericht in de chat te plakken."
+
+msgid "Paste Message"
+msgstr "Bericht plakken"
+
+msgid "Enter your chat message here (maximum 500 characters):"
+msgstr "Voer hier je chatbericht in (maximaal 500 tekens):"
+
+msgid "SEND"
+msgstr "VERSTUREN"
+
+msgid "CANCEL"
+msgstr "ANNULEREN"
+
+msgid "Your message is limited to 500 characters."
+msgstr "Je bericht is beperkt tot 500 tekens."
+
+msgid "The message cannot be empty."
+msgstr "Het bericht mag niet leeg zijn."

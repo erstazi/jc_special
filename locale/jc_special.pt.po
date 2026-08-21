@@ -1,6 +1,7 @@
 msgid ""
 msgstr ""
-"Language: pt_BR\n"
+"Project-Id-Version: jc_special\n"
+"Language: pt\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 

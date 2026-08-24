@@ -1,11 +1,19 @@
 local S = core.get_translator(core.get_current_modname())
 local modpath = core.get_modpath(core.get_current_modname())
 
+local http = core.request_http_api and core.request_http_api()
+
+if http then
+    core.log("action", "[jc_special] HTTP API access ENABLED")
+else
+    core.log("error", "[jc_special] HTTP API access DISABLED")
+end
+
 jc_special = {}
 
 dofile(modpath .. "/daybutton.lua")
 dofile(modpath .. "/welcomeplayers.lua")
-dofile(modpath .. "/player_lookup.lua")
+-- dofile(modpath .. "/player_lookup.lua")
 dofile(modpath .. "/infotext.lua")
 dofile(modpath .. "/cans.lua")
 dofile(modpath .. "/paste2chat.lua")

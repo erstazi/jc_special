@@ -168,6 +168,7 @@ mobs:register_mob("mobs_monster:trooper", {
   stepheight = 1.1,
   walk_velocity = 1,
   run_velocity = 4,
+  jump = true,
   jump_height = 2,
   view_range = 8,
 

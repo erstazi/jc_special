@@ -163,3 +163,9 @@ msgstr "Ваше сообщение ограничено 500 символами.
 
 msgid "The message cannot be empty."
 msgstr "Сообщение не может быть пустым."
+
+msgid "Trooper"
+msgstr "Солдат"
+
+msgid "@1 was eliminated by @2!"
+msgstr "@1 был уничтожен @2!"

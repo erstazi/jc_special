@@ -163,3 +163,9 @@ msgstr "Deine Nachricht ist auf 500 Zeichen begrenzt."
 
 msgid "The message cannot be empty."
 msgstr "Die Nachricht darf nicht leer sein."
+
+msgid "Trooper"
+msgstr "Trooper"
+
+msgid "@1 was eliminated by @2!"
+msgstr "@1 wurde von @2 eliminiert!"

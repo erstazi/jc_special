@@ -163,3 +163,9 @@ msgstr "Ваше повідомлення обмежено 500 символам�
 
 msgid "The message cannot be empty."
 msgstr "Повідомлення не може бути порожнім."
+
+msgid "Trooper"
+msgstr "Солдат"
+
+msgid "@1 was eliminated by @2!"
+msgstr "@1 був знищений @2!"

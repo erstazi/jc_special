@@ -109,6 +109,9 @@ mobs:register_mob("mobs_monster:trooper", {
   jump_height = 4,
   view_range = 8,
   lava_damage = 8,
+  attack_npcs = false,
+  attack_animals = false,
+  attack_monsters = true,
 
   animation = {
     speed_normal = 15,

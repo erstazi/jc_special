@@ -81,6 +81,66 @@ local function trooper_group_attack(self, hitter)
   end
 end
 
+local function trooper_jump_over_rail(self, dtime)
+  -- Countdown the jump cooldown.
+  self.trooper_jump_cooldown =
+    math.max(0, (self.trooper_jump_cooldown or 0) - dtime)
+
+  if self.trooper_jump_cooldown > 0 then
+    return
+  end
+
+  local pos = self.object:get_pos()
+  if not pos then
+    return
+  end
+
+  -- Don't jump while already airborne.
+  local velocity = self.object:get_velocity()
+
+  if velocity and math.abs(velocity.y) > 0.5 then
+    return
+  end
+
+  -- Only jump when moving horizontally.
+  if velocity then
+    local horizontal_speed =
+      math.sqrt((velocity.x * velocity.x) + (velocity.z * velocity.z))
+
+    if horizontal_speed < 0.2 then
+      return
+    end
+  end
+
+  local yaw = self.object:get_yaw()
+  local dir = core.yaw_to_dir(yaw)
+
+  -- Check several positions ahead of the Trooper.
+  local distances = {0.5, 1.0, 1.5}
+
+  for _, distance in ipairs(distances) do
+
+    local rail_pos = {
+      x = pos.x + dir.x * distance,
+      y = pos.y - 1,
+      z = pos.z + dir.z * distance
+    }
+
+    rail_pos = vector.round(rail_pos)
+
+    local node = core.get_node_or_nil(rail_pos)
+
+    if node and core.get_item_group(node.name, "rail") > 0 then
+      self:do_jump()
+
+      -- Prevent repeated jumping while crossing the rail.
+      self.trooper_jump_cooldown = 0.8
+
+      return
+    end
+  end
+end
+
 mobs:register_mob("mobs_monster:trooper", {
   type = "npc",
   passive = true,
@@ -142,13 +202,15 @@ mobs:register_mob("mobs_monster:trooper", {
   end,
   do_custom = function(self, dtime)
 
+    -- Forget a dead player.
     if self.attack and self.attack:is_player() and self.attack:get_hp() <= 0 then
       self.attack = nil
       self.state = "stand"
       self.timer = 0
-
-      return true
     end
+
+    -- Jump over minecart rails.
+    trooper_jump_over_rail(self, dtime)
 
     return true
   end,
@@ -204,7 +266,18 @@ core.register_on_dieplayer(function(player, reason)
   local player_name = player:get_player_name()
   local trooper_name = killer_entity.trooper_name or S("Trooper")
 
-  core.chat_send_all( core.colorize( "#FF5555", S("@1 was eliminated by @2!", player_name, trooper_name) ) )
+  -- Play the "oof" sound only to the player who died.
+  core.sound_play("oof", {
+    to_player = player_name,
+    gain = 1.0,
+  })
+
+  core.chat_send_all(
+    core.colorize(
+      "#FF5555",
+      S("@1 was eliminated by @2!", player_name, trooper_name)
+    )
+  )
 end)
 
 core.log("action", "[jc_special] Trooper registered with mobs_redo")

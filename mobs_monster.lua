@@ -69,160 +69,80 @@ local function trooper_group_attack(self, hitter)
 
   local radius = 20
 
+  self.attack = hitter
+  self.state = "attack"
+  self.timer = 0
+
+  -- Alert all nearby Troopers.
   for _, object in ipairs(core.get_objects_inside_radius(pos, radius)) do
     local entity = object:get_luaentity()
 
     if entity
     and entity.name == "mobs_monster:trooper"
     and object ~= self.object then
+
       entity.attack = hitter
       entity.state = "attack"
-    end
-  end
-end
-
-local function trooper_jump_over_rail(self, dtime)
-  -- Countdown the jump cooldown.
-  self.trooper_jump_cooldown =
-    math.max(0, (self.trooper_jump_cooldown or 0) - dtime)
-
-  if self.trooper_jump_cooldown > 0 then
-    return
-  end
-
-  local pos = self.object:get_pos()
-  if not pos then
-    return
-  end
-
-  -- Don't jump while already airborne.
-  local velocity = self.object:get_velocity()
-
-  if velocity and math.abs(velocity.y) > 0.5 then
-    return
-  end
-
-  -- Only jump when moving horizontally.
-  if velocity then
-    local horizontal_speed =
-      math.sqrt((velocity.x * velocity.x) + (velocity.z * velocity.z))
-
-    if horizontal_speed < 0.2 then
-      return
-    end
-  end
-
-  local yaw = self.object:get_yaw()
-  local dir = core.yaw_to_dir(yaw)
-
-  -- Check several positions ahead of the Trooper.
-  local distances = {0.5, 1.0, 1.5}
-
-  for _, distance in ipairs(distances) do
-
-    local rail_pos = {
-      x = pos.x + dir.x * distance,
-      y = pos.y - 1,
-      z = pos.z + dir.z * distance
-    }
-
-    rail_pos = vector.round(rail_pos)
-
-    local node = core.get_node_or_nil(rail_pos)
-
-    if node and core.get_item_group(node.name, "rail") > 0 then
-      self:do_jump()
-
-      -- Prevent repeated jumping while crossing the rail.
-      self.trooper_jump_cooldown = 0.8
-
-      return
+      entity.timer = 0
     end
   end
 end
 
 mobs:register_mob("mobs_monster:trooper", {
-  type = "npc",
+  type = "monster",
   passive = true,
   attack_type = "dogfight",
-  pathfinding = 1,
+  pathfinding = false,
   reach = 2,
   damage = 10,
   hp_min = 20,
   hp_max = 20,
   armor = 100,
-
-  collisionbox = {
-    -0.3, -1, -0.3,
-     0.3,  0.8,  0.3
-  },
-
+  collisionbox = {-0.3, -1, -0.3, 0.3, 0.8, 0.3},
   visual = "mesh",
   mesh = "character.b3d",
-  textures = {
-    {"character.png"}
-  },
-
+  textures = {{"character.png"}},
   makes_footstep_sound = true,
-
-  stepheight = 1.1,
+  stepheight = 1.6,
   walk_velocity = 1,
   run_velocity = 4,
-  jump = true,
-  jump_height = 2,
+  jump_height = 4,
   view_range = 8,
-
   lava_damage = 8,
 
   animation = {
     speed_normal = 15,
     speed_run = 30,
-
-    stand_start = 0,
-    stand_end = 40,
-
-    walk_start = 168,
-    walk_end = 187,
-
-    run_start = 168,
-    run_end = 187,
-
-    punch_start = 189,
-    punch_end = 198
+    stand_start = 0, stand_end = 40,
+    walk_start = 168, walk_end = 187,
+    run_start = 168, run_end = 187,
+    punch_start = 189, punch_end = 198
   },
+
   on_spawn = function(self)
     local name = trooper_names[math.random(#trooper_names)]
-
     self.trooper_name = name
     self.nametag = core.colorize("#FFFF00", name)
-
     return true
   end,
-  do_punch = function(self, hitter, tflp, tool_capabilities, dir, damage)
+
+  do_punch = function(self, hitter)
     trooper_group_attack(self, hitter)
   end,
-  do_custom = function(self, dtime)
 
-    -- Forget a dead player.
+  do_custom = function(self, dtime)
+    -- Forget dead player
     if self.attack and self.attack:is_player() and self.attack:get_hp() <= 0 then
       self.attack = nil
-      self.state = "stand"
+      self.state = "walk"
       self.timer = 0
     end
-
-    -- Jump over minecart rails.
-    trooper_jump_over_rail(self, dtime)
 
     return true
   end,
 
   drops = {
-    {
-      name = "mobs_monster:trooper",
-      chance = 3,
-      min = 1,
-      max = 1
-    }
+    {name = "mobs_monster:trooper", chance = 3, min = 1, max = 1}
   }
 })
 
@@ -232,6 +152,7 @@ mobs:register_egg(
   "player.png",
   1
 )
+
 mobs:alias_mob("mobs:trooper", "mobs_monster:trooper")
 
 if not mobs.custom_spawn_monster then

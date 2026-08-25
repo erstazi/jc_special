@@ -85,7 +85,7 @@ mobs:register_mob("mobs_monster:trooper", {
   type = "npc",
   passive = true,
   attack_type = "dogfight",
-  pathfinding = true,
+  pathfinding = 1,
   reach = 2,
   damage = 10,
   hp_min = 20,
@@ -105,8 +105,10 @@ mobs:register_mob("mobs_monster:trooper", {
 
   makes_footstep_sound = true,
 
+  stepheight = 1.1,
   walk_velocity = 1,
-  run_velocity = 3,
+  run_velocity = 4,
+  jump_height = 2,
   view_range = 8,
 
   lava_damage = 8,

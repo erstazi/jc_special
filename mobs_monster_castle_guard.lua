@@ -167,17 +167,29 @@ local function castle_guard_play_random_sound(self, sounds, gain)
     local player_pos = player:get_pos()
 
     if player_pos then
-      local meta = player:get_meta()
-      local monster_sounds = meta:get_string("jc_special_sounds_monsters")
+      local dx = player_pos.x - pos.x
+      local dy = player_pos.y - pos.y
+      local dz = player_pos.z - pos.z
 
-      -- Monster sounds are ON by default.
-      if monster_sounds ~= "off" then
-        core.sound_play(sound, {
-          to_player = player:get_player_name(),
-          pos = pos,
-          gain = gain or 1.0,
-          max_hear_distance = 20,
-        })
+      local distance = math.sqrt(
+        dx * dx +
+        dy * dy +
+        dz * dz
+      )
+
+      if distance <= 20 then
+        local meta = player:get_meta()
+        local monster_sounds = meta:get_string("jc_special_sounds_monsters")
+
+        -- Monster sounds are ON by default.
+        if monster_sounds ~= "off" then
+          core.sound_play(sound, {
+            to_player = player:get_player_name(),
+            pos = pos,
+            gain = gain or 1.0,
+            max_hear_distance = 20,
+          })
+        end
       end
     end
   end

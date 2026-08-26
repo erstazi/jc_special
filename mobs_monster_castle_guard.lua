@@ -176,7 +176,7 @@ local function castle_guard_play_random_sound(self, sounds, gain)
           to_player = player:get_player_name(),
           pos = pos,
           gain = gain or 1.0,
-          max_hear_distance = 30,
+          max_hear_distance = 20,
         })
       end
     end
@@ -673,7 +673,7 @@ core.register_on_dieplayer(function(player, reason)
     core.sound_play("oof", {
       pos = death_pos,
       gain = 1.0,
-      max_hear_distance = 30,
+      max_hear_distance = 20,
     })
   end
 

@@ -172,3 +172,33 @@ msgstr "Guardia del Castillo"
 
 msgid "@1 was eliminated by @2!"
 msgstr "¡@1 fue eliminado por @2!"
+
+msgid "Find nodes within a square radius"
+msgstr "Buscar nodos dentro de un radio cuadrado"
+
+msgid "Player not found."
+msgstr "Jugador no encontrado."
+
+msgid "Usage: /findnode <mod:nodename> <radius>"
+msgstr "Uso: /findnode <mod:nodename> <radio>"
+
+msgid "Radius must be a number."
+msgstr "El radio debe ser un número."
+
+msgid "Radius must be greater than 0."
+msgstr "El radio debe ser mayor que 0."
+
+msgid "Could not determine your position."
+msgstr "No se pudo determinar tu posición."
+
+msgid "Unknown node: @1"
+msgstr "Nodo desconocido: @1"
+
+msgid "No @1 found within @2 nodes."
+msgstr "No se encontró ningún @1 dentro de @2 nodos."
+
+msgid "Found @1 @2 within a @3 node square:"
+msgstr "Se encontraron @1 @2 dentro de un cuadrado de @3 nodos:"
+
+msgid "@1 - @2 nodes away"
+msgstr "@1 - a @2 nodos de distancia"

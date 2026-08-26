@@ -171,3 +171,33 @@ msgstr ""
 
 msgid "@1 was eliminated by @2!"
 msgstr ""
+
+msgid "Find nodes within a square radius"
+msgstr ""
+
+msgid "Player not found."
+msgstr ""
+
+msgid "Usage: /findnode <mod:nodename> <radius>"
+msgstr ""
+
+msgid "Radius must be a number."
+msgstr ""
+
+msgid "Radius must be greater than 0."
+msgstr ""
+
+msgid "Could not determine your position."
+msgstr ""
+
+msgid "Unknown node: @1"
+msgstr ""
+
+msgid "No @1 found within @2 nodes."
+msgstr ""
+
+msgid "Found @1 @2 within a @3 node square:"
+msgstr ""
+
+msgid "@1 - @2 nodes away"
+msgstr ""

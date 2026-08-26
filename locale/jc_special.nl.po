@@ -172,3 +172,33 @@ msgstr "Kasteelwacht"
 
 msgid "@1 was eliminated by @2!"
 msgstr "@1 werd uitgeschakeld door @2!"
+
+msgid "Find nodes within a square radius"
+msgstr "Nodes binnen een vierkante straal zoeken"
+
+msgid "Player not found."
+msgstr "Speler niet gevonden."
+
+msgid "Usage: /findnode <mod:nodename> <radius>"
+msgstr "Gebruik: /findnode <mod:nodename> <straal>"
+
+msgid "Radius must be a number."
+msgstr "De straal moet een getal zijn."
+
+msgid "Radius must be greater than 0."
+msgstr "De straal moet groter zijn dan 0."
+
+msgid "Could not determine your position."
+msgstr "Je positie kon niet worden bepaald."
+
+msgid "Unknown node: @1"
+msgstr "Onbekende node: @1"
+
+msgid "No @1 found within @2 nodes."
+msgstr "Geen @1 gevonden binnen @2 nodes."
+
+msgid "Found @1 @2 within a @3 node square:"
+msgstr "@1 @2 gevonden binnen een vierkant van @3 nodes:"
+
+msgid "@1 - @2 nodes away"
+msgstr "@1 - @2 nodes verwijderd"

@@ -172,3 +172,33 @@ msgstr "Вартовий Замку"
 
 msgid "@1 was eliminated by @2!"
 msgstr "@1 був знищений @2!"
+
+msgid "Find nodes within a square radius"
+msgstr "Знайти блоки в межах квадратного радіуса"
+
+msgid "Player not found."
+msgstr "Гравця не знайдено."
+
+msgid "Usage: /findnode <mod:nodename> <radius>"
+msgstr "Використання: /findnode <mod:nodename> <радіус>"
+
+msgid "Radius must be a number."
+msgstr "Радіус має бути числом."
+
+msgid "Radius must be greater than 0."
+msgstr "Радіус має бути більшим за 0."
+
+msgid "Could not determine your position."
+msgstr "Не вдалося визначити вашу позицію."
+
+msgid "Unknown node: @1"
+msgstr "Невідомий блок: @1"
+
+msgid "No @1 found within @2 nodes."
+msgstr "Блок @1 не знайдено в межах @2 блоків."
+
+msgid "Found @1 @2 within a @3 node square:"
+msgstr "Знайдено @1 @2 у квадраті радіусом @3 блоків:"
+
+msgid "@1 - @2 nodes away"
+msgstr "@1 - на відстані @2 блоків"

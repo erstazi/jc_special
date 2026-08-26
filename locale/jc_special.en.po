@@ -172,3 +172,33 @@ msgstr "Castle Guard"
 
 msgid "@1 was eliminated by @2!"
 msgstr "@1 was eliminated by @2!"
+
+msgid "Find nodes within a square radius"
+msgstr "Find nodes within a square radius"
+
+msgid "Player not found."
+msgstr "Player not found."
+
+msgid "Usage: /findnode <mod:nodename> <radius>"
+msgstr "Usage: /findnode <mod:nodename> <radius>"
+
+msgid "Radius must be a number."
+msgstr "Radius must be a number."
+
+msgid "Radius must be greater than 0."
+msgstr "Radius must be greater than 0."
+
+msgid "Could not determine your position."
+msgstr "Could not determine your position."
+
+msgid "Unknown node: @1"
+msgstr "Unknown node: @1"
+
+msgid "No @1 found within @2 nodes."
+msgstr "No @1 found within @2 nodes."
+
+msgid "Found @1 @2 within a @3 node square:"
+msgstr "Found @1 @2 within a @3 node square:"
+
+msgid "@1 - @2 nodes away"
+msgstr "@1 - @2 nodes away"

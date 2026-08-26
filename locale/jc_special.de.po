@@ -172,3 +172,33 @@ msgstr "Burgwache"
 
 msgid "@1 was eliminated by @2!"
 msgstr "@1 wurde von @2 eliminiert!"
+
+msgid "Find nodes within a square radius"
+msgstr "Knoten innerhalb eines quadratischen Radius finden"
+
+msgid "Player not found."
+msgstr "Spieler nicht gefunden."
+
+msgid "Usage: /findnode <mod:nodename> <radius>"
+msgstr "Verwendung: /findnode <mod:nodename> <Radius>"
+
+msgid "Radius must be a number."
+msgstr "Der Radius muss eine Zahl sein."
+
+msgid "Radius must be greater than 0."
+msgstr "Der Radius muss größer als 0 sein."
+
+msgid "Could not determine your position."
+msgstr "Deine Position konnte nicht bestimmt werden."
+
+msgid "Unknown node: @1"
+msgstr "Unbekannter Knoten: @1"
+
+msgid "No @1 found within @2 nodes."
+msgstr "Kein @1 innerhalb von @2 Knoten gefunden."
+
+msgid "Found @1 @2 within a @3 node square:"
+msgstr "@1 @2 innerhalb eines quadratischen Bereichs von @3 Knoten gefunden:"
+
+msgid "@1 - @2 nodes away"
+msgstr "@1 – @2 Knoten entfernt"

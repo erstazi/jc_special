@@ -172,3 +172,33 @@ msgstr "Стражник Замка"
 
 msgid "@1 was eliminated by @2!"
 msgstr "@1 был уничтожен @2!"
+
+msgid "Find nodes within a square radius"
+msgstr "Найти блоки в квадратном радиусе"
+
+msgid "Player not found."
+msgstr "Игрок не найден."
+
+msgid "Usage: /findnode <mod:nodename> <radius>"
+msgstr "Использование: /findnode <mod:nodename> <радиус>"
+
+msgid "Radius must be a number."
+msgstr "Радиус должен быть числом."
+
+msgid "Radius must be greater than 0."
+msgstr "Радиус должен быть больше 0."
+
+msgid "Could not determine your position."
+msgstr "Не удалось определить вашу позицию."
+
+msgid "Unknown node: @1"
+msgstr "Неизвестный блок: @1"
+
+msgid "No @1 found within @2 nodes."
+msgstr "Блок @1 не найден в пределах @2 блоков."
+
+msgid "Found @1 @2 within a @3 node square:"
+msgstr "Найдено: @1 @2 в квадрате радиусом @3 блоков:"
+
+msgid "@1 - @2 nodes away"
+msgstr "@1 - в @2 блоках"

@@ -172,3 +172,33 @@ msgstr "Strażnik Zamku"
 
 msgid "@1 was eliminated by @2!"
 msgstr "@1 został wyeliminowany przez @2!"
+
+msgid "Find nodes within a square radius"
+msgstr "Znajdź bloki w kwadratowym promieniu"
+
+msgid "Player not found."
+msgstr "Nie znaleziono gracza."
+
+msgid "Usage: /findnode <mod:nodename> <radius>"
+msgstr "Użycie: /findnode <mod:nodename> <promień>"
+
+msgid "Radius must be a number."
+msgstr "Promień musi być liczbą."
+
+msgid "Radius must be greater than 0."
+msgstr "Promień musi być większy od 0."
+
+msgid "Could not determine your position."
+msgstr "Nie można określić twojej pozycji."
+
+msgid "Unknown node: @1"
+msgstr "Nieznany blok: @1"
+
+msgid "No @1 found within @2 nodes."
+msgstr "Nie znaleziono @1 w promieniu @2 bloków."
+
+msgid "Found @1 @2 within a @3 node square:"
+msgstr "Znaleziono @1 @2 w kwadracie o boku @3 bloków:"
+
+msgid "@1 - @2 nodes away"
+msgstr "@1 - @2 bloków stąd"

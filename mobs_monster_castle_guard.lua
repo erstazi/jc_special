@@ -81,6 +81,7 @@ local castle_guard_names = {
   "Sir Lionel",
   "Sir Harold",
   "Sir Roderick",
+  "The Knights Who Say Ni!",
 
   "Guard Aldwin",
   "Guard Edwin",
@@ -103,6 +104,7 @@ local castle_guard_names = {
   "Guard Everard",
   "Guard Alwin",
 
+  "The Knights Who Say Ni!",
   "Captain of the Guard",
   "Master of the Gate",
   "Keeper of the Gate",
@@ -114,6 +116,7 @@ local castle_guard_names = {
   "Watchman of the South Tower",
   "Sentinel of the Gate",
 
+  "The Knights Who Say Ni!",
   "Old Guard Harold",
   "Sir Grumbles",
   "Sir Sleeps-at-the-Gate",

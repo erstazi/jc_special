@@ -167,5 +167,8 @@ msgstr "A mensagem não pode estar vazia."
 msgid "Trooper"
 msgstr "Soldado"
 
+msgid "Castle Guard"
+msgstr "Guarda do Castelo"
+
 msgid "@1 was eliminated by @2!"
 msgstr "@1 foi eliminado por @2!"

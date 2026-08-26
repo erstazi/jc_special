@@ -167,5 +167,8 @@ msgstr "Повідомлення не може бути порожнім."
 msgid "Trooper"
 msgstr "Солдат"
 
+msgid "Castle Guard"
+msgstr "Вартовий Замку"
+
 msgid "@1 was eliminated by @2!"
 msgstr "@1 був знищений @2!"

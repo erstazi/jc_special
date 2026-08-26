@@ -166,5 +166,8 @@ msgstr ""
 msgid "Trooper"
 msgstr ""
 
+msgid "Castle Guard"
+msgstr ""
+
 msgid "@1 was eliminated by @2!"
 msgstr ""

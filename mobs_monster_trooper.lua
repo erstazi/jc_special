@@ -5,7 +5,7 @@ end
 
 local S = core.get_translator(core.get_current_modname())
 
--- trooper.lua
+-- mobs_monster_trooper.lua
 -- Trooper mob originally from carbone_mobs.
 -- Reimplemented for mobs_redo through jc_special.
 local trooper_names = {
@@ -189,19 +189,19 @@ core.register_on_dieplayer(function(player, reason)
 
   local player_name = player:get_player_name()
   local trooper_name = killer_entity.trooper_name or S("Trooper")
+  local death_pos = player:get_pos()
 
-  -- Play the "oof" sound only to the player who died.
-  core.sound_play("oof", {
-    to_player = player_name,
-    gain = 1.0,
-  })
+  -- Play "oof" for everyone within 30 blocks of the death.
+  if death_pos then
+    core.sound_play("oof", {
+      pos = death_pos,
+      gain = 1.0,
+      max_hear_distance = 30,
+    })
+  end
 
-  core.chat_send_all(
-    core.colorize(
-      "#FF5555",
-      S("@1 was eliminated by @2!", player_name, trooper_name)
-    )
-  )
+  -- Server-wide death message.
+  core.chat_send_all(core.colorize("#FF7979", S("@1 was eliminated by @2!", player_name, trooper_name) ) )
 end)
 
 core.log("action", "[jc_special] Trooper registered with mobs_redo")

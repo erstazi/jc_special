@@ -167,5 +167,8 @@ msgstr "Le message ne peut pas être vide."
 msgid "Trooper"
 msgstr "Soldat"
 
+msgid "Castle Guard"
+msgstr "Garde du Château"
+
 msgid "@1 was eliminated by @2!"
 msgstr "@1 a été éliminé par @2 !"

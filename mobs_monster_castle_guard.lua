@@ -4,6 +4,7 @@ if not core.get_modpath("mobs") then
 end
 
 local S = core.get_translator(core.get_current_modname())
+local monster_sounds_storage = core.get_mod_storage()
 
 ----------------------------------------------------------------
 -- CASTLE GUARD SOUNDS
@@ -161,12 +162,101 @@ local function castle_guard_play_random_sound(self, sounds, gain)
   end
 
   local sound = sounds[math.random(#sounds)]
-  core.sound_play(sound, {
-    pos = pos,
-    gain = gain or 1.0,
-    max_hear_distance = 30,
-  })
+
+  for _, player in ipairs(core.get_connected_players()) do
+    local player_pos = player:get_pos()
+
+    if player_pos then
+      local meta = player:get_meta()
+      local monster_sounds = meta:get_string("jc_special_sounds_monsters")
+
+      -- Monster sounds are ON by default.
+      if monster_sounds ~= "off" then
+        core.sound_play(sound, {
+          to_player = player:get_player_name(),
+          pos = pos,
+          gain = gain or 1.0,
+          max_hear_distance = 30,
+        })
+      end
+    end
+  end
 end
+
+----------------------------------------------------------------
+-- MONSTER SOUND SETTINGS
+----------------------------------------------------------------
+core.register_chatcommand("jc_special_sounds_monsters", {
+  params = "<on|off>",
+  description = S("Enable or disable monster sounds."),
+  func = function(name, param)
+    local player = core.get_player_by_name(name)
+
+    if not player then
+      return false, S("Player not found.")
+    end
+
+    local meta = player:get_meta()
+    param = param:lower()
+
+    if param == "off" then
+      meta:set_string("jc_special_sounds_monsters", "off")
+      monster_sounds_storage:set_string("disabled:" .. name, "off")
+
+      core.log("action", "[JC_SPECIAL MONSTER SOUNDS] " .. name .. " turned _OFF_ monster sounds")
+      return true, S("Monster sounds disabled.")
+
+    elseif param == "on" then
+      meta:set_string("jc_special_sounds_monsters", "on")
+      monster_sounds_storage:set_string("disabled:" .. name, "")
+
+      core.log("action", "[JC_SPECIAL MONSTER SOUNDS] " .. name .. " turned ON monster sounds")
+      return true, S("Monster sounds enabled.")
+    end
+
+    return false, S("Usage: /jc_special_sounds_monsters <on|off>")
+  end,
+})
+
+
+----------------------------------------------------------------
+-- LIST PLAYERS WITH MONSTER SOUND DISABLED
+----------------------------------------------------------------
+core.register_chatcommand("list_jc_special_sounds_monsters", {
+  params = "",
+  description = S("List players who have monster sounds disabled."),
+  privs = { server = true },
+
+  func = function(name, param)
+    local disabled_players = {}
+
+    local keys = monster_sounds_storage:get_keys()
+
+    for _, key in ipairs(keys) do
+      if key:sub(1, 9) == "disabled:" then
+        local player_name = key:sub(10)
+
+        if monster_sounds_storage:get_string(key) == "off" then
+          table.insert(disabled_players, player_name)
+        end
+      end
+    end
+
+    table.sort(disabled_players)
+
+    if #disabled_players == 0 then
+      return true, S("No players have monster sounds disabled.")
+    end
+
+    core.chat_send_player(name, core.colorize("#FFFF00", S("Players with monster sounds disabled (@1):", #disabled_players) ) )
+
+    for _, player_name in ipairs(disabled_players) do
+      core.chat_send_player(name, "  " .. core.colorize("#FF7979", player_name) )
+    end
+
+    return true
+  end
+})
 
 ----------------------------------------------------------------
 -- FIND A PLAYER THE GUARD CAN SEE

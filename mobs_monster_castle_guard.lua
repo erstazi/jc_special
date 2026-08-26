@@ -685,7 +685,7 @@ core.register_on_dieplayer(function(player, reason)
     core.sound_play("oof", {
       pos = death_pos,
       gain = 1.0,
-      max_hear_distance = 20,
+      max_hear_distance = 30,
     })
   end
 

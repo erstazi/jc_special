@@ -145,7 +145,8 @@ mobs:register_mob("mobs_monster:trooper", {
   end,
 
   drops = {
-    {name = "mobs_monster:trooper", chance = 3, min = 1, max = 1}
+    { name = "mobs_monster:trooper", chance = 5, min = 1, max = 1 },
+    { name = "default:pick_steel", chance = 4, min = 1, max = 1 },
   }
 })
 

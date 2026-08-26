@@ -528,42 +528,12 @@ mobs:register_mob("mobs_monster:castle_guard", {
   -- DROPS
   --------------------------------------------------------------
   drops = {
-    {
-      name = "default:steel_sword",
-      chance = 4,
-      min = 1,
-      max = 1
-    },
-    {
-      name = "shields:shield_steel",
-      chance = 15,
-      min = 1,
-      max = 1
-    },
-    {
-      name = "3d_armor:helmet_steel",
-      chance = 8,
-      min = 1,
-      max = 1
-    },
-    {
-      name = "3d_armor:chestplate_steel",
-      chance = 8,
-      min = 1,
-      max = 1
-    },
-    {
-      name = "3d_armor:leggings_steel",
-      chance = 8,
-      min = 1,
-      max = 1
-    },
-    {
-      name = "3d_armor:boots_steel",
-      chance = 8,
-      min = 1,
-      max = 1
-    }
+    { name = "default:sword_steel", chance = 4, min = 1, max = 1 },
+    { name = "shields:shield_steel", chance = 15, min = 1, max = 1 },
+    { name = "3d_armor:helmet_steel", chance = 8, min = 1, max = 1 },
+    { name = "3d_armor:chestplate_steel", chance = 8, min = 1, max = 1 },
+    { name = "3d_armor:leggings_steel", chance = 8, min = 1, max = 1 },
+    { name = "3d_armor:boots_steel", chance = 8, min = 1, max = 1 }
   }
 })
 

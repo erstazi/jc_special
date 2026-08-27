@@ -115,17 +115,12 @@ local function player_has_rainbow_armor(player)
   end
 
   if not armor or not armor.get_valid_player then
-    core.log("warning",
-      "[CASTLE GUARD] 3d_armor API not available")
     return false
   end
 
   local _, armor_inv = armor:get_valid_player(player, "3d_armor")
 
   if not armor_inv then
-    core.log("warning",
-      "[CASTLE GUARD] 3d_armor inventory not found for " ..
-      player:get_player_name())
     return false
   end
 
@@ -232,6 +227,7 @@ mobs:register_mob("mobs_monster:trooper", {
     return true
   end,
 
+  --[[
   --------------------------------------------------------------
   -- CUSTOM ATTACK
   --------------------------------------------------------------
@@ -261,6 +257,7 @@ mobs:register_mob("mobs_monster:trooper", {
 
     return false
   end,
+  ]]
 
   drops = {
     { name = "mobs_monster:trooper", chance = 5, min = 1, max = 1 },

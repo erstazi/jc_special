@@ -148,6 +148,53 @@ local IDLE_SOUND_MAX = 125
 -- How close to the patrol destination before picking another one.
 local PATROL_REACHED_DISTANCE = 1.0
 
+-- Normal damage that castle guard does against player without rainbow
+local CASTLE_GUARD_NORMAL_DAMAGE = 15
+
+-- Normal damage that castle guard does against player with rainbow
+local CASTLE_GUARD_RAINBOW_DAMAGE = 10
+
+----------------------------------------------------------------
+-- RAINBOW ARMOR DETECTION
+----------------------------------------------------------------
+local rainbow_armor_items = {
+  ["rainbow_ore:rainbow_ore_helmet"] = true,
+  ["rainbow_ore:rainbow_ore_chestplate"] = true,
+  ["rainbow_ore:rainbow_ore_leggings"] = true,
+  ["rainbow_ore:rainbow_ore_boots"] = true,
+}
+
+local function player_has_rainbow_armor(player)
+  if not player or not player:is_player() then
+    return false
+  end
+
+  if not armor or not armor.get_valid_player then
+    core.log("warning",
+      "[CASTLE GUARD] 3d_armor API not available")
+    return false
+  end
+
+  local _, armor_inv = armor:get_valid_player(player, "3d_armor")
+
+  if not armor_inv then
+    core.log("warning",
+      "[CASTLE GUARD] 3d_armor inventory not found for " ..
+      player:get_player_name())
+    return false
+  end
+
+  for i = 1, 6 do
+    local stack = armor_inv:get_stack("armor", i)
+
+    if not stack:is_empty() and rainbow_armor_items[stack:get_name()] then
+      return true
+    end
+  end
+
+  return false
+end
+
 ----------------------------------------------------------------
 -- RANDOM SOUND HELPER
 ----------------------------------------------------------------
@@ -317,7 +364,9 @@ end
 -- GROUP ATTACK
 ----------------------------------------------------------------
 local function castle_guard_group_attack(self, hitter)
-  if not hitter or not hitter:is_player() then
+  if not hitter
+    or not hitter.is_player
+    or not hitter:is_player() then
     return
   end
 
@@ -481,7 +530,7 @@ mobs:register_mob("mobs_monster:castle_guard", {
   attack_type = "dogfight",
   pathfinding = false,
   reach = 2,
-  damage = 15,
+  damage = CASTLE_GUARD_NORMAL_DAMAGE,
   hp_min = 20,
   hp_max = 20,
   armor = 100,
@@ -557,13 +606,44 @@ mobs:register_mob("mobs_monster:castle_guard", {
   -- HIT BY PLAYER
   --------------------------------------------------------------
   do_punch = function(self, hitter)
-    if hitter and hitter:is_player() then
-      -- Immediately play one random "Halt!" style sound.
-      castle_guard_play_random_sound( self, castle_guard_sounds_hit, 1.0 )
-
-      -- Then alert nearby guards and attack.
-      castle_guard_group_attack( self, hitter )
+    if hitter and hitter.is_player and hitter:is_player() then
+      castle_guard_play_random_sound(
+        self,
+        castle_guard_sounds_hit,
+        1.0
+      )
+      castle_guard_group_attack(self, hitter)
     end
+  end,
+
+  ----------------------------------------------------------------
+  -- CUSTOM ATTACK
+  ----------------------------------------------------------------
+  custom_attack = function(self, to_attack)
+    local target = self.attack
+
+    if not target or not target:is_player() then
+      return false
+    end
+
+    local damage = CASTLE_GUARD_NORMAL_DAMAGE
+
+    if player_has_rainbow_armor(target) then
+      damage = CASTLE_GUARD_RAINBOW_DAMAGE
+    end
+
+    local hp = target:get_hp()
+
+    target:set_hp(
+      math.max(0, hp - damage),
+      {
+        type = "punch",
+        from = self.object,
+        direct = true,
+      }
+    )
+
+    return false
   end,
 
   --------------------------------------------------------------

@@ -5,6 +5,12 @@ end
 
 local S = core.get_translator(core.get_current_modname())
 
+----------------------------------------------------------------
+-- SETTINGS
+----------------------------------------------------------------
+local TROOPER_NORMAL_DAMAGE = 10
+local TROOPER_RAINBOW_DAMAGE = 7
+
 -- mobs_monster_trooper.lua
 -- Trooper mob originally from carbone_mobs.
 -- Reimplemented for mobs_redo through jc_special.
@@ -93,8 +99,51 @@ local trooper_names = {
   "Your Wife's Neighbor",
 }
 
+----------------------------------------------------------------
+-- RAINBOW ARMOR / SHIELD DETECTION
+----------------------------------------------------------------
+local rainbow_armor_items = {
+  ["rainbow_ore:rainbow_ore_helmet"] = true,
+  ["rainbow_ore:rainbow_ore_chestplate"] = true,
+  ["rainbow_ore:rainbow_ore_leggings"] = true,
+  ["rainbow_ore:rainbow_ore_boots"] = true,
+}
+
+local function player_has_rainbow_armor(player)
+  if not player or not player:is_player() then
+    return false
+  end
+
+  if not armor or not armor.get_valid_player then
+    core.log("warning",
+      "[CASTLE GUARD] 3d_armor API not available")
+    return false
+  end
+
+  local _, armor_inv = armor:get_valid_player(player, "3d_armor")
+
+  if not armor_inv then
+    core.log("warning",
+      "[CASTLE GUARD] 3d_armor inventory not found for " ..
+      player:get_player_name())
+    return false
+  end
+
+  for i = 1, 6 do
+    local stack = armor_inv:get_stack("armor", i)
+
+    if not stack:is_empty() and rainbow_armor_items[stack:get_name()] then
+      return true
+    end
+  end
+
+  return false
+end
+
 local function trooper_group_attack(self, hitter)
-  if not hitter or not hitter:is_player() then
+  if not hitter
+    or not hitter.is_player
+    or not hitter:is_player() then
     return
   end
 
@@ -130,7 +179,7 @@ mobs:register_mob("mobs_monster:trooper", {
   attack_type = "dogfight",
   pathfinding = false,
   reach = 2,
-  damage = 10,
+  damage = TROOPER_NORMAL_DAMAGE,
   hp_min = 20,
   hp_max = 20,
   armor = 100,
@@ -171,13 +220,46 @@ mobs:register_mob("mobs_monster:trooper", {
 
   do_custom = function(self, dtime)
     -- Forget dead player
-    if self.attack and self.attack:is_player() and self.attack:get_hp() <= 0 then
+    if self.attack
+      and self.attack.is_player
+      and self.attack:is_player()
+      and self.attack:get_hp() <= 0 then
       self.attack = nil
       self.state = "walk"
       self.timer = 0
     end
 
     return true
+  end,
+
+  --------------------------------------------------------------
+  -- CUSTOM ATTACK
+  --------------------------------------------------------------
+  custom_attack = function(self, to_attack)
+    local target = self.attack
+
+    if not target or not target:is_player() then
+      return false
+    end
+
+    local damage = TROOPER_NORMAL_DAMAGE
+
+    if player_has_rainbow_armor(target) then
+      damage = TROOPER_RAINBOW_DAMAGE
+    end
+
+    local hp = target:get_hp()
+
+    target:set_hp(
+      math.max(0, hp - damage),
+      {
+        type = "punch",
+        from = self.object,
+        direct = true,
+      }
+    )
+
+    return false
   end,
 
   drops = {

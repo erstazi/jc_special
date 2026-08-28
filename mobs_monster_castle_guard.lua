@@ -6,6 +6,7 @@ end
 local S = core.get_translator(core.get_current_modname())
 local monster_sounds_storage = core.get_mod_storage()
 
+local castle_guard_last_attackers = {}
 ----------------------------------------------------------------
 -- CASTLE GUARD SOUNDS
 ----------------------------------------------------------------
@@ -153,6 +154,12 @@ local CASTLE_GUARD_NORMAL_DAMAGE = 15
 
 -- Normal damage that castle guard does against player with rainbow
 local CASTLE_GUARD_RAINBOW_DAMAGE = 10
+
+-- Color for the name tag for the monster
+local CASTLE_GUARD_NAME_COLOR = "#ACF5A7"
+
+-- Color for the name of the player
+local PLAYER_NAME_COLOR = "#FFFF00"
 
 ----------------------------------------------------------------
 -- RAINBOW ARMOR DETECTION
@@ -302,10 +309,10 @@ core.register_chatcommand("list_jc_special_sounds_monsters", {
       return true, S("No players have monster sounds disabled.")
     end
 
-    core.chat_send_player(name, core.colorize("#FFFF00", S("Players with monster sounds disabled (@1):", #disabled_players) ) )
+    core.chat_send_player(name, core.colorize(PLAYER_NAME_COLOR, S("Players with monster sounds disabled (@1):", #disabled_players) ) )
 
     for _, player_name in ipairs(disabled_players) do
-      core.chat_send_player(name, "  " .. core.colorize("#FF7979", player_name) )
+      core.chat_send_player(name, "  " .. core.colorize("#FEC0C0", player_name) )
     end
 
     return true
@@ -576,7 +583,7 @@ mobs:register_mob("mobs_monster:castle_guard", {
     local name = castle_guard_names[ math.random(#castle_guard_names) ]
 
     self.castle_guard_name = name
-    self.nametag = core.colorize("#ACF5A7", name)
+    self.nametag = core.colorize(CASTLE_GUARD_NAME_COLOR, name)
 
     -- Remember where this particular guard spawned.
     local pos = self.object:get_pos()
@@ -611,7 +618,7 @@ mobs:register_mob("mobs_monster:castle_guard", {
     end
   end,
 
-  --[[
+
   ----------------------------------------------------------------
   -- CUSTOM ATTACK
   ----------------------------------------------------------------
@@ -628,6 +635,11 @@ mobs:register_mob("mobs_monster:castle_guard", {
       damage = CASTLE_GUARD_RAINBOW_DAMAGE
     end
 
+    local player_name = target:get_player_name()
+
+    -- Remember which Castle Guard delivered the attack.
+    castle_guard_last_attackers[player_name] = self.object
+
     local hp = target:get_hp()
 
     target:set_hp(
@@ -641,7 +653,7 @@ mobs:register_mob("mobs_monster:castle_guard", {
 
     return false
   end,
-  ]]
+
 
   --------------------------------------------------------------
   -- CUSTOM LOGIC
@@ -738,11 +750,35 @@ mobs:alias_mob("mobs:castle_guard", "mobs_monster:castle_guard")
 -- PLAYER DEATH MESSAGE / OOF SOUND
 ----------------------------------------------------------------
 core.register_on_dieplayer(function(player, reason)
-  if not reason or not reason.object then
+
+  local player_name = player:get_player_name()
+
+  --------------------------------------------------------------
+  -- Try to get the killer from the normal death reason first.
+  --------------------------------------------------------------
+
+  local killer = nil
+
+  if reason and reason.object then
+    killer = reason.object
+  end
+
+  --------------------------------------------------------------
+  -- Our custom Castle Guard attack uses set_hp(), so fall back
+  -- to the Castle Guard we recorded in custom_attack().
+  --------------------------------------------------------------
+
+  if not killer then
+    killer = castle_guard_last_attackers[player_name]
+  end
+
+  -- Remove the stored attacker now that the player has died.
+  castle_guard_last_attackers[player_name] = nil
+
+  if not killer then
     return
   end
 
-  local killer = reason.object
   local killer_entity = killer:get_luaentity()
 
   if not killer_entity then
@@ -753,11 +789,14 @@ core.register_on_dieplayer(function(player, reason)
     return
   end
 
-  local player_name = player:get_player_name()
   local castle_guard_name = killer_entity.castle_guard_name or S("Castle Guard")
+
   local death_pos = player:get_pos()
 
-  -- Play "oof" for everyone within 30 blocks of the death.
+  --------------------------------------------------------------
+  -- OOF SOUND
+  --------------------------------------------------------------
+
   if death_pos then
     core.sound_play("oof", {
       pos = death_pos,
@@ -766,8 +805,11 @@ core.register_on_dieplayer(function(player, reason)
     })
   end
 
-  -- Server-wide death message.
-  core.chat_send_all(core.colorize("#FF7979", S("@1 was eliminated by @2!", player_name, castle_guard_name) ) )
+  --------------------------------------------------------------
+  -- DEATH MESSAGE
+  --------------------------------------------------------------
+
+  core.chat_send_all(S("@1 was eliminated by @2!", core.colorize(PLAYER_NAME_COLOR, player_name), core.colorize(CASTLE_GUARD_NAME_COLOR, castle_guard_name) ) )
 end)
 
 core.log("action", "[jc_special] Castle Guard registered with mobs_redo" )

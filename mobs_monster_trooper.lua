@@ -5,11 +5,18 @@ end
 
 local S = core.get_translator(core.get_current_modname())
 
+local trooper_last_attackers = {}
 ----------------------------------------------------------------
 -- SETTINGS
 ----------------------------------------------------------------
 local TROOPER_NORMAL_DAMAGE = 10
 local TROOPER_RAINBOW_DAMAGE = 7
+
+-- Color for the name tag for the monster
+local TROOPER_NAME_COLOR = "#FFFF00"
+
+-- Color for the name of the player
+local PLAYER_NAME_COLOR = "#FFFF00"
 
 -- mobs_monster_trooper.lua
 -- Trooper mob originally from carbone_mobs.
@@ -205,7 +212,7 @@ mobs:register_mob("mobs_monster:trooper", {
   on_spawn = function(self)
     local name = trooper_names[math.random(#trooper_names)]
     self.trooper_name = name
-    self.nametag = core.colorize("#FFFF00", name)
+    self.nametag = core.colorize(TROOPER_NAME_COLOR, name)
     return true
   end,
 
@@ -227,7 +234,6 @@ mobs:register_mob("mobs_monster:trooper", {
     return true
   end,
 
-  --[[
   --------------------------------------------------------------
   -- CUSTOM ATTACK
   --------------------------------------------------------------
@@ -244,6 +250,11 @@ mobs:register_mob("mobs_monster:trooper", {
       damage = TROOPER_RAINBOW_DAMAGE
     end
 
+    local player_name = target:get_player_name()
+
+    -- Remember which Trooper delivered the attack.
+    trooper_last_attackers[player_name] = self.object
+
     local hp = target:get_hp()
 
     target:set_hp(
@@ -257,7 +268,6 @@ mobs:register_mob("mobs_monster:trooper", {
 
     return false
   end,
-  ]]
 
   drops = {
     { name = "mobs_monster:trooper", chance = 5, min = 1, max = 1 },
@@ -288,11 +298,35 @@ if not mobs.custom_spawn_monster then
 end
 
 core.register_on_dieplayer(function(player, reason)
-  if not reason or not reason.object then
+
+  local player_name = player:get_player_name()
+
+  --------------------------------------------------------------
+  -- Try to get the killer from the normal death reason first.
+  --------------------------------------------------------------
+
+  local killer = nil
+
+  if reason and reason.object then
+    killer = reason.object
+  end
+
+  --------------------------------------------------------------
+  -- Our custom Trooper attack uses set_hp(), so fall back
+  -- to the Trooper we recorded in custom_attack().
+  --------------------------------------------------------------
+
+  if not killer then
+    killer = trooper_last_attackers[player_name]
+  end
+
+  -- Remove the stored attacker now that the player has died.
+  trooper_last_attackers[player_name] = nil
+
+  if not killer then
     return
   end
 
-  local killer = reason.object
   local killer_entity = killer:get_luaentity()
 
   if not killer_entity then
@@ -303,11 +337,16 @@ core.register_on_dieplayer(function(player, reason)
     return
   end
 
-  local player_name = player:get_player_name()
-  local trooper_name = killer_entity.trooper_name or S("Trooper")
+  local trooper_name =
+    killer_entity.trooper_name
+    or S("Trooper")
+
   local death_pos = player:get_pos()
 
-  -- Play "oof" for everyone within 30 blocks of the death.
+  --------------------------------------------------------------
+  -- OOF SOUND
+  --------------------------------------------------------------
+
   if death_pos then
     core.sound_play("oof", {
       pos = death_pos,
@@ -316,8 +355,11 @@ core.register_on_dieplayer(function(player, reason)
     })
   end
 
-  -- Server-wide death message.
-  core.chat_send_all(core.colorize("#FF7979", S("@1 was eliminated by @2!", player_name, trooper_name) ) )
+  --------------------------------------------------------------
+  -- DEATH MESSAGE
+  --------------------------------------------------------------
+
+  core.chat_send_all(S("@1 was eliminated by @2!", core.colorize(PLAYER_NAME_COLOR, player_name), core.colorize(TROOPER_NAME_COLOR, trooper_name) ) )
 end)
 
 core.log("action", "[jc_special] Trooper registered with mobs_redo")

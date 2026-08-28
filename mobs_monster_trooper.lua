@@ -201,8 +201,7 @@ mobs:register_mob("mobs_monster:trooper", {
   attack_monsters = true,
 
   animation = {
-    speed_normal = 15,
-    speed_run = 30,
+    speed_normal = 15, speed_run = 30,
     stand_start = 0, stand_end = 40,
     walk_start = 168, walk_end = 187,
     run_start = 168, run_end = 187,
@@ -222,10 +221,7 @@ mobs:register_mob("mobs_monster:trooper", {
 
   do_custom = function(self, dtime)
     -- Forget dead player
-    if self.attack
-      and self.attack.is_player
-      and self.attack:is_player()
-      and self.attack:get_hp() <= 0 then
+    if self.attack and self.attack.is_player and self.attack:is_player() and self.attack:get_hp() <= 0 then
       self.attack = nil
       self.state = "walk"
       self.timer = 0

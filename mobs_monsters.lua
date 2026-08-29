@@ -214,31 +214,15 @@ end
 ----------------------------------------------------------------
 function Monster:find_visible_player(self, radius)
   local pos = self.object:get_pos()
-
   if not pos then
     return nil
   end
 
-  for _, player in ipairs(core.get_connected_players()) do
-    local player_pos = player:get_pos()
-
-    if player_pos then
-      local dx = player_pos.x - pos.x
-      local dy = player_pos.y - pos.y
-      local dz = player_pos.z - pos.z
-
-      local distance = math.sqrt(
-        dx * dx
-          + dy * dy
-          + dz * dz
-        )
-
-      if distance <= radius then
-        local visible = core.line_of_sight(pos, player_pos, 1 )
-
-        if visible then
-          return player
-        end
+  for _, object in ipairs(core.get_objects_inside_radius(pos, radius)) do
+    if object:is_player() then
+      local player_pos = object:get_pos()
+      if player_pos and core.line_of_sight(pos, player_pos, 1) then
+        return object
       end
     end
   end
@@ -1279,12 +1263,25 @@ local monsterDefinitions = {
     stand_chance = 0,
 
     animation = {
-      speed_normal = 15,
-      speed_run = 15,
-      stand_start = 0, stand_end = 40,
-      walk_start = 168, walk_end = 187,
-      run_start = 168, run_end = 187,
-      punch_start = 189, punch_end = 198,
+      speed_normal = 6,
+      speed_run = 6,
+
+      stand_start = 0,
+      stand_end = 40,
+      stand_speed = 15,
+
+
+      walk_start = 168,
+      walk_end = 187,
+      walk_speed = 5,
+
+      run_start = 168,
+      run_end = 187,
+      run_speed = 5,
+
+      punch_start = 189,
+      punch_end = 198,
+      punch_speed = 15,
     },
 
     names = {
@@ -1376,6 +1373,25 @@ local monsterDefinitions = {
 
       -- Keep walk animation
       self:set_animation("walk")
+
+      ----------------------------------------------------------
+      -- ARM RAISING (left then right)
+      ----------------------------------------------------------
+      --[[
+      TOO MUCH LIKE A PENIS COMING OUT
+      self.mj_arm_timer = (self.mj_arm_timer or 0) - dtime
+      if self.mj_arm_timer <= 0 then
+        self.mj_arm_side = not self.mj_arm_side
+        local bone = self.mj_arm_side and "Arm_Left" or "Arm_Right"
+        self.object:set_bone_position(bone, {x = 0, y = 0, z = 0}, {x = -90, y = 0, z = 0})
+        core.after(0.7, function()
+          if self.object and self.object:get_luaentity() then
+            self.object:set_bone_position(bone, {x = 0, y = 0, z = 0}, {x = 0, y = 0, z = 0})
+          end
+        end)
+        self.mj_arm_timer = 1.6
+      end
+      ]]
 
       return true
     end,

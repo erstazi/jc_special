@@ -342,8 +342,11 @@ function Monster:patrol(self, dtime, def)
       + dz * dz
     )
 
+  --------------------------------------------------------------
+  -- Outside patrol radius.
+  -- Return directly toward home.
+  --------------------------------------------------------------
   if distance_from_home > patrol.radius + 1 then
-    -- Head directly back toward home.
     local distance = math.sqrt(
       dx * dx
         + dz * dz
@@ -352,15 +355,26 @@ function Monster:patrol(self, dtime, def)
     if distance > 0 then
       local velocity = 1
 
+      local move_x = -dx / distance
+      local move_z = -dz / distance
+
       self.object:set_velocity({
-        x = -dx / distance * velocity,
+        x = move_x * velocity,
         y = self.object:get_velocity().y,
-        z = -dz / distance * velocity,
+        z = move_z * velocity,
       })
 
-      self.object:set_yaw(
-        math.atan2(-dx, -dz)
-      )
+      ------------------------------------------------------------
+      -- Face movement direction normally.
+      -- Face opposite movement direction when backwards=true.
+      ------------------------------------------------------------
+      local yaw = math.atan2(move_x, move_z)
+
+      if def.backwards then
+        yaw = yaw + math.pi
+      end
+
+      self.object:set_yaw(yaw)
     end
 
     return
@@ -397,7 +411,8 @@ function Monster:patrol(self, dtime, def)
       z = 0,
     })
 
-    self.jc_monster_patrol_wait = (self.jc_monster_patrol_wait or 0) - dtime
+    self.jc_monster_patrol_wait =
+      (self.jc_monster_patrol_wait or 0) - dtime
 
     if self.jc_monster_patrol_wait <= 0 then
       self.jc_monster_patrol_wait = math.random(2, 5)
@@ -413,15 +428,37 @@ function Monster:patrol(self, dtime, def)
   --------------------------------------------------------------
   local velocity = self.object:get_velocity()
 
+  local move_x = tx / target_distance
+  local move_z = tz / target_distance
+
+  local speed = def.walk_velocity or 1
+
   self.object:set_velocity({
-    x = tx / target_distance * 1,
+    x = move_x * speed,
     y = velocity.y,
-    z = tz / target_distance * 1,
+    z = move_z * speed,
   })
 
-  self.object:set_yaw(
-    math.atan2(tx, tz)
-  )
+  --------------------------------------------------------------
+  -- Face movement direction.
+  --
+  -- Normal:
+  --   face the direction of travel.
+  --
+  -- backwards = true:
+  --   face 180 degrees opposite the direction of travel.
+  --
+  -- This produces the moonwalk effect:
+  -- the mob's body faces backward while its actual
+  -- movement remains toward the patrol destination.
+  --------------------------------------------------------------
+  local yaw = math.atan2(move_x, move_z)
+
+  if def.backwards then
+    yaw = yaw + math.pi
+  end
+
+  self.object:set_yaw(yaw)
 end
 
 ----------------------------------------------------------------
@@ -462,8 +499,7 @@ function Monster:on_spawn(self, def)
   --------------------------------------------------------------
   -- Detection timers
   --------------------------------------------------------------
-  if def.detection
-    and def.detection.enabled then
+  if def.detection and def.detection.enabled then
 
     self.jc_monster_seeing_cooldown = 0
 
@@ -472,6 +508,17 @@ function Monster:on_spawn(self, def)
     local max = def.detection.idle_sound_max or 125
 
     self.jc_monster_idle_cooldown = math.random(min, max)
+  end
+
+  --------------------------------------------------------------
+  -- Random monster sound timer
+  --------------------------------------------------------------
+  if def.random_sounds and def.random_sounds.enabled then
+
+    local min = def.random_sounds.interval_min or 3
+    local max = def.random_sounds.interval_max or 8
+
+    self.jc_monster_random_sound_timer = math.random(min, max)
   end
 
   --------------------------------------------------------------
@@ -554,6 +601,28 @@ function Monster:do_custom(self, dtime, def)
   end
 
   --------------------------------------------------------------
+  -- Random monster sounds
+  --------------------------------------------------------------
+  if def.random_sounds and def.random_sounds.enabled and def.random_sounds.sounds then
+
+    self.jc_monster_random_sound_timer =
+      math.max(
+        0,
+        (self.jc_monster_random_sound_timer or 0)
+          - dtime
+      )
+
+    if self.jc_monster_random_sound_timer <= 0 then
+      Monster:play_random_sound( self, def.random_sounds.sounds, def.random_sounds.gain or 1.0 )
+
+      local min = def.random_sounds.interval_min or 3
+      local max = def.random_sounds.interval_max or 8
+
+      self.jc_monster_random_sound_timer = math.random(min, max)
+    end
+  end
+
+  --------------------------------------------------------------
   -- If currently attacking, don't do idle behavior.
   --------------------------------------------------------------
   if self.attack then
@@ -564,50 +633,51 @@ function Monster:do_custom(self, dtime, def)
   -- Detection
   --------------------------------------------------------------
   local detection = def.detection
+  if detection and detection.enabled then
 
-  if detection
-    and detection.enabled then
-
+    -- Countdown sound cooldowns
     self.jc_monster_seeing_cooldown =
-      math.max(
-        0,
-        (self.jc_monster_seeing_cooldown or 0)
-          - dtime
-      )
+      math.max(0, (self.jc_monster_seeing_cooldown or 0) - dtime)
 
     self.jc_monster_idle_cooldown =
-      math.max(
-        0,
-        (self.jc_monster_idle_cooldown or 0)
-          - dtime
-      )
+      math.max(0, (self.jc_monster_idle_cooldown or 0) - dtime)
 
-    local player = Monster:find_visible_player( self, detection.radius )
+    -- Only do the expensive player search every 0.4 seconds
+    self.jc_monster_detect_timer =
+      (self.jc_monster_detect_timer or 0) - dtime
 
-    if player then
-      if self.jc_monster_seeing_cooldown <= 0 then
-        if def.sounds and def.sounds.seeing_player then
+    if self.jc_monster_detect_timer <= 0 then
+      self.jc_monster_detect_timer = 0.4   -- check 2.5 times per second
 
-          Monster:play_random_sound( self, def.sounds.seeing_player, def.sounds.seeing_gain or 0.2 )
+      local player = Monster:find_visible_player(self, detection.radius)
+
+      if player then
+        if self.jc_monster_seeing_cooldown <= 0 then
+          if def.sounds and def.sounds.seeing_player then
+            Monster:play_random_sound(
+              self,
+              def.sounds.seeing_player,
+              def.sounds.seeing_gain or 0.2
+            )
+          end
+          self.jc_monster_seeing_cooldown = detection.seeing_sound_cooldown or 25
         end
-
-        self.jc_monster_seeing_cooldown = detection.seeing_sound_cooldown or 25
+      else
+        -- No player nearby
+        if self.jc_monster_idle_cooldown <= 0 then
+          if def.sounds and def.sounds.no_players_around then
+            Monster:play_random_sound(
+              self,
+              def.sounds.no_players_around,
+              def.sounds.idle_gain or 0.05
+            )
+          end
+          self.jc_monster_idle_cooldown = math.random(
+            detection.idle_sound_min or 25,
+            detection.idle_sound_max or 125
+          )
+        end
       end
-
-      return true
-    end
-
-    ------------------------------------------------------------
-    -- No player nearby.
-    ------------------------------------------------------------
-    if self.jc_monster_idle_cooldown <= 0 then
-      if def.sounds
-        and def.sounds.no_players_around then
-
-        Monster:play_random_sound( self, def.sounds.no_players_around, def.sounds.idle_gain or 0.05 )
-      end
-
-      self.jc_monster_idle_cooldown = math.random(detection.idle_sound_min or 25, detection.idle_sound_max or 125 )
     end
   end
 
@@ -627,7 +697,7 @@ end
 function Monster:build_definition(def)
   local mob_def = {
     type = def.type or "monster",
-    passive = def.passive or true,
+    passive = def.passive ~= false,
     attack_type = def.attack_type or "dogfight",
     pathfinding = false,
     reach = def.reach or 2,
@@ -645,7 +715,7 @@ function Monster:build_definition(def)
     textures = {
       {def.texture},
     },
-    makes_footstep_sound = def.makes_footstep_sound or true,
+    makes_footstep_sound = def.makes_footstep_sound ~= false,
     stepheight = def.stepheight or 1.6,
     walk_velocity = def.walk_velocity or 1,
     run_velocity = def.run_velocity or 4,
@@ -654,7 +724,7 @@ function Monster:build_definition(def)
     lava_damage = def.lava_damage or 8,
     attack_npcs = def.attack_npcs or false,
     attack_animals = def.attack_animals or false,
-    attack_monsters = def.attack_monsters or true,
+    attack_monsters = def.attack_monsters ~= false,
     animation = def.animation or {
       speed_normal = 15,
       speed_run = 30,
@@ -693,6 +763,26 @@ function Monster:build_definition(def)
 
       if def.do_punch then
         return def.do_punch( self, hitter, def )
+      end
+    end,
+
+    on_step = function(self, dtime)
+      if def.backwards and self.state == "walk" then
+
+        local velocity = self.object:get_velocity()
+
+        if velocity then
+          local dx = velocity.x
+          local dz = velocity.z
+
+          local speed = math.sqrt(dx * dx + dz * dz)
+
+          if speed > 0.05 then
+            self.object:set_yaw(
+              math.atan2(dx, dz) + math.pi
+            )
+          end
+        end
       end
     end,
 
@@ -1062,7 +1152,7 @@ local monsterDefinitions = {
       "Wilson",
       "Smith",
       "Will Smith",
-      "Michael Jackson",
+      -- "Michael Jackson",
       "Nobody",
       "Definitely Not A Trooper",
       "Private Parts",
@@ -1145,6 +1235,154 @@ local monsterDefinitions = {
     },
   },
 
+  ----------------------------------------------------------------
+  -- MICHAEL JACKSON
+  ----------------------------------------------------------------
+  michael_jackson = {
+    name = "mobs_monster:michael_jackson",
+    type = "npc",
+    description = "Michael Jackson",
+    alias = "mobs:michael_jackson",
+    nametag_color = "#FFFFFF",
+
+    passive = true,
+    attack_players = false,
+    attack_npcs = false,
+    attack_animals = false,
+    attack_monsters = false,
+
+    damage = 0, -- was 10
+    rainbow_damage = 0, -- was 7
+
+    hp_min = 20,
+    hp_max = 20,
+    armor = 100,
+
+    collisionbox = {
+      -0.3, -1, -0.3,
+       0.3,  0.8,  0.3,
+    },
+
+    texture = "michael_jackson.png",
+    mesh = "character.b3d",
+    egg_texture = "michael_jackson.png",
+
+    stepheight = 1.6,
+    walk_velocity = 0,
+    run_velocity = 0,
+    jump_height = 4,
+    view_range = 8,
+    lava_damage = 8,
+
+    -- Prevent mobs_redo from doing normal walk behavior
+    walk_chance = 0,
+    stand_chance = 0,
+
+    animation = {
+      speed_normal = 15,
+      speed_run = 15,
+      stand_start = 0, stand_end = 40,
+      walk_start = 168, walk_end = 187,
+      run_start = 168, run_end = 187,
+      punch_start = 189, punch_end = 198,
+    },
+
+    names = {
+      "Michael Jackson",
+    },
+
+    random_sounds = {
+      enabled = true,
+      interval_min = 0.4,
+      interval_max = 1.8,
+      gain = 1.0,
+      sounds = {
+        "michael_jackson_sound_001",
+        "michael_jackson_sound_002",
+        "michael_jackson_sound_003",
+        "michael_jackson_sound_004",
+        "michael_jackson_sound_005",
+        "michael_jackson_sound_006",
+        "michael_jackson_sound_007",
+        "michael_jackson_sound_008",
+        "michael_jackson_sound_009",
+        "michael_jackson_sound_010",
+        "michael_jackson_sound_011",
+        "michael_jackson_sound_012",
+      },
+    },
+
+    ----------------------------------------------------------------
+    -- CUSTOM PUNCH MOVEMENT
+    ----------------------------------------------------------------
+    do_punch = function(self, hitter, def)
+      if hitter and hitter:is_player() then
+        Monster:play_random_sound(self, {"michael_jackson_sound_011"}, 1.0)
+      end
+
+      -- Force him back to peaceful moonwalking
+      self.attack = nil
+      self.state = "stand"
+      self.timer = 0
+
+      return true
+    end,
+
+    ----------------------------------------------------------------
+    -- CUSTOM MOONWALK MOVEMENT
+    ----------------------------------------------------------------
+    do_custom = function(self, dtime, def)
+      -- Don't do our own movement while attacking
+      if self.attack then
+        return true
+      end
+
+      local pos = self.object:get_pos()
+      if not pos then return true end
+
+      -- Change direction every few seconds
+      self.mj_timer = (self.mj_timer or 0) - dtime
+      if not self.mj_dir or self.mj_timer <= 0 then
+        local angle = math.random() * math.pi * 2
+        self.mj_dir = {
+          x = math.cos(angle),
+          z = math.sin(angle)
+        }
+        self.mj_timer = math.random(4, 8)
+      end
+
+      local speed = 1.0
+
+      -- Move in the chosen direction
+      local vel = self.object:get_velocity() or {y = 0}
+      self.object:set_velocity({
+        x = self.mj_dir.x * speed,
+        y = vel.y,
+        z = self.mj_dir.z * speed
+      })
+
+      -- Always face the exact opposite direction
+      local move_yaw = math.atan2(self.mj_dir.x, self.mj_dir.z)
+      local face_yaw = move_yaw + math.pi          -- 180 degrees opposite
+
+      self.object:set_yaw(face_yaw)
+
+      -- Force it again next tick so mobs_redo can't override it
+      core.after(0, function()
+        if self.object and self.object:get_luaentity() then
+          self.object:set_yaw(face_yaw)
+        end
+      end)
+
+      -- Keep walk animation
+      self:set_animation("walk")
+
+      return true
+    end,
+    drops = {
+      { name = "mobs_monster:michael_jackson", chance = 5, min = 1, max = 1 },
+    },
+  },
 }
 
 ----------------------------------------------------------------

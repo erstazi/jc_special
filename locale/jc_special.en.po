@@ -202,3 +202,55 @@ msgstr "Found @1 @2 within a @3 node square:"
 
 msgid "@1 - @2 nodes away"
 msgstr "@1 - @2 nodes away"
+
+#: prison.lua
+msgid "Prison Bars"
+msgstr "Prison Bars"
+
+#: prison.lua
+msgid "Prison Floor"
+msgstr "Prison Floor"
+
+#: prison.lua
+msgid "Prison Stone"
+msgstr "Prison Stone"
+
+#: prison.lua
+msgid "Prison Stone Bricks"
+msgstr "Prison Stone Bricks"
+
+#: prison.lua
+msgid "Invalid syntax! Usage: /jail <player> <reason>"
+msgstr "Invalid syntax! Usage: /jail <player> <reason>"
+
+#: prison.lua
+msgid "Invalid syntax! Usage: /unjail <player> <reason>"
+msgstr "Invalid syntax! Usage: /unjail <player> <reason>"
+
+#: prison.lua
+msgid "Player @1 not found."
+msgstr "Player @1 not found."
+
+#: prison.lua
+msgid "Player @1 is already jailed."
+msgstr "Player @1 is already jailed."
+
+#: prison.lua
+msgid "Player @1 has been jailed"
+msgstr "Player @1 has been jailed"
+
+#: prison.lua
+msgid "Player @1 was never jailed"
+msgstr "Player @1 was never jailed"
+
+#: prison.lua
+msgid "Player @1 has been unjailed"
+msgstr "Player @1 has been unjailed"
+
+#: prison.lua
+msgid "Jails Players"
+msgstr "Jails Players"
+
+#: prison.lua
+msgid "Unjails players"
+msgstr "Unjails players"

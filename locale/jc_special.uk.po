@@ -202,3 +202,55 @@ msgstr "Знайдено @1 @2 у квадраті радіусом @3 блок�
 
 msgid "@1 - @2 nodes away"
 msgstr "@1 - на відстані @2 блоків"
+
+#: prison.lua
+msgid "Prison Bars"
+msgstr "Тюремні ґрати"
+
+#: prison.lua
+msgid "Prison Floor"
+msgstr "Тюремна підлога"
+
+#: prison.lua
+msgid "Prison Stone"
+msgstr "Тюремний камінь"
+
+#: prison.lua
+msgid "Prison Stone Bricks"
+msgstr "Тюремна кам'яна цегла"
+
+#: prison.lua
+msgid "Invalid syntax! Usage: /jail <player> <reason>"
+msgstr "Неправильний синтаксис! Використання: /jail <гравець> <причина>"
+
+#: prison.lua
+msgid "Invalid syntax! Usage: /unjail <player> <reason>"
+msgstr "Неправильний синтаксис! Використання: /unjail <гравець> <причина>"
+
+#: prison.lua
+msgid "Player @1 not found."
+msgstr "Гравця @1 не знайдено."
+
+#: prison.lua
+msgid "Player @1 is already jailed."
+msgstr "Гравець @1 вже перебуває у в'язниці."
+
+#: prison.lua
+msgid "Player @1 has been jailed"
+msgstr "Гравця @1 ув'язнено"
+
+#: prison.lua
+msgid "Player @1 was never jailed"
+msgstr "Гравець @1 ніколи не був ув'язнений"
+
+#: prison.lua
+msgid "Player @1 has been unjailed"
+msgstr "Гравця @1 звільнено з в'язниці"
+
+#: prison.lua
+msgid "Jails Players"
+msgstr "Ув'язнює гравців"
+
+#: prison.lua
+msgid "Unjails players"
+msgstr "Звільняє гравців із в'язниці"

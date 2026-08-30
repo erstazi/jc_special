@@ -11,6 +11,7 @@ end
 
 jc_special = {}
 
+dofile(modpath .. "/prison.lua")
 dofile(modpath .. "/daybutton.lua")
 dofile(modpath .. "/welcomeplayers.lua")
 -- dofile(modpath .. "/player_lookup.lua")

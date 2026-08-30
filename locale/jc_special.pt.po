@@ -202,3 +202,55 @@ msgstr "Encontrados @1 @2 dentro de um quadrado de @3 nós:"
 
 msgid "@1 - @2 nodes away"
 msgstr "@1 - a @2 nós de distância"
+
+#: prison.lua
+msgid "Prison Bars"
+msgstr "Grades de prisão"
+
+#: prison.lua
+msgid "Prison Floor"
+msgstr "Piso da prisão"
+
+#: prison.lua
+msgid "Prison Stone"
+msgstr "Pedra de prisão"
+
+#: prison.lua
+msgid "Prison Stone Bricks"
+msgstr "Tijolos de pedra de prisão"
+
+#: prison.lua
+msgid "Invalid syntax! Usage: /jail <player> <reason>"
+msgstr "Sintaxe inválida! Uso: /jail <jogador> <motivo>"
+
+#: prison.lua
+msgid "Invalid syntax! Usage: /unjail <player> <reason>"
+msgstr "Sintaxe inválida! Uso: /unjail <jogador> <motivo>"
+
+#: prison.lua
+msgid "Player @1 not found."
+msgstr "Jogador @1 não encontrado."
+
+#: prison.lua
+msgid "Player @1 is already jailed."
+msgstr "O jogador @1 já está preso."
+
+#: prison.lua
+msgid "Player @1 has been jailed"
+msgstr "O jogador @1 foi preso"
+
+#: prison.lua
+msgid "Player @1 was never jailed"
+msgstr "O jogador @1 nunca esteve preso"
+
+#: prison.lua
+msgid "Player @1 has been unjailed"
+msgstr "O jogador @1 foi libertado da prisão"
+
+#: prison.lua
+msgid "Jails Players"
+msgstr "Prende jogadores"
+
+#: prison.lua
+msgid "Unjails players"
+msgstr "Liberta jogadores da prisão"

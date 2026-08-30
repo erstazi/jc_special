@@ -202,3 +202,55 @@ msgstr "Se encontraron @1 @2 dentro de un cuadrado de @3 nodos:"
 
 msgid "@1 - @2 nodes away"
 msgstr "@1 - a @2 nodos de distancia"
+
+#: prison.lua
+msgid "Prison Bars"
+msgstr "Rejas de prisión"
+
+#: prison.lua
+msgid "Prison Floor"
+msgstr "Suelo de prisión"
+
+#: prison.lua
+msgid "Prison Stone"
+msgstr "Piedra de prisión"
+
+#: prison.lua
+msgid "Prison Stone Bricks"
+msgstr "Ladrillos de piedra de prisión"
+
+#: prison.lua
+msgid "Invalid syntax! Usage: /jail <player> <reason>"
+msgstr "Sintaxis no válida. Uso: /jail <jugador> <razón>"
+
+#: prison.lua
+msgid "Invalid syntax! Usage: /unjail <player> <reason>"
+msgstr "Sintaxis no válida. Uso: /unjail <jugador> <razón>"
+
+#: prison.lua
+msgid "Player @1 not found."
+msgstr "Jugador @1 no encontrado."
+
+#: prison.lua
+msgid "Player @1 is already jailed."
+msgstr "El jugador @1 ya está encarcelado."
+
+#: prison.lua
+msgid "Player @1 has been jailed"
+msgstr "El jugador @1 ha sido encarcelado"
+
+#: prison.lua
+msgid "Player @1 was never jailed"
+msgstr "El jugador @1 nunca estuvo encarcelado"
+
+#: prison.lua
+msgid "Player @1 has been unjailed"
+msgstr "El jugador @1 ha sido liberado de prisión"
+
+#: prison.lua
+msgid "Jails Players"
+msgstr "Encárcela jugadores"
+
+#: prison.lua
+msgid "Unjails players"
+msgstr "Libera jugadores de prisión"

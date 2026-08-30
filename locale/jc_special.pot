@@ -201,3 +201,55 @@ msgstr ""
 
 msgid "@1 - @2 nodes away"
 msgstr ""
+
+#: prison.lua
+msgid "Prison Bars"
+msgstr ""
+
+#: prison.lua
+msgid "Prison Floor"
+msgstr ""
+
+#: prison.lua
+msgid "Prison Stone"
+msgstr ""
+
+#: prison.lua
+msgid "Prison Stone Bricks"
+msgstr ""
+
+#: prison.lua
+msgid "Invalid syntax! Usage: /jail <player> <reason>"
+msgstr ""
+
+#: prison.lua
+msgid "Invalid syntax! Usage: /unjail <player> <reason>"
+msgstr ""
+
+#: prison.lua
+msgid "Player @1 not found."
+msgstr ""
+
+#: prison.lua
+msgid "Player @1 is already jailed."
+msgstr ""
+
+#: prison.lua
+msgid "Player @1 has been jailed"
+msgstr ""
+
+#: prison.lua
+msgid "Player @1 was never jailed"
+msgstr ""
+
+#: prison.lua
+msgid "Player @1 has been unjailed"
+msgstr ""
+
+#: prison.lua
+msgid "Jails Players"
+msgstr ""
+
+#: prison.lua
+msgid "Unjails players"
+msgstr ""

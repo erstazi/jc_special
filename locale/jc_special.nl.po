@@ -202,3 +202,55 @@ msgstr "@1 @2 gevonden binnen een vierkant van @3 nodes:"
 
 msgid "@1 - @2 nodes away"
 msgstr "@1 - @2 nodes verwijderd"
+
+#: prison.lua
+msgid "Prison Bars"
+msgstr "Gevangenisbalken"
+
+#: prison.lua
+msgid "Prison Floor"
+msgstr "Gevangenisvloer"
+
+#: prison.lua
+msgid "Prison Stone"
+msgstr "Gevangenissteen"
+
+#: prison.lua
+msgid "Prison Stone Bricks"
+msgstr "Gevangenisstenen"
+
+#: prison.lua
+msgid "Invalid syntax! Usage: /jail <player> <reason>"
+msgstr "Ongeldige syntaxis! Gebruik: /jail <speler> <reden>"
+
+#: prison.lua
+msgid "Invalid syntax! Usage: /unjail <player> <reason>"
+msgstr "Ongeldige syntaxis! Gebruik: /unjail <speler> <reden>"
+
+#: prison.lua
+msgid "Player @1 not found."
+msgstr "Speler @1 niet gevonden."
+
+#: prison.lua
+msgid "Player @1 is already jailed."
+msgstr "Speler @1 zit al in de gevangenis."
+
+#: prison.lua
+msgid "Player @1 has been jailed"
+msgstr "Speler @1 is gevangengezet"
+
+#: prison.lua
+msgid "Player @1 was never jailed"
+msgstr "Speler @1 heeft nooit in de gevangenis gezeten"
+
+#: prison.lua
+msgid "Player @1 has been unjailed"
+msgstr "Speler @1 is vrijgelaten"
+
+#: prison.lua
+msgid "Jails Players"
+msgstr "Spelers gevangenzetten"
+
+#: prison.lua
+msgid "Unjails players"
+msgstr "Spelers vrijlaten"

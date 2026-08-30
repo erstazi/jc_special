@@ -291,9 +291,90 @@ function Monster:pick_patrol_target(self, def)
 end
 
 ----------------------------------------------------------------
+-- CHECK PATROL PATH
+--
+-- Checks the ground along the patrol route.
+--
+-- Returns false if the guard would encounter a node that
+-- requires jumping or otherwise cannot walk normally.
+----------------------------------------------------------------
+function Monster:patrol_path_is_clear(self, start_pos, target_pos)
+  local dx = target_pos.x - start_pos.x
+  local dz = target_pos.z - start_pos.z
+
+  local distance = math.sqrt( dx * dx + dz * dz )
+
+  if distance <= 0 then
+    return true
+  end
+
+  local steps = math.ceil(distance)
+
+  for i = 1, steps do
+
+    local fraction = i / steps
+
+    local x = start_pos.x + dx * fraction
+    local z = start_pos.z + dz * fraction
+
+    local ground_y = math.floor(start_pos.y + 0.5)
+
+    local ground_pos = {
+      x = math.floor(x + 0.5),
+      y = ground_y,
+      z = math.floor(z + 0.5),
+    }
+
+    local node_below = core.get_node({
+      x = ground_pos.x,
+      y = ground_pos.y - 1,
+      z = ground_pos.z,
+    })
+
+    local node_feet = core.get_node({
+      x = ground_pos.x,
+      y = ground_pos.y,
+      z = ground_pos.z,
+    })
+
+    local node_head = core.get_node({
+      x = ground_pos.x,
+      y = ground_pos.y + 1,
+      z = ground_pos.z,
+    })
+
+    local below_def = core.registered_nodes[node_below.name]
+    local feet_def = core.registered_nodes[node_feet.name]
+    local head_def = core.registered_nodes[node_head.name]
+
+    ------------------------------------------------------------
+    -- Need solid ground.
+    ------------------------------------------------------------
+    if not below_def
+      or below_def.walkable ~= true then
+      return false
+    end
+
+    ------------------------------------------------------------
+    -- Feet and head must be clear.
+    ------------------------------------------------------------
+    if feet_def and feet_def.walkable then
+      return false
+    end
+
+    if head_def and head_def.walkable then
+      return false
+    end
+  end
+
+  return true
+end
+
+----------------------------------------------------------------
 -- PATROL
 ----------------------------------------------------------------
-function Monster:patrol(self, dtime, def)
+
+function Monster:patrolOLD(self, dtime, def)
   local patrol = def.patrol
 
   if not patrol
@@ -443,6 +524,327 @@ function Monster:patrol(self, dtime, def)
   end
 
   self.object:set_yaw(yaw)
+end
+
+----------------------------------------------------------------
+-- PATROL (ATTEMPT AT NEW)
+----------------------------------------------------------------
+function Monster:patrol(self, dtime, def)
+  local patrol = def.patrol
+
+  if not patrol
+    or not patrol.enabled then
+    return
+  end
+
+  local pos = self.object:get_pos()
+
+  if not pos then
+    return
+  end
+
+  --------------------------------------------------------------
+  -- INITIALIZE PATROL
+  --------------------------------------------------------------
+  if not self.jc_patrol_initialized then
+    self.jc_patrol_initialized = true
+
+    ------------------------------------------------------------
+    -- Remember the exact starting position.
+    ------------------------------------------------------------
+    self.jc_patrol_start = {
+      x = pos.x,
+      y = pos.y,
+      z = pos.z,
+    }
+
+    ------------------------------------------------------------
+    -- Remember the direction the monster was originally facing.
+    ------------------------------------------------------------
+    self.jc_patrol_yaw = self.object:get_yaw()
+
+    ------------------------------------------------------------
+    -- Build the two patrol endpoints.
+    ------------------------------------------------------------
+    local distance = patrol.first_distance or patrol.radius or 5
+
+    local dx = -math.sin(self.jc_patrol_yaw)
+    local dz = math.cos(self.jc_patrol_yaw)
+
+    self.jc_patrol_end = {
+      x = self.jc_patrol_start.x + dx * distance,
+      y = self.jc_patrol_start.y,
+      z = self.jc_patrol_start.z + dz * distance,
+    }
+
+    ------------------------------------------------------------
+    -- Start by standing.
+    ------------------------------------------------------------
+    self.jc_patrol_phase = "stand_start"
+
+    self.jc_patrol_timer =
+      patrol.stand_time or 5
+
+    self.jc_patrol_target = nil
+
+    self.object:set_velocity({
+      x = 0,
+      y = self.object:get_velocity().y,
+      z = 0,
+    })
+
+    self.object:set_yaw(self.jc_patrol_yaw)
+
+    self:set_animation("stand")
+
+    return
+  end
+
+  --------------------------------------------------------------
+  -- LOOK AT PLAYERS
+  --
+  -- This temporarily overrides patrol movement.
+  --
+  -- IMPORTANT:
+  -- We do NOT change the patrol phase or target here.
+  -- When the player disappears, the guard simply continues
+  -- exactly where it left off.
+  --------------------------------------------------------------
+  if patrol.look_at_players then
+    local player = Monster:find_visible_player( self, patrol.detection_radius or 20 )
+
+    if player then
+
+      ----------------------------------------------------------
+      -- Stop horizontal movement.
+      ----------------------------------------------------------
+      self.object:set_velocity({
+        x = 0,
+        y = self.object:get_velocity().y,
+        z = 0,
+      })
+
+      ----------------------------------------------------------
+      -- Look at player.
+      ----------------------------------------------------------
+      local player_pos = player:get_pos()
+
+      if player_pos then
+
+        local dx = player_pos.x - pos.x
+        local dz = player_pos.z - pos.z
+
+        if math.abs(dx) > 0.01
+          or math.abs(dz) > 0.01 then
+
+          local yaw = math.atan2(-dx, dz)
+
+          self.object:set_yaw(yaw)
+        end
+      end
+
+      self:set_animation("stand")
+
+      ----------------------------------------------------------
+      -- Do NOT advance the patrol timer while watching.
+      ----------------------------------------------------------
+      return
+    end
+  end
+
+  --------------------------------------------------------------
+  -- STAND AT START
+  --------------------------------------------------------------
+  if self.jc_patrol_phase == "stand_start" then
+
+    self.object:set_velocity({
+      x = 0,
+      y = self.object:get_velocity().y,
+      z = 0,
+    })
+
+    self.object:set_yaw(self.jc_patrol_yaw)
+
+    self:set_animation("stand")
+
+    self.jc_patrol_timer =
+      self.jc_patrol_timer - dtime
+
+    if self.jc_patrol_timer <= 0 then
+
+      ----------------------------------------------------------
+      -- Walk toward the far endpoint.
+      ----------------------------------------------------------
+      self.jc_patrol_target = self.jc_patrol_end
+      self.jc_patrol_phase = "walk_to_end"
+
+    end
+
+    return
+  end
+
+  --------------------------------------------------------------
+  -- WALK TO END
+  --------------------------------------------------------------
+  if self.jc_patrol_phase == "walk_to_end" then
+
+    local target = self.jc_patrol_end
+
+    local tx = target.x - pos.x
+    local tz = target.z - pos.z
+
+    local distance = math.sqrt( tx * tx + tz * tz )
+
+    ------------------------------------------------------------
+    -- Reached endpoint.
+    ------------------------------------------------------------
+    if distance <= (patrol.reached_distance or 0.8) then
+
+      self.object:set_velocity({
+        x = 0,
+        y = self.object:get_velocity().y,
+        z = 0,
+      })
+
+      self.object:set_yaw(self.jc_patrol_yaw)
+
+      self:set_animation("stand")
+
+      self.jc_patrol_phase = "stand_end"
+
+      self.jc_patrol_timer =
+        patrol.stand_time or 5
+
+      return
+    end
+
+    ------------------------------------------------------------
+    -- Walk toward endpoint.
+    ------------------------------------------------------------
+    local move_x = tx / distance
+    local move_z = tz / distance
+
+    local velocity = self.object:get_velocity()
+
+    local speed = def.walk_velocity or 1
+
+    self.object:set_velocity({
+      x = move_x * speed,
+      y = velocity.y,
+      z = move_z * speed,
+    })
+
+    ------------------------------------------------------------
+    -- Face movement direction.
+    ------------------------------------------------------------
+    local yaw = math.atan2(-move_x, move_z)
+
+    if def.backwards then
+      yaw = yaw + math.pi
+    end
+
+    self.object:set_yaw(yaw)
+
+    self:set_animation("walk")
+
+    return
+  end
+
+  --------------------------------------------------------------
+  -- STAND AT END
+  --------------------------------------------------------------
+  if self.jc_patrol_phase == "stand_end" then
+
+    self.object:set_velocity({
+      x = 0,
+      y = self.object:get_velocity().y,
+      z = 0,
+    })
+
+    self:set_animation("stand")
+
+    self.jc_patrol_timer =
+      self.jc_patrol_timer - dtime
+
+    if self.jc_patrol_timer <= 0 then
+
+      ----------------------------------------------------------
+      -- Walk back to the original spawn position.
+      ----------------------------------------------------------
+      self.jc_patrol_target = self.jc_patrol_start
+      self.jc_patrol_phase = "walk_to_start"
+
+    end
+
+    return
+  end
+
+  --------------------------------------------------------------
+  -- WALK BACK TO START
+  --------------------------------------------------------------
+  if self.jc_patrol_phase == "walk_to_start" then
+
+    local target = self.jc_patrol_start
+
+    local tx = target.x - pos.x
+    local tz = target.z - pos.z
+
+    local distance = math.sqrt( tx * tx + tz * tz )
+
+    ------------------------------------------------------------
+    -- Reached starting point.
+    ------------------------------------------------------------
+    if distance <= (patrol.reached_distance or 0.8) then
+
+      self.object:set_velocity({
+        x = 0,
+        y = self.object:get_velocity().y,
+        z = 0,
+      })
+
+      self.object:set_yaw(self.jc_patrol_yaw)
+
+      self:set_animation("stand")
+
+      self.jc_patrol_phase = "stand_start"
+
+      self.jc_patrol_timer =
+        patrol.stand_time or 5
+
+      return
+    end
+
+    ------------------------------------------------------------
+    -- Walk toward starting point.
+    ------------------------------------------------------------
+    local move_x = tx / distance
+    local move_z = tz / distance
+
+    local velocity = self.object:get_velocity()
+
+    local speed = def.walk_velocity or 1
+
+    self.object:set_velocity({
+      x = move_x * speed,
+      y = velocity.y,
+      z = move_z * speed,
+    })
+
+    ------------------------------------------------------------
+    -- Face movement direction.
+    ------------------------------------------------------------
+    local yaw = math.atan2(-move_x, move_z)
+
+    if def.backwards then
+      yaw = yaw + math.pi
+    end
+
+    self.object:set_yaw(yaw)
+
+    self:set_animation("walk")
+
+    return
+  end
 end
 
 ----------------------------------------------------------------
@@ -670,6 +1072,16 @@ function Monster:do_custom(self, dtime, def)
   --------------------------------------------------------------
   if def.patrol and def.patrol.enabled then
     Monster:patrol( self, dtime, def )
+
+    ------------------------------------------------------------
+    -- Our patrol system owns movement while the monster is
+    -- not attacking.
+    --
+    -- Returning false tells mobs_redo not to continue with
+    -- its normal movement/idle processing and overwrite the
+    -- velocity we just set.
+    ------------------------------------------------------------
+    return false
   end
 
   return true
@@ -762,9 +1174,7 @@ function Monster:build_definition(def)
           local speed = math.sqrt(dx * dx + dz * dz)
 
           if speed > 0.05 then
-            self.object:set_yaw(
-              math.atan2(dx, dz) + math.pi
-            )
+            self.object:set_yaw( math.atan2(dx, dz) + math.pi )
           end
         end
       end
@@ -1013,10 +1423,27 @@ local monsterDefinitions = {
     ----------------------------------------------------------------
     -- PATROL
     ----------------------------------------------------------------
+    -- patrol = {
+      -- enabled = true,
+      -- radius = 5,
+      -- reached_distance = 1.0,
+    -- },
     patrol = {
       enabled = true,
+
       radius = 5,
-      reached_distance = 1.0,
+
+      stand_time = 5,
+
+      first_distance = 5,
+
+      reached_distance = 0.8,
+
+      avoid_jumps = true,
+
+      look_at_players = true,
+
+      detection_radius = 20,
     },
 
     ----------------------------------------------------------------

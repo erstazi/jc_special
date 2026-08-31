@@ -503,16 +503,23 @@ if core.get_modpath("areas") then
 
           local areas_here = areas:getAreasAtPos(pos)
 
-          for _, area_id in ipairs(areas_here) do
+          ------------------------------------------------------
+          -- getAreasAtPos() returns a table keyed by area ID.
+          ------------------------------------------------------
+          for area_id, area in pairs(areas_here) do
 
             if restricted_area_ids_for_prisoners[area_id] then
 
-              ------------------------------------------------
+              --------------------------------------------------
               -- Jailed player entered a restricted area.
-              ------------------------------------------------
+              --------------------------------------------------
               player:set_pos(prison_pos)
 
-              core.chat_send_player( player_name, S("You cannot enter this area while jailed.") )
+              core.chat_send_player(
+                player_name,
+                S("You cannot enter this area while jailed.")
+              )
+
               break
             end
           end

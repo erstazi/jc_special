@@ -1,0 +1,255 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: jc_special\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Water Can"
+msgstr "水罐"
+
+msgid "Jumbo Water Can"
+msgstr "超大水罐"
+
+msgid "Freshwater Can"
+msgstr "淡水罐"
+
+msgid "Lava Can"
+msgstr "岩浆罐"
+
+msgid "Please wait until your can has been filled."
+msgstr "请等待您的罐子装满。"
+
+msgid "You don't have room for the filled can."
+msgstr "您的物品栏没有空间放置装满的罐子。"
+
+msgid "This tree trunk well is owned by %s. You can't use it."
+msgstr "这个树干水井属于 %s。您无法使用它。"
+
+msgid "The well is already being used."
+msgstr "这个水井已经有人在使用。"
+
+msgid "Your Freshwater Can is already full."
+msgstr "您的淡水罐已经装满了。"
+
+msgid "Your Freshwater Can is now full!"
+msgstr "您的淡水罐现在已经装满了！"
+
+msgid "Day Button"
+msgstr "白天按钮"
+
+msgid "Press to skip the night."
+msgstr "按下以跳过夜晚。"
+
+msgid "@1 skipped the night."
+msgstr "@1 跳过了夜晚。"
+
+msgid "MrPhil's Wooden Bag"
+msgstr "MrPhil 的木制背包"
+
+msgid "Enable or disable join greeter"
+msgstr "启用或禁用加入问候功能"
+
+msgid "Not allowed."
+msgstr "不允许。"
+
+msgid "Join greeter enabled"
+msgstr "加入问候功能已启用"
+
+msgid "Join greeter disabled"
+msgstr "加入问候功能已禁用"
+
+msgid "Use: /greet on | off"
+msgstr "使用：/greet on | off"
+
+msgid "Show loaded mods"
+msgstr "显示已加载的模组"
+
+msgid "Loaded Mods"
+msgstr "已加载的模组"
+
+msgid "Close"
+msgstr "关闭"
+
+msgid "@1 is at @2"
+msgstr "@1 位于 @2"
+
+msgid "Shows the coordinates of a player."
+msgstr "显示玩家的坐标。"
+
+msgid "Usage: /where <player>"
+msgstr "用法：/where <player>"
+
+msgid "Player @1 is not online."
+msgstr "玩家 @1 不在线。"
+
+msgid "The /shutdown command has been disabled on this server."
+msgstr "此服务器已禁用 /shutdown 命令。"
+
+msgid "Count Animalia bats"
+msgstr "统计 Animalia 蝙蝠"
+
+msgid "There are @1 Animalia bats nearby."
+msgstr "附近有 @1 只 Animalia 蝙蝠。"
+
+msgid "Remove all loaded Animalia bats"
+msgstr "移除所有已加载的 Animalia 蝙蝠"
+
+msgid "Player not found."
+msgstr "未找到玩家。"
+
+msgid "Removed @1 Animalia bats."
+msgstr "已移除 @1 只 Animalia 蝙蝠。"
+
+msgid "Play a welcome sound for all connected players."
+msgstr "为所有已连接的玩家播放欢迎声音。"
+
+msgid "Available sounds: welcome, glockenspiel, welcome_stranger\nUsage: /welcome_sound <sound>"
+msgstr "可用声音：welcome、glockenspiel、welcome_stranger\n用法：/welcome_sound <sound>"
+
+msgid "No sounds found with that name.\nAvailable: welcome, glockenspiel, welcome_stranger"
+msgstr "未找到该名称的声音。\n可用声音：welcome、glockenspiel、welcome_stranger"
+
+msgid "Playing '@1' for all connected players."
+msgstr "正在为所有已连接的玩家播放“@1”。"
+
+msgid "Welcome to the Just-Craft server, @1!"
+msgstr "欢迎来到 Just-Craft 服务器，@1！"
+
+msgid "Type: @1 to get your free apartment!"
+msgstr "输入：@1 来获得您的免费公寓！"
+
+msgid "*** NEW PLAYER: @1 has joined the server for the first time. Information about apartments already sent to new player."
+msgstr "*** 新玩家：@1 首次加入服务器。有关公寓的信息已经发送给该新玩家。"
+
+msgid "Mailbox for: @1"
+msgstr "@1 的邮箱"
+
+msgid "Get Items"
+msgstr "获取物品"
+
+msgid "Mailbox Owner: @1"
+msgstr "邮箱所有者：@1"
+
+msgid "Mailbox\nUnowned"
+msgstr "邮箱\n无主"
+
+msgid "has deposited mail for you at"
+msgstr "已为您存放邮件于"
+
+msgid "[Mailbox] @1 has deposited mail for you at @2."
+msgstr "[邮箱] @1 已为您在 @2 存放邮件。"
+
+msgid "Grandfather Clock\n@1"
+msgstr "落地钟\n@1"
+
+msgid "Open a text box to paste a message into chat."
+msgstr "打开文本框，将消息粘贴到聊天中。"
+
+msgid "Paste Message"
+msgstr "粘贴消息"
+
+msgid "Enter your chat message here (maximum 500 characters):"
+msgstr "在此输入您的聊天消息（最多 500 个字符）："
+
+msgid "SEND"
+msgstr "发送"
+
+msgid "CANCEL"
+msgstr "取消"
+
+msgid "Your message is limited to 500 characters."
+msgstr "您的消息最多只能包含 500 个字符。"
+
+msgid "The message cannot be empty."
+msgstr "消息不能为空。"
+
+msgid "Trooper"
+msgstr "士兵"
+
+msgid "Castle Guard"
+msgstr "城堡守卫"
+
+msgid "@1 was eliminated by @2!"
+msgstr "@1 被 @2 消灭了！"
+
+msgid "Find nodes within a square radius"
+msgstr "在方形半径范围内查找节点"
+
+msgid "Player not found."
+msgstr "未找到玩家。"
+
+msgid "Usage: /findnode <mod:nodename> <radius>"
+msgstr "用法：/findnode <mod:nodename> <radius>"
+
+msgid "Radius must be a number."
+msgstr "半径必须是数字。"
+
+msgid "Radius must be greater than 0."
+msgstr "半径必须大于 0。"
+
+msgid "Could not determine your position."
+msgstr "无法确定您的位置。"
+
+msgid "Unknown node: @1"
+msgstr "未知节点：@1"
+
+msgid "No @1 found within @2 nodes."
+msgstr "在 @2 个节点范围内未找到 @1。"
+
+msgid "Found @1 @2 within a @3 node square:"
+msgstr "在 @3 节点的方形范围内找到了 @1 个 @2："
+
+msgid "@1 - @2 nodes away"
+msgstr "@1 - 距离 @2 个节点"
+
+#: prison.lua
+msgid "Prison Bars"
+msgstr "监狱铁栏"
+
+#: prison.lua
+msgid "Prison Floor"
+msgstr "监狱地板"
+
+#: prison.lua
+msgid "Prison Stone"
+msgstr "监狱石头"
+
+#: prison.lua
+msgid "Prison Stone Bricks"
+msgstr "监狱石砖"
+
+#: prison.lua
+msgid "Invalid syntax! Usage: /jail <player> <reason>"
+msgstr "语法无效！用法：/jail <player> <reason>"
+
+#: prison.lua
+msgid "Invalid syntax! Usage: /unjail <player> <reason>"
+msgstr "语法无效！用法：/unjail <player> <reason>"
+
+#: prison.lua
+msgid "Player @1 not found."
+msgstr "未找到玩家 @1。"
+
+#: prison.lua
+msgid "Player @1 is already jailed."
+msgstr "玩家 @1 已经被关进监狱。"
+
+#: prison.lua
+msgid "Player @1 has been jailed"
+msgstr "玩家 @1 已被关进监狱"
+
+#: prison.lua
+msgid "Player @1 was never jailed"
+msgstr "玩家 @1 从未被关进监狱"
+
+#: prison.lua
+msgid "Player @1 has been unjailed"
+msgstr "玩家 @1 已被释放"
+
+#: prison.lua
+msgid "Jails Players"
+msgstr "监禁玩家"
+
+#: prison.lua
+msgid "Unjails players"
+msgstr "释放玩家"

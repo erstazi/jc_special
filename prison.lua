@@ -461,3 +461,64 @@ core.register_on_respawnplayer(function(player)
 
   return true
 end)
+
+----------------------------------------------------------------
+-- PREVENT JAILED PLAYERS FROM ENTERING RESTRICTED AREAS
+----------------------------------------------------------------
+if core.get_modpath("areas") then
+
+  local restricted_area_ids_for_prisoners = {
+    [75] = true, -- VISITOR_AREA
+    [77] = true,
+    [78] = true,
+    [79] = true,
+    [80] = true,
+    [81] = true,
+    -- [76] = true,
+    -- [82] = true,
+    -- [91] = true,
+  }
+
+  local restricted_area_check_timer = 0
+
+  core.register_globalstep(function(dtime)
+
+    restricted_area_check_timer = restricted_area_check_timer + dtime
+
+    if restricted_area_check_timer < 0.5 then
+      return
+    end
+
+    restricted_area_check_timer = 0
+
+    for player_name, prison_data in pairs(prison.players) do
+
+      local player = core.get_player_by_name(player_name)
+
+      if player then
+
+        local pos = player:get_pos()
+
+        if pos then
+
+          local areas_here = areas:getAreasAtPos(pos)
+
+          for _, area_id in ipairs(areas_here) do
+
+            if restricted_area_ids_for_prisoners[area_id] then
+
+              ------------------------------------------------
+              -- Jailed player entered a restricted area.
+              ------------------------------------------------
+              player:set_pos(prison_pos)
+
+              core.chat_send_player( player_name, S("You cannot enter this area while jailed.") )
+              break
+            end
+          end
+        end
+      end
+    end
+  end)
+
+end

@@ -1335,7 +1335,7 @@ local monsterDefinitions = {
     jump_height = 2,
     view_range = 8,
     lava_damage = 8,
-    lifetimer = 20000,
+    lifetimer = 300, -- it was 20000
     animation = {
       speed_normal = 15, speed_run = 30,
       stand_start = 0, stand_end = 40,

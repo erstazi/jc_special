@@ -9,7 +9,7 @@ mobs_animal:pumba 10 15 1 10 1
 local spawner_default = "mobs_animal:bunny 0 15 1 10 2"
 
 core.register_node("jc_special:direct_mob_spawner", {
-  tiles = {"mob_spawner.png"},
+  tiles = {"mob_spawner.png^[colorize:#8000ff:100"},
   drawtype = "glasslike",
   paramtype = "light",
   walkable = true,

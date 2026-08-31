@@ -254,3 +254,24 @@ msgstr "Więzi graczy"
 #: prison.lua
 msgid "Unjails players"
 msgstr "Zwalnia graczy z więzienia"
+
+msgid "Direct Mob Spawner"
+msgstr "Bezpośredni spawner mobów"
+
+msgid "(mob name) (min light) (max light) (amount) (player distance) (Y offset)"
+msgstr "(nazwa moba) (min. światło) (maks. światło) (ilość) (odległość gracza) (przesunięcie Y)"
+
+msgid "Command:"
+msgstr "Polecenie:"
+
+msgid "Direct Mob Spawner Not Active (enter settings)"
+msgstr "Bezpośredni spawner mobów nieaktywny (wprowadź ustawienia)"
+
+msgid "Direct Mob Spawner Active (@1)"
+msgstr "Bezpośredni spawner mobów aktywny (@1)"
+
+msgid "Direct Mob Spawner settings failed!"
+msgstr "Ustawienia bezpośredniego spawnera mobów nie powiodły się!"
+
+msgid "Syntax: “name min_light[0-15] max_light[0-15] max_mobs[0 to disable] player_distance[1-20] y_offset[-9 to 9]”"
+msgstr "Składnia: „nazwa min_light[0-15] max_light[0-15] max_mobs[0 aby wyłączyć] player_distance[1-20] y_offset[-9 do 9]”"

@@ -254,3 +254,24 @@ msgstr "Emprisonner les joueurs"
 #: prison.lua
 msgid "Unjails players"
 msgstr "Libérer les joueurs de prison"
+
+msgid "Direct Mob Spawner"
+msgstr "Générateur de mobs direct"
+
+msgid "(mob name) (min light) (max light) (amount) (player distance) (Y offset)"
+msgstr "(nom du mob) (lumière min.) (lumière max.) (quantité) (distance du joueur) (décalage Y)"
+
+msgid "Command:"
+msgstr "Commande :"
+
+msgid "Direct Mob Spawner Not Active (enter settings)"
+msgstr "Générateur de mobs direct inactif (entrez les paramètres)"
+
+msgid "Direct Mob Spawner Active (@1)"
+msgstr "Générateur de mobs direct actif (@1)"
+
+msgid "Direct Mob Spawner settings failed!"
+msgstr "Échec des paramètres du générateur de mobs direct !"
+
+msgid "Syntax: “name min_light[0-15] max_light[0-15] max_mobs[0 to disable] player_distance[1-20] y_offset[-9 to 9]”"
+msgstr "Syntaxe : « nom min_light[0-15] max_light[0-15] max_mobs[0 pour désactiver] player_distance[1-20] y_offset[-9 à 9] »"

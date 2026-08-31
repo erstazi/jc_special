@@ -254,3 +254,24 @@ msgstr "监禁玩家"
 #: prison.lua
 msgid "Unjails players"
 msgstr "释放玩家"
+
+msgid "Direct Mob Spawner"
+msgstr "直接生物生成器"
+
+msgid "(mob name) (min light) (max light) (amount) (player distance) (Y offset)"
+msgstr "（生物名称）（最小亮度）（最大亮度）（数量）（玩家距离）（Y轴偏移）"
+
+msgid "Command:"
+msgstr "命令："
+
+msgid "Direct Mob Spawner Not Active (enter settings)"
+msgstr "直接生物生成器未启用（请输入设置）"
+
+msgid "Direct Mob Spawner Active (@1)"
+msgstr "直接生物生成器已启用（@1）"
+
+msgid "Direct Mob Spawner settings failed!"
+msgstr "直接生物生成器设置失败！"
+
+msgid "Syntax: “name min_light[0-15] max_light[0-15] max_mobs[0 to disable] player_distance[1-20] y_offset[-9 to 9]”"
+msgstr "语法：“名称 min_light[0-15] max_light[0-15] max_mobs[0 表示禁用] player_distance[1-20] y_offset[-9 到 9]”"

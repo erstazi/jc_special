@@ -254,3 +254,24 @@ msgstr "Jails Players"
 #: prison.lua
 msgid "Unjails players"
 msgstr "Unjails players"
+
+msgid "Direct Mob Spawner"
+msgstr "Direct Mob Spawner"
+
+msgid "(mob name) (min light) (max light) (amount) (player distance) (Y offset)"
+msgstr "(mob name) (min light) (max light) (amount) (player distance) (Y offset)"
+
+msgid "Command:"
+msgstr "Command:"
+
+msgid "Direct Mob Spawner Not Active (enter settings)"
+msgstr "Direct Mob Spawner Not Active (enter settings)"
+
+msgid "Direct Mob Spawner Active (@1)"
+msgstr "Direct Mob Spawner Active (@1)"
+
+msgid "Direct Mob Spawner settings failed!"
+msgstr "Direct Mob Spawner settings failed!"
+
+msgid "Syntax: “name min_light[0-15] max_light[0-15] max_mobs[0 to disable] player_distance[1-20] y_offset[-9 to 9]”"
+msgstr "Syntax: “name min_light[0-15] max_light[0-15] max_mobs[0 to disable] player_distance[1-20] y_offset[-9 to 9]”"

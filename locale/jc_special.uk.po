@@ -254,3 +254,24 @@ msgstr "Ув'язнює гравців"
 #: prison.lua
 msgid "Unjails players"
 msgstr "Звільняє гравців із в'язниці"
+
+msgid "Direct Mob Spawner"
+msgstr "Прямий спавнер мобів"
+
+msgid "(mob name) (min light) (max light) (amount) (player distance) (Y offset)"
+msgstr "(назва моба) (мін. освітлення) (макс. освітлення) (кількість) (відстань до гравця) (зміщення Y)"
+
+msgid "Command:"
+msgstr "Команда:"
+
+msgid "Direct Mob Spawner Not Active (enter settings)"
+msgstr "Прямий спавнер мобів неактивний (введіть налаштування)"
+
+msgid "Direct Mob Spawner Active (@1)"
+msgstr "Прямий спавнер мобів активний (@1)"
+
+msgid "Direct Mob Spawner settings failed!"
+msgstr "Не вдалося зберегти налаштування прямого спавнера мобів!"
+
+msgid "Syntax: “name min_light[0-15] max_light[0-15] max_mobs[0 to disable] player_distance[1-20] y_offset[-9 to 9]”"
+msgstr "Синтаксис: «ім’я min_light[0-15] max_light[0-15] max_mobs[0 для вимкнення] player_distance[1-20] y_offset[-9 до 9]»"

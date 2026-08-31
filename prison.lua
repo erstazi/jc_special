@@ -470,11 +470,12 @@ if core.get_modpath("areas") then
   local restricted_area_ids_for_prisoners = {
     [75] = true, -- VISITOR_AREA
     [77] = true, -- RESTRICTED
-    [78] = true, -- RESTRICTED
     [79] = true, -- RESTRICTED
     [80] = true, -- RESTRICTED
     [81] = true, -- RESTRICTED
     [82] = true, -- RESTRICTED
+    [83] = true, -- RESTRICTED
+    [84] = true, -- RESTRICTED
   }
 
   local restricted_area_check_timer = 0

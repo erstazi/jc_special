@@ -1581,6 +1581,7 @@ monsterDefinitions.trooper = {
   jump_height = 4,
   view_range = 8,
   lava_damage = 8,
+  lifetimer = 300,
   attack_monsters = true,
   can_group_attack = true,
   animation = {
@@ -1802,6 +1803,7 @@ monsterDefinitions.rhino = {
   view_range = 12,
   lava_damage = 8,
   light_damage = 1,
+  lifetimer = 300,
 
   attack_type = "shoot",
   passive = false,

@@ -1360,7 +1360,7 @@ local monsterDefinitions = {}
 ----------------------------------------------------------------
 monsterDefinitions.castle_guard = {
   name = "mobs_monster:castle_guard",
-  type = "monster",
+  type = "npc",
   description = "Castle Guard",
   alias = "mobs:castle_guard",
   nametag = true,

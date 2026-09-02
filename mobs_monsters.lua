@@ -1384,6 +1384,7 @@ monsterDefinitions.castle_guard = {
   view_range = 8,
   lava_damage = 8,
   lifetimer = 300, -- it was 20000
+  attack_monsters = true,
   can_group_attack = true,
   animation = {
     speed_normal = 15, speed_run = 30,
@@ -1580,6 +1581,7 @@ monsterDefinitions.trooper = {
   jump_height = 4,
   view_range = 8,
   lava_damage = 8,
+  attack_monsters = true,
   can_group_attack = true,
   animation = {
     speed_normal = 15, speed_run = 30,

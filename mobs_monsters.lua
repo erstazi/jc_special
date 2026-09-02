@@ -1694,7 +1694,7 @@ monsterDefinitions.trooper = {
     nodes = { "moreblocks:checker_stone_tile", },
     min_light = 0,
     max_light = 15,
-    chance = 5000,
+    chance = 7000,
     min_height = -2,
     max_height = 30,
   },

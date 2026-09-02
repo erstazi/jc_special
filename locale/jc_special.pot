@@ -166,6 +166,9 @@ msgstr ""
 msgid "Trooper"
 msgstr ""
 
+msgid "This Trooper must be tamed before you can protect it."
+msgstr ""
+
 msgid "Castle Guard"
 msgstr ""
 

@@ -238,6 +238,12 @@ end
 -- in group attacks.
 ----------------------------------------------------------------
 function Monster:group_attack(self, hitter)
+  -- New: respect the per-monster setting
+  local def = registered_monsters[self.name]
+  if def and def.can_group_attack == false then
+    return
+  end
+
   if not hitter or not hitter.is_player or not hitter:is_player() then
     return
   end
@@ -853,15 +859,30 @@ end
 function Monster:on_spawn(self, def)
   local name
 
-  if def.names and #def.names > 0 then
+  ----------------------------------------------------------------
+  -- Keep an existing name.
+  --
+  -- mobs_redo restores self.jc_monster_name when a captured mob
+  -- is spawned again, so don't generate a new name in that case.
+  ----------------------------------------------------------------
+  if self.jc_monster_name then
+    name = self.jc_monster_name
+  elseif def.names and #def.names > 0 then
     name = def.names[math.random(#def.names)]
+    self.jc_monster_name = name
   else
     name = def.description
+    self.jc_monster_name = name
   end
 
-  self.jc_monster_name = name
-
-  self.nametag = core.colorize(def.nametag_color or "#FFFFFF", name)
+  ----------------------------------------------------------------
+  -- Set nametag
+  ----------------------------------------------------------------
+  if def.nametag ~= false then
+    self.nametag = core.colorize(def.nametag_color or "#FFFFFF", name )
+  else
+    self.nametag = ""
+  end
 
   --------------------------------------------------------------
   -- Patrol home
@@ -1111,6 +1132,7 @@ function Monster:build_definition(def)
     textures = {
       {def.texture},
     },
+    follow = def.follow or {},
     makes_footstep_sound = def.makes_footstep_sound ~= false,
     stepheight = def.stepheight or 1.6,
     walk_velocity = def.walk_velocity or 1,
@@ -1118,9 +1140,12 @@ function Monster:build_definition(def)
     jump_height = def.jump_height or 4,
     view_range = def.view_range or 8,
     lava_damage = def.lava_damage or 8,
+
+    attack_players = def.attack_players ~= false,
     attack_npcs = def.attack_npcs or false,
     attack_animals = def.attack_animals or false,
     attack_monsters = def.attack_monsters ~= false,
+
     animation = def.animation or {
       speed_normal = 15,
       speed_run = 30,
@@ -1146,6 +1171,14 @@ function Monster:build_definition(def)
     end,
 
     --------------------------------------------------------------
+    -- ON RIGHT CLICK
+    --------------------------------------------------------------
+    on_rightclick = function(self, clicker)
+      if def.on_rightclick then
+        return def.on_rightclick(self, clicker, def)
+      end
+    end,
+    --------------------------------------------------------------
     -- HIT BY PLAYER
     --------------------------------------------------------------
     do_punch = function(self, hitter)
@@ -1154,7 +1187,10 @@ function Monster:build_definition(def)
           Monster:play_random_sound( self, def.sounds.hit, def.sounds.hit_gain or 1.0 )
         end
 
-        Monster:group_attack( self, hitter )
+        -- Only call group attack if allowed
+        if def.can_group_attack ~= false then
+          Monster:group_attack(self, hitter)
+        end
       end
 
       if def.do_punch then
@@ -1250,6 +1286,16 @@ end
 -- REGISTER EGG
 ----------------------------------------------------------------
 function Monster:register_egg(def)
+  --[[
+  mobs:register_egg(
+    mob,
+    desc,
+    background,
+    addegg,
+    no_creative,
+    can_spawn_protect
+  )
+  ]]
   mobs:register_egg(
     def.name,
     S(def.description),
@@ -1307,531 +1353,679 @@ end
 -- The factory above should normally not need to be modified
 -- when adding another monster.
 ----------------------------------------------------------------
-local monsterDefinitions = {
+local monsterDefinitions = {}
+
+----------------------------------------------------------------
+-- CASTLE GUARD
+----------------------------------------------------------------
+monsterDefinitions.castle_guard = {
+  name = "mobs_monster:castle_guard",
+  type = "monster",
+  description = "Castle Guard",
+  alias = "mobs:castle_guard",
+  nametag = true,
+  nametag_color = "#ACF5A7",
+  damage = 15,
+  rainbow_damage = 10,
+  hp_min = 20,
+  hp_max = 20,
+  armor = 100,
+  collisionbox = {
+    -0.3, -1, -0.3,
+     0.3,  0.8,  0.3,
+  },
+  texture = "character.111.png",
+  mesh = "character.b3d",
+  egg_texture = "castle_guard.png",
+  stepheight = 1.6,
+  walk_velocity = 1,
+  run_velocity = 4,
+  jump_height = 2,
+  view_range = 8,
+  lava_damage = 8,
+  lifetimer = 300, -- it was 20000
+  can_group_attack = true,
+  animation = {
+    speed_normal = 15, speed_run = 30,
+    stand_start = 0, stand_end = 40,
+    walk_start = 168, walk_end = 187,
+    run_start = 168, run_end = 187,
+    punch_start = 189, punch_end = 198
+  },
+
   ----------------------------------------------------------------
-  -- CASTLE GUARD
+  -- RANDOM CASTLE GUARD NAMES
   ----------------------------------------------------------------
-  castle_guard = {
-    name = "mobs_monster:castle_guard",
-    type = "monster",
-    description = "Castle Guard",
-    alias = "mobs:castle_guard",
-    nametag_color = "#ACF5A7",
-    damage = 15,
-    rainbow_damage = 10,
-    hp_min = 20,
-    hp_max = 20,
-    armor = 100,
-    collisionbox = {
-      -0.3, -1, -0.3,
-       0.3,  0.8,  0.3,
+  names = {
+    "Sir Aldric",
+    "Sir Cedric",
+    "Sir Godfrey",
+    "Sir Reginald",
+    "Sir Geoffrey",
+    "Sir Roland",
+    "Sir Percival",
+    "Sir Tristan",
+    "Sir Baldwin",
+    "Sir Reynard",
+    "Sir Oswald",
+    "Sir Eustace",
+    "Sir Alaric",
+    "Sir Bertram",
+    "Sir Edmund",
+    "Sir Richard",
+    "Sir William",
+    "Sir Henry",
+    "Sir Walter",
+    "Sir Gilbert",
+    "Sir Hugh",
+    "Sir Lionel",
+    "Sir Harold",
+    "Sir Roderick",
+    "The Knights Who Say Ni!",
+
+    "Guard Aldwin",
+    "Guard Edwin",
+    "Guard Leofric",
+    "Guard Wulfric",
+    "Guard Cuthbert",
+    "Guard Oswin",
+    "Guard Godwin",
+    "Guard Hereward",
+    "Guard Aethelred",
+    "Guard Dunstan",
+    "Guard Cedwin",
+    "Guard Wilfred",
+    "Guard Anselm",
+    "Guard Berengar",
+    "Guard Rainald",
+    "Guard Theobald",
+    "Guard Lambert",
+    "Guard Conrad",
+    "Guard Everard",
+    "Guard Alwin",
+
+    "The Knights Who Say Ni!",
+    "Captain of the Guard",
+    "Master of the Gate",
+    "Keeper of the Gate",
+    "Warden of the Castle",
+    "Warden of the Wall",
+    "Keeper of the Drawbridge",
+    "Guardian of the Keep",
+    "Watchman of the North Tower",
+    "Watchman of the South Tower",
+    "Sentinel of the Gate",
+
+    "The Knights Who Say Ni!",
+    "Old Guard Harold",
+    "Sir Grumbles",
+    "Sir Sleeps-at-the-Gate",
+    "Sir Stands-Around",
+    "Sir No-Boots",
+    "Sir Forgets-His-Helmet",
+    "Guard Who Heard Nothing",
+    "Guard Who Saw Nothing",
+    "The Gatekeeper",
+    "The Last Watchman",
+  },
+
+  ----------------------------------------------------------------
+  -- PATROL
+  ----------------------------------------------------------------
+  -- patrol = {
+    -- enabled = true,
+    -- radius = 5,
+    -- reached_distance = 1.0,
+  -- },
+  patrol = {
+    enabled = true,
+
+    radius = 5,
+
+    stand_time = 5,
+
+    first_distance = 5,
+
+    reached_distance = 0.8,
+
+    avoid_jumps = true,
+
+    look_at_players = true,
+
+    detection_radius = 20,
+  },
+
+  ----------------------------------------------------------------
+  -- PLAYER DETECTION
+  ----------------------------------------------------------------
+  detection = {
+    enabled = true,
+    radius = 20,
+    seeing_sound_cooldown = 25,
+    idle_sound_min = 25,
+    idle_sound_max = 125,
+  },
+
+  ----------------------------------------------------------------
+  -- CASTLE GUARD SOUNDS
+  ----------------------------------------------------------------
+  sounds = {
+    hit = {
+      "castle_guard_sounds_hit_01",
+      "castle_guard_sounds_hit_02",
+      "castle_guard_sounds_hit_03",
+      "castle_guard_sounds_hit_04",
     },
-    texture = "character.111.png",
-    mesh = "character.b3d",
-    egg_texture = "castle_guard.png",
-    stepheight = 1.6,
-    walk_velocity = 1,
-    run_velocity = 4,
-    jump_height = 2,
-    view_range = 8,
-    lava_damage = 8,
-    lifetimer = 300, -- it was 20000
-    animation = {
-      speed_normal = 15, speed_run = 30,
-      stand_start = 0, stand_end = 40,
-      walk_start = 168, walk_end = 187,
-      run_start = 168, run_end = 187,
-      punch_start = 189, punch_end = 198
+    hit_gain = 1.0,
+
+    seeing_player = {
+      "castle_guard_sounds_seeing_player_01",
+      "castle_guard_sounds_seeing_player_02",
+      "castle_guard_sounds_seeing_player_03",
+      "castle_guard_sounds_seeing_player_04",
+      "castle_guard_sounds_hit_04",
     },
+    seeing_gain = 0.2,
 
-    ----------------------------------------------------------------
-    -- RANDOM CASTLE GUARD NAMES
-    ----------------------------------------------------------------
-    names = {
-      "Sir Aldric",
-      "Sir Cedric",
-      "Sir Godfrey",
-      "Sir Reginald",
-      "Sir Geoffrey",
-      "Sir Roland",
-      "Sir Percival",
-      "Sir Tristan",
-      "Sir Baldwin",
-      "Sir Reynard",
-      "Sir Oswald",
-      "Sir Eustace",
-      "Sir Alaric",
-      "Sir Bertram",
-      "Sir Edmund",
-      "Sir Richard",
-      "Sir William",
-      "Sir Henry",
-      "Sir Walter",
-      "Sir Gilbert",
-      "Sir Hugh",
-      "Sir Lionel",
-      "Sir Harold",
-      "Sir Roderick",
-      "The Knights Who Say Ni!",
-
-      "Guard Aldwin",
-      "Guard Edwin",
-      "Guard Leofric",
-      "Guard Wulfric",
-      "Guard Cuthbert",
-      "Guard Oswin",
-      "Guard Godwin",
-      "Guard Hereward",
-      "Guard Aethelred",
-      "Guard Dunstan",
-      "Guard Cedwin",
-      "Guard Wilfred",
-      "Guard Anselm",
-      "Guard Berengar",
-      "Guard Rainald",
-      "Guard Theobald",
-      "Guard Lambert",
-      "Guard Conrad",
-      "Guard Everard",
-      "Guard Alwin",
-
-      "The Knights Who Say Ni!",
-      "Captain of the Guard",
-      "Master of the Gate",
-      "Keeper of the Gate",
-      "Warden of the Castle",
-      "Warden of the Wall",
-      "Keeper of the Drawbridge",
-      "Guardian of the Keep",
-      "Watchman of the North Tower",
-      "Watchman of the South Tower",
-      "Sentinel of the Gate",
-
-      "The Knights Who Say Ni!",
-      "Old Guard Harold",
-      "Sir Grumbles",
-      "Sir Sleeps-at-the-Gate",
-      "Sir Stands-Around",
-      "Sir No-Boots",
-      "Sir Forgets-His-Helmet",
-      "Guard Who Heard Nothing",
-      "Guard Who Saw Nothing",
-      "The Gatekeeper",
-      "The Last Watchman",
+    no_players_around = {
+      "castle_guard_sounds_no_players_around_01",
+      "castle_guard_sounds_no_players_around_02",
+      "castle_guard_sounds_no_players_around_03",
+      "castle_guard_sounds_no_players_around_04",
+      "castle_guard_sounds_no_players_around_05",
     },
+    idle_gain = 0.05,
+  },
 
-    ----------------------------------------------------------------
-    -- PATROL
-    ----------------------------------------------------------------
-    -- patrol = {
-      -- enabled = true,
-      -- radius = 5,
-      -- reached_distance = 1.0,
-    -- },
-    patrol = {
-      enabled = true,
+  ----------------------------------------------------------------
+  -- DROPS
+  ----------------------------------------------------------------
+  drops = {
+    { name = "default:sword_steel", chance = 4, min = 1, max = 1, },
+    { name = "shields:shield_steel", chance = 15, min = 1, max = 1, },
+    { name = "3d_armor:helmet_steel", chance = 8, min = 1, max = 1, },
+    { name = "3d_armor:chestplate_steel", chance = 8, min = 1, max = 1, },
+    { name = "3d_armor:leggings_steel", chance = 8, min = 1, max = 1, },
+    { name = "3d_armor:boots_steel", chance = 8, min = 1, max = 1, },
 
-      radius = 5,
+  },
+}
 
-      stand_time = 5,
+----------------------------------------------------------------
+-- TROOPER
+----------------------------------------------------------------
+monsterDefinitions.trooper = {
+  name = "mobs_monster:trooper",
+  type = "npc",
+  description = "Trooper",
+  alias = "mobs:trooper",
+  nametag = true,
+  nametag_color = "#FFFF00",
+  damage = 10,
+  rainbow_damage = 7,
+  hp_min = 20,
+  hp_max = 20,
+  armor = 100,
+  collisionbox = {
+    -0.3, -1, -0.3,
+     0.3,  0.8,  0.3,
+  },
+  texture = "character.png",
+  mesh = "character.b3d",
+  egg_texture = "player.png",
+  follow = {"flowers:mushroom_red"},
+  stepheight = 1.6,
+  walk_velocity = 1,
+  run_velocity = 4,
+  jump_height = 4,
+  view_range = 8,
+  lava_damage = 8,
+  can_group_attack = true,
+  animation = {
+    speed_normal = 15, speed_run = 30,
+    stand_start = 0, stand_end = 40,
+    walk_start = 168, walk_end = 187,
+    run_start = 168, run_end = 187,
+    punch_start = 189, punch_end = 198
+  },
 
-      first_distance = 5,
+  ----------------------------------------------------------------
+  -- RANDOM TROOPER NAMES
+  ----------------------------------------------------------------
+  names = {
+    "Trooper",
+    "Bob",
+    "Bob's Lawyer",
+    "Steve",
+    "Gary",
+    "Frank",
+    "Frank's Accountant",
+    "Frank's Cousin",
+    "Definitely Not Frank",
+    "Bob Ross",
+    "Your Worst Enemy",
+    "The Guy Who Punches Trees",
+    "The Guy Who Never Punches Trees",
+    "Dave",
+    "Clint",
+    "Chuck",
+    "Fred",
+    "Johnson",
+    "Peter Johnson",
+    "Wilson",
+    "Smith",
+    "Will Smith",
+    -- "Michael Jackson",
+    "Nobody",
+    "Definitely Not A Trooper",
+    "Private Parts",
+    "Captain Obvious",
+    "Sergeant Pepper",
+    "Private Ryan",
+    "Major Tom",
+    "Lieutenant Dan",
+    "Admiral Ackbar",
+    "Officer Friendly",
+    "The Other Bob",
+    "Bob #2",
+    "Definitely Bob",
+    "Probably Steve",
+    "Probably Sam",
+    "Not The Real Steve",
+    "Not The Real Sam",
+    "The Real Sam",
+    "Some Guy",
+    "That One Guy",
+    "Lennie Small",
+    "Who Hired Me?",
+    "Definitely Human",
+    "Probably Human",
+    "Not A Robot",
+    "Not A Villager",
+    "Not A Mob",
+    "The Last Guy",
+    "The First Guy",
+    "The Middle Guy",
+    "The Backup Guy",
+    "MrBackDoorMan",
+    "Oprah",
+    "DrPhil",
+    "Totally Not MrPhil",
+    "iisu's inner thoughts",
+    "talamh's Dirt Man",
+    "talamh's Dirt Dealer",
+    "Istie Bistie",
+    "Istie Bistie Spider",
+    "Captain Nemo",
+    "Nemo Not The Fish",
+    "crisdan #2",
+    "crisdan #3",
+    "crisdan #67",
+    "crisdan #81",
+    "Scruffy",
+    "not tilt",
+    "Gumbo",
+    "The Other Guy",
+    "The Other Other Guy",
+    "Guy From Somewhere",
+    "Guy From Over There",
+    "Guy From Around Here",
+    "Guy I Found",
+    "Guy I Met Once",
+    "Guy Nobody Remembers",
+    "Guy Who Was Here Yesterday",
+    "Guy Who Just Showed Up",
+    "Guy Who Should Not Be Here",
+    "Your Wife's Boyfriend",
+    "Your Wife's Other Boyfriend",
+    "Your Wife's Other Other Boyfriend",
+    "Your Wife's Lawyer",
+    "Your Wife's Accountant",
+    "Your Wife's Neighbor",
+  },
 
-      reached_distance = 0.8,
+  ----------------------------------------------------------------
+  -- TROOPER SPAWN
+  ----------------------------------------------------------------
+  spawn = {
+    nodes = { "moreblocks:checker_stone_tile", },
+    min_light = 0,
+    max_light = 15,
+    chance = 5000,
+    min_height = -2,
+    max_height = 30,
+  },
 
-      avoid_jumps = true,
 
-      look_at_players = true,
+  ----------------------------------------------------------------
+  -- TROOPER TAMING
+  ----------------------------------------------------------------
+  on_rightclick = function(self, clicker)
+    if not clicker or not clicker:is_player() then
+      return
+    end
 
-      detection_radius = 20,
+    local player_name = clicker:get_player_name()
+
+    --------------------------------------------------------------
+    -- 1. Feed / Tame
+    --------------------------------------------------------------
+    if mobs:feed_tame(self, clicker, 4, true, true) then
+      if self.tamed and self.jc_monster_name then
+        self.owner = player_name
+        self.nametag = core.colorize("#FFFF00", self.jc_monster_name) .. core.colorize("#AAAAAA", " (" .. player_name .. ")")
+
+        if self.update_tag then
+          self:update_tag()
+        else
+          self.object:set_properties({nametag = self.nametag})
+        end
+      end
+      return
+    end
+
+    --------------------------------------------------------------
+    -- 2. Protect (only allowed if already tamed)
+    --------------------------------------------------------------
+    if not self.tamed then
+      -- Optional message so the player understands
+      core.chat_send_player(player_name, S("This Trooper must be tamed before you can protect it."))
+      return
+    end
+
+    if mobs:protect(self, clicker) then
+      return
+    end
+
+    --------------------------------------------------------------
+    -- 3. Capture (only allowed if already tamed)
+    --------------------------------------------------------------
+    if self.tamed then
+      self.owner = player_name
+
+      if self.jc_monster_name then
+        self.nametag = core.colorize("#FFFF00", self.jc_monster_name) .. core.colorize("#AAAAAA", " (" .. player_name .. ")")
+      end
+
+      if mobs:capture_mob(self, clicker, 30, 50, 80, false, nil) then
+        return
+      end
+    end
+  end,
+  ----------------------------------------------------------------
+  -- DROPS
+  ----------------------------------------------------------------
+  drops = {
+    { name = "mobs_monster:trooper", chance = 5, min = 1, max = 1, },
+    { name = "default:pick_steel", chance = 3, min = 1, max = 1, },
+  },
+}
+
+----------------------------------------------------------------
+-- RHINO
+----------------------------------------------------------------
+monsterDefinitions.rhino = {
+  name = "mobs_monster:rhino",
+  type = "monster",
+  description = "Rhino",
+  alias = "mobs:rhino",
+  nametag = false,
+  nametag_color = "#808080",
+
+  damage = 2,
+  rainbow_damage = 7,
+
+  hp_min = 22,
+  hp_max = 22,
+  armor = 60,
+  visual_size = {x = 8, y = 8},
+  -- collisionbox = {
+    -- -0.4, -0.01, -0.4,
+     -- 0.4,  1.9,   0.4,
+  -- },
+  collisionbox = {
+    -0.3, -1, -0.3,
+     0.3,  0.8,  0.3,
+  },
+  texture = "mobs_rhino.png",
+  -- mesh = "mobs_sand_monster.x",
+  mesh = "character.b3d",
+
+  egg_texture = "mobs_rhino.png",
+
+  stepheight = 1.6,
+  walk_velocity = 1.2,
+  run_velocity = 2,
+  jump_height = 4,
+  view_range = 12,
+  lava_damage = 8,
+  light_damage = 1,
+
+  attack_type = "shoot",
+  passive = false,
+  attack_players = true,
+  attack_npcs = true,
+  attack_animals = false,
+  attack_monsters = false,
+  can_group_attack = false,
+
+  animation = {
+    speed_normal = 25,
+    speed_run = 45,
+
+    stand_start = 0,
+    stand_end = 39,
+
+    walk_start = 41,
+    walk_end = 72,
+
+    run_start = 74,
+    run_end = 105,
+
+    punch_start = 74,
+    punch_end = 105,
+  },
+
+  drops = {
+    {
+      name = "default:steel_ingot",
+      chance = 1,
+      min = 10,
+      max = 10,
     },
+  },
 
-    ----------------------------------------------------------------
-    -- PLAYER DETECTION
-    ----------------------------------------------------------------
-    detection = {
-      enabled = true,
-      radius = 20,
-      seeing_sound_cooldown = 25,
-      idle_sound_min = 25,
-      idle_sound_max = 125,
-    },
+  mob_properties = {
+    arrow = "jc_special:rhino_bullet",
+    shoot_interval = 0.5,
+    shoot_offset = 1,
 
-    ----------------------------------------------------------------
-    -- CASTLE GUARD SOUNDS
-    ----------------------------------------------------------------
     sounds = {
-      hit = {
-        "castle_guard_sounds_hit_01",
-        "castle_guard_sounds_hit_02",
-        "castle_guard_sounds_hit_03",
-        "castle_guard_sounds_hit_04",
-      },
-      hit_gain = 1.0,
-
-      seeing_player = {
-        "castle_guard_sounds_seeing_player_01",
-        "castle_guard_sounds_seeing_player_02",
-        "castle_guard_sounds_seeing_player_03",
-        "castle_guard_sounds_seeing_player_04",
-        "castle_guard_sounds_hit_04",
-      },
-      seeing_gain = 0.2,
-
-      no_players_around = {
-        "castle_guard_sounds_no_players_around_01",
-        "castle_guard_sounds_no_players_around_02",
-        "castle_guard_sounds_no_players_around_03",
-        "castle_guard_sounds_no_players_around_04",
-        "castle_guard_sounds_no_players_around_05",
-      },
-      idle_gain = 0.05,
+      attack = "mobs_bullet",
     },
+  },
+}
 
-    ----------------------------------------------------------------
-    -- DROPS
-    ----------------------------------------------------------------
-    drops = {
-      { name = "default:sword_steel", chance = 4, min = 1, max = 1, },
-      { name = "shields:shield_steel", chance = 15, min = 1, max = 1, },
-      { name = "3d_armor:helmet_steel", chance = 8, min = 1, max = 1, },
-      { name = "3d_armor:chestplate_steel", chance = 8, min = 1, max = 1, },
-      { name = "3d_armor:leggings_steel", chance = 8, min = 1, max = 1, },
-      { name = "3d_armor:boots_steel", chance = 8, min = 1, max = 1, },
+----------------------------------------------------------------
+-- MICHAEL JACKSON
+----------------------------------------------------------------
+monsterDefinitions.michael_jackson = {
+  name = "mobs_monster:michael_jackson",
+  type = "npc",
+  description = "Michael Jackson",
+  alias = "mobs:michael_jackson",
+  nametag = true,
+  nametag_color = "#FFFFFF",
 
+  passive = true,
+  attack_players = false,
+  attack_npcs = false,
+  attack_animals = false,
+  attack_monsters = false,
+  can_group_attack = false,
+
+  damage = 0, -- was 10
+  rainbow_damage = 0, -- was 7
+
+  hp_min = 20,
+  hp_max = 20,
+  armor = 100,
+
+  collisionbox = {
+    -0.3, -1, -0.3,
+     0.3,  0.8,  0.3,
+  },
+
+  texture = "michael_jackson.png",
+  mesh = "character.b3d",
+  egg_texture = "michael_jackson.png",
+
+  stepheight = 1.6,
+  walk_velocity = 0,
+  run_velocity = 0,
+  jump_height = 4,
+  view_range = 8,
+  lava_damage = 8,
+
+  -- Prevent mobs_redo from doing normal walk behavior
+  walk_chance = 0,
+  stand_chance = 0,
+
+  animation = {
+    speed_normal = 6,
+    speed_run = 6,
+
+    stand_start = 0,
+    stand_end = 40,
+    stand_speed = 15,
+
+
+    walk_start = 168,
+    walk_end = 187,
+    walk_speed = 5,
+
+    run_start = 168,
+    run_end = 187,
+    run_speed = 5,
+
+    punch_start = 189,
+    punch_end = 198,
+    punch_speed = 15,
+  },
+
+  names = {
+    "Michael Jackson",
+  },
+
+  random_sounds = {
+    enabled = true,
+    interval_min = 0.4,
+    interval_max = 1.8,
+    gain = 1.0,
+    sounds = {
+      "michael_jackson_sound_001",
+      "michael_jackson_sound_002",
+      "michael_jackson_sound_003",
+      "michael_jackson_sound_004",
+      "michael_jackson_sound_005",
+      "michael_jackson_sound_006",
+      "michael_jackson_sound_007",
+      "michael_jackson_sound_008",
+      "michael_jackson_sound_009",
+      "michael_jackson_sound_010",
+      "michael_jackson_sound_011",
+      "michael_jackson_sound_012",
     },
   },
 
   ----------------------------------------------------------------
-  -- TROOPER
+  -- CUSTOM PUNCH MOVEMENT
   ----------------------------------------------------------------
-  trooper = {
-    name = "mobs_monster:trooper",
-    type = "monster",
-    description = "Trooper",
-    alias = "mobs:trooper",
-    nametag_color = "#FFFF00",
-    damage = 10,
-    rainbow_damage = 7,
-    hp_min = 20,
-    hp_max = 20,
-    armor = 100,
-    collisionbox = {
-      -0.3, -1, -0.3,
-       0.3,  0.8,  0.3,
-    },
-    texture = "character.png",
-    mesh = "character.b3d",
-    egg_texture = "player.png",
-    stepheight = 1.6,
-    walk_velocity = 1,
-    run_velocity = 4,
-    jump_height = 4,
-    view_range = 8,
-    lava_damage = 8,
-    animation = {
-      speed_normal = 15, speed_run = 30,
-      stand_start = 0, stand_end = 40,
-      walk_start = 168, walk_end = 187,
-      run_start = 168, run_end = 187,
-      punch_start = 189, punch_end = 198
-    },
+  do_punch = function(self, hitter, def)
+    if hitter and hitter:is_player() then
+      Monster:play_random_sound(self, {"michael_jackson_sound_011"}, 1.0)
+    end
 
-    ----------------------------------------------------------------
-    -- RANDOM TROOPER NAMES
-    ----------------------------------------------------------------
-    names = {
-      "Trooper",
-      "Bob",
-      "Bob's Lawyer",
-      "Steve",
-      "Gary",
-      "Frank",
-      "Frank's Accountant",
-      "Frank's Cousin",
-      "Definitely Not Frank",
-      "Bob Ross",
-      "Your Worst Enemy",
-      "The Guy Who Punches Trees",
-      "The Guy Who Never Punches Trees",
-      "Dave",
-      "Clint",
-      "Chuck",
-      "Fred",
-      "Johnson",
-      "Peter Johnson",
-      "Wilson",
-      "Smith",
-      "Will Smith",
-      -- "Michael Jackson",
-      "Nobody",
-      "Definitely Not A Trooper",
-      "Private Parts",
-      "Captain Obvious",
-      "Sergeant Pepper",
-      "Private Ryan",
-      "Major Tom",
-      "Lieutenant Dan",
-      "Admiral Ackbar",
-      "Officer Friendly",
-      "The Other Bob",
-      "Bob #2",
-      "Definitely Bob",
-      "Probably Steve",
-      "Probably Sam",
-      "Not The Real Steve",
-      "Not The Real Sam",
-      "The Real Sam",
-      "Some Guy",
-      "That One Guy",
-      "Lennie Small",
-      "Who Hired Me?",
-      "Definitely Human",
-      "Probably Human",
-      "Not A Robot",
-      "Not A Villager",
-      "Not A Mob",
-      "The Last Guy",
-      "The First Guy",
-      "The Middle Guy",
-      "The Backup Guy",
-      "MrBackDoorMan",
-      "Oprah",
-      "DrPhil",
-      "Totally Not MrPhil",
-      "iisu's inner thoughts",
-      "talamh's Dirt Man",
-      "talamh's Dirt Dealer",
-      "Istie Bistie",
-      "Istie Bistie Spider",
-      "Captain Nemo",
-      "Nemo Not The Fish",
-      "crisdan #2",
-      "crisdan #3",
-      "crisdan #67",
-      "crisdan #81",
-      "Scruffy",
-      "not tilt",
-      "Gumbo",
-      "The Other Guy",
-      "The Other Other Guy",
-      "Guy From Somewhere",
-      "Guy From Over There",
-      "Guy From Around Here",
-      "Guy I Found",
-      "Guy I Met Once",
-      "Guy Nobody Remembers",
-      "Guy Who Was Here Yesterday",
-      "Guy Who Just Showed Up",
-      "Guy Who Should Not Be Here",
-      "Your Wife's Boyfriend",
-      "Your Wife's Other Boyfriend",
-      "Your Wife's Other Other Boyfriend",
-      "Your Wife's Lawyer",
-      "Your Wife's Accountant",
-      "Your Wife's Neighbor",
-    },
+    -- Force him back to peaceful moonwalking
+    self.attack = nil
+    self.state = "stand"
+    self.timer = 0
 
-    ----------------------------------------------------------------
-    -- TROOPER SPAWN
-    ----------------------------------------------------------------
-    spawn = {
-      nodes = { "moreblocks:checker_stone_tile", },
-      min_light = 0,
-      max_light = 15,
-      chance = 5000,
-      min_height = -2,
-      max_height = 30,
-    },
-
-    ----------------------------------------------------------------
-    -- DROPS
-    ----------------------------------------------------------------
-    drops = {
-      { name = "mobs_monster:trooper", chance = 5, min = 1, max = 1, },
-      { name = "default:pick_steel", chance = 3, min = 1, max = 1, },
-    },
-  },
+    return true
+  end,
 
   ----------------------------------------------------------------
-  -- MICHAEL JACKSON
+  -- CUSTOM MOONWALK MOVEMENT
   ----------------------------------------------------------------
-  michael_jackson = {
-    name = "mobs_monster:michael_jackson",
-    type = "npc",
-    description = "Michael Jackson",
-    alias = "mobs:michael_jackson",
-    nametag_color = "#FFFFFF",
-
-    passive = true,
-    attack_players = false,
-    attack_npcs = false,
-    attack_animals = false,
-    attack_monsters = false,
-
-    damage = 0, -- was 10
-    rainbow_damage = 0, -- was 7
-
-    hp_min = 20,
-    hp_max = 20,
-    armor = 100,
-
-    collisionbox = {
-      -0.3, -1, -0.3,
-       0.3,  0.8,  0.3,
-    },
-
-    texture = "michael_jackson.png",
-    mesh = "character.b3d",
-    egg_texture = "michael_jackson.png",
-
-    stepheight = 1.6,
-    walk_velocity = 0,
-    run_velocity = 0,
-    jump_height = 4,
-    view_range = 8,
-    lava_damage = 8,
-
-    -- Prevent mobs_redo from doing normal walk behavior
-    walk_chance = 0,
-    stand_chance = 0,
-
-    animation = {
-      speed_normal = 6,
-      speed_run = 6,
-
-      stand_start = 0,
-      stand_end = 40,
-      stand_speed = 15,
-
-
-      walk_start = 168,
-      walk_end = 187,
-      walk_speed = 5,
-
-      run_start = 168,
-      run_end = 187,
-      run_speed = 5,
-
-      punch_start = 189,
-      punch_end = 198,
-      punch_speed = 15,
-    },
-
-    names = {
-      "Michael Jackson",
-    },
-
-    random_sounds = {
-      enabled = true,
-      interval_min = 0.4,
-      interval_max = 1.8,
-      gain = 1.0,
-      sounds = {
-        "michael_jackson_sound_001",
-        "michael_jackson_sound_002",
-        "michael_jackson_sound_003",
-        "michael_jackson_sound_004",
-        "michael_jackson_sound_005",
-        "michael_jackson_sound_006",
-        "michael_jackson_sound_007",
-        "michael_jackson_sound_008",
-        "michael_jackson_sound_009",
-        "michael_jackson_sound_010",
-        "michael_jackson_sound_011",
-        "michael_jackson_sound_012",
-      },
-    },
-
-    ----------------------------------------------------------------
-    -- CUSTOM PUNCH MOVEMENT
-    ----------------------------------------------------------------
-    do_punch = function(self, hitter, def)
-      if hitter and hitter:is_player() then
-        Monster:play_random_sound(self, {"michael_jackson_sound_011"}, 1.0)
-      end
-
-      -- Force him back to peaceful moonwalking
-      self.attack = nil
-      self.state = "stand"
-      self.timer = 0
-
+  do_custom = function(self, dtime, def)
+    -- Don't do our own movement while attacking
+    if self.attack then
       return true
-    end,
+    end
 
-    ----------------------------------------------------------------
-    -- CUSTOM MOONWALK MOVEMENT
-    ----------------------------------------------------------------
-    do_custom = function(self, dtime, def)
-      -- Don't do our own movement while attacking
-      if self.attack then
-        return true
+    local pos = self.object:get_pos()
+    if not pos then return true end
+
+    -- Change direction every few seconds
+    self.mj_timer = (self.mj_timer or 0) - dtime
+    if not self.mj_dir or self.mj_timer <= 0 then
+      local angle = math.random() * math.pi * 2
+      self.mj_dir = {
+        x = math.cos(angle),
+        z = math.sin(angle)
+      }
+      self.mj_timer = math.random(4, 8)
+    end
+
+    local speed = 1.0
+
+    -- Move in the chosen direction
+    local vel = self.object:get_velocity() or {y = 0}
+    self.object:set_velocity({
+      x = self.mj_dir.x * speed,
+      y = vel.y,
+      z = self.mj_dir.z * speed
+    })
+
+    -- Always face the exact opposite direction
+    local move_yaw = math.atan2(self.mj_dir.x, self.mj_dir.z)
+    local face_yaw = move_yaw + math.pi          -- 180 degrees opposite
+
+    self.object:set_yaw(face_yaw)
+
+    -- Force it again next tick so mobs_redo can't override it
+    core.after(0, function()
+      if self.object and self.object:get_luaentity() then
+        self.object:set_yaw(face_yaw)
       end
+    end)
 
-      local pos = self.object:get_pos()
-      if not pos then return true end
+    -- Keep walk animation
+    self:set_animation("walk")
 
-      -- Change direction every few seconds
-      self.mj_timer = (self.mj_timer or 0) - dtime
-      if not self.mj_dir or self.mj_timer <= 0 then
-        local angle = math.random() * math.pi * 2
-        self.mj_dir = {
-          x = math.cos(angle),
-          z = math.sin(angle)
-        }
-        self.mj_timer = math.random(4, 8)
-      end
-
-      local speed = 1.0
-
-      -- Move in the chosen direction
-      local vel = self.object:get_velocity() or {y = 0}
-      self.object:set_velocity({
-        x = self.mj_dir.x * speed,
-        y = vel.y,
-        z = self.mj_dir.z * speed
-      })
-
-      -- Always face the exact opposite direction
-      local move_yaw = math.atan2(self.mj_dir.x, self.mj_dir.z)
-      local face_yaw = move_yaw + math.pi          -- 180 degrees opposite
-
-      self.object:set_yaw(face_yaw)
-
-      -- Force it again next tick so mobs_redo can't override it
-      core.after(0, function()
+    ----------------------------------------------------------
+    -- ARM RAISING (left then right)
+    ----------------------------------------------------------
+    --[[
+    TOO MUCH LIKE A PENIS COMING OUT
+    self.mj_arm_timer = (self.mj_arm_timer or 0) - dtime
+    if self.mj_arm_timer <= 0 then
+      self.mj_arm_side = not self.mj_arm_side
+      local bone = self.mj_arm_side and "Arm_Left" or "Arm_Right"
+      self.object:set_bone_position(bone, {x = 0, y = 0, z = 0}, {x = -90, y = 0, z = 0})
+      core.after(0.7, function()
         if self.object and self.object:get_luaentity() then
-          self.object:set_yaw(face_yaw)
+          self.object:set_bone_position(bone, {x = 0, y = 0, z = 0}, {x = 0, y = 0, z = 0})
         end
       end)
+      self.mj_arm_timer = 1.6
+    end
+    ]]
 
-      -- Keep walk animation
-      self:set_animation("walk")
-
-      ----------------------------------------------------------
-      -- ARM RAISING (left then right)
-      ----------------------------------------------------------
-      --[[
-      TOO MUCH LIKE A PENIS COMING OUT
-      self.mj_arm_timer = (self.mj_arm_timer or 0) - dtime
-      if self.mj_arm_timer <= 0 then
-        self.mj_arm_side = not self.mj_arm_side
-        local bone = self.mj_arm_side and "Arm_Left" or "Arm_Right"
-        self.object:set_bone_position(bone, {x = 0, y = 0, z = 0}, {x = -90, y = 0, z = 0})
-        core.after(0.7, function()
-          if self.object and self.object:get_luaentity() then
-            self.object:set_bone_position(bone, {x = 0, y = 0, z = 0}, {x = 0, y = 0, z = 0})
-          end
-        end)
-        self.mj_arm_timer = 1.6
-      end
-      ]]
-
-      return true
-    end,
-    drops = {
-      { name = "mobs_monster:michael_jackson", chance = 5, min = 1, max = 1 },
-    },
+    return true
+  end,
+  drops = {
+    { name = "mobs_monster:michael_jackson", chance = 5, min = 1, max = 1 },
   },
 }
 
@@ -1908,6 +2102,38 @@ core.register_on_dieplayer(function(player, reason)
   --------------------------------------------------------------
   core.chat_send_all( S("@1 was eliminated by @2!", core.colorize(PLAYER_NAME_COLOR, player_name ), core.colorize( def.nametag_color or "#FFFFFF", monster_name ) ) )
 end)
+
+
+--------------------------------------------------------
+-- SPECIAL MOB ENTITIES
+--------------------------------------------------------
+mobs:register_arrow("jc_special:rhino_bullet", {
+  visual = "sprite",
+  visual_size = {x = 0.75, y = 0.75},
+  textures = {"mobs_rhino_bullet.png"},
+  velocity = 15,
+
+  hit_player = function(self, player)
+    local s = self.object:get_pos()
+    local p = player:get_pos()
+
+    local vec = {
+      x = s.x - p.x,
+      y = s.y - p.y,
+      z = s.z - p.z,
+    }
+
+    player:punch(self.object, 1.0, {
+      full_punch_interval = 1.0,
+      damage_groups = {
+        fleshy = 10,
+      },
+    }, vec)
+  end,
+
+  hit_node = function(self, pos)
+  end,
+})
 
 ----------------------------------------------------------------
 -- DONE

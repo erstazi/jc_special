@@ -36,9 +36,7 @@ core.register_on_newplayer(function(player)
     for _, p in ipairs(core.get_connected_players()) do
       local staff_name = p:get_player_name()
       if core.check_player_privs(staff_name, {ban = true}) then
-        core.chat_send_player(staff_name,
-          core.colorize("#00FF00", S("*** NEW PLAYER: @1 has joined the server for the first time. Information about apartments already sent to new player.", new_name) )
-        )
+        core.chat_send_player(staff_name, core.colorize("#00FF00", S("*** NEW PLAYER: @1 has joined the server for the first time. Information about apartments already sent to new player.", new_name) ) )
       end
     end
   end)

@@ -167,6 +167,9 @@ msgstr "Het bericht mag niet leeg zijn."
 msgid "Trooper"
 msgstr "Soldaat"
 
+msgid "This Trooper must be tamed before you can protect it."
+msgstr "Deze Soldaat moet getemd zijn voordat je hem kunt beschermen."
+
 msgid "Castle Guard"
 msgstr "Kasteelwacht"
 

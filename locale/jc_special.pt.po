@@ -167,6 +167,9 @@ msgstr "A mensagem não pode estar vazia."
 msgid "Trooper"
 msgstr "Soldado"
 
+msgid "This Trooper must be tamed before you can protect it."
+msgstr "Este Soldado tem de ser domesticado antes de o poder proteger."
+
 msgid "Castle Guard"
 msgstr "Guarda do Castelo"
 

@@ -167,6 +167,9 @@ msgstr "Повідомлення не може бути порожнім."
 msgid "Trooper"
 msgstr "Солдат"
 
+msgid "This Trooper must be tamed before you can protect it."
+msgstr "Цього Солдата потрібно приручити, перш ніж ви зможете його захищати."
+
 msgid "Castle Guard"
 msgstr "Вартовий Замку"
 

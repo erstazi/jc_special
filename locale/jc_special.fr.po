@@ -167,6 +167,9 @@ msgstr "Le message ne peut pas être vide."
 msgid "Trooper"
 msgstr "Soldat"
 
+msgid "This Trooper must be tamed before you can protect it."
+msgstr "Ce Soldat doit être apprivoisé avant que vous puissiez le protéger."
+
 msgid "Castle Guard"
 msgstr "Garde du Château"
 

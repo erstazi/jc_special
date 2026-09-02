@@ -165,7 +165,10 @@ msgid "The message cannot be empty."
 msgstr "Die Nachricht darf nicht leer sein."
 
 msgid "Trooper"
-msgstr "Trooper"
+msgstr "Soldat"
+
+msgid "This Trooper must be tamed before you can protect it."
+msgstr "Dieser Soldat muss gezähmt werden, bevor du ihn beschützen kannst."
 
 msgid "Castle Guard"
 msgstr "Burgwache"

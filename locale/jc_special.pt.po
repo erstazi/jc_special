@@ -5,6 +5,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+msgid "Radius cannot be greater than @1 nodes."
+msgstr "O raio não pode ser superior a @1 nós."
+
 msgid "Water Can"
 msgstr "Regador de Água"
 

@@ -29,6 +29,12 @@ core.register_chatcommand("findnode", {
       return false, S("Radius must be greater than 0.")
     end
 
+    local max_radius = 100
+
+    if radius > max_radius then
+      return false, S("Radius cannot be greater than @1 nodes.", max_radius)
+    end
+
     local pos = player:get_pos()
 
     if not pos then

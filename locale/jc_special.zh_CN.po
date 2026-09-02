@@ -5,6 +5,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+msgid "Radius cannot be greater than @1 nodes."
+msgstr "半径不能大于 @1 个节点。"
+
 msgid "Water Can"
 msgstr "水罐"
 

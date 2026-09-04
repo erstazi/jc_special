@@ -5,6 +5,33 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+msgid "Welcome Sounds"
+msgstr "欢迎音效"
+
+msgid "Memorial Block Sounds"
+msgstr "纪念方块音效"
+
+msgid "Monster Sounds"
+msgstr "怪物音效"
+
+msgid "Party Instrument Sounds"
+msgstr "派对乐器音效"
+
+msgid "Sound Settings"
+msgstr "声音设置"
+
+msgid "Cancel"
+msgstr "取消"
+
+msgid "Save"
+msgstr "保存"
+
+msgid "Configure your sound settings."
+msgstr "配置你的声音设置。"
+
+msgid "Sound settings saved."
+msgstr "声音设置已保存。"
+
 msgid "Radius cannot be greater than @1 nodes."
 msgstr "半径不能大于 @1 个节点。"
 

@@ -5,6 +5,33 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+msgid "Welcome Sounds"
+msgstr "Welkomstgeluiden"
+
+msgid "Memorial Block Sounds"
+msgstr "Geluiden van herdenkingsblokken"
+
+msgid "Monster Sounds"
+msgstr "Monstergeluiden"
+
+msgid "Party Instrument Sounds"
+msgstr "Geluiden van feestinstrumenten"
+
+msgid "Sound Settings"
+msgstr "Geluidsinstellingen"
+
+msgid "Cancel"
+msgstr "Annuleren"
+
+msgid "Save"
+msgstr "Opslaan"
+
+msgid "Configure your sound settings."
+msgstr "Configureer je geluidsinstellingen."
+
+msgid "Sound settings saved."
+msgstr "Geluidsinstellingen opgeslagen."
+
 msgid "Radius cannot be greater than @1 nodes."
 msgstr "De straal mag niet groter zijn dan @1 nodes."
 

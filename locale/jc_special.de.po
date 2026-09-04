@@ -5,6 +5,33 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+msgid "Welcome Sounds"
+msgstr "Willkommensklänge"
+
+msgid "Memorial Block Sounds"
+msgstr "Gedenkblock-Klänge"
+
+msgid "Monster Sounds"
+msgstr "Monsterklänge"
+
+msgid "Party Instrument Sounds"
+msgstr "Party-Instrumentklänge"
+
+msgid "Sound Settings"
+msgstr "Toneinstellungen"
+
+msgid "Cancel"
+msgstr "Abbrechen"
+
+msgid "Save"
+msgstr "Speichern"
+
+msgid "Configure your sound settings."
+msgstr "Konfiguriere deine Toneinstellungen."
+
+msgid "Sound settings saved."
+msgstr "Toneinstellungen gespeichert."
+
 msgid "Radius cannot be greater than @1 nodes."
 msgstr "Der Radius darf nicht größer als @1 Knoten sein."
 

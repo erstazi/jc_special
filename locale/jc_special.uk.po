@@ -5,6 +5,33 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+msgid "Welcome Sounds"
+msgstr "Звуки привітання"
+
+msgid "Memorial Block Sounds"
+msgstr "Звуки пам'ятних блоків"
+
+msgid "Monster Sounds"
+msgstr "Звуки монстрів"
+
+msgid "Party Instrument Sounds"
+msgstr "Звуки святкових інструментів"
+
+msgid "Sound Settings"
+msgstr "Налаштування звуку"
+
+msgid "Cancel"
+msgstr "Скасувати"
+
+msgid "Save"
+msgstr "Зберегти"
+
+msgid "Configure your sound settings."
+msgstr "Налаштуйте параметри звуку."
+
+msgid "Sound settings saved."
+msgstr "Налаштування звуку збережено."
+
 msgid "Radius cannot be greater than @1 nodes."
 msgstr "Радіус не може бути більшим за @1 блоків."
 

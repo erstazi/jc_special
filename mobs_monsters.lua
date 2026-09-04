@@ -1661,6 +1661,8 @@ monsterDefinitions.trooper = {
     "Istie Bistie Spider",
     "Istie the Biscuit",
     "isn'tie",
+    "eastie",
+    "westie",
     "Feisty Istie",
     "The Real istie",
     "Not Your Average Istie",

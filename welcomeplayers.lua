@@ -4,6 +4,20 @@ local modpath = core.get_modpath(core.get_current_modname())
 local greet_enabled = false
 local join_queue = {}
 
+welcome_players = {}
+
+function welcome_players.play_sound(player, sound, parameters)
+  if not player then
+    return
+  end
+
+  if player:get_meta():get_string("welcome_players_sounds") == "off" then
+    return
+  end
+
+  core.sound_play(sound, parameters)
+end
+
 core.register_chatcommand("greet", {
   params = "on | off",
   description = S("Enable or disable join greeter"),
@@ -54,10 +68,16 @@ core.register_on_newplayer(function(player)
     core.chat_send_player(new_name, core.colorize("#FFFFFF", S("Type: @1 to get your free apartment!", core.colorize("#FFFF00", "/apt") ) ) )
     core.chat_send_player(new_name, core.colorize("#00FF88", "======================================================="))
 
-    core.sound_play("welcome_stranger", {
+    -- core.sound_play("welcome_stranger", {
+      -- to_player = new_name,
+      -- gain = 1.0,
+    -- })
+
+    welcome_players.play_sound(p, "welcome_stranger", {
       to_player = new_name,
       gain = 1.0,
     })
+
     new_players[new_name] = nil
   end)
 end)
@@ -69,13 +89,27 @@ core.register_on_joinplayer(function(player)
       return
     end
 
-    core.sound_play("welcome", {
-      gain = 1.0,
-      exclude_player = name,
-    })
+    -- core.sound_play("welcome", {
+      -- gain = 1.0,
+      -- exclude_player = name,
+    -- })
+    for _, p in ipairs(core.get_connected_players()) do
+      local listener_name = p:get_player_name()
+
+      if listener_name ~= name then
+        welcome_players.play_sound(p, "welcome", {
+          to_player = listener_name,
+          gain = 1.0,
+        })
+      end
+    end
 
     if not new_players[name] then
-      core.sound_play("glockenspiel", {
+      -- core.sound_play("glockenspiel", {
+        -- to_player = name,
+        -- gain = 1.0,
+      -- })
+      welcome_players.play_sound(player, "glockenspiel", {
         to_player = name,
         gain = 1.0,
       })
@@ -105,9 +139,18 @@ core.register_chatcommand("welcome_sound", {
       return false, S("No sounds found with that name.\nAvailable: welcome, glockenspiel, welcome_stranger")
     end
 
-    core.sound_play(param, {
-      gain = 1.0,
-    })
+    -- core.sound_play(param, {
+      -- gain = 1.0,
+    -- })
+
+    for _, player in ipairs(core.get_connected_players()) do
+      local player_name = player:get_player_name()
+
+      welcome_players.play_sound(player, param, {
+        to_player = player_name,
+        gain = 1.0,
+      })
+    end
 
     core.log("action", name .. " played welcome sound: " .. param)
 

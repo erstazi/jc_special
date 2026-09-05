@@ -125,10 +125,12 @@ local function clean_place_label(label, fallback)
     return fallback
   end
 
-  -- Remove jc_places translation marker
-  label = label:gsub("^@jc_places%)", "")
+  label = tostring(label)
 
-  -- Remove leading/trailing whitespace and newlines
+  -- Remove the jc_places translation marker wherever it appears.
+  label = label:gsub("@jc_places%)", "")
+
+  -- Remove leading/trailing whitespace and newlines.
   label = label:gsub("^%s+", "")
   label = label:gsub("%s+$", "")
 

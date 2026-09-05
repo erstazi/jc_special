@@ -122,7 +122,7 @@ core.register_abm({
   label = "Direct mob spawner node",
   nodenames = {"jc_special:direct_mob_spawner"},
   interval = 10,
-  chance = 4,
+  chance = 2,
   catch_up = false,
 
   action = function(pos, node, active_object_count, active_object_count_wider)

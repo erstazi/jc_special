@@ -1539,6 +1539,66 @@ monsterDefinitions.castle_guard = {
   },
 
   ----------------------------------------------------------------
+  -- CUSTOM CASTLE GUARD HANDLING FOR DEATH
+  ----------------------------------------------------------------
+  do_custom = function(self, dtime, def)
+    -- Only despawn if not tamed
+    if not self.tamed then
+      self.lifetimer = (self.lifetimer or 300) - dtime
+
+      -- self.jc_log_timer = (self.jc_log_timer or 0) - dtime
+      -- if self.jc_log_timer <= 0 then
+        -- self.jc_log_timer = 30
+        -- local name = self.jc_monster_name or self.name or "unknown"
+        -- core.log("action", string.format( "[JC Trooper Despawn] '%s' timer = %.1f seconds remaining", name, self.lifetimer ))
+      -- end
+
+      if self.lifetimer <= 0 then
+        local pos = self.object:get_pos()
+        if pos then
+          local players_nearby = false
+          for _, player in ipairs(core.get_connected_players()) do
+            local ppos = player:get_pos()
+            if ppos and vector.distance(pos, ppos) < 20 then
+              players_nearby = true
+              break
+            end
+          end
+
+          if not players_nearby then
+            local name = self.jc_monster_name or self.name or "unknown"
+            -- core.log("action", string.format("[JC Trooper Despawn] '%s' EXPIRED and removed at %s", name, core.pos_to_string(pos) ))
+
+            -- smoke effect + remove
+            core.add_particlespawner({
+              amount = 15,
+              time = 0.1,
+              minpos = pos,
+              maxpos = pos,
+              minvel = {x = -1, y = 0, z = -1},
+              maxvel = {x = 1, y = 2, z = 1},
+              minacc = {x = 0, y = -4, z = 0},
+              maxacc = {x = 0, y = -8, z = 0},
+              minexptime = 0.5,
+              maxexptime = 1.5,
+              minsize = 2,
+              maxsize = 4,
+              texture = "mobs_tnt_smoke.png",
+            })
+            self.object:remove()
+            return true
+          else
+            self.lifetimer = 60
+            -- local name = self.jc_monster_name or self.name or "unknown"
+            -- core.log("action", string.format("[JC Trooper Despawn] '%s' player nearby, timer reset to 60s", name ))
+          end
+        end
+      end
+    end
+
+    return true  -- continue normal behavior
+  end,
+  ----------------------------------------------------------------
   -- DROPS
   ----------------------------------------------------------------
   drops = {
@@ -1737,17 +1797,76 @@ monsterDefinitions.trooper = {
   ----------------------------------------------------------------
   -- TROOPER SPAWN
   ----------------------------------------------------------------
-  spawn = {
-    nodes = { "moreblocks:checker_stone_tile", },
-    min_light = 0,
-    max_light = 15,
-    chance = 7000,
-    min_height = -2,
-    max_height = 30,
-  },
-
+  -- spawn = {
+    -- nodes = { "moreblocks:checker_stone_tile", },
+    -- min_light = 0,
+    -- max_light = 15,
+    -- chance = 7000,
+    -- min_height = -2,
+    -- max_height = 30,
+  -- },
 
   ----------------------------------------------------------------
+  -- CUSTOM TROOPER HANDLING FOR DEATH
+  ----------------------------------------------------------------
+  do_custom = function(self, dtime, def)
+    -- Only despawn if not tamed
+    if not self.tamed then
+      self.lifetimer = (self.lifetimer or 300) - dtime
+
+      -- self.jc_log_timer = (self.jc_log_timer or 0) - dtime
+      -- if self.jc_log_timer <= 0 then
+        -- self.jc_log_timer = 30
+        -- local name = self.jc_monster_name or self.name or "unknown"
+        -- core.log("action", string.format( "[JC Trooper Despawn] '%s' timer = %.1f seconds remaining", name, self.lifetimer ))
+      -- end
+
+      if self.lifetimer <= 0 then
+        local pos = self.object:get_pos()
+        if pos then
+          local players_nearby = false
+          for _, player in ipairs(core.get_connected_players()) do
+            local ppos = player:get_pos()
+            if ppos and vector.distance(pos, ppos) < 20 then
+              players_nearby = true
+              break
+            end
+          end
+
+          if not players_nearby then
+            local name = self.jc_monster_name or self.name or "unknown"
+            -- core.log("action", string.format("[JC Trooper Despawn] '%s' EXPIRED and removed at %s", name, core.pos_to_string(pos) ))
+
+            -- smoke effect + remove
+            core.add_particlespawner({
+              amount = 15,
+              time = 0.1,
+              minpos = pos,
+              maxpos = pos,
+              minvel = {x = -1, y = 0, z = -1},
+              maxvel = {x = 1, y = 2, z = 1},
+              minacc = {x = 0, y = -4, z = 0},
+              maxacc = {x = 0, y = -8, z = 0},
+              minexptime = 0.5,
+              maxexptime = 1.5,
+              minsize = 2,
+              maxsize = 4,
+              texture = "mobs_tnt_smoke.png",
+            })
+            self.object:remove()
+            return true
+          else
+            self.lifetimer = 60
+            -- local name = self.jc_monster_name or self.name or "unknown"
+            -- core.log("action", string.format("[JC Trooper Despawn] '%s' player nearby, timer reset to 60s", name ))
+          end
+        end
+      end
+    end
+
+    return true  -- continue normal behavior
+  end,
+    ----------------------------------------------------------------
   -- TROOPER TAMING
   ----------------------------------------------------------------
   on_rightclick = function(self, clicker)

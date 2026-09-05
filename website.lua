@@ -23,7 +23,7 @@ local WEBSITE_JSON = core.get_worldpath() .. "/server.json"
 local UPDATE_INTERVAL = 60
 
 -------------------------------------------------------------------------------
--- JSON encoder
+-- JSON encoder and Helper Functions
 -------------------------------------------------------------------------------
 local function json_escape(str)
   str = tostring(str)
@@ -120,6 +120,21 @@ local function json_encode(value)
   return "null"
 end
 
+local function clean_place_label(label, fallback)
+  if not label or label == "" then
+    return fallback
+  end
+
+  -- Remove jc_places translation marker
+  label = label:gsub("^@jc_places%)", "")
+
+  -- Remove leading/trailing whitespace and newlines
+  label = label:gsub("^%s+", "")
+  label = label:gsub("%s+$", "")
+
+  return label
+end
+
 -------------------------------------------------------------------------------
 -- Count registered players
 -------------------------------------------------------------------------------
@@ -153,7 +168,7 @@ local function get_places()
     if pos then
       places[#places + 1] = {
         name = place.name,
-        label = place.label,
+        label = clean_place_label(place.label, place.name),
         x = math.floor(pos.x),
         y = math.floor(pos.y),
         z = math.floor(pos.z),
@@ -162,6 +177,18 @@ local function get_places()
   end
 
   return places
+end
+
+local function get_online_player_names()
+  local names = {}
+
+  for _, player in ipairs(core.get_connected_players()) do
+    names[#names + 1] = player:get_player_name()
+  end
+
+  table.sort(names)
+
+  return names
 end
 
 -------------------------------------------------------------------------------
@@ -179,6 +206,7 @@ local function get_website_data()
     players = {
       online = get_online_player_count(),
       total = get_total_player_count(),
+      online_names = get_online_player_names(),
     },
 
     places = get_places(),

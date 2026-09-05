@@ -168,7 +168,7 @@ msgid "has deposited mail for you at"
 msgstr "zostawił dla Ciebie pocztę w"
 
 msgid "[Mailbox] @1 has deposited mail for you at @2."
-msgstr "[Skrzynka pocztowa] @1 zostawił dla Ciebie pocztę w @2."
+msgstr "[Skrzynka pocztowa] Przesyłka od @1 w @2."
 
 msgid "Grandfather Clock\n@1"
 msgstr "Zegar stojący\n@1"
@@ -180,7 +180,7 @@ msgid "Paste Message"
 msgstr "Wklej wiadomość"
 
 msgid "Enter your chat message here (maximum 500 characters):"
-msgstr "Wpisz lub wklej tutaj wiadomość na czat (maksymalnie 500 znaków):"
+msgstr "Wpisz lub wklej tutaj swoją wiadomość na czat (maksymalnie 500 znaków):"
 
 msgid "SEND"
 msgstr "WYŚLIJ"
@@ -189,7 +189,7 @@ msgid "CANCEL"
 msgstr "ANULUJ"
 
 msgid "Your message is limited to 500 characters."
-msgstr "Twoja wiadomość jest ograniczona do 500 znaków."
+msgstr "Wiadomość nie może przekroczyć 500 znaków."
 
 msgid "The message cannot be empty."
 msgstr "Wiadomość nie może być pusta."
@@ -230,7 +230,7 @@ msgstr "Nieznany blok: @1"
 msgid "No @1 found within @2 nodes."
 msgstr "Nie znaleziono @1 w promieniu @2 bloków."
 
-msgid "Found @1 @2 within a @3 node square:"
+msgid "-"
 msgstr "Znaleziono @1 @2 w kwadracie o boku @3 bloków:"
 
 msgid "@1 - @2 nodes away"
@@ -270,7 +270,7 @@ msgstr "Gracz @1 jest już w więzieniu."
 
 #: prison.lua
 msgid "Player @1 has been jailed"
-msgstr "Gracz @1 został uwięziony"
+msgstr "Gracz @1 trafił do więzienia"
 
 #: prison.lua
 msgid "Player @1 was never jailed"

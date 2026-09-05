@@ -120,30 +120,6 @@ local function json_encode(value)
   return "null"
 end
 
-local function clean_place_label(label, fallback)
-  if not label or label == "" then
-    return fallback
-  end
-
-  label = tostring(label)
-
-  -- Remove jc_places translation marker.
-  label = label:gsub("@jc_places%)", "")
-
-  -- Remove Luanti formatting/color escape sequences.
-  label = label:gsub("\27%[[^%z]*", "")
-  label = label:gsub("%^%[[^%z]*", "")
-
-  -- Remove control characters.
-  label = label:gsub("[%c]", "")
-
-  -- Remove leading/trailing whitespace.
-  label = label:gsub("^%s+", "")
-  label = label:gsub("%s+$", "")
-
-  return label
-end
-
 -------------------------------------------------------------------------------
 -- Count registered players
 -------------------------------------------------------------------------------
@@ -177,7 +153,7 @@ local function get_places()
     if pos then
       places[#places + 1] = {
         name = place.name,
-        label = clean_place_label(place.label, place.name),
+        label = place.web_label or place.name,
         x = math.floor(pos.x),
         y = math.floor(pos.y),
         z = math.floor(pos.z),

@@ -230,7 +230,7 @@ msgstr "Nieznany blok: @1"
 msgid "No @1 found within @2 nodes."
 msgstr "Nie znaleziono @1 w promieniu @2 bloków."
 
-msgid "-"
+msgid "Found @1 @2 within a @3 node square:"
 msgstr "Znaleziono @1 @2 w kwadracie o boku @3 bloków:"
 
 msgid "@1 - @2 nodes away"

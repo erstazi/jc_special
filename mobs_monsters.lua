@@ -1550,7 +1550,7 @@ monsterDefinitions.castle_guard = {
       -- if self.jc_log_timer <= 0 then
         -- self.jc_log_timer = 30
         -- local name = self.jc_monster_name or self.name or "unknown"
-        -- core.log("action", string.format( "[JC Trooper Despawn] '%s' timer = %.1f seconds remaining", name, self.lifetimer ))
+        -- core.log("action", string.format( "[JC Castle Guard Despawn] '%s' timer = %.1f seconds remaining", name, self.lifetimer ))
       -- end
 
       if self.lifetimer <= 0 then
@@ -1567,7 +1567,7 @@ monsterDefinitions.castle_guard = {
 
           if not players_nearby then
             local name = self.jc_monster_name or self.name or "unknown"
-            -- core.log("action", string.format("[JC Trooper Despawn] '%s' EXPIRED and removed at %s", name, core.pos_to_string(pos) ))
+            -- core.log("action", string.format("[JC Castle Guard Despawn] '%s' EXPIRED and removed at %s", name, core.pos_to_string(pos) ))
 
             -- smoke effect + remove
             core.add_particlespawner({
@@ -1590,7 +1590,7 @@ monsterDefinitions.castle_guard = {
           else
             self.lifetimer = 60
             -- local name = self.jc_monster_name or self.name or "unknown"
-            -- core.log("action", string.format("[JC Trooper Despawn] '%s' player nearby, timer reset to 60s", name ))
+            -- core.log("action", string.format("[JC Castle Guard Despawn] '%s' player nearby, timer reset to 60s", name ))
           end
         end
       end

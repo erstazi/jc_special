@@ -127,10 +127,17 @@ local function clean_place_label(label, fallback)
 
   label = tostring(label)
 
-  -- Remove the jc_places translation marker wherever it appears.
+  -- Remove jc_places translation marker.
   label = label:gsub("@jc_places%)", "")
 
-  -- Remove leading/trailing whitespace and newlines.
+  -- Remove Luanti formatting/color escape sequences.
+  label = label:gsub("\27%[[^%z]*", "")
+  label = label:gsub("%^%[[^%z]*", "")
+
+  -- Remove control characters.
+  label = label:gsub("[%c]", "")
+
+  -- Remove leading/trailing whitespace.
   label = label:gsub("^%s+", "")
   label = label:gsub("%s+$", "")
 

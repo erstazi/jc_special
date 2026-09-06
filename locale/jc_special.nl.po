@@ -200,6 +200,9 @@ msgstr "Soldaat"
 msgid "This Trooper must be tamed before you can protect it."
 msgstr "Deze Soldaat moet getemd zijn voordat je hem kunt beschermen."
 
+msgid "This Trooper belongs to @1."
+msgstr "Deze Soldaat behoort toe aan @1."
+
 msgid "Castle Guard"
 msgstr "Kasteelwacht"
 

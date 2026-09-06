@@ -200,6 +200,9 @@ msgstr "士兵"
 msgid "This Trooper must be tamed before you can protect it."
 msgstr "必须先驯服这个士兵，才能保护它。"
 
+msgid "This Trooper belongs to @1."
+msgstr "这个士兵属于 @1。"
+
 msgid "Castle Guard"
 msgstr "城堡守卫"
 

@@ -200,6 +200,9 @@ msgstr "Trooper"
 msgid "This Trooper must be tamed before you can protect it."
 msgstr "Ten Trooper musi zostać oswojony, zanim będzie można go chronić."
 
+msgid "This Trooper belongs to @1."
+msgstr "Ten Trooper należy do @1."
+
 msgid "Castle Guard"
 msgstr "Strażnik Zamku"
 

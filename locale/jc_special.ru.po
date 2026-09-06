@@ -200,6 +200,9 @@ msgstr "Солдат"
 msgid "This Trooper must be tamed before you can protect it."
 msgstr "Этого Солдата нужно приручить, прежде чем вы сможете его защищать."
 
+msgid "This Trooper belongs to @1."
+msgstr "Этот Солдат принадлежит @1."
+
 msgid "Castle Guard"
 msgstr "Стражник Замка"
 

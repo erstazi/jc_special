@@ -1922,7 +1922,7 @@ monsterDefinitions.trooper = {
       end
     end
   end,
-  ]]
+
   on_rightclick = function(self, clicker)
     if not clicker or not clicker:is_player() then
       return
@@ -1986,6 +1986,106 @@ monsterDefinitions.trooper = {
           self.object:set_properties({
             nametag = self.nametag
           })
+        end
+      end
+
+      core.log("action", "[jc_special] " .. player_name .. " took ownership of Trooper from " .. tostring(old_owner) )
+    end
+
+    --------------------------------------------------------------
+    -- 5. Protect
+    --------------------------------------------------------------
+    if mobs:protect(self, clicker) then
+      return
+    end
+
+    --------------------------------------------------------------
+    -- 6. Capture
+    --------------------------------------------------------------
+    if self.tamed then
+
+      -- Owner is already verified above.
+      self.owner = player_name
+
+      if self.jc_monster_name then
+        self.nametag = core.colorize("#FFFF00", self.jc_monster_name) .. core.colorize("#AAAAAA", " (" .. player_name .. ")")
+
+        if self.update_tag then
+          self:update_tag()
+        else
+          self.object:set_properties({ nametag = self.nametag })
+        end
+      end
+
+      if mobs:capture_mob(self, clicker, 30, 50, 80, false, nil) then
+        return
+      end
+    end
+  end,
+  ]]
+
+  on_rightclick = function(self, clicker)
+    if not clicker or not clicker:is_player() then
+      return
+    end
+
+    local player_name = clicker:get_player_name()
+
+    --------------------------------------------------------------
+    -- 1. Ownership check BEFORE feeding/taming
+    --
+    -- The owner can feed their Trooper normally.
+    -- Players with the ban privilege can bypass ownership.
+    --------------------------------------------------------------
+    local has_ban_priv = core.check_player_privs(player_name, { ban = true })
+
+    if self.tamed and self.owner and self.owner ~= "" and self.owner ~= player_name and not has_ban_priv then
+      core.chat_send_player(player_name, S("This Trooper belongs to @1.", self.owner))
+      return
+    end
+
+    --------------------------------------------------------------
+    -- 2. Feed / Tame
+    --------------------------------------------------------------
+    if mobs:feed_tame(self, clicker, 4, true, true) then
+      if self.tamed and self.jc_monster_name then
+        self.owner = player_name
+
+        self.nametag = core.colorize("#FFFF00", self.jc_monster_name) .. core.colorize("#AAAAAA", " (" .. player_name .. ")")
+
+        if self.update_tag then
+          self:update_tag()
+        else
+          self.object:set_properties({ nametag = self.nametag })
+        end
+      end
+
+      return
+    end
+
+    --------------------------------------------------------------
+    -- 3. Must be tamed
+    --------------------------------------------------------------
+    if not self.tamed then
+      core.chat_send_player( player_name, S("This Trooper must be tamed before you can protect it.") )
+      return
+    end
+
+    --------------------------------------------------------------
+    -- 4. Staff with ban privilege can take ownership
+    --------------------------------------------------------------
+    if has_ban_priv and self.owner ~= player_name then
+      local old_owner = self.owner
+
+      self.owner = player_name
+
+      if self.jc_monster_name then
+        self.nametag = core.colorize("#FFFF00", self.jc_monster_name) .. core.colorize("#AAAAAA", " (" .. player_name .. ")")
+
+        if self.update_tag then
+          self:update_tag()
+        else
+          self.object:set_properties({ nametag = self.nametag })
         end
       end
 

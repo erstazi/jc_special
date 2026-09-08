@@ -201,6 +201,23 @@ local function get_rules()
 end
 
 -------------------------------------------------------------------------------
+-- Get server rules in Spanish from jc_welcome
+-------------------------------------------------------------------------------
+local function get_rules_es()
+  local rules_es = {}
+
+  if not jc_welcome.rules_es_raw then
+    return rules_es
+  end
+
+  for i = 1, #jc_welcome.rules_es_raw do
+    rules_es[#rules_es + 1] = jc_welcome.rules_es_raw[i]
+  end
+
+  return rules_es
+end
+
+-------------------------------------------------------------------------------
 -- Generate website data
 -------------------------------------------------------------------------------
 local function get_website_data()
@@ -221,6 +238,7 @@ local function get_website_data()
 
     places = get_places(),
     rules = get_rules(),
+    rules_es = get_rules_es(),
 
     updated = os.date("!%Y-%m-%dT%H:%M:%SZ"),
   }

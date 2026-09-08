@@ -121,6 +121,13 @@ local function json_encode(value)
 end
 
 -------------------------------------------------------------------------------
+-- Count loaded mods
+-------------------------------------------------------------------------------
+local function get_mod_count()
+  return #core.get_modnames()
+end
+
+-------------------------------------------------------------------------------
 -- Count registered players
 -------------------------------------------------------------------------------
 local function get_total_player_count()
@@ -186,6 +193,7 @@ local function get_website_data()
     server = {
       name = core.settings:get("server_name") or "Just-Craft",
       luanti_version = version.string or "unknown",
+      mods = get_mod_count(),
     },
 
     players = {

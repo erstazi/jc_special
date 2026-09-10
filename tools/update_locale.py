@@ -98,28 +98,38 @@ def extract_s_strings(source):
   pattern = re.compile(r"\bS\s*\(")
 
   for match in pattern.finditer(source):
-    position = match.end()
+    position = skip_lua_space(source, match.end())
+
+    value, position = parse_lua_string(source, position)
+
+    if value is None:
+      continue
+
+    parts = [value]
+
     position = skip_lua_space(source, position)
 
-    parts = []
-
     while position < len(source):
-      value, position_after = parse_lua_string(source, position)
-
-      if value is None:
-        break
-
-      parts.append(value)
-      position = skip_lua_space(source, position_after)
-
       if source.startswith("..", position):
         position += 2
         position = skip_lua_space(source, position)
+
+        value, position = parse_lua_string(source, position)
+
+        if value is None:
+          break
+
+        parts.append(value)
+        position = skip_lua_space(source, position)
         continue
 
-      if position < len(source) and source[position] == ")":
-        position += 1
+      if source[position] == ",":
         results.append("".join(parts))
+        break
+
+      if source[position] == ")":
+        results.append("".join(parts))
+        break
 
       break
 

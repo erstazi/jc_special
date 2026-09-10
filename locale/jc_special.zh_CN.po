@@ -408,68 +408,68 @@ msgstr "你的物品栏"
 
 #: infotext.lua
 msgid "Edit Infotext: @1"
-msgstr ""
+msgstr "编辑信息文本：@1"
 
 #: mobs_monsters.lua
 msgid "Enable or disable monster sounds."
-msgstr ""
+msgstr "启用或禁用怪物声音。"
 
 #: infotext.lua
 msgid "Infotext"
-msgstr ""
+msgstr "信息文本"
 
 #: infotext.lua
 msgid "Infotext cleared."
-msgstr ""
+msgstr "信息文本已清除。"
 
 #: infotext.lua
 msgid "Infotext cleared; this node has no default infotext."
-msgstr ""
+msgstr "信息文本已清除；此方块没有默认信息文本。"
 
 #: infotext.lua
 msgid "Infotext reset to default."
-msgstr ""
+msgstr "信息文本已恢复为默认值。"
 
 #: infotext.lua
 msgid "Infotext updated."
-msgstr ""
+msgstr "信息文本已更新。"
 
 #: mobs_monsters.lua
 msgid "List players who have monster sounds disabled."
-msgstr ""
+msgstr "列出已禁用怪物声音的玩家。"
 
 #: mobs_monsters.lua
 msgid "Monster sounds disabled."
-msgstr ""
+msgstr "怪物声音已禁用。"
 
 #: mobs_monsters.lua
 msgid "Monster sounds enabled."
-msgstr ""
+msgstr "怪物声音已启用。"
 
 #: mobs_monsters.lua
 msgid "No players have monster sounds disabled."
-msgstr ""
+msgstr "没有玩家禁用了怪物声音。"
 
 #: mobs_monsters.lua
 msgid "Players with monster sounds disabled (@1):"
-msgstr ""
+msgstr "已禁用怪物声音的玩家（@1）："
 
 #: infotext.lua
 msgid "SAVE"
-msgstr ""
+msgstr "保存"
 
 #: infotext.lua
 msgid "The node has changed. Infotext was not modified."
-msgstr ""
+msgstr "方块已发生变化。信息文本未被修改。"
 
 #: mobs_monsters.lua
 msgid "Usage: /jc_special_sounds_monsters <on|off>"
-msgstr ""
+msgstr "用法：/jc_special_sounds_monsters <on|off>"
 
 #: prison.lua
 msgid "You cannot enter this area while jailed."
-msgstr ""
+msgstr "你在监狱中时无法进入此区域。"
 
 #: infotext.lua
 msgid "You need server privileges to use this."
-msgstr ""
+msgstr "你需要服务器权限才能使用此功能。"

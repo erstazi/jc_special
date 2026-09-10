@@ -408,68 +408,68 @@ msgstr "Your Inventory"
 
 #: infotext.lua
 msgid "Edit Infotext: @1"
-msgstr ""
+msgstr "Edit Infotext: @1"
 
 #: mobs_monsters.lua
 msgid "Enable or disable monster sounds."
-msgstr ""
+msgstr "Enable or disable monster sounds."
 
 #: infotext.lua
 msgid "Infotext"
-msgstr ""
+msgstr "Infotext"
 
 #: infotext.lua
 msgid "Infotext cleared."
-msgstr ""
+msgstr "Infotext cleared."
 
 #: infotext.lua
 msgid "Infotext cleared; this node has no default infotext."
-msgstr ""
+msgstr "Infotext cleared; this node has no default infotext."
 
 #: infotext.lua
 msgid "Infotext reset to default."
-msgstr ""
+msgstr "Infotext reset to default."
 
 #: infotext.lua
 msgid "Infotext updated."
-msgstr ""
+msgstr "Infotext updated."
 
 #: mobs_monsters.lua
 msgid "List players who have monster sounds disabled."
-msgstr ""
+msgstr "List players who have monster sounds disabled."
 
 #: mobs_monsters.lua
 msgid "Monster sounds disabled."
-msgstr ""
+msgstr "Monster sounds disabled."
 
 #: mobs_monsters.lua
 msgid "Monster sounds enabled."
-msgstr ""
+msgstr "Monster sounds enabled."
 
 #: mobs_monsters.lua
 msgid "No players have monster sounds disabled."
-msgstr ""
+msgstr "No players have monster sounds disabled."
 
 #: mobs_monsters.lua
 msgid "Players with monster sounds disabled (@1):"
-msgstr ""
+msgstr "Players with monster sounds disabled (@1):"
 
 #: infotext.lua
 msgid "SAVE"
-msgstr ""
+msgstr "SAVE"
 
 #: infotext.lua
 msgid "The node has changed. Infotext was not modified."
-msgstr ""
+msgstr "The node has changed. Infotext was not modified."
 
 #: mobs_monsters.lua
 msgid "Usage: /jc_special_sounds_monsters <on|off>"
-msgstr ""
+msgstr "Usage: /jc_special_sounds_monsters <on|off>"
 
 #: prison.lua
 msgid "You cannot enter this area while jailed."
-msgstr ""
+msgstr "You cannot enter this area while jailed."
 
 #: infotext.lua
 msgid "You need server privileges to use this."
-msgstr ""
+msgstr "You need server privileges to use this."

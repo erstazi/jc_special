@@ -408,68 +408,68 @@ msgstr "Tu inventario"
 
 #: infotext.lua
 msgid "Edit Infotext: @1"
-msgstr ""
+msgstr "Editar infotexto: @1"
 
 #: mobs_monsters.lua
 msgid "Enable or disable monster sounds."
-msgstr ""
+msgstr "Activar o desactivar los sonidos de monstruos."
 
 #: infotext.lua
 msgid "Infotext"
-msgstr ""
+msgstr "Infotexto"
 
 #: infotext.lua
 msgid "Infotext cleared."
-msgstr ""
+msgstr "Infotexto borrado."
 
 #: infotext.lua
 msgid "Infotext cleared; this node has no default infotext."
-msgstr ""
+msgstr "Infotexto borrado; este nodo no tiene un infotexto predeterminado."
 
 #: infotext.lua
 msgid "Infotext reset to default."
-msgstr ""
+msgstr "Infotexto restablecido al valor predeterminado."
 
 #: infotext.lua
 msgid "Infotext updated."
-msgstr ""
+msgstr "Infotexto actualizado."
 
 #: mobs_monsters.lua
 msgid "List players who have monster sounds disabled."
-msgstr ""
+msgstr "Mostrar la lista de jugadores que tienen desactivados los sonidos de monstruos."
 
 #: mobs_monsters.lua
 msgid "Monster sounds disabled."
-msgstr ""
+msgstr "Sonidos de monstruos desactivados."
 
 #: mobs_monsters.lua
 msgid "Monster sounds enabled."
-msgstr ""
+msgstr "Sonidos de monstruos activados."
 
 #: mobs_monsters.lua
 msgid "No players have monster sounds disabled."
-msgstr ""
+msgstr "Ningún jugador tiene desactivados los sonidos de monstruos."
 
 #: mobs_monsters.lua
 msgid "Players with monster sounds disabled (@1):"
-msgstr ""
+msgstr "Jugadores con los sonidos de monstruos desactivados (@1):"
 
 #: infotext.lua
 msgid "SAVE"
-msgstr ""
+msgstr "GUARDAR"
 
 #: infotext.lua
 msgid "The node has changed. Infotext was not modified."
-msgstr ""
+msgstr "El nodo ha cambiado. El infotexto no se modificó."
 
 #: mobs_monsters.lua
 msgid "Usage: /jc_special_sounds_monsters <on|off>"
-msgstr ""
+msgstr "Uso: /jc_special_sounds_monsters <on|off>"
 
 #: prison.lua
 msgid "You cannot enter this area while jailed."
-msgstr ""
+msgstr "No puedes entrar en esta zona mientras estás encarcelado."
 
 #: infotext.lua
 msgid "You need server privileges to use this."
-msgstr ""
+msgstr "Necesitas privilegios de servidor para usar esto."

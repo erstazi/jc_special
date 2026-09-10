@@ -408,68 +408,68 @@ msgstr "Je inventaris"
 
 #: infotext.lua
 msgid "Edit Infotext: @1"
-msgstr ""
+msgstr "Infotext bewerken: @1"
 
 #: mobs_monsters.lua
 msgid "Enable or disable monster sounds."
-msgstr ""
+msgstr "Monstergeluiden in- of uitschakelen."
 
 #: infotext.lua
 msgid "Infotext"
-msgstr ""
+msgstr "Infotext"
 
 #: infotext.lua
 msgid "Infotext cleared."
-msgstr ""
+msgstr "Infotext gewist."
 
 #: infotext.lua
 msgid "Infotext cleared; this node has no default infotext."
-msgstr ""
+msgstr "Infotext gewist; dit blok heeft geen standaardinfotext."
 
 #: infotext.lua
 msgid "Infotext reset to default."
-msgstr ""
+msgstr "Infotext teruggezet naar de standaardwaarde."
 
 #: infotext.lua
 msgid "Infotext updated."
-msgstr ""
+msgstr "Infotext bijgewerkt."
 
 #: mobs_monsters.lua
 msgid "List players who have monster sounds disabled."
-msgstr ""
+msgstr "Spelers weergeven die monstergeluiden hebben uitgeschakeld."
 
 #: mobs_monsters.lua
 msgid "Monster sounds disabled."
-msgstr ""
+msgstr "Monstergeluiden uitgeschakeld."
 
 #: mobs_monsters.lua
 msgid "Monster sounds enabled."
-msgstr ""
+msgstr "Monstergeluiden ingeschakeld."
 
 #: mobs_monsters.lua
 msgid "No players have monster sounds disabled."
-msgstr ""
+msgstr "Geen spelers hebben monstergeluiden uitgeschakeld."
 
 #: mobs_monsters.lua
 msgid "Players with monster sounds disabled (@1):"
-msgstr ""
+msgstr "Spelers met uitgeschakelde monstergeluiden (@1):"
 
 #: infotext.lua
 msgid "SAVE"
-msgstr ""
+msgstr "OPSLAAN"
 
 #: infotext.lua
 msgid "The node has changed. Infotext was not modified."
-msgstr ""
+msgstr "Het blok is gewijzigd. De infotext is niet aangepast."
 
 #: mobs_monsters.lua
 msgid "Usage: /jc_special_sounds_monsters <on|off>"
-msgstr ""
+msgstr "Gebruik: /jc_special_sounds_monsters <on|off>"
 
 #: prison.lua
 msgid "You cannot enter this area while jailed."
-msgstr ""
+msgstr "Je kunt dit gebied niet betreden zolang je in de gevangenis zit."
 
 #: infotext.lua
 msgid "You need server privileges to use this."
-msgstr ""
+msgstr "Je hebt serverrechten nodig om dit te gebruiken."

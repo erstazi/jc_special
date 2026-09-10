@@ -408,68 +408,68 @@ msgstr "Votre inventaire"
 
 #: infotext.lua
 msgid "Edit Infotext: @1"
-msgstr ""
+msgstr "Modifier l'infotexte : @1"
 
 #: mobs_monsters.lua
 msgid "Enable or disable monster sounds."
-msgstr ""
+msgstr "Activer ou désactiver les sons des monstres."
 
 #: infotext.lua
 msgid "Infotext"
-msgstr ""
+msgstr "Infotexte"
 
 #: infotext.lua
 msgid "Infotext cleared."
-msgstr ""
+msgstr "Infotexte effacé."
 
 #: infotext.lua
 msgid "Infotext cleared; this node has no default infotext."
-msgstr ""
+msgstr "Infotexte effacé ; ce bloc n'a pas d'infotexte par défaut."
 
 #: infotext.lua
 msgid "Infotext reset to default."
-msgstr ""
+msgstr "Infotexte réinitialisé à sa valeur par défaut."
 
 #: infotext.lua
 msgid "Infotext updated."
-msgstr ""
+msgstr "Infotexte mis à jour."
 
 #: mobs_monsters.lua
 msgid "List players who have monster sounds disabled."
-msgstr ""
+msgstr "Lister les joueurs qui ont désactivé les sons des monstres."
 
 #: mobs_monsters.lua
 msgid "Monster sounds disabled."
-msgstr ""
+msgstr "Sons des monstres désactivés."
 
 #: mobs_monsters.lua
 msgid "Monster sounds enabled."
-msgstr ""
+msgstr "Sons des monstres activés."
 
 #: mobs_monsters.lua
 msgid "No players have monster sounds disabled."
-msgstr ""
+msgstr "Aucun joueur n'a désactivé les sons des monstres."
 
 #: mobs_monsters.lua
 msgid "Players with monster sounds disabled (@1):"
-msgstr ""
+msgstr "Joueurs ayant désactivé les sons des monstres (@1) :"
 
 #: infotext.lua
 msgid "SAVE"
-msgstr ""
+msgstr "ENREGISTRER"
 
 #: infotext.lua
 msgid "The node has changed. Infotext was not modified."
-msgstr ""
+msgstr "Le bloc a changé. L'infotexte n'a pas été modifié."
 
 #: mobs_monsters.lua
 msgid "Usage: /jc_special_sounds_monsters <on|off>"
-msgstr ""
+msgstr "Utilisation : /jc_special_sounds_monsters <on|off>"
 
 #: prison.lua
 msgid "You cannot enter this area while jailed."
-msgstr ""
+msgstr "Vous ne pouvez pas entrer dans cette zone lorsque vous êtes en prison."
 
 #: infotext.lua
 msgid "You need server privileges to use this."
-msgstr ""
+msgstr "Vous devez avoir les privilèges du serveur pour utiliser ceci."

@@ -408,68 +408,68 @@ msgstr "Ваш инвентарь"
 
 #: infotext.lua
 msgid "Edit Infotext: @1"
-msgstr ""
+msgstr "Изменить инфотекст: @1"
 
 #: mobs_monsters.lua
 msgid "Enable or disable monster sounds."
-msgstr ""
+msgstr "Включить или отключить звуки монстров."
 
 #: infotext.lua
 msgid "Infotext"
-msgstr ""
+msgstr "Инфотекст"
 
 #: infotext.lua
 msgid "Infotext cleared."
-msgstr ""
+msgstr "Инфотекст очищен."
 
 #: infotext.lua
 msgid "Infotext cleared; this node has no default infotext."
-msgstr ""
+msgstr "Инфотекст очищен; у этого блока нет инфотекста по умолчанию."
 
 #: infotext.lua
 msgid "Infotext reset to default."
-msgstr ""
+msgstr "Инфотекст сброшен до значения по умолчанию."
 
 #: infotext.lua
 msgid "Infotext updated."
-msgstr ""
+msgstr "Инфотекст обновлён."
 
 #: mobs_monsters.lua
 msgid "List players who have monster sounds disabled."
-msgstr ""
+msgstr "Показать список игроков, отключивших звуки монстров."
 
 #: mobs_monsters.lua
 msgid "Monster sounds disabled."
-msgstr ""
+msgstr "Звуки монстров отключены."
 
 #: mobs_monsters.lua
 msgid "Monster sounds enabled."
-msgstr ""
+msgstr "Звуки монстров включены."
 
 #: mobs_monsters.lua
 msgid "No players have monster sounds disabled."
-msgstr ""
+msgstr "Нет игроков с отключёнными звуками монстров."
 
 #: mobs_monsters.lua
 msgid "Players with monster sounds disabled (@1):"
-msgstr ""
+msgstr "Игроки с отключёнными звуками монстров (@1):"
 
 #: infotext.lua
 msgid "SAVE"
-msgstr ""
+msgstr "СОХРАНИТЬ"
 
 #: infotext.lua
 msgid "The node has changed. Infotext was not modified."
-msgstr ""
+msgstr "Блок был изменён. Инфотекст не был изменён."
 
 #: mobs_monsters.lua
 msgid "Usage: /jc_special_sounds_monsters <on|off>"
-msgstr ""
+msgstr "Использование: /jc_special_sounds_monsters <on|off>"
 
 #: prison.lua
 msgid "You cannot enter this area while jailed."
-msgstr ""
+msgstr "Вы не можете войти в эту область, находясь в тюрьме."
 
 #: infotext.lua
 msgid "You need server privileges to use this."
-msgstr ""
+msgstr "Для этого нужны права сервера."

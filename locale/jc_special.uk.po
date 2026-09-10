@@ -408,68 +408,68 @@ msgstr "Ваш інвентар"
 
 #: infotext.lua
 msgid "Edit Infotext: @1"
-msgstr ""
+msgstr "Редагувати інфотекст: @1"
 
 #: mobs_monsters.lua
 msgid "Enable or disable monster sounds."
-msgstr ""
+msgstr "Увімкнути або вимкнути звуки монстрів."
 
 #: infotext.lua
 msgid "Infotext"
-msgstr ""
+msgstr "Інфотекст"
 
 #: infotext.lua
 msgid "Infotext cleared."
-msgstr ""
+msgstr "Інфотекст очищено."
 
 #: infotext.lua
 msgid "Infotext cleared; this node has no default infotext."
-msgstr ""
+msgstr "Інфотекст очищено; цей блок не має інфотексту за замовчуванням."
 
 #: infotext.lua
 msgid "Infotext reset to default."
-msgstr ""
+msgstr "Інфотекст скинуто до значення за замовчуванням."
 
 #: infotext.lua
 msgid "Infotext updated."
-msgstr ""
+msgstr "Інфотекст оновлено."
 
 #: mobs_monsters.lua
 msgid "List players who have monster sounds disabled."
-msgstr ""
+msgstr "Показати список гравців, які вимкнули звуки монстрів."
 
 #: mobs_monsters.lua
 msgid "Monster sounds disabled."
-msgstr ""
+msgstr "Звуки монстрів вимкнено."
 
 #: mobs_monsters.lua
 msgid "Monster sounds enabled."
-msgstr ""
+msgstr "Звуки монстрів увімкнено."
 
 #: mobs_monsters.lua
 msgid "No players have monster sounds disabled."
-msgstr ""
+msgstr "Немає гравців із вимкненими звуками монстрів."
 
 #: mobs_monsters.lua
 msgid "Players with monster sounds disabled (@1):"
-msgstr ""
+msgstr "Гравці з вимкненими звуками монстрів (@1):"
 
 #: infotext.lua
 msgid "SAVE"
-msgstr ""
+msgstr "ЗБЕРЕГТИ"
 
 #: infotext.lua
 msgid "The node has changed. Infotext was not modified."
-msgstr ""
+msgstr "Блок було змінено. Інфотекст не було змінено."
 
 #: mobs_monsters.lua
 msgid "Usage: /jc_special_sounds_monsters <on|off>"
-msgstr ""
+msgstr "Використання: /jc_special_sounds_monsters <on|off>"
 
 #: prison.lua
 msgid "You cannot enter this area while jailed."
-msgstr ""
+msgstr "Ви не можете увійти в цю область, перебуваючи у в'язниці."
 
 #: infotext.lua
 msgid "You need server privileges to use this."
-msgstr ""
+msgstr "Для цього потрібні права сервера."

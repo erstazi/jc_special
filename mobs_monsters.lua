@@ -21,6 +21,12 @@ local S = core.get_translator(core.get_current_modname())
 local monster_sounds_storage = core.get_mod_storage()
 
 ----------------------------------------------------------------
+-- LETTING THE PYTHON LOCALE PO CREATOR SEE THE DANG NAMES
+----------------------------------------------------------------
+local temp_trooper_name_for_translation = S("Trooper")
+local temp_castle_gaurd_name_for_translation = S("Castle Guard")
+
+----------------------------------------------------------------
 -- SHARED SETTINGS
 ----------------------------------------------------------------
 

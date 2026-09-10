@@ -145,7 +145,7 @@ msgstr ""
 msgid "Welcome to the Just-Craft server, @1!"
 msgstr ""
 
-msgid "Type: @1 to get your free apartment!"
+msgid "Type @1 to get your free apartment!"
 msgstr ""
 
 msgid "*** NEW PLAYER: @1 has joined the server for the first time. Information about apartments already sent to new player."

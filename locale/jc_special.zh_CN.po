@@ -146,8 +146,8 @@ msgstr "正在为所有已连接的玩家播放“@1”。"
 msgid "Welcome to the Just-Craft server, @1!"
 msgstr "欢迎来到 Just-Craft 服务器，@1！"
 
-msgid "Type: @1 to get your free apartment!"
-msgstr "输入：@1 来获得您的免费公寓！"
+msgid "Type @1 to get your free apartment!"
+msgstr "输入 @1 来获得您的免费公寓！"
 
 msgid "*** NEW PLAYER: @1 has joined the server for the first time. Information about apartments already sent to new player."
 msgstr "*** 新玩家：@1 首次加入服务器。有关公寓的信息已经发送给该新玩家。"

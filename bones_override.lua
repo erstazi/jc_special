@@ -28,6 +28,8 @@ local function drop_contents(pos)
     end
   end
 
+  drop(pos, ItemStack("bones:bones"))
+
   core.remove_node(pos)
 end
 

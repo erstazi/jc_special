@@ -311,3 +311,15 @@ msgstr "Falha nas configurações do spawner de mobs direto!"
 
 msgid "Syntax: “name min_light[0-15] max_light[0-15] max_mobs[0 to disable] player_distance[1-20] y_offset[-9 to 9]”"
 msgstr "Sintaxe: “nome min_light[0-15] max_light[0-15] max_mobs[0 para desativar] player_distance[1-20] y_offset[-9 a 9]”"
+
+msgid "Bones"
+msgstr "Ossos"
+
+msgid "Get Items"
+msgstr "Pegar itens"
+
+msgid "Drop Items"
+msgstr "Largar itens"
+
+msgid "Your Inventory"
+msgstr "O seu inventário"

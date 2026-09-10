@@ -311,3 +311,15 @@ msgstr "Direct Mob Spawner settings failed!"
 
 msgid "Syntax: “name min_light[0-15] max_light[0-15] max_mobs[0 to disable] player_distance[1-20] y_offset[-9 to 9]”"
 msgstr "Syntax: “name min_light[0-15] max_light[0-15] max_mobs[0 to disable] player_distance[1-20] y_offset[-9 to 9]”"
+
+msgid "Bones"
+msgstr "Bones"
+
+msgid "Get Items"
+msgstr "Get Items"
+
+msgid "Drop Items"
+msgstr "Drop Items"
+
+msgid "Your Inventory"
+msgstr "Your Inventory"

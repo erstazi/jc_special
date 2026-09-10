@@ -311,3 +311,15 @@ msgstr "直接生物生成器设置失败！"
 
 msgid "Syntax: “name min_light[0-15] max_light[0-15] max_mobs[0 to disable] player_distance[1-20] y_offset[-9 to 9]”"
 msgstr "语法：“名称 min_light[0-15] max_light[0-15] max_mobs[0 表示禁用] player_distance[1-20] y_offset[-9 到 9]”"
+
+msgid "Bones"
+msgstr "骨头"
+
+msgid "Get Items"
+msgstr "获取物品"
+
+msgid "Drop Items"
+msgstr "丢弃物品"
+
+msgid "Your Inventory"
+msgstr "你的物品栏"

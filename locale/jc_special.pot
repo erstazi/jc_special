@@ -147,6 +147,34 @@ msgstr ""
 msgid "Player not found."
 msgstr ""
 
+#: mobs_monsters.lua
+msgid "List players who have monster sounds disabled."
+msgstr ""
+
+#: mobs_monsters.lua
+msgid "Monster sounds disabled."
+msgstr ""
+
+#: mobs_monsters.lua
+msgid "Monster sounds enabled."
+msgstr ""
+
+#: mobs_monsters.lua
+msgid "No players have monster sounds disabled."
+msgstr ""
+
+#: mobs_monsters.lua
+msgid "Usage: /jc_special_sounds_monsters <on|off>"
+msgstr ""
+
+#: mobs_monsters.lua
+msgid "This Trooper must be tamed before you can protect it."
+msgstr ""
+
+#: mobs_monsters.lua
+msgid "Enable or disable monster sounds."
+msgstr ""
+
 #: welcomeplayers.lua
 msgid "Play a welcome sound for all connected players."
 msgstr ""
@@ -197,10 +225,6 @@ msgstr ""
 msgid "The message cannot be empty."
 msgstr ""
 
-#: mobs_monsters.lua
-msgid "This Trooper must be tamed before you can protect it."
-msgstr ""
-
 #: findnode.lua
 msgid "Usage: /findnode <mod:nodename> <radius>"
 msgstr ""
@@ -235,6 +259,10 @@ msgstr ""
 
 #: prison.lua
 msgid "Unjails players"
+msgstr ""
+
+#: prison.lua
+msgid "You cannot enter this area while jailed."
 msgstr ""
 
 #: direct_mob_spawner.lua
@@ -273,10 +301,6 @@ msgstr ""
 msgid "Your Inventory"
 msgstr ""
 
-#: mobs_monsters.lua
-msgid "Enable or disable monster sounds."
-msgstr ""
-
 #: infotext.lua
 msgid "Infotext"
 msgstr ""
@@ -297,36 +321,12 @@ msgstr ""
 msgid "Infotext updated."
 msgstr ""
 
-#: mobs_monsters.lua
-msgid "List players who have monster sounds disabled."
-msgstr ""
-
-#: mobs_monsters.lua
-msgid "Monster sounds disabled."
-msgstr ""
-
-#: mobs_monsters.lua
-msgid "Monster sounds enabled."
-msgstr ""
-
-#: mobs_monsters.lua
-msgid "No players have monster sounds disabled."
-msgstr ""
-
 #: infotext.lua
 msgid "SAVE"
 msgstr ""
 
 #: infotext.lua
 msgid "The node has changed. Infotext was not modified."
-msgstr ""
-
-#: mobs_monsters.lua
-msgid "Usage: /jc_special_sounds_monsters <on|off>"
-msgstr ""
-
-#: prison.lua
-msgid "You cannot enter this area while jailed."
 msgstr ""
 
 #: infotext.lua

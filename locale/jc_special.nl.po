@@ -148,6 +148,34 @@ msgstr "Alle geladen Animalia-vleermuizen verwijderen"
 msgid "Player not found."
 msgstr "Speler niet gevonden."
 
+#: mobs_monsters.lua
+msgid "List players who have monster sounds disabled."
+msgstr "Spelers weergeven die monstergeluiden hebben uitgeschakeld."
+
+#: mobs_monsters.lua
+msgid "Monster sounds disabled."
+msgstr "Monstergeluiden uitgeschakeld."
+
+#: mobs_monsters.lua
+msgid "Monster sounds enabled."
+msgstr "Monstergeluiden ingeschakeld."
+
+#: mobs_monsters.lua
+msgid "No players have monster sounds disabled."
+msgstr "Geen spelers hebben monstergeluiden uitgeschakeld."
+
+#: mobs_monsters.lua
+msgid "Usage: /jc_special_sounds_monsters <on|off>"
+msgstr "Gebruik: /jc_special_sounds_monsters <on|off>"
+
+#: mobs_monsters.lua
+msgid "This Trooper must be tamed before you can protect it."
+msgstr "Deze Soldaat moet getemd zijn voordat je hem kunt beschermen."
+
+#: mobs_monsters.lua
+msgid "Enable or disable monster sounds."
+msgstr "Monstergeluiden in- of uitschakelen."
+
 #: welcomeplayers.lua
 msgid "Play a welcome sound for all connected players."
 msgstr "Een welkomstgeluid afspelen voor alle verbonden spelers."
@@ -198,10 +226,6 @@ msgstr "Je bericht is beperkt tot 500 tekens."
 msgid "The message cannot be empty."
 msgstr "Het bericht mag niet leeg zijn."
 
-#: mobs_monsters.lua
-msgid "This Trooper must be tamed before you can protect it."
-msgstr "Deze Soldaat moet getemd zijn voordat je hem kunt beschermen."
-
 #: findnode.lua
 msgid "Usage: /findnode <mod:nodename> <radius>"
 msgstr "Gebruik: /findnode <mod:nodename> <straal>"
@@ -237,6 +261,10 @@ msgstr "Spelers gevangenzetten"
 #: prison.lua
 msgid "Unjails players"
 msgstr "Spelers vrijlaten"
+
+#: prison.lua
+msgid "You cannot enter this area while jailed."
+msgstr "Je kunt dit gebied niet betreden zolang je in de gevangenis zit."
 
 #: direct_mob_spawner.lua
 msgid "Direct Mob Spawner"
@@ -274,62 +302,34 @@ msgstr "Voorwerpen laten vallen"
 msgid "Your Inventory"
 msgstr "Je inventaris"
 
-#: mobs_monsters.lua
-msgid "Enable or disable monster sounds."
-msgstr ""
-
 #: infotext.lua
 msgid "Infotext"
-msgstr ""
+msgstr "Infotekst"
 
 #: infotext.lua
 msgid "Infotext cleared."
-msgstr ""
+msgstr "Infotekst gewist."
 
 #: infotext.lua
 msgid "Infotext cleared; this node has no default infotext."
-msgstr ""
+msgstr "Infotekst gewist; dit blok heeft geen standaardinfotekst."
 
 #: infotext.lua
 msgid "Infotext reset to default."
-msgstr ""
+msgstr "Infotekst teruggezet naar de standaard."
 
 #: infotext.lua
 msgid "Infotext updated."
-msgstr ""
-
-#: mobs_monsters.lua
-msgid "List players who have monster sounds disabled."
-msgstr ""
-
-#: mobs_monsters.lua
-msgid "Monster sounds disabled."
-msgstr ""
-
-#: mobs_monsters.lua
-msgid "Monster sounds enabled."
-msgstr ""
-
-#: mobs_monsters.lua
-msgid "No players have monster sounds disabled."
-msgstr ""
+msgstr "Infotekst bijgewerkt."
 
 #: infotext.lua
 msgid "SAVE"
-msgstr ""
+msgstr "OPSLAAN"
 
 #: infotext.lua
 msgid "The node has changed. Infotext was not modified."
-msgstr ""
-
-#: mobs_monsters.lua
-msgid "Usage: /jc_special_sounds_monsters <on|off>"
-msgstr ""
-
-#: prison.lua
-msgid "You cannot enter this area while jailed."
-msgstr ""
+msgstr "Het blok is gewijzigd. De infotekst is niet aangepast."
 
 #: infotext.lua
 msgid "You need server privileges to use this."
-msgstr ""
+msgstr "Je hebt serverrechten nodig om dit te gebruiken."

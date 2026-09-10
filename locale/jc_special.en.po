@@ -168,6 +168,14 @@ msgstr "No players have monster sounds disabled."
 msgid "Usage: /jc_special_sounds_monsters <on|off>"
 msgstr "Usage: /jc_special_sounds_monsters <on|off>"
 
+#: mobs_monsters.lua
+msgid "This Trooper must be tamed before you can protect it."
+msgstr "This Trooper must be tamed before you can protect it."
+
+#: mobs_monsters.lua
+msgid "Enable or disable monster sounds."
+msgstr "Enable or disable monster sounds."
+
 #: welcomeplayers.lua
 msgid "Play a welcome sound for all connected players."
 msgstr "Play a welcome sound for all connected players."
@@ -217,10 +225,6 @@ msgstr "Your message is limited to 500 characters."
 #: paste2chat.lua
 msgid "The message cannot be empty."
 msgstr "The message cannot be empty."
-
-#: mobs_monsters.lua
-msgid "This Trooper must be tamed before you can protect it."
-msgstr "This Trooper must be tamed before you can protect it."
 
 #: findnode.lua
 msgid "Usage: /findnode <mod:nodename> <radius>"
@@ -297,10 +301,6 @@ msgstr "Drop Items"
 #: bones_override.lua
 msgid "Your Inventory"
 msgstr "Your Inventory"
-
-#: mobs_monsters.lua
-msgid "Enable or disable monster sounds."
-msgstr "Enable or disable monster sounds."
 
 #: infotext.lua
 msgid "Infotext"

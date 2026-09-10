@@ -148,6 +148,34 @@ msgstr "移除所有已加载的 Animalia 蝙蝠"
 msgid "Player not found."
 msgstr "未找到玩家。"
 
+#: mobs_monsters.lua
+msgid "List players who have monster sounds disabled."
+msgstr "列出已禁用怪物声音的玩家。"
+
+#: mobs_monsters.lua
+msgid "Monster sounds disabled."
+msgstr "怪物声音已禁用。"
+
+#: mobs_monsters.lua
+msgid "Monster sounds enabled."
+msgstr "怪物声音已启用。"
+
+#: mobs_monsters.lua
+msgid "No players have monster sounds disabled."
+msgstr "没有玩家禁用了怪物声音。"
+
+#: mobs_monsters.lua
+msgid "Usage: /jc_special_sounds_monsters <on|off>"
+msgstr "用法：/jc_special_sounds_monsters <on|off>"
+
+#: mobs_monsters.lua
+msgid "This Trooper must be tamed before you can protect it."
+msgstr "必须先驯服这个士兵，才能保护它。"
+
+#: mobs_monsters.lua
+msgid "Enable or disable monster sounds."
+msgstr "启用或禁用怪物声音。"
+
 #: welcomeplayers.lua
 msgid "Play a welcome sound for all connected players."
 msgstr "为所有已连接的玩家播放欢迎声音。"
@@ -198,10 +226,6 @@ msgstr "您的消息最多只能包含 500 个字符。"
 msgid "The message cannot be empty."
 msgstr "消息不能为空。"
 
-#: mobs_monsters.lua
-msgid "This Trooper must be tamed before you can protect it."
-msgstr "必须先驯服这个士兵，才能保护它。"
-
 #: findnode.lua
 msgid "Usage: /findnode <mod:nodename> <radius>"
 msgstr "用法：/findnode <mod:nodename> <radius>"
@@ -237,6 +261,10 @@ msgstr "监禁玩家"
 #: prison.lua
 msgid "Unjails players"
 msgstr "释放玩家"
+
+#: prison.lua
+msgid "You cannot enter this area while jailed."
+msgstr "你在服刑期间不能进入此区域。"
 
 #: direct_mob_spawner.lua
 msgid "Direct Mob Spawner"
@@ -274,62 +302,34 @@ msgstr "丢弃物品"
 msgid "Your Inventory"
 msgstr "你的物品栏"
 
-#: mobs_monsters.lua
-msgid "Enable or disable monster sounds."
-msgstr ""
-
 #: infotext.lua
 msgid "Infotext"
-msgstr ""
+msgstr "信息文本"
 
 #: infotext.lua
 msgid "Infotext cleared."
-msgstr ""
+msgstr "信息文本已清除。"
 
 #: infotext.lua
 msgid "Infotext cleared; this node has no default infotext."
-msgstr ""
+msgstr "信息文本已清除；此方块没有默认信息文本。"
 
 #: infotext.lua
 msgid "Infotext reset to default."
-msgstr ""
+msgstr "信息文本已重置为默认值。"
 
 #: infotext.lua
 msgid "Infotext updated."
-msgstr ""
-
-#: mobs_monsters.lua
-msgid "List players who have monster sounds disabled."
-msgstr ""
-
-#: mobs_monsters.lua
-msgid "Monster sounds disabled."
-msgstr ""
-
-#: mobs_monsters.lua
-msgid "Monster sounds enabled."
-msgstr ""
-
-#: mobs_monsters.lua
-msgid "No players have monster sounds disabled."
-msgstr ""
+msgstr "信息文本已更新。"
 
 #: infotext.lua
 msgid "SAVE"
-msgstr ""
+msgstr "保存"
 
 #: infotext.lua
 msgid "The node has changed. Infotext was not modified."
-msgstr ""
-
-#: mobs_monsters.lua
-msgid "Usage: /jc_special_sounds_monsters <on|off>"
-msgstr ""
-
-#: prison.lua
-msgid "You cannot enter this area while jailed."
-msgstr ""
+msgstr "方块已发生变化。信息文本未修改。"
 
 #: infotext.lua
 msgid "You need server privileges to use this."
-msgstr ""
+msgstr "你需要服务器权限才能使用此功能。"

@@ -123,7 +123,7 @@ core.register_on_mods_loaded(function()
           player,
           "jc_special_insert",
           "size[8,9]" ..
-          "label[0.5,0.3;" .. S("Mailbox for: @1", core.formspec_escape(owner) ) .. "]" ..
+          "label[0.5,0.3;" .. S("Mail for: @1", core.formspec_escape(owner) ) .. "]" ..
           "list[nodemeta:"..spos..";drop;3.5,2;1,1;]" ..
           "list[current_player;main;0,5;8,4;]" ..
           "listring[]"

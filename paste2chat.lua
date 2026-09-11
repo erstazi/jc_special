@@ -13,11 +13,12 @@ core.register_chatcommand("paste", {
   func = function(name)
     local formspec =
       "formspec_version[4]" ..
-      "size[12,6]" ..
+      "size[14,6]" ..
       "label[0.5,0.4;" .. core.formspec_escape(S("Paste Message")) .. "]" ..
-      "textarea[0.5,1.0;11,3.5;message;" .. core.formspec_escape( S("Enter your chat message here (maximum 500 characters):") ) .. ";]" ..
-      "button[2.5,5.0;2.0,0.8;send;" .. core.formspec_escape(S("SEND")) .. "]" ..
-      "button[5.0,5.0;2.0,0.8;cancel;" .. core.formspec_escape(S("CANCEL")) .. "]"
+      "textarea[0.5,1.0;13,3.8;message;" .. core.formspec_escape( S("Enter your chat message here (maximum 500 characters):") ) .. ";]" ..
+      "button[9.0,5.0;2.0,0.8;cancel;" .. core.formspec_escape(S("CANCEL")) .. "]" ..
+      "button[11.5,5.0;2.0,0.8;send;" .. core.formspec_escape(S("SEND")) .. "]" ..
+      ""
 
     core.show_formspec(
       name,

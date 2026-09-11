@@ -362,11 +362,11 @@ msgstr "Speler @1 is vrijgelaten"
 
 #: prison.lua
 msgid "Jail a player"
-msgstr "Spelers gevangenzetten"
+msgstr "Een speler gevangenzetten"
 
 #: prison.lua
 msgid "Unjail a player"
-msgstr "Spelers vrijlaten"
+msgstr "Een speler vrijlaten"
 
 #: direct_mob_spawner.lua
 msgid "Direct Mob Spawner"

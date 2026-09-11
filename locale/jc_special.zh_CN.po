@@ -362,7 +362,7 @@ msgstr "玩家 @1 已被释放"
 
 #: prison.lua
 msgid "Jail a player"
-msgstr "监禁玩家"
+msgstr "将玩家关进监狱"
 
 #: prison.lua
 msgid "Unjail a player"

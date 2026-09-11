@@ -79,11 +79,11 @@ msgstr "De put wordt al gebruikt."
 
 #: cans.lua
 msgid "Your can is already full."
-msgstr "Je gieter is al vol."
+msgstr "Je jerrycan is al vol."
 
 #: cans.lua
 msgid "Your can is now full!"
-msgstr "Je gieter is nu vol!"
+msgstr "Je jerrycan is nu vol!"
 
 #: daybutton.lua
 msgid "Day Button"

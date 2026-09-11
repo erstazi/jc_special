@@ -79,11 +79,11 @@ msgstr "这个水井已经有人在使用。"
 
 #: cans.lua
 msgid "Your can is already full."
-msgstr "你的水壶已经装满了。"
+msgstr "你的油桶已经装满了。"
 
 #: cans.lua
 msgid "Your can is now full!"
-msgstr "你的水壶现在装满了！"
+msgstr "你的油桶现在装满了！"
 
 #: daybutton.lua
 msgid "Day Button"

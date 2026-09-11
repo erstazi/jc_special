@@ -79,11 +79,11 @@ msgstr "Колодязь уже використовується."
 
 #: cans.lua
 msgid "Your can is already full."
-msgstr "Ваша лійка вже повна."
+msgstr "Ваша каністра вже повна."
 
 #: cans.lua
 msgid "Your can is now full!"
-msgstr "Ваша лійка тепер повна!"
+msgstr "Ваша каністра тепер повна!"
 
 #: daybutton.lua
 msgid "Day Button"

@@ -79,11 +79,11 @@ msgstr "Le puits est déjà utilisé."
 
 #: cans.lua
 msgid "Your can is already full."
-msgstr "Votre arrosoir est déjà plein."
+msgstr "Votre jerrican est déjà plein."
 
 #: cans.lua
 msgid "Your can is now full!"
-msgstr "Votre arrosoir est maintenant plein !"
+msgstr "Votre jerrican est maintenant plein !"
 
 #: daybutton.lua
 msgid "Day Button"

@@ -79,11 +79,11 @@ msgstr "Studnia jest już używana."
 
 #: cans.lua
 msgid "Your can is already full."
-msgstr "Twoja konewka jest już pełna."
+msgstr "Twój kanister jest już pełny."
 
 #: cans.lua
 msgid "Your can is now full!"
-msgstr "Twoja konewka jest teraz pełna!"
+msgstr "Twój kanister jest teraz pełny!"
 
 #: daybutton.lua
 msgid "Day Button"

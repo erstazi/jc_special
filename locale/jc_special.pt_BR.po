@@ -79,11 +79,11 @@ msgstr "O poço já está sendo usado."
 
 #: cans.lua
 msgid "Your can is already full."
-msgstr "Seu regador já está cheio."
+msgstr "Seu galão já está cheio."
 
 #: cans.lua
 msgid "Your can is now full!"
-msgstr "Seu regador está cheio agora!"
+msgstr "Seu galão está cheio agora!"
 
 #: daybutton.lua
 msgid "Day Button"

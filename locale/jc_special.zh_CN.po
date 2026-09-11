@@ -138,7 +138,7 @@ msgid "@1 is at @2"
 msgstr "@1 位于 @2"
 
 #: misc_overrides.lua
-msgid "Shows the coordinates of a player."
+msgid "Show the coordinates of a player."
 msgstr "显示玩家的坐标。"
 
 #: misc_overrides.lua
@@ -361,11 +361,11 @@ msgid "Player @1 has been unjailed"
 msgstr "玩家 @1 已被释放"
 
 #: prison.lua
-msgid "Jails Players"
+msgid "Jail Players"
 msgstr "监禁玩家"
 
 #: prison.lua
-msgid "Unjails players"
+msgid "Unjail Players"
 msgstr "释放玩家"
 
 #: direct_mob_spawner.lua

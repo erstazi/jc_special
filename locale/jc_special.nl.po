@@ -204,8 +204,8 @@ msgid "*** NEW PLAYER: @1 has joined the server for the first time. Information 
 msgstr "*** NIEUWE SPELER: @1 is voor het eerst toegetreden tot de server. Informatie over appartementen is al naar de nieuwe speler gestuurd."
 
 #: homedecor_overrides.lua
-msgid "Mailbox for: @1"
-msgstr "Brievenbus voor: @1"
+msgid "Mailbox of @1"
+msgstr "Brievenbus van @1"
 
 #: bones_override.lua
 msgid "Get Items"

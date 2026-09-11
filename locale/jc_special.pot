@@ -203,7 +203,7 @@ msgid "*** NEW PLAYER: @1 has joined the server for the first time. Information 
 msgstr ""
 
 #: homedecor_overrides.lua
-msgid "Mailbox for: @1"
+msgid "Mailbox of @1"
 msgstr ""
 
 #: bones_override.lua

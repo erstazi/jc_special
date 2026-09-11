@@ -204,7 +204,7 @@ msgid "*** NEW PLAYER: @1 has joined the server for the first time. Information 
 msgstr "*** 新玩家：@1 首次加入服务器。有关公寓的信息已经发送给该新玩家。"
 
 #: homedecor_overrides.lua
-msgid "Mailbox for: @1"
+msgid "Mailbox of @1"
 msgstr "@1 的邮箱"
 
 #: bones_override.lua

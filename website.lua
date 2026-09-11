@@ -302,3 +302,16 @@ core.register_globalstep(function(dtime)
   end
 end)
 
+-------------------------------------------------------------------------------
+-- When a player joins, write the website's server.json
+-------------------------------------------------------------------------------
+core.register_on_joinplayer(function(player)
+  write_website_json()
+end)
+
+-------------------------------------------------------------------------------
+-- When a player leaves or times out, write the website's server.json
+-------------------------------------------------------------------------------
+core.register_on_leaveplayer(function()
+  write_website_json()
+end)

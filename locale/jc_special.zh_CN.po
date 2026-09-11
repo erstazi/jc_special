@@ -209,8 +209,11 @@ msgid "Mailbox for: @1"
 msgstr "@1 的邮箱"
 
 #: bones_override.lua
-#: homedecor_overrides.lua
 msgid "Get Items"
+msgstr "获取物品"
+
+#: homedecor_overrides.lua
+msgid "Get Mailbox Items"
 msgstr "获取物品"
 
 #: homedecor_overrides.lua

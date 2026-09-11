@@ -209,8 +209,11 @@ msgid "Mailbox for: @1"
 msgstr "Boîte aux lettres de : @1"
 
 #: bones_override.lua
-#: homedecor_overrides.lua
 msgid "Get Items"
+msgstr "Prendre les objets"
+
+#: homedecor_overrides.lua
+msgid "Get Mailbox Items"
 msgstr "Prendre les objets"
 
 #: homedecor_overrides.lua

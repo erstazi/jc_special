@@ -366,7 +366,7 @@ msgstr "将玩家关进监狱"
 
 #: prison.lua
 msgid "Unjail a player"
-msgstr "释放玩家"
+msgstr "将玩家从监狱释放"
 
 #: direct_mob_spawner.lua
 msgid "Direct Mob Spawner"

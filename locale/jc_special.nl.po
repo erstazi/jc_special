@@ -167,7 +167,6 @@ msgstr "Alle geladen Animalia-vleermuizen verwijderen"
 
 #: findnode.lua
 #: misc_overrides.lua
-#: mobs_monsters.lua
 #: sounds.lua
 msgid "Player not found."
 msgstr "Speler niet gevonden."
@@ -413,10 +412,6 @@ msgstr "Je inventaris"
 msgid "Edit Infotext: @1"
 msgstr "Infotext bewerken: @1"
 
-#: mobs_monsters.lua
-msgid "Enable or disable monster sounds."
-msgstr "Monstergeluiden in- of uitschakelen."
-
 #: infotext.lua
 msgid "Infotext"
 msgstr "Infotext"
@@ -437,26 +432,6 @@ msgstr "Infotext teruggezet naar de standaardwaarde."
 msgid "Infotext updated."
 msgstr "Infotext bijgewerkt."
 
-#: mobs_monsters.lua
-msgid "List players who have monster sounds disabled."
-msgstr "Spelers weergeven die monstergeluiden hebben uitgeschakeld."
-
-#: mobs_monsters.lua
-msgid "Monster sounds disabled."
-msgstr "Monstergeluiden uitgeschakeld."
-
-#: mobs_monsters.lua
-msgid "Monster sounds enabled."
-msgstr "Monstergeluiden ingeschakeld."
-
-#: mobs_monsters.lua
-msgid "No players have monster sounds disabled."
-msgstr "Geen spelers hebben monstergeluiden uitgeschakeld."
-
-#: mobs_monsters.lua
-msgid "Players with monster sounds disabled (@1):"
-msgstr "Spelers met uitgeschakelde monstergeluiden (@1):"
-
 #: infotext.lua
 msgid "SAVE"
 msgstr "OPSLAAN"
@@ -464,10 +439,6 @@ msgstr "OPSLAAN"
 #: infotext.lua
 msgid "The node has changed. Infotext was not modified."
 msgstr "Het blok is gewijzigd. De infotext is niet aangepast."
-
-#: mobs_monsters.lua
-msgid "Usage: /jc_special_sounds_monsters <on|off>"
-msgstr "Gebruik: /jc_special_sounds_monsters <on|off>"
 
 #: prison.lua
 msgid "You cannot enter this area while jailed."

@@ -167,7 +167,6 @@ msgstr "Supprimer toutes les chauves-souris d'Animalia chargées"
 
 #: findnode.lua
 #: misc_overrides.lua
-#: mobs_monsters.lua
 #: sounds.lua
 msgid "Player not found."
 msgstr "Joueur introuvable."
@@ -413,10 +412,6 @@ msgstr "Votre inventaire"
 msgid "Edit Infotext: @1"
 msgstr "Modifier l'infotexte : @1"
 
-#: mobs_monsters.lua
-msgid "Enable or disable monster sounds."
-msgstr "Activer ou désactiver les sons des monstres."
-
 #: infotext.lua
 msgid "Infotext"
 msgstr "Infotexte"
@@ -437,26 +432,6 @@ msgstr "Infotexte réinitialisé à sa valeur par défaut."
 msgid "Infotext updated."
 msgstr "Infotexte mis à jour."
 
-#: mobs_monsters.lua
-msgid "List players who have monster sounds disabled."
-msgstr "Lister les joueurs qui ont désactivé les sons des monstres."
-
-#: mobs_monsters.lua
-msgid "Monster sounds disabled."
-msgstr "Sons des monstres désactivés."
-
-#: mobs_monsters.lua
-msgid "Monster sounds enabled."
-msgstr "Sons des monstres activés."
-
-#: mobs_monsters.lua
-msgid "No players have monster sounds disabled."
-msgstr "Aucun joueur n'a désactivé les sons des monstres."
-
-#: mobs_monsters.lua
-msgid "Players with monster sounds disabled (@1):"
-msgstr "Joueurs ayant désactivé les sons des monstres (@1) :"
-
 #: infotext.lua
 msgid "SAVE"
 msgstr "ENREGISTRER"
@@ -464,10 +439,6 @@ msgstr "ENREGISTRER"
 #: infotext.lua
 msgid "The node has changed. Infotext was not modified."
 msgstr "Le bloc a changé. L'infotexte n'a pas été modifié."
-
-#: mobs_monsters.lua
-msgid "Usage: /jc_special_sounds_monsters <on|off>"
-msgstr "Utilisation : /jc_special_sounds_monsters <on|off>"
 
 #: prison.lua
 msgid "You cannot enter this area while jailed."

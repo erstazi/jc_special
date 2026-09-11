@@ -167,7 +167,6 @@ msgstr "Eliminar todos los murciélagos de Animalia cargados"
 
 #: findnode.lua
 #: misc_overrides.lua
-#: mobs_monsters.lua
 #: sounds.lua
 msgid "Player not found."
 msgstr "Jugador no encontrado."
@@ -413,10 +412,6 @@ msgstr "Tu inventario"
 msgid "Edit Infotext: @1"
 msgstr "Editar infotexto: @1"
 
-#: mobs_monsters.lua
-msgid "Enable or disable monster sounds."
-msgstr "Activar o desactivar los sonidos de monstruos."
-
 #: infotext.lua
 msgid "Infotext"
 msgstr "Infotexto"
@@ -437,26 +432,6 @@ msgstr "Infotexto restablecido al valor predeterminado."
 msgid "Infotext updated."
 msgstr "Infotexto actualizado."
 
-#: mobs_monsters.lua
-msgid "List players who have monster sounds disabled."
-msgstr "Mostrar la lista de jugadores que tienen desactivados los sonidos de monstruos."
-
-#: mobs_monsters.lua
-msgid "Monster sounds disabled."
-msgstr "Sonidos de monstruos desactivados."
-
-#: mobs_monsters.lua
-msgid "Monster sounds enabled."
-msgstr "Sonidos de monstruos activados."
-
-#: mobs_monsters.lua
-msgid "No players have monster sounds disabled."
-msgstr "Ningún jugador tiene desactivados los sonidos de monstruos."
-
-#: mobs_monsters.lua
-msgid "Players with monster sounds disabled (@1):"
-msgstr "Jugadores con los sonidos de monstruos desactivados (@1):"
-
 #: infotext.lua
 msgid "SAVE"
 msgstr "GUARDAR"
@@ -464,10 +439,6 @@ msgstr "GUARDAR"
 #: infotext.lua
 msgid "The node has changed. Infotext was not modified."
 msgstr "El nodo ha cambiado. El infotexto no se modificó."
-
-#: mobs_monsters.lua
-msgid "Usage: /jc_special_sounds_monsters <on|off>"
-msgstr "Uso: /jc_special_sounds_monsters <on|off>"
 
 #: prison.lua
 msgid "You cannot enter this area while jailed."

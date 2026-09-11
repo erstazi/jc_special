@@ -167,7 +167,6 @@ msgstr "Alle geladenen Animalia-Fledermäuse entfernen"
 
 #: findnode.lua
 #: misc_overrides.lua
-#: mobs_monsters.lua
 #: sounds.lua
 msgid "Player not found."
 msgstr "Spieler nicht gefunden."
@@ -413,10 +412,6 @@ msgstr "Dein Inventar"
 msgid "Edit Infotext: @1"
 msgstr "Infotext bearbeiten: @1"
 
-#: mobs_monsters.lua
-msgid "Enable or disable monster sounds."
-msgstr "Monstergereusche aktivieren oder deaktivieren."
-
 #: infotext.lua
 msgid "Infotext"
 msgstr "Infotext"
@@ -437,26 +432,6 @@ msgstr "Infotext auf Standard zurückgesetzt."
 msgid "Infotext updated."
 msgstr "Infotext aktualisiert."
 
-#: mobs_monsters.lua
-msgid "List players who have monster sounds disabled."
-msgstr "Spieler auflisten, die Monstertöne deaktiviert haben."
-
-#: mobs_monsters.lua
-msgid "Monster sounds disabled."
-msgstr "Monstertöne deaktiviert."
-
-#: mobs_monsters.lua
-msgid "Monster sounds enabled."
-msgstr "Monstertöne aktiviert."
-
-#: mobs_monsters.lua
-msgid "No players have monster sounds disabled."
-msgstr "Keine Spieler haben Monstertöne deaktiviert."
-
-#: mobs_monsters.lua
-msgid "Players with monster sounds disabled (@1):"
-msgstr "Spieler mit deaktivierten Monstertönen (@1):"
-
 #: infotext.lua
 msgid "SAVE"
 msgstr "SPEICHERN"
@@ -464,10 +439,6 @@ msgstr "SPEICHERN"
 #: infotext.lua
 msgid "The node has changed. Infotext was not modified."
 msgstr "Der Knoten wurde geändert. Der Infotext wurde nicht geändert."
-
-#: mobs_monsters.lua
-msgid "Usage: /jc_special_sounds_monsters <on|off>"
-msgstr "Verwendung: /jc_special_sounds_monsters <on|off>"
 
 #: prison.lua
 msgid "You cannot enter this area while jailed."

@@ -167,7 +167,6 @@ msgstr "Usuń wszystkie załadowane nietoperze Animalia"
 
 #: findnode.lua
 #: misc_overrides.lua
-#: mobs_monsters.lua
 #: sounds.lua
 msgid "Player not found."
 msgstr "Nie znaleziono gracza."
@@ -413,10 +412,6 @@ msgstr "Twój ekwipunek"
 msgid "Edit Infotext: @1"
 msgstr "Edytuj infotext: @1"
 
-#: mobs_monsters.lua
-msgid "Enable or disable monster sounds."
-msgstr "Włącz lub wyłącz dźwięki potworów."
-
 #: infotext.lua
 msgid "Infotext"
 msgstr "Infotext"
@@ -437,26 +432,6 @@ msgstr "Infotext przywrócony do wartości domyślnej."
 msgid "Infotext updated."
 msgstr "Infotext zaktualizowany."
 
-#: mobs_monsters.lua
-msgid "List players who have monster sounds disabled."
-msgstr "Wyświetl listę graczy, którzy mają wyłączone dźwięki potworów."
-
-#: mobs_monsters.lua
-msgid "Monster sounds disabled."
-msgstr "Dźwięki potworów wyłączone."
-
-#: mobs_monsters.lua
-msgid "Monster sounds enabled."
-msgstr "Dźwięki potworów włączone."
-
-#: mobs_monsters.lua
-msgid "No players have monster sounds disabled."
-msgstr "Żaden gracz nie ma wyłączonych dźwięków potworów."
-
-#: mobs_monsters.lua
-msgid "Players with monster sounds disabled (@1):"
-msgstr "Gracze z wyłączonymi dźwiękami potworów (@1):"
-
 #: infotext.lua
 msgid "SAVE"
 msgstr "ZAPISZ"
@@ -464,10 +439,6 @@ msgstr "ZAPISZ"
 #: infotext.lua
 msgid "The node has changed. Infotext was not modified."
 msgstr "Blok został zmieniony. Infotext nie został zmodyfikowany."
-
-#: mobs_monsters.lua
-msgid "Usage: /jc_special_sounds_monsters <on|off>"
-msgstr "Użycie: /jc_special_sounds_monsters <on|off>"
 
 #: prison.lua
 msgid "You cannot enter this area while jailed."

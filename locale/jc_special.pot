@@ -166,7 +166,6 @@ msgstr ""
 
 #: findnode.lua
 #: misc_overrides.lua
-#: mobs_monsters.lua
 #: sounds.lua
 msgid "Player not found."
 msgstr ""
@@ -412,10 +411,6 @@ msgstr ""
 msgid "Edit Infotext: @1"
 msgstr ""
 
-#: mobs_monsters.lua
-msgid "Enable or disable monster sounds."
-msgstr ""
-
 #: infotext.lua
 msgid "Infotext"
 msgstr ""
@@ -436,36 +431,12 @@ msgstr ""
 msgid "Infotext updated."
 msgstr ""
 
-#: mobs_monsters.lua
-msgid "List players who have monster sounds disabled."
-msgstr ""
-
-#: mobs_monsters.lua
-msgid "Monster sounds disabled."
-msgstr ""
-
-#: mobs_monsters.lua
-msgid "Monster sounds enabled."
-msgstr ""
-
-#: mobs_monsters.lua
-msgid "No players have monster sounds disabled."
-msgstr ""
-
-#: mobs_monsters.lua
-msgid "Players with monster sounds disabled (@1):"
-msgstr ""
-
 #: infotext.lua
 msgid "SAVE"
 msgstr ""
 
 #: infotext.lua
 msgid "The node has changed. Infotext was not modified."
-msgstr ""
-
-#: mobs_monsters.lua
-msgid "Usage: /jc_special_sounds_monsters <on|off>"
 msgstr ""
 
 #: prison.lua

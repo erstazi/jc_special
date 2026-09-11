@@ -167,7 +167,6 @@ msgstr "移除所有已加载的 Animalia 蝙蝠"
 
 #: findnode.lua
 #: misc_overrides.lua
-#: mobs_monsters.lua
 #: sounds.lua
 msgid "Player not found."
 msgstr "未找到玩家。"
@@ -413,10 +412,6 @@ msgstr "你的物品栏"
 msgid "Edit Infotext: @1"
 msgstr "编辑信息文本：@1"
 
-#: mobs_monsters.lua
-msgid "Enable or disable monster sounds."
-msgstr "启用或禁用怪物声音。"
-
 #: infotext.lua
 msgid "Infotext"
 msgstr "信息文本"
@@ -437,26 +432,6 @@ msgstr "信息文本已恢复为默认值。"
 msgid "Infotext updated."
 msgstr "信息文本已更新。"
 
-#: mobs_monsters.lua
-msgid "List players who have monster sounds disabled."
-msgstr "列出已禁用怪物声音的玩家。"
-
-#: mobs_monsters.lua
-msgid "Monster sounds disabled."
-msgstr "怪物声音已禁用。"
-
-#: mobs_monsters.lua
-msgid "Monster sounds enabled."
-msgstr "怪物声音已启用。"
-
-#: mobs_monsters.lua
-msgid "No players have monster sounds disabled."
-msgstr "没有玩家禁用了怪物声音。"
-
-#: mobs_monsters.lua
-msgid "Players with monster sounds disabled (@1):"
-msgstr "已禁用怪物声音的玩家（@1）："
-
 #: infotext.lua
 msgid "SAVE"
 msgstr "保存"
@@ -464,10 +439,6 @@ msgstr "保存"
 #: infotext.lua
 msgid "The node has changed. Infotext was not modified."
 msgstr "方块已发生变化。信息文本未被修改。"
-
-#: mobs_monsters.lua
-msgid "Usage: /jc_special_sounds_monsters <on|off>"
-msgstr "用法：/jc_special_sounds_monsters <on|off>"
 
 #: prison.lua
 msgid "You cannot enter this area while jailed."

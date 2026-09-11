@@ -167,7 +167,6 @@ msgstr "Удалить всех загруженных летучих мышей
 
 #: findnode.lua
 #: misc_overrides.lua
-#: mobs_monsters.lua
 #: sounds.lua
 msgid "Player not found."
 msgstr "Игрок не найден."
@@ -413,10 +412,6 @@ msgstr "Ваш инвентарь"
 msgid "Edit Infotext: @1"
 msgstr "Изменить инфотекст: @1"
 
-#: mobs_monsters.lua
-msgid "Enable or disable monster sounds."
-msgstr "Включить или отключить звуки монстров."
-
 #: infotext.lua
 msgid "Infotext"
 msgstr "Инфотекст"
@@ -437,26 +432,6 @@ msgstr "Инфотекст сброшен до значения по умолч�
 msgid "Infotext updated."
 msgstr "Инфотекст обновлён."
 
-#: mobs_monsters.lua
-msgid "List players who have monster sounds disabled."
-msgstr "Показать список игроков, отключивших звуки монстров."
-
-#: mobs_monsters.lua
-msgid "Monster sounds disabled."
-msgstr "Звуки монстров отключены."
-
-#: mobs_monsters.lua
-msgid "Monster sounds enabled."
-msgstr "Звуки монстров включены."
-
-#: mobs_monsters.lua
-msgid "No players have monster sounds disabled."
-msgstr "Нет игроков с отключёнными звуками монстров."
-
-#: mobs_monsters.lua
-msgid "Players with monster sounds disabled (@1):"
-msgstr "Игроки с отключёнными звуками монстров (@1):"
-
 #: infotext.lua
 msgid "SAVE"
 msgstr "СОХРАНИТЬ"
@@ -464,10 +439,6 @@ msgstr "СОХРАНИТЬ"
 #: infotext.lua
 msgid "The node has changed. Infotext was not modified."
 msgstr "Блок был изменён. Инфотекст не был изменён."
-
-#: mobs_monsters.lua
-msgid "Usage: /jc_special_sounds_monsters <on|off>"
-msgstr "Использование: /jc_special_sounds_monsters <on|off>"
 
 #: prison.lua
 msgid "You cannot enter this area while jailed."

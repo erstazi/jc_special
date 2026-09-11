@@ -103,6 +103,12 @@ core.override_item("bones:bones", {
       return
     end
 
+    local owner = core.get_meta(pos):get_string("owner")
+
+    if owner == "" then
+      return
+    end
+
     if not is_owner(pos, clicker:get_player_name()) then
       return
     end

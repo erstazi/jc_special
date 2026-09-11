@@ -123,10 +123,14 @@ end
 ----------------------------------------------------------------
 -- PRISON STONE / FLOOR NODES
 ----------------------------------------------------------------
+
+local ignore_this_prison_floor = S("Prison Floor")
+local ignore_this_prison_stone = S("Prison Stone")
+local ignore_this_prison_stone_bricks = S("Prison Stone Bricks")
 local prison_nodes = {
   {
     name = "prison_floor",
-    description = S("Prison Floor"),
+    description = "Prison Floor",
     texture = "prison_floor.png",
     sounds = default.node_sound_stone_defaults(),
     dig_sound = "default_dig_cracky",
@@ -134,7 +138,7 @@ local prison_nodes = {
 
   {
     name = "prison_stone",
-    description = S("Prison Stone"),
+    description = "Prison Stone",
     texture = "prison_stone.png",
     sounds = default.node_sound_stone_defaults(),
     dig_sound = "default_dig_cracky",
@@ -142,7 +146,7 @@ local prison_nodes = {
 
   {
     name = "prison_stone_bricks",
-    description = S("Prison Stone Bricks"),
+    description = "Prison Stone Bricks",
     texture = "prison_stone_bricks.png",
     sounds = default.node_sound_stone_defaults(),
     dig_sound = "default_dig_cracky",

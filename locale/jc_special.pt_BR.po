@@ -361,11 +361,11 @@ msgid "Player @1 has been unjailed"
 msgstr "O jogador @1 foi solto da prisão"
 
 #: prison.lua
-msgid "Jail Players"
+msgid "Jail a player"
 msgstr "Prende jogadores"
 
 #: prison.lua
-msgid "Unjail Players"
+msgid "Unjail a player"
 msgstr "Solta jogadores da prisão"
 
 #: direct_mob_spawner.lua

@@ -317,7 +317,7 @@ function prison.releaseFromJail(name, param)
 end
 
 core.register_chatcommand("jail", {
-   description = S("Jail Players"),
+   description = S("Jail a player"),
    privs = {kick=true},
    params = "<player> <reason>",
    func = function(name, param)
@@ -326,7 +326,7 @@ core.register_chatcommand("jail", {
 })
 
 core.register_chatcommand("unjail", {
-   description = S("Unjail players"),
+   description = S("Unjail a player"),
    privs = {kick=true},
    params = "<player> <reason>",
    func = function(name, param)

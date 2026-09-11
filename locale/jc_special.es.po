@@ -66,24 +66,24 @@ msgid "Please wait until your can has been filled."
 msgstr "Espera hasta que tu regadera se haya llenado."
 
 #: cans.lua
-msgid "You don't have room for the filled can."
-msgstr "No tienes espacio para la regadera llena."
+msgid "Inventory full."
+msgstr "Inventario lleno."
 
 #: cans.lua
-msgid "This tree trunk well is owned by @1. You can't use it."
-msgstr "Este pozo de tronco pertenece a @1. No puedes usarlo."
+msgid "This well is owned by @1. You can't use it."
+msgstr "Este pozo pertenece a @1. No puedes usarlo."
 
 #: cans.lua
 msgid "The well is already being used."
 msgstr "El pozo ya está en uso."
 
 #: cans.lua
-msgid "Your Freshwater Can is already full."
-msgstr "Tu regadera de agua dulce ya está llena."
+msgid "Your can is already full."
+msgstr "Tu regadera ya está llena."
 
 #: cans.lua
-msgid "Your Freshwater Can is now full!"
-msgstr "¡Tu regadera de agua dulce ya está llena!"
+msgid "Your can is now full!"
+msgstr "¡Tu regadera ya está llena!"
 
 #: daybutton.lua
 msgid "Day Button"

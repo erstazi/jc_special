@@ -66,24 +66,24 @@ msgid "Please wait until your can has been filled."
 msgstr "Зачекайте, поки лійка наповниться."
 
 #: cans.lua
-msgid "You don't have room for the filled can."
-msgstr "У вас немає місця для наповненої лійки."
+msgid "Inventory full."
+msgstr "Інвентар заповнений."
 
 #: cans.lua
-msgid "This tree trunk well is owned by @1. You can't use it."
-msgstr "Цей колодязь зі стовбура дерева належить гравцеві @1. Ви не можете ним користуватися."
+msgid "This well is owned by @1. You can't use it."
+msgstr "Ця криниця належить @1. Ви не можете нею користуватися."
 
 #: cans.lua
 msgid "The well is already being used."
 msgstr "Колодязь уже використовується."
 
 #: cans.lua
-msgid "Your Freshwater Can is already full."
-msgstr "Ваша лійка з прісною водою вже повна."
+msgid "Your can is already full."
+msgstr "Ваша лійка вже повна."
 
 #: cans.lua
-msgid "Your Freshwater Can is now full!"
-msgstr "Ваша лійка з прісною водою тепер повна!"
+msgid "Your can is now full!"
+msgstr "Ваша лійка тепер повна!"
 
 #: daybutton.lua
 msgid "Day Button"

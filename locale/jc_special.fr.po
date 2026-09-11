@@ -66,24 +66,24 @@ msgid "Please wait until your can has been filled."
 msgstr "Veuillez patienter jusqu'à ce que votre arrosoir soit rempli."
 
 #: cans.lua
-msgid "You don't have room for the filled can."
-msgstr "Vous n'avez pas de place pour l'arrosoir rempli."
+msgid "Inventory full."
+msgstr "Inventaire plein."
 
 #: cans.lua
-msgid "This tree trunk well is owned by @1. You can't use it."
-msgstr "Ce puits en tronc d'arbre appartient à @1. Vous ne pouvez pas l'utiliser."
+msgid "This well is owned by @1. You can't use it."
+msgstr "Ce puits appartient à @1. Vous ne pouvez pas l'utiliser."
 
 #: cans.lua
 msgid "The well is already being used."
 msgstr "Le puits est déjà utilisé."
 
 #: cans.lua
-msgid "Your Freshwater Can is already full."
-msgstr "Votre arrosoir d'eau douce est déjà plein."
+msgid "Your can is already full."
+msgstr "Votre arrosoir est déjà plein."
 
 #: cans.lua
-msgid "Your Freshwater Can is now full!"
-msgstr "Votre arrosoir d'eau douce est maintenant plein !"
+msgid "Your can is now full!"
+msgstr "Votre arrosoir est maintenant plein !"
 
 #: daybutton.lua
 msgid "Day Button"

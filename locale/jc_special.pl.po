@@ -66,24 +66,24 @@ msgid "Please wait until your can has been filled."
 msgstr "Poczekaj, aż Twoja konewka zostanie napełniona."
 
 #: cans.lua
-msgid "You don't have room for the filled can."
-msgstr "Nie masz miejsca na napełnioną konewkę."
+msgid "Inventory full."
+msgstr "Ekwipunek jest pełny."
 
 #: cans.lua
-msgid "This tree trunk well is owned by @1. You can't use it."
-msgstr "Ta studnia w pniu drzewa należy do @1. Nie możesz jej używać."
+msgid "This well is owned by @1. You can't use it."
+msgstr "Ta studnia należy do @1. Nie możesz jej używać."
 
 #: cans.lua
 msgid "The well is already being used."
 msgstr "Studnia jest już używana."
 
 #: cans.lua
-msgid "Your Freshwater Can is already full."
-msgstr "Twoja konewka na świeżą wodę jest już pełna."
+msgid "Your can is already full."
+msgstr "Twoja konewka jest już pełna."
 
 #: cans.lua
-msgid "Your Freshwater Can is now full!"
-msgstr "Twoja konewka na świeżą wodę jest teraz pełna!"
+msgid "Your can is now full!"
+msgstr "Twoja konewka jest teraz pełna!"
 
 #: daybutton.lua
 msgid "Day Button"

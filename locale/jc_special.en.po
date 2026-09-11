@@ -66,24 +66,24 @@ msgid "Please wait until your can has been filled."
 msgstr "Please wait until your can has been filled."
 
 #: cans.lua
-msgid "You don't have room for the filled can."
-msgstr "You don't have room for the filled can."
+msgid "Inventory full."
+msgstr "Inventory full."
 
 #: cans.lua
-msgid "This tree trunk well is owned by @1. You can't use it."
-msgstr "This tree trunk well is owned by @1. You can't use it."
+msgid "This well is owned by @1. You can't use it."
+msgstr "This well is owned by @1. You can't use it."
 
 #: cans.lua
 msgid "The well is already being used."
 msgstr "The well is already being used."
 
 #: cans.lua
-msgid "Your Freshwater Can is already full."
-msgstr "Your Freshwater Can is already full."
+msgid "Your can is already full."
+msgstr "Your can is already full."
 
 #: cans.lua
-msgid "Your Freshwater Can is now full!"
-msgstr "Your Freshwater Can is now full!"
+msgid "Your can is now full!"
+msgstr "Your can is now full!"
 
 #: daybutton.lua
 msgid "Day Button"

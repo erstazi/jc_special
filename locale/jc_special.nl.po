@@ -66,24 +66,24 @@ msgid "Please wait until your can has been filled."
 msgstr "Wacht tot je gieter is gevuld."
 
 #: cans.lua
-msgid "You don't have room for the filled can."
-msgstr "Je hebt geen ruimte voor de gevulde gieter."
+msgid "Inventory full."
+msgstr "Inventaris vol."
 
 #: cans.lua
-msgid "This tree trunk well is owned by @1. You can't use it."
-msgstr "Deze boomstamput is eigendom van @1. Je kunt hem niet gebruiken."
+msgid "This well is owned by @1. You can't use it."
+msgstr "Deze waterput is van @1. Je kunt hem niet gebruiken."
 
 #: cans.lua
 msgid "The well is already being used."
 msgstr "De put wordt al gebruikt."
 
 #: cans.lua
-msgid "Your Freshwater Can is already full."
-msgstr "Je zoetwatergieter is al vol."
+msgid "Your can is already full."
+msgstr "Je gieter is al vol."
 
 #: cans.lua
-msgid "Your Freshwater Can is now full!"
-msgstr "Je zoetwatergieter is nu vol!"
+msgid "Your can is now full!"
+msgstr "Je gieter is nu vol!"
 
 #: daybutton.lua
 msgid "Day Button"

@@ -36,7 +36,7 @@ core.register_chatcommand("mods", {
 
 core.register_chatcommand("where", {
   params = "<player>",
-  description = S("Shows the coordinates of a player."),
+  description = S("Show the coordinates of a player."),
   privs = { server = true },
 
   func = function(name, param)

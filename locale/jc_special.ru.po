@@ -87,7 +87,7 @@ msgstr "Ваша канистра теперь полна!"
 
 #: daybutton.lua
 msgid "Day Button"
-msgstr "Кнопка дня"
+msgstr "Переключатель дня"
 
 #: daybutton.lua
 msgid "Press to skip the night."

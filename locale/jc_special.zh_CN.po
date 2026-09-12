@@ -87,7 +87,7 @@ msgstr "你的油桶现在装满了！"
 
 #: daybutton.lua
 msgid "Day Button"
-msgstr "白天按钮"
+msgstr "日间开关"
 
 #: daybutton.lua
 msgid "Press to skip the night."

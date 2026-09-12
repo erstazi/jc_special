@@ -87,7 +87,7 @@ msgstr "Votre jerrican est maintenant plein !"
 
 #: daybutton.lua
 msgid "Day Button"
-msgstr "Bouton de jour"
+msgstr "Commutateur de jour"
 
 #: daybutton.lua
 msgid "Press to skip the night."

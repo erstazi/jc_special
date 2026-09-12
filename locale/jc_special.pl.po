@@ -87,7 +87,7 @@ msgstr "Kanister został napełniony."
 
 #: daybutton.lua
 msgid "Day Button"
-msgstr "Przycisk dnia"
+msgstr "Przełącznik dzienny"
 
 #: daybutton.lua
 msgid "Press to skip the night."
@@ -362,11 +362,11 @@ msgstr "Gracz @1 został zwolniony z więzienia"
 
 #: prison.lua
 msgid "Jail a player"
-msgstr "Wyślij gracza do więzienia"
+msgstr "Więzi graczy"
 
 #: prison.lua
 msgid "Unjail a player"
-msgstr "Zwolnij gracza z więzienia"
+msgstr "Zwalnia graczy z więzienia"
 
 #: direct_mob_spawner.lua
 msgid "Direct Mob Spawner"

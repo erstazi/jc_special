@@ -87,7 +87,7 @@ msgstr "Je jerrycan is nu vol!"
 
 #: daybutton.lua
 msgid "Day Button"
-msgstr "Dagknop"
+msgstr "Dagschakelaar"
 
 #: daybutton.lua
 msgid "Press to skip the night."

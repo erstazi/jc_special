@@ -87,7 +87,7 @@ msgstr "Deine Kanister ist jetzt voll!"
 
 #: daybutton.lua
 msgid "Day Button"
-msgstr "Tagestaste"
+msgstr "Tagesumschalter"
 
 #: daybutton.lua
 msgid "Press to skip the night."

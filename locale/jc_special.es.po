@@ -87,7 +87,7 @@ msgstr "¡Tu bidón ya está lleno!"
 
 #: daybutton.lua
 msgid "Day Button"
-msgstr "Botón de día"
+msgstr "Selector de día"
 
 #: daybutton.lua
 msgid "Press to skip the night."

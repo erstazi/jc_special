@@ -87,7 +87,7 @@ msgstr "Seu galão está cheio agora!"
 
 #: daybutton.lua
 msgid "Day Button"
-msgstr "Botão do Dia"
+msgstr "Seletor de dia"
 
 #: daybutton.lua
 msgid "Press to skip the night."

@@ -25,6 +25,7 @@ local monster_sounds_storage = core.get_mod_storage()
 ----------------------------------------------------------------
 local temp_trooper_name_for_translation = S("Trooper")
 local temp_castle_gaurd_name_for_translation = S("Castle Guard")
+local temp_priest_name_for_translation = S("Priest")
 
 ----------------------------------------------------------------
 -- SHARED SETTINGS
@@ -93,7 +94,7 @@ local Monster = {}
 ----------------------------------------------------------------
 -- RANDOM SOUND
 ----------------------------------------------------------------
-function Monster:play_random_sound(self, sounds, gain)
+function Monster:play_random_sound(self, sounds, gain, max_hear_distance)
   if not sounds or #sounds == 0 then
     return
   end
@@ -103,6 +104,8 @@ function Monster:play_random_sound(self, sounds, gain)
   if not pos then
     return
   end
+
+  max_hear_distance = max_hear_distance or 20
 
   local sound = sounds[math.random(#sounds)]
 
@@ -118,9 +121,9 @@ function Monster:play_random_sound(self, sounds, gain)
         dx * dx
           + dy * dy
           + dz * dz
-        )
+      )
 
-      if distance <= 20 then
+      if distance <= max_hear_distance then
         local meta = player:get_meta()
 
         local monster_sounds = meta:get_string("jc_special_sounds_monsters")
@@ -131,7 +134,7 @@ function Monster:play_random_sound(self, sounds, gain)
             to_player = player:get_player_name(),
             pos = pos,
             gain = gain or 1.0,
-            max_hear_distance = 20,
+            max_hear_distance = max_hear_distance,
           })
         end
       end
@@ -903,6 +906,94 @@ function Monster:custom_attack(self, to_attack, def)
   return false
 end
 
+
+----------------------------------------------------------------
+-- Priest Disorient Player
+----------------------------------------------------------------
+local priest_disorientation = {}
+
+function Monster:disorient_player(player)
+  local player_name = player:get_player_name()
+  local existing = priest_disorientation[player_name]
+
+  if existing then
+    existing.generation = existing.generation + 1
+    existing.expires = core.get_us_time() + 30000000
+  else
+    existing = {
+      generation = 1,
+      expires = core.get_us_time() + 30000000,
+    }
+
+    priest_disorientation[player_name] = existing
+
+    existing.hud_id = player:hud_add({
+      hud_elem_type = "image",
+      position = {x = 0.5, y = 0.5},
+      offset = {x = 0, y = 0},
+      text = "priest_blue_overlay.png^[opacity:200",
+      alignment = {x = 0, y = 0},
+      scale = {x = -100, y = -100},
+    })
+  end
+
+  local generation = existing.generation
+
+  -- Refresh the full-strength overlay
+  player:hud_change(
+    existing.hud_id,
+    "text",
+    "priest_blue_overlay.png^[opacity:200"
+  )
+
+  -- Apply a temporary movement slowdown while disoriented
+  local physics = player:get_physics_override()
+  player:set_physics_override({ speed = physics.speed * 0.2 })
+
+  core.after(30, function()
+    local effect = priest_disorientation[player_name]
+
+    if not effect or effect.generation ~= generation or not player:is_player() then
+      return
+    end
+
+    player:set_physics_override({ speed = 1.0 })
+    player:hud_remove(effect.hud_id)
+    priest_disorientation[player_name] = nil
+  end)
+
+  local fade_steps = {
+    {delay = 5, opacity = 175},
+    {delay = 10, opacity = 150},
+    {delay = 15, opacity = 120},
+    {delay = 20, opacity = 85},
+    {delay = 25, opacity = 45},
+    {delay = 30, opacity = 0},
+  }
+
+  for _, step in ipairs(fade_steps) do
+    core.after(step.delay, function()
+      local effect = priest_disorientation[player_name]
+
+      if not effect or effect.generation ~= generation or not player:is_player() then
+        return
+      end
+
+      if step.opacity == 0 then
+        player:hud_remove(effect.hud_id)
+        priest_disorientation[player_name] = nil
+        return
+      end
+
+      player:hud_change(
+        effect.hud_id,
+        "text",
+        "priest_blue_overlay.png^[opacity:" .. step.opacity
+      )
+    end)
+  end
+end
+
 ----------------------------------------------------------------
 -- COMMON CUSTOM LOGIC
 ----------------------------------------------------------------
@@ -1230,7 +1321,7 @@ function Monster:register_egg(def)
     def.name,
     S(def.description),
     def.egg_texture or def.texture,
-    1
+    def.is_egg == false and 0 or 1
   )
 end
 
@@ -2064,6 +2155,329 @@ monsterDefinitions.trooper = {
     { name = "default:pick_steel", chance = 3, min = 1, max = 1, },
   },
 }
+
+----------------------------------------------------------------
+-- PRIEST
+----------------------------------------------------------------
+monsterDefinitions.priest = {
+  name = "mobs_monster:priest",
+  type = "npc",
+  description = "Padre",
+  alias = "mobs:priest",
+  nametag = true,
+  nametag_color = "#76D7F3",
+
+  passive = true,
+  attack_players = false,
+  attack_npcs = false,
+  attack_animals = false,
+  attack_monsters = false,
+  can_group_attack = false,
+
+  damage = 0,
+  rainbow_damage = 0,
+
+  hp_min = 50,
+  hp_max = 50,
+  armor = 100,
+
+  collisionbox = {
+    -0.3, -1, -0.3,
+     0.3,  0.8,  0.3,
+  },
+
+  texture = "priest.png",
+  mesh = "character.b3d",
+  egg_texture = "priest_egg.png",
+  is_egg = false,
+
+  stepheight = 1.6,
+  walk_velocity = 0,
+  run_velocity = 0,
+  jump_height = 0,
+  view_range = 0,
+  lava_damage = 8,
+  lifetimer = 300,
+
+  -- Prevent mobs_redo from doing normal walk behavior
+  walk_chance = 0,
+  stand_chance = 0,
+
+  animation = {
+    speed_normal = 15,
+    speed_run = 15,
+
+    stand_start = 0,
+    stand_end = 40,
+    stand_speed = 15,
+
+    walk_start = 168,
+    walk_end = 187,
+    walk_speed = 5,
+
+    run_start = 168,
+    run_end = 187,
+    run_speed = 5,
+
+    punch_start = 189,
+    punch_end = 198,
+    punch_speed = 15,
+  },
+
+
+  ----------------------------------------------------------------
+  -- PLAYER DETECTION
+  ----------------------------------------------------------------
+  detection = {
+    enabled = true,
+    radius = 20,
+    seeing_sound_cooldown = 10,
+    idle_sound_min = 25,
+    idle_sound_max = 125,
+  },
+
+  ----------------------------------------------------------------
+  -- PRIEST SOUNDS
+  ----------------------------------------------------------------
+  sounds = {
+    hit = {
+      "priest_sounds_hit_01",
+      "priest_sounds_hit_02",
+      "priest_sounds_hit_03",
+    },
+    hit_gain = 1.0,
+
+    seeing_player = {
+      "priest_sounds_seeing_player_01",
+      "priest_sounds_seeing_player_02",
+      -- "priest_sounds_seeing_player_03",
+      "priest_sounds_seeing_player_04",
+      "priest_sounds_seeing_player_05",
+      "priest_sounds_seeing_player_06",
+      "priest_sounds_seeing_player_07",
+      "priest_sounds_seeing_player_08",
+      "priest_sounds_seeing_player_09",
+      -- "priest_sounds_seeing_player_10",
+      "priest_sounds_seeing_player_11",
+      "priest_sounds_seeing_player_12",
+      "priest_sounds_seeing_player_13",
+      "priest_sounds_seeing_player_14",
+      "priest_sounds_seeing_player_15",
+      "priest_sounds_seeing_player_16",
+      "priest_sounds_seeing_player_17",
+      "priest_sounds_seeing_player_18",
+    },
+    seeing_gain = 0.5,
+    seeing_max_hear_distance = 30,
+
+    no_players_around = {
+      "priest_sounds_seeing_player_02",
+      "priest_sounds_seeing_player_05",
+      "priest_sounds_seeing_player_11",
+      "priest_sounds_seeing_player_16",
+      "priest_sounds_seeing_player_17",
+      "priest_sounds_seeing_player_18",
+    },
+    idle_gain = 0.3,
+    idle_max_hear_distance = 40,
+  },
+
+  names = {
+    "Padre Miguel",
+    "Padre Rafael",
+    "Padre Antonio",
+    "Padre Mateo",
+    "Padre Santiago",
+    "Padre Crisdan",
+    "Padre Jesús",
+    "Padre Jorge",
+    "Padre Carlos",
+    "Padre Juan",
+    "Padre José",
+    "Padre Luis",
+    "Padre Roberto",
+    "Padre Daniel",
+  },
+
+  ----------------------------------------------------------------
+  -- PUNCH DOES NOTHING TO PRIEST EXCEPT THOSE WITH SERVER PRIV
+  ----------------------------------------------------------------
+  do_punch = function(self, hitter, def)
+    if not hitter or not hitter:is_player() then
+      return false
+    end
+
+    local player_name = hitter:get_player_name()
+
+    if core.check_player_privs(player_name, {server = true}) then
+      return nil
+    end
+
+    core.sound_play("player_damage", {
+      object = self.object,
+      max_hear_distance = 18,
+      gain = 1.0,
+    })
+
+    Monster:disorient_player(hitter)
+
+    return false
+  end,
+
+  ----------------------------------------------------------------
+  -- STAY COMPLETELY STILL
+  ----------------------------------------------------------------
+  do_custom = function(self, dtime, def)
+    -- Only despawn if not tamed
+    if not self.tamed then
+      self.lifetimer = (self.lifetimer or 300) - dtime
+
+      if self.lifetimer <= 0 then
+        local pos = self.object:get_pos()
+        if pos then
+          local players_nearby = false
+          for _, player in ipairs(core.get_connected_players()) do
+            local ppos = player:get_pos()
+            if ppos and vector.distance(pos, ppos) < 20 then
+              players_nearby = true
+              break
+            end
+          end
+
+          if not players_nearby then
+            local name = self.jc_monster_name or self.name or "unknown"
+
+            -- smoke effect + remove
+            core.add_particlespawner({
+              amount = 15,
+              time = 0.1,
+              minpos = pos,
+              maxpos = pos,
+              minvel = {x = -1, y = 0, z = -1},
+              maxvel = {x = 1, y = 2, z = 1},
+              minacc = {x = 0, y = -4, z = 0},
+              maxacc = {x = 0, y = -8, z = 0},
+              minexptime = 0.5,
+              maxexptime = 1.5,
+              minsize = 2,
+              maxsize = 4,
+              texture = "mobs_tnt_smoke.png",
+            })
+            self.object:remove()
+            return true
+          else
+            self.lifetimer = 60
+          end
+        end
+      end
+    end
+
+    local pos = self.object:get_pos()
+
+    if not pos then
+      return false
+    end
+
+    local closest_player = nil
+    local closest_distance = math.huge
+
+    for _, player in ipairs(core.get_connected_players()) do
+      local player_pos = player:get_pos()
+
+      if player_pos then
+        local distance = vector.distance(pos, player_pos)
+
+        if distance < closest_distance then
+          closest_distance = distance
+          closest_player = player
+        end
+      end
+    end
+
+    if closest_player then
+      local player_pos = closest_player:get_pos()
+
+      if player_pos then
+        local dx = player_pos.x - pos.x
+        local dz = player_pos.z - pos.z
+
+        if math.abs(dx) > 0.01 or math.abs(dz) > 0.01 then
+          self.object:set_yaw(math.atan2(-dx, dz))
+        end
+      end
+    end
+
+    local velocity = self.object:get_velocity()
+
+    if velocity then
+      self.object:set_velocity({
+        x = 0,
+        y = velocity.y,
+        z = 0,
+      })
+    end
+
+    self:set_animation("stand")
+
+    --------------------------------------------------------------
+    -- PLAYER DETECTION / SEEING SOUND
+    --------------------------------------------------------------
+    local detection = def.detection
+
+    if detection and detection.enabled then
+      self.jc_monster_seeing_cooldown = math.max(0, (self.jc_monster_seeing_cooldown or 0) - dtime)
+
+      self.jc_monster_detect_timer = (self.jc_monster_detect_timer or 0) - dtime
+
+      if self.jc_monster_detect_timer <= 0 then
+        self.jc_monster_detect_timer = 0.4
+
+        local player = Monster:find_visible_player(self, detection.radius)
+
+        if player and self.jc_monster_seeing_cooldown <= 0 then
+          if def.sounds and def.sounds.seeing_player then
+            Monster:play_random_sound(
+              self,
+              def.sounds.seeing_player,
+              def.sounds.seeing_gain or 0.2,
+              def.sounds.seeing_max_hear_distance or 20
+            )
+          end
+
+          self.jc_monster_seeing_cooldown = detection.seeing_sound_cooldown or 25
+        end
+      end
+    end
+
+    --------------------------------------------------------------
+    -- NO PLAYERS AROUND / IDLE SOUND
+    --------------------------------------------------------------
+    if not closest_player then
+      self.jc_monster_idle_timer = (self.jc_monster_idle_timer or math.random(25, 125)) - dtime
+
+      if self.jc_monster_idle_timer <= 0 then
+        self.jc_monster_idle_timer = math.random(detection and detection.idle_sound_min or 25, detection and detection.idle_sound_max or 125 )
+
+        if def.sounds and def.sounds.no_players_around then
+          Monster:play_random_sound(
+            self,
+            def.sounds.no_players_around,
+            def.sounds.idle_gain or 0.5,
+            def.sounds.idle_max_hear_distance or 20
+          )
+        end
+      end
+    else
+      self.jc_monster_idle_timer = nil
+    end
+
+    return false
+  end,
+
+
+  drops = {},
+}
+
 
 ----------------------------------------------------------------
 -- RHINO

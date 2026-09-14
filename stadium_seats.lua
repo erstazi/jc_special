@@ -16,7 +16,7 @@ local cushion_cycles = {}
 
 local function stadium_seat_rotate(pos, node, user, mode, new_param2)
   local rotation = node.param2 % 240
-  local new_rotation = (rotation + 30) % 240
+  local new_rotation = (rotation + 15) % 240
 
   node.param2 = new_rotation
   core.swap_node(pos, node)

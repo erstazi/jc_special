@@ -27,6 +27,7 @@ local temp_trooper_name_for_translation = S("Trooper")
 local temp_castle_gaurd_name_for_translation = S("Castle Guard")
 -- don't need this yet. Padre is sufficient.
 -- local temp_priest_name_for_translation = S("Priest")
+-- mobs_monster:priest 0 15 1 20 3
 
 ----------------------------------------------------------------
 -- SHARED SETTINGS

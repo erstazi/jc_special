@@ -448,69 +448,121 @@ msgid "You need server privileges to use this."
 msgstr ""
 
 #: stadium_seats.lua
-msgid "General Stadium Seat (@1)"
+msgid "General Stadium Seat (White)"
 msgstr ""
 
 #: stadium_seats.lua
-msgid "Dugout Seat (@1)"
+msgid "General Stadium Seat (Grey)"
 msgstr ""
 
 #: stadium_seats.lua
-msgid "White"
+msgid "General Stadium Seat (Dark Grey)"
 msgstr ""
 
 #: stadium_seats.lua
-msgid "Grey"
+msgid "General Stadium Seat (Black)"
 msgstr ""
 
 #: stadium_seats.lua
-msgid "Dark Grey"
+msgid "General Stadium Seat (Violet)"
 msgstr ""
 
 #: stadium_seats.lua
-msgid "Black"
+msgid "General Stadium Seat (Blue)"
 msgstr ""
 
 #: stadium_seats.lua
-msgid "Violet"
+msgid "General Stadium Seat (Cyan)"
 msgstr ""
 
 #: stadium_seats.lua
-msgid "Blue"
+msgid "General Stadium Seat (Dark Green)"
 msgstr ""
 
 #: stadium_seats.lua
-msgid "Cyan"
+msgid "General Stadium Seat (Green)"
 msgstr ""
 
 #: stadium_seats.lua
-msgid "Dark Green"
+msgid "General Stadium Seat (Yellow)"
 msgstr ""
 
 #: stadium_seats.lua
-msgid "Green"
+msgid "General Stadium Seat (Brown)"
 msgstr ""
 
 #: stadium_seats.lua
-msgid "Yellow"
+msgid "General Stadium Seat (Orange)"
 msgstr ""
 
 #: stadium_seats.lua
-msgid "Brown"
+msgid "General Stadium Seat (Red)"
 msgstr ""
 
 #: stadium_seats.lua
-msgid "Orange"
+msgid "General Stadium Seat (Magenta)"
 msgstr ""
 
 #: stadium_seats.lua
-msgid "Red"
+msgid "General Stadium Seat (Pink)"
 msgstr ""
 
 #: stadium_seats.lua
-msgid "Magenta"
+msgid "Dugout Seat (White)"
 msgstr ""
 
 #: stadium_seats.lua
-msgid "Pink"
+msgid "Dugout Seat (Grey)"
+msgstr ""
+
+#: stadium_seats.lua
+msgid "Dugout Seat (Dark Grey)"
+msgstr ""
+
+#: stadium_seats.lua
+msgid "Dugout Seat (Black)"
+msgstr ""
+
+#: stadium_seats.lua
+msgid "Dugout Seat (Violet)"
+msgstr ""
+
+#: stadium_seats.lua
+msgid "Dugout Seat (Blue)"
+msgstr ""
+
+#: stadium_seats.lua
+msgid "Dugout Seat (Cyan)"
+msgstr ""
+
+#: stadium_seats.lua
+msgid "Dugout Seat (Dark Green)"
+msgstr ""
+
+#: stadium_seats.lua
+msgid "Dugout Seat (Green)"
+msgstr ""
+
+#: stadium_seats.lua
+msgid "Dugout Seat (Yellow)"
+msgstr ""
+
+#: stadium_seats.lua
+msgid "Dugout Seat (Brown)"
+msgstr ""
+
+#: stadium_seats.lua
+msgid "Dugout Seat (Orange)"
+msgstr ""
+
+#: stadium_seats.lua
+msgid "Dugout Seat (Red)"
+msgstr ""
+
+#: stadium_seats.lua
+msgid "Dugout Seat (Magenta)"
+msgstr ""
+
+#: stadium_seats.lua
+msgid "Dugout Seat (Pink)"
 msgstr ""

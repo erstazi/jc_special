@@ -449,69 +449,121 @@ msgid "You need server privileges to use this."
 msgstr "Je hebt serverrechten nodig om dit te gebruiken."
 
 #: stadium_seats.lua
-msgid "General Stadium Seat (@1)"
-msgstr "Algemene stadionstoel (@1)"
+msgid "General Stadium Seat (White)"
+msgstr "Algemene stadionstoel (Wit)"
 
 #: stadium_seats.lua
-msgid "Dugout Seat (@1)"
-msgstr "Bankstoel (@1)"
+msgid "General Stadium Seat (Grey)"
+msgstr "Algemene stadionstoel (Grijs)"
 
 #: stadium_seats.lua
-msgid "White"
-msgstr "Wit"
+msgid "General Stadium Seat (Dark Grey)"
+msgstr "Algemene stadionstoel (Donkergrijs)"
 
 #: stadium_seats.lua
-msgid "Grey"
-msgstr "Grijs"
+msgid "General Stadium Seat (Black)"
+msgstr "Algemene stadionstoel (Zwart)"
 
 #: stadium_seats.lua
-msgid "Dark Grey"
-msgstr "Donkergrijs"
+msgid "General Stadium Seat (Violet)"
+msgstr "Algemene stadionstoel (Violet)"
 
 #: stadium_seats.lua
-msgid "Black"
-msgstr "Zwart"
+msgid "General Stadium Seat (Blue)"
+msgstr "Algemene stadionstoel (Blauw)"
 
 #: stadium_seats.lua
-msgid "Violet"
-msgstr "Violet"
+msgid "General Stadium Seat (Cyan)"
+msgstr "Algemene stadionstoel (Cyaan)"
 
 #: stadium_seats.lua
-msgid "Blue"
-msgstr "Blauw"
+msgid "General Stadium Seat (Dark Green)"
+msgstr "Algemene stadionstoel (Donkergroen)"
 
 #: stadium_seats.lua
-msgid "Cyan"
-msgstr "Cyaan"
+msgid "General Stadium Seat (Green)"
+msgstr "Algemene stadionstoel (Groen)"
 
 #: stadium_seats.lua
-msgid "Dark Green"
-msgstr "Donkergroen"
+msgid "General Stadium Seat (Yellow)"
+msgstr "Algemene stadionstoel (Geel)"
 
 #: stadium_seats.lua
-msgid "Green"
-msgstr "Groen"
+msgid "General Stadium Seat (Brown)"
+msgstr "Algemene stadionstoel (Bruin)"
 
 #: stadium_seats.lua
-msgid "Yellow"
-msgstr "Geel"
+msgid "General Stadium Seat (Orange)"
+msgstr "Algemene stadionstoel (Oranje)"
 
 #: stadium_seats.lua
-msgid "Brown"
-msgstr "Bruin"
+msgid "General Stadium Seat (Red)"
+msgstr "Algemene stadionstoel (Rood)"
 
 #: stadium_seats.lua
-msgid "Orange"
-msgstr "Oranje"
+msgid "General Stadium Seat (Magenta)"
+msgstr "Algemene stadionstoel (Magenta)"
 
 #: stadium_seats.lua
-msgid "Red"
-msgstr "Rood"
+msgid "General Stadium Seat (Pink)"
+msgstr "Algemene stadionstoel (Roze)"
 
 #: stadium_seats.lua
-msgid "Magenta"
-msgstr "Magenta"
+msgid "Dugout Seat (White)"
+msgstr "Bankstoel (Wit)"
 
 #: stadium_seats.lua
-msgid "Pink"
-msgstr "Roze"
+msgid "Dugout Seat (Grey)"
+msgstr "Bankstoel (Grijs)"
+
+#: stadium_seats.lua
+msgid "Dugout Seat (Dark Grey)"
+msgstr "Bankstoel (Donkergrijs)"
+
+#: stadium_seats.lua
+msgid "Dugout Seat (Black)"
+msgstr "Bankstoel (Zwart)"
+
+#: stadium_seats.lua
+msgid "Dugout Seat (Violet)"
+msgstr "Bankstoel (Violet)"
+
+#: stadium_seats.lua
+msgid "Dugout Seat (Blue)"
+msgstr "Bankstoel (Blauw)"
+
+#: stadium_seats.lua
+msgid "Dugout Seat (Cyan)"
+msgstr "Bankstoel (Cyaan)"
+
+#: stadium_seats.lua
+msgid "Dugout Seat (Dark Green)"
+msgstr "Bankstoel (Donkergroen)"
+
+#: stadium_seats.lua
+msgid "Dugout Seat (Green)"
+msgstr "Bankstoel (Groen)"
+
+#: stadium_seats.lua
+msgid "Dugout Seat (Yellow)"
+msgstr "Bankstoel (Geel)"
+
+#: stadium_seats.lua
+msgid "Dugout Seat (Brown)"
+msgstr "Bankstoel (Bruin)"
+
+#: stadium_seats.lua
+msgid "Dugout Seat (Orange)"
+msgstr "Bankstoel (Oranje)"
+
+#: stadium_seats.lua
+msgid "Dugout Seat (Red)"
+msgstr "Bankstoel (Rood)"
+
+#: stadium_seats.lua
+msgid "Dugout Seat (Magenta)"
+msgstr "Bankstoel (Magenta)"
+
+#: stadium_seats.lua
+msgid "Dugout Seat (Pink)"
+msgstr "Bankstoel (Roze)"

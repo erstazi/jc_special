@@ -449,69 +449,121 @@ msgid "You need server privileges to use this."
 msgstr "Для цього потрібні права сервера."
 
 #: stadium_seats.lua
-msgid "General Stadium Seat (@1)"
-msgstr "Звичайне стадіонне сидіння (@1)"
+msgid "General Stadium Seat (White)"
+msgstr "Звичайне стадіонне сидіння (Біле)"
 
 #: stadium_seats.lua
-msgid "Dugout Seat (@1)"
-msgstr "Сидіння на лаві запасних (@1)"
+msgid "General Stadium Seat (Grey)"
+msgstr "Звичайне стадіонне сидіння (Сіре)"
 
 #: stadium_seats.lua
-msgid "White"
-msgstr "Білий"
+msgid "General Stadium Seat (Dark Grey)"
+msgstr "Звичайне стадіонне сидіння (Темно-сіре)"
 
 #: stadium_seats.lua
-msgid "Grey"
-msgstr "Сірий"
+msgid "General Stadium Seat (Black)"
+msgstr "Звичайне стадіонне сидіння (Чорне)"
 
 #: stadium_seats.lua
-msgid "Dark Grey"
-msgstr "Темно-сірий"
+msgid "General Stadium Seat (Violet)"
+msgstr "Звичайне стадіонне сидіння (Фіолетове)"
 
 #: stadium_seats.lua
-msgid "Black"
-msgstr "Чорний"
+msgid "General Stadium Seat (Blue)"
+msgstr "Звичайне стадіонне сидіння (Синє)"
 
 #: stadium_seats.lua
-msgid "Violet"
-msgstr "Фіолетовий"
+msgid "General Stadium Seat (Cyan)"
+msgstr "Звичайне стадіонне сидіння (Блакитне)"
 
 #: stadium_seats.lua
-msgid "Blue"
-msgstr "Синій"
+msgid "General Stadium Seat (Dark Green)"
+msgstr "Звичайне стадіонне сидіння (Темно-зелене)"
 
 #: stadium_seats.lua
-msgid "Cyan"
-msgstr "Блакитний"
+msgid "General Stadium Seat (Green)"
+msgstr "Звичайне стадіонне сидіння (Зелене)"
 
 #: stadium_seats.lua
-msgid "Dark Green"
-msgstr "Темно-зелений"
+msgid "General Stadium Seat (Yellow)"
+msgstr "Звичайне стадіонне сидіння (Жовте)"
 
 #: stadium_seats.lua
-msgid "Green"
-msgstr "Зелений"
+msgid "General Stadium Seat (Brown)"
+msgstr "Звичайне стадіонне сидіння (Коричневе)"
 
 #: stadium_seats.lua
-msgid "Yellow"
-msgstr "Жовтий"
+msgid "General Stadium Seat (Orange)"
+msgstr "Звичайне стадіонне сидіння (Помаранчеве)"
 
 #: stadium_seats.lua
-msgid "Brown"
-msgstr "Коричневий"
+msgid "General Stadium Seat (Red)"
+msgstr "Звичайне стадіонне сидіння (Червоне)"
 
 #: stadium_seats.lua
-msgid "Orange"
-msgstr "Помаранчевий"
+msgid "General Stadium Seat (Magenta)"
+msgstr "Звичайне стадіонне сидіння (Пурпурове)"
 
 #: stadium_seats.lua
-msgid "Red"
-msgstr "Червоний"
+msgid "General Stadium Seat (Pink)"
+msgstr "Звичайне стадіонне сидіння (Рожеве)"
 
 #: stadium_seats.lua
-msgid "Magenta"
-msgstr "Пурпуровий"
+msgid "Dugout Seat (White)"
+msgstr "Сидіння на лаві запасних (Біле)"
 
 #: stadium_seats.lua
-msgid "Pink"
-msgstr "Рожевий"
+msgid "Dugout Seat (Grey)"
+msgstr "Сидіння на лаві запасних (Сіре)"
+
+#: stadium_seats.lua
+msgid "Dugout Seat (Dark Grey)"
+msgstr "Сидіння на лаві запасних (Темно-сіре)"
+
+#: stadium_seats.lua
+msgid "Dugout Seat (Black)"
+msgstr "Сидіння на лаві запасних (Чорне)"
+
+#: stadium_seats.lua
+msgid "Dugout Seat (Violet)"
+msgstr "Сидіння на лаві запасних (Фіолетове)"
+
+#: stadium_seats.lua
+msgid "Dugout Seat (Blue)"
+msgstr "Сидіння на лаві запасних (Синє)"
+
+#: stadium_seats.lua
+msgid "Dugout Seat (Cyan)"
+msgstr "Сидіння на лаві запасних (Блакитне)"
+
+#: stadium_seats.lua
+msgid "Dugout Seat (Dark Green)"
+msgstr "Сидіння на лаві запасних (Темно-зелене)"
+
+#: stadium_seats.lua
+msgid "Dugout Seat (Green)"
+msgstr "Сидіння на лаві запасних (Зелене)"
+
+#: stadium_seats.lua
+msgid "Dugout Seat (Yellow)"
+msgstr "Сидіння на лаві запасних (Жовте)"
+
+#: stadium_seats.lua
+msgid "Dugout Seat (Brown)"
+msgstr "Сидіння на лаві запасних (Коричневе)"
+
+#: stadium_seats.lua
+msgid "Dugout Seat (Orange)"
+msgstr "Сидіння на лаві запасних (Помаранчеве)"
+
+#: stadium_seats.lua
+msgid "Dugout Seat (Red)"
+msgstr "Сидіння на лаві запасних (Червоне)"
+
+#: stadium_seats.lua
+msgid "Dugout Seat (Magenta)"
+msgstr "Сидіння на лаві запасних (Пурпурове)"
+
+#: stadium_seats.lua
+msgid "Dugout Seat (Pink)"
+msgstr "Сидіння на лаві запасних (Рожеве)"

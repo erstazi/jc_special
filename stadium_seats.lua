@@ -14,6 +14,38 @@ local cushion_alt_players = {
 
 local cushion_cycles = {}
 
+local function stadium_seat_rotate(pos, node, user, mode, new_param2)
+  local rotation = node.param2 % 240
+  local new_rotation = (rotation + 30) % 240
+
+  node.param2 = new_rotation
+  core.swap_node(pos, node)
+
+  return true
+end
+
+local function set_stadium_seat_player_rotation(clicker, node)
+  local nodedef = core.registered_nodes[node.name]
+
+  if not nodedef or nodedef.paramtype2 ~= "degrotate" then
+    return
+  end
+
+  local attached = clicker:get_attach()
+
+  if not attached then
+    return
+  end
+
+  local angle = (180 - node.param2 * 1.5) % 360
+
+  attached:set_rotation({
+    x = 0,
+    y = math.rad(angle),
+    z = 0,
+  })
+end
+
 local function stadium_seat_rightclick(pos, node, clicker, itemstack, pointed_thing)
   if not clicker:is_player() then
     return itemstack
@@ -25,6 +57,10 @@ local function stadium_seat_rightclick(pos, node, clicker, itemstack, pointed_th
 
   local is_attached = clicker:get_attach()
   local name = clicker:get_player_name()
+
+  if not was_attached and is_attached then
+    set_stadium_seat_player_rotation(clicker, node)
+  end
 
   if not core.settings:get_bool("jc_special_stadium_seat_sounds", true) then
     return result
@@ -97,7 +133,7 @@ for _, color_item in ipairs(colors_table_stadium_seat_general) do
       "wool_" .. color .. ".png",
     },
     paramtype = "light",
-    paramtype2 = "facedir",
+    paramtype2 = "degrotate",
     sunlight_propagates = true,
     groups = {
     choppy = 2,
@@ -113,6 +149,7 @@ for _, color_item in ipairs(colors_table_stadium_seat_general) do
       fixed = {-0.34, -0.52, -0.40, 0.34, 0.52, 0.40},
     },
     on_rightclick = stadium_seat_rightclick,
+    on_rotate = stadium_seat_rotate,
     on_destruct = lrfurn.on_seat_destruct,
   })
 end
@@ -149,7 +186,7 @@ for _, color_item in ipairs(colors_table_dugout_seat) do
       "wool_" .. color .. ".png",
     },
     paramtype = "light",
-    paramtype2 = "facedir",
+    paramtype2 = "degrotate",
     sunlight_propagates = true,
     groups = {choppy = 2, oddly_breakable_by_hand = 2, furniture = 1},
     collision_box = {
@@ -161,6 +198,7 @@ for _, color_item in ipairs(colors_table_dugout_seat) do
       fixed = {-0.32, -0.55, -0.36, 0.32, 0.55, 0.36},
     },
     on_rightclick = stadium_seat_rightclick,
+    on_rotate = stadium_seat_rotate,
     on_destruct = lrfurn.on_seat_destruct,
   })
 end

@@ -25,7 +25,8 @@ local monster_sounds_storage = core.get_mod_storage()
 ----------------------------------------------------------------
 local temp_trooper_name_for_translation = S("Trooper")
 local temp_castle_gaurd_name_for_translation = S("Castle Guard")
-local temp_priest_name_for_translation = S("Priest")
+-- don't need this yet. Padre is sufficient.
+-- local temp_priest_name_for_translation = S("Priest")
 
 ----------------------------------------------------------------
 -- SHARED SETTINGS

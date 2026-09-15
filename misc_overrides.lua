@@ -4,15 +4,62 @@ local modpath = core.get_modpath(core.get_current_modname())
 
 core.register_on_mods_loaded(function()
   if carts then
-    carts.speed_max = 10
+    local cart_speed_max = 10
+    local cart_brake_deceleration = -40
+
+    carts.speed_max = cart_speed_max
+
     core.log("action", "[jc_special] Minecart speed set to " .. carts.speed_max)
 
-    if carts.railparams and carts.railparams["carts:brakerail"] then
-      carts.railparams["carts:brakerail"].acceleration = -4
-      core.log("action", "[jc_special] Brake Rail acceleration set to -4")
-    else
-      core.log("warning", "[jc_special] Brake Rail parameters not found")
-    end
+    local stoprail_params = {
+      acceleration = 0,
+
+      on_step = function(self)
+        if self.stopnow_stopped then
+          self.stopnow_stopped = false
+          return
+        end
+
+        self.stopnow_stopped = true
+
+        self.object:set_velocity({
+          x = 0,
+          y = 0,
+          z = 0
+        })
+
+        self.object:set_acceleration({
+          x = 0,
+          y = 0,
+          z = 0
+        })
+      end
+    }
+
+    carts:register_rail(":carts:brakerail_stopnow", {
+      description = "Brake Rail Stop Now",
+      tiles = {
+        "carts_rail_straight_brk.png^[colorize:red:80",
+        "carts_rail_curved_brk.png^[colorize:red:80",
+        "carts_rail_t_junction_brk.png^[colorize:red:80",
+        "carts_rail_crossing_brk.png^[colorize:red:80"
+      },
+      groups = carts:get_rail_groups(),
+    }, stoprail_params)
+
+    -- register_rail() above requires the leading ":" in this setup,
+    -- but cart_entity.lua looks up railparams using the actual node name.
+    carts.railparams["carts:brakerail_stopnow"] = carts.railparams[":carts:brakerail_stopnow"]
+
+    core.register_craft({
+      output = "carts:brakerail_stopnow 18",
+      recipe = {
+        {"default:steel_ingot", "group:wood", "default:steel_ingot"},
+        {"nether:nether_ingot", "default:coal_lump", "nether:nether_ingot"},
+        {"default:steel_ingot", "group:wood", "default:steel_ingot"},
+      }
+    })
+
   else
     core.log("warning", "[jc_special] carts mod not found")
   end
@@ -27,9 +74,7 @@ local function get_mods_formspec()
     "formspec_version[4]" ..
     "size[12,10]" ..
     "label[0.4,0.3; " .. core.formspec_escape( S("Loaded Mods") ) .. " (" .. #mods .. ")]" ..
-    "textarea[0.4,0.8;11.2,8;;;" ..
-    core.formspec_escape(table.concat(mods, ", ")) ..
-    "]" ..
+    "textarea[0.4,0.8;11.2,8;;;" .. core.formspec_escape(table.concat(mods, ", ")) .. "]" ..
     "button_exit[4,9;4,0.8;close;" .. core.formspec_escape( S("Close") ) .. "]"
 end
 

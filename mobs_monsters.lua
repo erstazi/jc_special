@@ -2259,24 +2259,24 @@ monsterDefinitions.priest = {
     hit_gain = 1.0,
 
     seeing_player = {
-      "priest_sounds_seeing_player_01",
-      "priest_sounds_seeing_player_02",
-      -- "priest_sounds_seeing_player_03",
-      "priest_sounds_seeing_player_04",
-      "priest_sounds_seeing_player_05",
-      "priest_sounds_seeing_player_06",
-      "priest_sounds_seeing_player_07",
-      "priest_sounds_seeing_player_08",
-      "priest_sounds_seeing_player_09",
-      -- "priest_sounds_seeing_player_10",
-      "priest_sounds_seeing_player_11",
-      "priest_sounds_seeing_player_12",
-      "priest_sounds_seeing_player_13",
-      "priest_sounds_seeing_player_14",
-      "priest_sounds_seeing_player_15",
-      "priest_sounds_seeing_player_16",
-      "priest_sounds_seeing_player_17",
-      "priest_sounds_seeing_player_18",
+      "priest_sounds_seeing_player_01", -- Bienvenidos todos a Jast Craft. *****
+      "priest_sounds_seeing_player_02", -- Que la paz de Jast Craft esté con ustedes. *****
+      -- "priest_sounds_seeing_player_03", -- NOT USED: Tomen asiento y descansen un poco.
+      "priest_sounds_seeing_player_04", -- Que encuentren descanso y alegría en este lugar.
+      "priest_sounds_seeing_player_05", -- Bienaventurados los jugadores noobs.
+      "priest_sounds_seeing_player_06", -- No desprecies al jugador nuevo; todos fuimos novatos alguna vez.
+      "priest_sounds_seeing_player_07", -- Que los nuevos jugadores encuentren madera antes de que anochezca.
+      "priest_sounds_seeing_player_08", -- Que tu pico nunca se rompa lejos de casa.
+      "priest_sounds_seeing_player_09", -- Que encuentres diamantes cuando menos los esperes.
+      -- "priest_sounds_seeing_player_10", -- NOT USED: Y que nunca caves directamente hacia abajo.
+      "priest_sounds_seeing_player_11", -- Que Jast Craft bendiga tus construcciones. *****
+      "priest_sounds_seeing_player_12", -- Que tus caminos sean seguros y tus cofres estén llenos.
+      "priest_sounds_seeing_player_13", -- Ve en paz, hijo mío, y no olvides tu armadura.
+      "priest_sounds_seeing_player_14", -- No temas a los monstruos. Ellos te temen a ti... probablemente.
+      "priest_sounds_seeing_player_15", -- Hijo mío, aléjate de la lava.
+      "priest_sounds_seeing_player_16", -- Ama a tu prójimo, pero no le des acceso a tu cofre.
+      "priest_sounds_seeing_player_17", -- No pierdas la fe... ni las coordenadas de tu casa.
+      "priest_sounds_seeing_player_18", -- El servidor proveerá. Pero trae tu propia comida.
     },
     seeing_gain = 0.7,
     seeing_max_hear_distance = 30,

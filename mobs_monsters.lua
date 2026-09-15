@@ -2269,7 +2269,7 @@ monsterDefinitions.priest = {
       "priest_sounds_seeing_player_17",
       "priest_sounds_seeing_player_18",
     },
-    seeing_gain = 0.5,
+    seeing_gain = 0.7,
     seeing_max_hear_distance = 30,
 
     no_players_around = {
@@ -2444,6 +2444,14 @@ monsterDefinitions.priest = {
               def.sounds.seeing_gain or 0.2,
               def.sounds.seeing_max_hear_distance or 20
             )
+            -- core.log("action", os.date("%Y-%m-%d %H:%M:%S")
+              -- .. " [JC_SPECIAL] "
+              -- .. (self.jc_monster_name or self.name or "unknown")
+              -- .. " sees "
+              -- .. player:get_player_name()
+              -- .. " - playing seeing sound"
+              -- .. " - cooldown: "
+              -- .. tostring(detection.seeing_sound_cooldown or 25))
           end
 
           self.jc_monster_seeing_cooldown = detection.seeing_sound_cooldown or 25

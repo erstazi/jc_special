@@ -555,7 +555,7 @@ function Monster:patrol(self, dtime, def)
   -- exactly where it left off.
   --------------------------------------------------------------
   if patrol.look_at_players then
-    local player = Monster:find_visible_player( self, patrol.detection_radius or 20, detection.see_through_nodes or false )
+    local player = Monster:find_visible_player( self, patrol.detection_radius or 20, false )
 
     if player then
 

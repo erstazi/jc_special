@@ -6,10 +6,18 @@ core.register_on_mods_loaded(function()
   if carts then
     carts.speed_max = 10
     core.log("action", "[jc_special] Minecart speed set to " .. carts.speed_max)
+
+    if carts.railparams and carts.railparams["carts:brakerail"] then
+      carts.railparams["carts:brakerail"].acceleration = -4
+      core.log("action", "[jc_special] Brake Rail acceleration set to -4")
+    else
+      core.log("warning", "[jc_special] Brake Rail parameters not found")
+    end
   else
     core.log("warning", "[jc_special] carts mod not found")
   end
 end)
+
 
 local function get_mods_formspec()
   local mods = core.get_modnames()

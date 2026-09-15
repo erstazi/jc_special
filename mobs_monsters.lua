@@ -147,7 +147,7 @@ end
 ----------------------------------------------------------------
 -- FIND A VISIBLE PLAYER
 ----------------------------------------------------------------
-function Monster:find_visible_player(self, radius)
+function Monster:find_visible_player(self, radius, see_through_nodes)
   local pos = self.object:get_pos()
   if not pos then
     return nil
@@ -156,8 +156,11 @@ function Monster:find_visible_player(self, radius)
   for _, object in ipairs(core.get_objects_inside_radius(pos, radius)) do
     if object:is_player() then
       local player_pos = object:get_pos()
-      if player_pos and core.line_of_sight(pos, player_pos, 1) then
-        return object
+
+      if player_pos then
+        if see_through_nodes or core.line_of_sight(pos, player_pos, 1) then
+          return object
+        end
       end
     end
   end
@@ -552,7 +555,7 @@ function Monster:patrol(self, dtime, def)
   -- exactly where it left off.
   --------------------------------------------------------------
   if patrol.look_at_players then
-    local player = Monster:find_visible_player( self, patrol.detection_radius or 20 )
+    local player = Monster:find_visible_player( self, patrol.detection_radius or 20, detection.see_through_nodes or false )
 
     if player then
 
@@ -1079,7 +1082,7 @@ function Monster:do_custom(self, dtime, def)
     if self.jc_monster_detect_timer <= 0 then
       self.jc_monster_detect_timer = 0.4   -- check 2.5 times per second
 
-      local player = Monster:find_visible_player(self, detection.radius)
+      local player = Monster:find_visible_player(self, detection.radius, detection.see_through_nodes or false)
 
       if player then
         if self.jc_monster_seeing_cooldown <= 0 then
@@ -1525,6 +1528,7 @@ monsterDefinitions.castle_guard = {
   detection = {
     enabled = true,
     radius = 20,
+    see_through_nodes = false,
     seeing_sound_cooldown = 25,
     idle_sound_min = 25,
     idle_sound_max = 125,
@@ -2233,6 +2237,7 @@ monsterDefinitions.priest = {
   detection = {
     enabled = true,
     radius = 20,
+    see_through_nodes = true,
     seeing_sound_cooldown = 10,
     idle_sound_min = 25,
     idle_sound_max = 125,
@@ -2434,7 +2439,7 @@ monsterDefinitions.priest = {
       if self.jc_monster_detect_timer <= 0 then
         self.jc_monster_detect_timer = 0.4
 
-        local player = Monster:find_visible_player(self, detection.radius)
+        local player = Monster:find_visible_player(self, detection.radius, detection.see_through_nodes)
 
         if player and self.jc_monster_seeing_cooldown <= 0 then
           if def.sounds and def.sounds.seeing_player then

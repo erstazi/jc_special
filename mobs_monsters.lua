@@ -3352,6 +3352,7 @@ core.register_on_dieplayer(function(player, reason)
   --------------------------------------------------------------
   -- DEATH MESSAGE
   --------------------------------------------------------------
+  core.log("action", string.format("[MOB KILLED PLAYER] %s was eliminated by %s (%s) at %s", player_name, monster_name, def.description, core.pos_to_string(death_pos, 0) ) )
   core.chat_send_all( S("@1 was eliminated by @2!", core.colorize(PLAYER_NAME_COLOR, player_name ), core.colorize( def.nametag_color or "#FFFFFF", monster_name ) ) )
 end)
 

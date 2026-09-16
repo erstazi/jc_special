@@ -2242,7 +2242,7 @@ monsterDefinitions.priest = {
     enabled = true,
     radius = 20,
     see_through_nodes = true,
-    seeing_sound_cooldown = 10,
+    seeing_sound_cooldown = 7,
     idle_sound_min = 25,
     idle_sound_max = 125,
   },

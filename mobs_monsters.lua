@@ -3388,6 +3388,119 @@ mobs:register_arrow("jc_special:rhino_bullet", {
   end,
 })
 
+--------------------------------------------------------
+-- /spawnmob command
+--------------------------------------------------------
+core.register_chatcommand("spawnmob", {
+  params = "<mob> [<x>,<y>,<z>]",
+  description = "Spawn a mob near the player or at a position",
+  privs = {server = true},
+  func = function(name, param)
+    local mob, coordinates = param:match("^(%S+)%s+(.+)$")
+
+    if not mob then
+      mob = param:match("^(%S+)$")
+    end
+
+    if not mob or mob == "" then
+      return false, "Usage: /spawnmob <mob> [<x>,<y>,<z>]"
+    end
+
+    local player = core.get_player_by_name(name)
+
+    if not player then
+      return false, "Player not found."
+    end
+
+    local pos
+
+    if coordinates then
+      local x, y, z = coordinates:match("^%s*(-?[%d.]+)%s*,%s*(-?[%d.]+)%s*,%s*(-?[%d.]+)%s*$")
+
+      if not x then
+        return false, "Coordinates must be in the format x,y,z"
+      end
+
+      pos = {
+        x = tonumber(x),
+        y = tonumber(y),
+        z = tonumber(z),
+      }
+    else
+      local player_pos = player:get_pos()
+
+      for distance = 2, 10 do
+        local found = false
+
+        for dx = -distance, distance do
+          for dz = -distance, distance do
+            if math.abs(dx) == distance or math.abs(dz) == distance then
+              local test_pos = {
+                x = math.floor(player_pos.x + dx + 0.5),
+                y = math.floor(player_pos.y + 0.5),
+                z = math.floor(player_pos.z + dz + 0.5),
+              }
+
+              local node_below = core.get_node_or_nil({
+                x = test_pos.x,
+                y = test_pos.y - 1,
+                z = test_pos.z,
+              })
+
+              local node_at = core.get_node_or_nil(test_pos)
+              local node_above = core.get_node_or_nil({
+                x = test_pos.x,
+                y = test_pos.y + 1,
+                z = test_pos.z,
+              })
+
+              if node_below and node_at and node_above then
+                local below_def = core.registered_nodes[node_below.name]
+                local at_def = core.registered_nodes[node_at.name]
+                local above_def = core.registered_nodes[node_above.name]
+
+                if below_def and at_def and above_def
+                    and below_def.walkable
+                    and not at_def.walkable
+                    and not above_def.walkable then
+                  pos = test_pos
+                  found = true
+                  break
+                end
+              end
+            end
+          end
+
+          if found then
+            break
+          end
+        end
+
+        if pos then
+          break
+        end
+      end
+
+      if not pos then
+        return false, "Could not find a free place to spawn the mob."
+      end
+    end
+
+    if not core.registered_entities[mob] then
+      return false, "Unknown entity: " .. mob
+    end
+
+
+    local object = core.add_entity(pos, mob)
+
+    if not object then
+      return false, "Failed to spawn " .. mob
+    end
+
+    return true, "Spawned " .. mob .. " at " .. core.pos_to_string(pos)
+  end,
+})
+
 ----------------------------------------------------------------
 -- DONE
 ----------------------------------------------------------------

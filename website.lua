@@ -236,9 +236,9 @@ local function get_website_data()
       online_names = get_online_player_names(),
     },
 
-    places = get_places(),
-    rules = get_rules(),
-    rules_es = get_rules_es(),
+    -- places = get_places(),
+    -- rules = get_rules(),
+    -- rules_es = get_rules_es(),
 
     updated = os.date("!%Y-%m-%dT%H:%M:%SZ"),
   }

@@ -3017,7 +3017,7 @@ monsterDefinitions.unggoy = {
     },
     min_light = 0,
     max_light = 15,
-    chance = 15000,
+    chance = 18000,
     min_height = -12,
     max_height = 100,
   },

@@ -144,34 +144,6 @@ local function get_online_player_count()
   return #core.get_connected_players()
 end
 
--------------------------------------------------------------------------------
--- Get /places information
--------------------------------------------------------------------------------
-local function get_places()
-  local places = {}
-
-  -- Make sure jc_places is loaded.
-  if not jc_places or not jc_places.places then
-    return places
-  end
-
-  for _, place in ipairs(jc_places.places) do
-    local pos = jc_places.get_pos(place)
-
-    if pos then
-      places[#places + 1] = {
-        name = place.name,
-        label = place.web_label or place.name,
-        x = math.floor(pos.x),
-        y = math.floor(pos.y),
-        z = math.floor(pos.z),
-      }
-    end
-  end
-
-  return places
-end
-
 local function get_online_player_names()
   local names = {}
 
@@ -182,40 +154,6 @@ local function get_online_player_names()
   table.sort(names)
 
   return names
-end
-
--------------------------------------------------------------------------------
--- Get server rules from jc_welcome
--------------------------------------------------------------------------------
-local function get_rules()
-  local rules = {}
-
-  if not jc_welcome.rules_raw then
-    return rules
-  end
-
-  for i = 1, #jc_welcome.rules_raw do
-    rules[#rules + 1] = jc_welcome.rules_raw[i]
-  end
-
-  return rules
-end
-
--------------------------------------------------------------------------------
--- Get server rules in Spanish from jc_welcome
--------------------------------------------------------------------------------
-local function get_rules_es()
-  local rules_es = {}
-
-  if not jc_welcome.rules_es_raw then
-    return rules_es
-  end
-
-  for i = 1, #jc_welcome.rules_es_raw do
-    rules_es[#rules_es + 1] = jc_welcome.rules_es_raw[i]
-  end
-
-  return rules_es
 end
 
 -------------------------------------------------------------------------------
@@ -236,10 +174,6 @@ local function get_website_data()
       total = get_total_player_count(),
       online_names = get_online_player_names(),
     },
-
-    -- places = get_places(),
-    -- rules = get_rules(),
-    -- rules_es = get_rules_es(),
 
     updated = os.date("!%Y-%m-%dT%H:%M:%SZ"),
   }
@@ -309,12 +243,12 @@ end)
 -- When a player joins, write the website's server.json
 -------------------------------------------------------------------------------
 core.register_on_joinplayer(function(player)
-  write_website_json()
+  core.after(1, write_website_json)
 end)
 
 -------------------------------------------------------------------------------
 -- When a player leaves or times out, write the website's server.json
 -------------------------------------------------------------------------------
 core.register_on_leaveplayer(function()
-  write_website_json()
+  core.after(1, write_website_json)
 end)

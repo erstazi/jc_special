@@ -131,7 +131,8 @@ end
 -- Count registered players
 -------------------------------------------------------------------------------
 local function get_total_player_count()
-  local count = math.random(5000,10000)
+  -- local count = math.random(5000,10000)
+  local count = 10000
 
   return count
 end
@@ -286,7 +287,9 @@ end
 -------------------------------------------------------------------------------
 -- Initial update
 -------------------------------------------------------------------------------
-write_website_json()
+core.register_on_mods_loaded(function()
+  write_website_json()
+end)
 
 -------------------------------------------------------------------------------
 -- Automatic 60-second update timer

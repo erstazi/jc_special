@@ -3392,18 +3392,18 @@ mobs:register_arrow("jc_special:rhino_bullet", {
 -- /spawnmob command
 --------------------------------------------------------
 core.register_chatcommand("spawnmob", {
-  params = "<mob> [<x>,<y>,<z>]",
-  description = "Spawn a mob near the player or at a position",
+  params = "<mob> [<x>,<y>,<z>|<player>]",
+  description = "Spawn a mob near the player, at a position, or at another player's position",
   privs = {server = true},
   func = function(name, param)
-    local mob, coordinates = param:match("^(%S+)%s+(.+)$")
+    local mob, location = param:match("^(%S+)%s+(.+)$")
 
     if not mob then
       mob = param:match("^(%S+)$")
     end
 
     if not mob or mob == "" then
-      return false, "Usage: /spawnmob <mob> [<x>,<y>,<z>]"
+      return false, "Usage: /spawnmob <mob> [<x>,<y>,<z>|<player>]"
     end
 
     local player = core.get_player_by_name(name)
@@ -3413,19 +3413,30 @@ core.register_chatcommand("spawnmob", {
     end
 
     local pos
+    local target_player
 
-    if coordinates then
-      local x, y, z = coordinates:match("^%s*(-?[%d.]+)%s*,%s*(-?[%d.]+)%s*,%s*(-?[%d.]+)%s*$")
+    if location then
+      location = location:match("^%s*(.-)%s*$")
 
-      if not x then
-        return false, "Coordinates must be in the format x,y,z"
+      -- Check for a player name first.
+      target_player = core.get_player_by_name(location)
+
+      if target_player then
+        pos = target_player:get_pos()
+      else
+        -- Otherwise, try x,y,z coordinates.
+        local x, y, z = location:match("^%s*(-?[%d.]+)%s*,%s*(-?[%d.]+)%s*,%s*(-?[%d.]+)%s*$")
+
+        if not x then
+          return false, "Location must be x,y,z coordinates or an online player's username."
+        end
+
+        pos = {
+          x = tonumber(x),
+          y = tonumber(y),
+          z = tonumber(z),
+        }
       end
-
-      pos = {
-        x = tonumber(x),
-        y = tonumber(y),
-        z = tonumber(z),
-      }
     else
       local player_pos = player:get_pos()
 
@@ -3490,11 +3501,14 @@ core.register_chatcommand("spawnmob", {
       return false, "Unknown entity: " .. mob
     end
 
-
     local object = core.add_entity(pos, mob)
 
     if not object then
       return false, "Failed to spawn " .. mob
+    end
+
+    if target_player then
+      return true, "Spawned " .. mob .. " at " .. location .. "'s position: " .. core.pos_to_string(pos, 0)
     end
 
     return true, "Spawned " .. mob .. " at " .. core.pos_to_string(pos)

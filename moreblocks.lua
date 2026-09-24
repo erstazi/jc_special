@@ -37,7 +37,9 @@ core.register_on_mods_loaded(function()
       local groups = {}
 
       for name, value in pairs(def.groups or {}) do
-        groups[name] = value
+        if name ~= "spreading_dirt_type" and name ~= "soil" then
+          groups[name] = value
+        end
       end
 
       stairsplus:register_all("moreblocks", subname, node_name, {

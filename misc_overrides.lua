@@ -110,10 +110,7 @@ core.register_chatcommand("where", {
 
     -- return true, string.format("%s is at %d,%d,%d", param, pos.x, pos.y, pos.z)
     -- return true, string.format("%s%s%s is at %s%d,%d,%d", green, param, white, gold, pos.x, pos.y, pos.z )
-    return true, S("@1 is at @2",
-        core.colorize("#55FF55", param),
-        core.colorize("#FFD700", string.format("%d,%d,%d", pos.x, pos.y, pos.z))
-      )
+    return true, S("@1 is at @2", core.colorize("#55FF55", param), core.colorize("#FFD700", string.format("%d,%d,%d", pos.x, pos.y, pos.z)) )
   end,
 })
 

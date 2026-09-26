@@ -5,6 +5,14 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: misc_overrides.lua
+msgid "List online players."
+msgstr "Wyświetl listę graczy online."
+
+#: misc_overrides.lua
+msgid "Online players (@1): @2"
+msgstr "Gracze online (@1): @2"
+
 #: sounds.lua
 msgid "Welcome Sounds"
 msgstr "Dźwięki powitalne"

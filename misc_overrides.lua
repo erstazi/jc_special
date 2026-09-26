@@ -86,6 +86,23 @@ core.register_chatcommand("mods", {
   end,
 })
 
+core.register_chatcommand("ls", {
+  description = S("List online players."),
+  func = function(name)
+    local players = core.get_connected_players()
+    local names = {}
+
+    for _, player in ipairs(players) do
+      names[#names + 1] = core.colorize("#55FF55", jc_special.get_ranked_name( player:get_player_name() ) )
+    end
+
+    table.sort(names, function(a, b)
+      return a:lower() < b:lower()
+    end)
+
+    return true, S("Online players (@1): @2", core.colorize("#55FF55", #names), table.concat(names, ", "))
+  end,
+})
 
 core.register_chatcommand("where", {
   params = "<player>",

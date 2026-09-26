@@ -10,6 +10,19 @@ end
 
 jc_special = {}
 
+function jc_special.get_ranked_name(name)
+  local rank = ranks.get_rank(name) or "basic"
+  local def = ranks.get_def(rank)
+
+  if def and def.prefix then
+    local colour = def.colour or "#ffffff"
+
+    return name .. " " .. core.colorize(colour, "(" .. def.prefix .. ")")
+  end
+
+  return name
+end
+
 dofile(modpath .. "/prison.lua")
 dofile(modpath .. "/daybutton.lua")
 dofile(modpath .. "/welcomeplayers.lua")

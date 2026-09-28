@@ -1,3 +1,4 @@
+-- init.lua
 local S = core.get_translator(core.get_current_modname())
 local modpath = core.get_modpath(core.get_current_modname())
 local http = core.request_http_api and core.request_http_api()
@@ -36,6 +37,7 @@ dofile(modpath .. "/snowball.lua")
 dofile(modpath .. "/homedecor_overrides.lua")
 dofile(modpath .. "/unified_inventory_overrides.lua")
 dofile(modpath .. "/animalworld_cleanup.lua")
+dofile(modpath .. "/mobs_animal_cleanup.lua")
 dofile(modpath .. "/misc_overrides.lua")
 dofile(modpath .. "/moreblocks.lua")
 dofile(modpath .. "/mobs_monsters.lua")

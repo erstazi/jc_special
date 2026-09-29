@@ -48,7 +48,3 @@ dofile(modpath .. "/sounds.lua")
 dofile(modpath .. "/bones_override.lua")
 dofile(modpath .. "/stadium_seats.lua")
 dofile(modpath .. "/website.lua")
---[[
-disabled for now to test locally
-]]
-dofile(modpath .. "/notices.lua")

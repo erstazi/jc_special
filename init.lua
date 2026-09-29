@@ -27,10 +27,6 @@ end
 dofile(modpath .. "/prison.lua")
 dofile(modpath .. "/daybutton.lua")
 dofile(modpath .. "/welcomeplayers.lua")
---[[
-disabled for now to test locally
-dofile(modpath .. "/notices.lua")
-]]
 -- dofile(modpath .. "/player_lookup.lua")
 dofile(modpath .. "/infotext.lua")
 dofile(modpath .. "/sneakjump.lua")
@@ -52,3 +48,7 @@ dofile(modpath .. "/sounds.lua")
 dofile(modpath .. "/bones_override.lua")
 dofile(modpath .. "/stadium_seats.lua")
 dofile(modpath .. "/website.lua")
+--[[
+disabled for now to test locally
+]]
+dofile(modpath .. "/notices.lua")

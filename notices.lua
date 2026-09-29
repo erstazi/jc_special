@@ -12,23 +12,21 @@ local NEXT_ID_KEY = "notice_next_id"
 
 jc_special.notices = {}
 
+local selected_notice = {}
+
 local function get_next_id()
   local id = storage:get_int(NEXT_ID_KEY)
 
   if id < 1 then
     id = 1
   end
-
   storage:set_int(NEXT_ID_KEY, id + 1)
 
   return id
 end
 
 local function save_notice(notice)
-  storage:set_string(
-    NOTICE_PREFIX .. notice.id,
-    core.write_json(notice)
-  )
+  storage:set_string( NOTICE_PREFIX .. notice.id, core.write_json(notice) )
 end
 
 local function load_notice(id)
@@ -71,7 +69,6 @@ local function get_all_notices()
     if a.created == b.created then
       return a.id > b.id
     end
-
     return a.created > b.created
   end)
 
@@ -93,7 +90,6 @@ end
 function jc_special.notices.create(title, description, player_name)
   local id = get_next_id()
   local now = os.time()
-
   local notice = {
     id = id,
     title = title,
@@ -120,7 +116,6 @@ function jc_special.notices.update(id, title, description, player_name)
   notice.description = description
   notice.modified = os.time()
   notice.modified_by = player_name
-
   save_notice(notice)
 
   return notice
@@ -146,7 +141,6 @@ end
 
 local function get_notice_list(notices)
   local entries = {}
-
   for _, notice in ipairs(notices) do
     local title = notice.title or ""
     local date = format_date(notice.created or 0)
@@ -179,7 +173,6 @@ local function show_notices(name)
   if can_edit then
     formspec[#formspec + 1] = "button[3.8,6.5;3,0.8;notice_add;" .. ESC( S("Add Notice") ) .. "]"
   end
-
   formspec[#formspec + 1] = "button[9.5,6.5;2,0.8;notice_close;" .. ESC( S("Close") ) .. "]"
 
   core.show_formspec(name, "jc_special:notices", table.concat(formspec) )
@@ -190,25 +183,58 @@ local function show_notice(name, id)
 
   if not notice then
     core.chat_send_player(name, S("Notice not found."))
+    show_notices(name)
     return
   end
+
+  selected_notice[name] = notice.id
 
   local formspec = {
     "formspec_version[6]",
     "size[12,8]",
     "label[0.5,0.4;" .. ESC(notice.title or "") .. "]",
-    "label[0.5,0.9;" .. S("Posted: @1", format_date(notice.created or 0)) .. "]",
+    "label[0.5,0.9;" .. ESC( S("Posted: @1", format_date(notice.created or 0)) ) .. "]",
     "textarea[0.5,1.5;11,4.7;notice_description;;" .. ESC(notice.description or "") .. "]"
   }
 
-  if has_server_priv(name) then
-    formspec[#formspec + 1] = "button[0.5,6.5;2.5,0.8;notice_edit;" .. ESC( S("Edit") ) .. "]"
-    formspec[#formspec + 1] = "button[3.2,6.5;2.5,0.8;notice_delete;" .. ESC( S("Delete") ) .. "]"
+  if notice.modified and notice.modified ~= notice.created then
+    formspec[#formspec + 1] = "label[0.5,6.2;" .. ESC( S("Modified: @1", format_date(notice.modified)) ) .. "]"
   end
 
-  formspec[#formspec + 1] = "button[9.5,6.5;2,0.8;notice_back;" .. ESC( S("Back") ) .. "]"
+  if has_server_priv(name) then
+    formspec[#formspec + 1] = "button[0.5,6.9;2.5,0.8;notice_edit;" .. ESC( S("Edit") ) .. "]"
+    formspec[#formspec + 1] = "button[3.2,6.9;2.5,0.8;notice_delete;" .. ESC( S("Delete") ) .. "]"
+  end
+
+  formspec[#formspec + 1] = "button[9.5,6.9;2,0.8;notice_back;" .. ESC( S("Back") ) .. "]"
 
   core.show_formspec(name, "jc_special:notice:" .. id, table.concat(formspec) )
+end
+
+local function show_delete_confirmation(name, id)
+  if not has_server_priv(name) then
+    return
+  end
+
+  local notice = get_notice(id)
+
+  if not notice then
+    core.chat_send_player(name, S("Notice not found."))
+    show_notices(name)
+    return
+  end
+
+  local formspec = {
+    "formspec_version[6]",
+    "size[10,5]",
+    "label[0.5,0.5;" .. ESC( S("Delete Notice") ) .. "]",
+    "label[0.5,1.2;" .. ESC( S("Are you sure you want to delete this notice?") ) .. "]",
+    "label[0.5,2.0;" .. ESC(notice.title or "") .. "]",
+    "button[0.5,3.5;3,0.8;notice_delete_confirm;" .. ESC( S("Delete") ) .. "]",
+    "button[4,3.5;3,0.8;notice_delete_cancel;" .. ESC( S("Cancel") ) .. "]"
+  }
+
+  core.show_formspec(name, "jc_special:notice_delete:" .. id, table.concat(formspec) )
 end
 
 local function show_notice_editor(name, id)
@@ -233,17 +259,15 @@ local function show_notice_editor(name, id)
   local description = notice and notice.description or ""
 
   local heading = notice and S("Edit Notice") or S("Add Notice")
-
   local formspec = {
     "formspec_version[6]",
     "size[12,8]",
     "label[0.5,0.4;" .. ESC( heading ) .. "]",
     "field[0.5,1.4;11,0.8;notice_title;" .. ESC( S("Title") ) .. ";" .. ESC(title) .. "]",
-    "textarea[0.5,2.2;11,3.8;notice_description;" .. ESC( S("Description") ) .. ";" .. ESC(description) .. "]",
-    "button[0.5,6.5;3,0.8;notice_save;" .. ESC( S("Save") ) .. "]",
-    "button[3.8,6.5;3,0.8;notice_cancel;" .. ESC( S("Cancel") ) .. "]"
+    "textarea[0.5,2.6;11,3.8;notice_description;" .. ESC( S("Description") ) .. ";" .. ESC(description) .. "]",
+    "button[0.5,6.9;3,0.8;notice_save;" .. ESC( S("Save") ) .. "]",
+    "button[3.8,6.9;3,0.8;notice_cancel;" .. ESC( S("Cancel") ) .. "]"
   }
-
   core.show_formspec(name, "jc_special:notice_editor:" .. (id or "new"), table.concat(formspec) )
 end
 
@@ -255,6 +279,10 @@ core.register_chatcommand("notices", {
   end
 })
 
+core.register_on_leaveplayer(function(player)
+  selected_notice[player:get_player_name()] = nil
+end)
+
 core.register_on_player_receive_fields(function(player, formname, fields)
   if not player then
     return
@@ -264,6 +292,7 @@ core.register_on_player_receive_fields(function(player, formname, fields)
 
   if formname == "jc_special:notices" then
     if fields.notice_close then
+      selected_notice[name] = nil
       core.close_formspec(name, formname)
       return
     end
@@ -276,18 +305,30 @@ core.register_on_player_receive_fields(function(player, formname, fields)
       return
     end
 
-    if fields.notice_view then
-      local event = core.explode_textlist_event(fields.notice_list or "")
+    if fields.notice_list then
+      local event = core.explode_textlist_event(fields.notice_list)
 
-      if event.type ~= "CHG" and event.type ~= "DCL" then
-        return
+      if event.type == "CHG" or event.type == "DCL" then
+        local notices = get_all_notices()
+        local notice = notices[event.index]
+
+        if notice then
+          selected_notice[name] = notice.id
+
+          if event.type == "DCL" then
+            show_notice(name, notice.id)
+          end
+        end
       end
 
-      local notices = get_all_notices()
-      local notice = notices[event.index]
+      return
+    end
 
-      if notice then
-        show_notice(name, notice.id)
+    if fields.notice_view then
+      local id = selected_notice[name]
+
+      if id then
+        show_notice(name, id)
       end
 
       return
@@ -305,7 +346,6 @@ core.register_on_player_receive_fields(function(player, formname, fields)
       show_notices(name)
       return
     end
-
     if fields.notice_edit then
       if has_server_priv(name) then
         show_notice_editor(name, notice_id)
@@ -315,18 +355,39 @@ core.register_on_player_receive_fields(function(player, formname, fields)
     end
 
     if fields.notice_delete then
+      if has_server_priv(name) then
+        show_delete_confirmation(name, notice_id)
+      end
+
+      return
+    end
+
+    return
+  end
+
+  local delete_id = formname:match("^jc_special:notice_delete:(%d+)$")
+
+  if delete_id then
+    delete_id = tonumber(delete_id)
+
+    if fields.notice_delete_cancel then
+      show_notice(name, delete_id)
+      return
+    end
+
+    if fields.notice_delete_confirm then
       if not has_server_priv(name) then
         return
       end
 
-      if jc_special.notices.delete(notice_id) then
-        core.chat_send_player(name, S("Notice deleted."))
+      if jc_special.notices.delete(delete_id) then
+        selected_notice[name] = nil
+        core.chat_send_player(name, S("Notice deleted.") )
       else
-        core.chat_send_player(name, S("Notice not found."))
+        core.chat_send_player(name, S("Notice not found.") )
       end
 
       show_notices(name)
-
       return
     end
 
@@ -353,7 +414,6 @@ core.register_on_player_receive_fields(function(player, formname, fields)
         core.chat_send_player( name, S("A notice title is required.") )
         return
       end
-
       if description == "" then
         core.chat_send_player(name, S("A notice description is required.") )
         return
@@ -365,7 +425,6 @@ core.register_on_player_receive_fields(function(player, formname, fields)
         core.chat_send_player( name, S("Notice added.") )
       else
         local id = tonumber(editor_id)
-
         if jc_special.notices.update(id, title, description, name) then
           core.chat_send_player(name, S("Notice updated.") )
         else

@@ -1,0 +1,380 @@
+-- notices.lua
+--------------------------------------------------------
+-- Notices
+--------------------------------------------------------
+local modname = core.get_current_modname()
+local S = core.get_translator(modname)
+local storage = core.get_mod_storage()
+local ESC = core.formspec_escape
+
+local NOTICE_PREFIX = "notice_"
+local NEXT_ID_KEY = "notice_next_id"
+
+jc_special.notices = {}
+
+local function get_next_id()
+  local id = storage:get_int(NEXT_ID_KEY)
+
+  if id < 1 then
+    id = 1
+  end
+
+  storage:set_int(NEXT_ID_KEY, id + 1)
+
+  return id
+end
+
+local function save_notice(notice)
+  storage:set_string(
+    NOTICE_PREFIX .. notice.id,
+    core.write_json(notice)
+  )
+end
+
+local function load_notice(id)
+  local data = storage:get_string(NOTICE_PREFIX .. id)
+
+  if data == "" then
+    return nil
+  end
+
+  local notice = core.parse_json(data)
+
+  if type(notice) ~= "table" then
+    return nil
+  end
+
+  return notice
+end
+
+local function delete_notice(id)
+  storage:set_string(NOTICE_PREFIX .. id, "")
+end
+
+local function get_all_notices()
+  local notices = {}
+  local next_id = storage:get_int(NEXT_ID_KEY)
+
+  if next_id < 1 then
+    return notices
+  end
+
+  for id = 1, next_id - 1 do
+    local notice = load_notice(id)
+
+    if notice then
+      notices[#notices + 1] = notice
+    end
+  end
+
+  table.sort(notices, function(a, b)
+    if a.created == b.created then
+      return a.id > b.id
+    end
+
+    return a.created > b.created
+  end)
+
+  return notices
+end
+
+local function get_notice(id)
+  return load_notice(tonumber(id))
+end
+
+function jc_special.notices.get_all()
+  return get_all_notices()
+end
+
+function jc_special.notices.get(id)
+  return get_notice(id)
+end
+
+function jc_special.notices.create(title, description, player_name)
+  local id = get_next_id()
+  local now = os.time()
+
+  local notice = {
+    id = id,
+    title = title,
+    description = description,
+    created = now,
+    modified = now,
+    created_by = player_name,
+    modified_by = player_name
+  }
+
+  save_notice(notice)
+
+  return notice
+end
+
+function jc_special.notices.update(id, title, description, player_name)
+  local notice = get_notice(id)
+
+  if not notice then
+    return false
+  end
+
+  notice.title = title
+  notice.description = description
+  notice.modified = os.time()
+  notice.modified_by = player_name
+
+  save_notice(notice)
+
+  return notice
+end
+
+function jc_special.notices.delete(id)
+  if not get_notice(id) then
+    return false
+  end
+
+  delete_notice(id)
+
+  return true
+end
+
+local function has_server_priv(name)
+  return core.check_player_privs(name, { server = true } )
+end
+
+local function format_date(timestamp)
+  return os.date("%Y-%m-%d %H:%M", timestamp)
+end
+
+local function get_notice_list(notices)
+  local entries = {}
+
+  for _, notice in ipairs(notices) do
+    local title = notice.title or ""
+    local date = format_date(notice.created or 0)
+
+    entries[#entries + 1] = ESC(title .. " - " .. date)
+  end
+
+  return table.concat(entries, ",")
+end
+
+local function show_notices(name)
+  local notices = get_all_notices()
+  local can_edit = has_server_priv(name)
+
+  local formspec = {
+    "formspec_version[6]",
+    "size[12,8]",
+    "label[0.5,0.4;" .. ESC( S("Notices") ) .. "]"
+  }
+
+  if #notices > 0 then
+    formspec[#formspec + 1] = "textlist[0.5,1.0;11,5.2;notice_list;" .. get_notice_list(notices) .. ";1;false]"
+  else
+    formspec[#formspec + 1] = "label[0.5,1.5;" .. ESC( S("There are no notices.") ) .. "]"
+  end
+
+  formspec[#formspec + 1] =
+    "button[0.5,6.5;3,0.8;notice_view;" .. ESC( S("View Notice") ) .. "]"
+
+  if can_edit then
+    formspec[#formspec + 1] = "button[3.8,6.5;3,0.8;notice_add;" .. ESC( S("Add Notice") ) .. "]"
+  end
+
+  formspec[#formspec + 1] = "button[9.5,6.5;2,0.8;notice_close;" .. ESC( S("Close") ) .. "]"
+
+  core.show_formspec(name, "jc_special:notices", table.concat(formspec) )
+end
+
+local function show_notice(name, id)
+  local notice = get_notice(id)
+
+  if not notice then
+    core.chat_send_player(name, S("Notice not found."))
+    return
+  end
+
+  local formspec = {
+    "formspec_version[6]",
+    "size[12,8]",
+    "label[0.5,0.4;" .. ESC(notice.title or "") .. "]",
+    "label[0.5,0.9;" .. S("Posted: @1", format_date(notice.created or 0)) .. "]",
+    "textarea[0.5,1.5;11,4.7;notice_description;;" .. ESC(notice.description or "") .. "]"
+  }
+
+  if has_server_priv(name) then
+    formspec[#formspec + 1] = "button[0.5,6.5;2.5,0.8;notice_edit;" .. ESC( S("Edit") ) .. "]"
+    formspec[#formspec + 1] = "button[3.2,6.5;2.5,0.8;notice_delete;" .. ESC( S("Delete") ) .. "]"
+  end
+
+  formspec[#formspec + 1] = "button[9.5,6.5;2,0.8;notice_back;" .. ESC( S("Back") ) .. "]"
+
+  core.show_formspec(name, "jc_special:notice:" .. id, table.concat(formspec) )
+end
+
+local function show_notice_editor(name, id)
+  if not has_server_priv(name) then
+    core.show_formspec(name, "jc_special:notices", "")
+
+    return
+  end
+
+  local notice
+
+  if id then
+    notice = get_notice(id)
+
+    if not notice then
+      core.chat_send_player(name, S("Notice not found."))
+      return
+    end
+  end
+
+  local title = notice and notice.title or ""
+  local description = notice and notice.description or ""
+
+  local heading = notice and S("Edit Notice") or S("Add Notice")
+
+  local formspec = {
+    "formspec_version[6]",
+    "size[12,8]",
+    "label[0.5,0.4;" .. ESC( heading ) .. "]",
+    "field[0.5,1.4;11,0.8;notice_title;" .. ESC( S("Title") ) .. ";" .. ESC(title) .. "]",
+    "textarea[0.5,2.2;11,3.8;notice_description;" .. ESC( S("Description") ) .. ";" .. ESC(description) .. "]",
+    "button[0.5,6.5;3,0.8;notice_save;" .. ESC( S("Save") ) .. "]",
+    "button[3.8,6.5;3,0.8;notice_cancel;" .. ESC( S("Cancel") ) .. "]"
+  }
+
+  core.show_formspec(name, "jc_special:notice_editor:" .. (id or "new"), table.concat(formspec) )
+end
+
+core.register_chatcommand("notices", {
+  description = S("View server notices."),
+  func = function(name)
+    show_notices(name)
+    return true
+  end
+})
+
+core.register_on_player_receive_fields(function(player, formname, fields)
+  if not player then
+    return
+  end
+
+  local name = player:get_player_name()
+
+  if formname == "jc_special:notices" then
+    if fields.notice_close then
+      core.close_formspec(name, formname)
+      return
+    end
+
+    if fields.notice_add then
+      if has_server_priv(name) then
+        show_notice_editor(name)
+      end
+
+      return
+    end
+
+    if fields.notice_view then
+      local event = core.explode_textlist_event(fields.notice_list or "")
+
+      if event.type ~= "CHG" and event.type ~= "DCL" then
+        return
+      end
+
+      local notices = get_all_notices()
+      local notice = notices[event.index]
+
+      if notice then
+        show_notice(name, notice.id)
+      end
+
+      return
+    end
+
+    return
+  end
+
+  local notice_id = formname:match("^jc_special:notice:(%d+)$")
+
+  if notice_id then
+    notice_id = tonumber(notice_id)
+
+    if fields.notice_back then
+      show_notices(name)
+      return
+    end
+
+    if fields.notice_edit then
+      if has_server_priv(name) then
+        show_notice_editor(name, notice_id)
+      end
+
+      return
+    end
+
+    if fields.notice_delete then
+      if not has_server_priv(name) then
+        return
+      end
+
+      if jc_special.notices.delete(notice_id) then
+        core.chat_send_player(name, S("Notice deleted."))
+      else
+        core.chat_send_player(name, S("Notice not found."))
+      end
+
+      show_notices(name)
+
+      return
+    end
+
+    return
+  end
+
+  local editor_id = formname:match( "^jc_special:notice_editor:(.+)$" )
+
+  if editor_id then
+    if not has_server_priv(name) then
+      return
+    end
+
+    if fields.notice_cancel then
+      show_notices(name)
+      return
+    end
+
+    if fields.notice_save then
+      local title = fields.notice_title or ""
+      local description = fields.notice_description or ""
+
+      if title == "" then
+        core.chat_send_player( name, S("A notice title is required.") )
+        return
+      end
+
+      if description == "" then
+        core.chat_send_player(name, S("A notice description is required.") )
+        return
+      end
+
+      if editor_id == "new" then
+        jc_special.notices.create( title, description, name )
+
+        core.chat_send_player( name, S("Notice added.") )
+      else
+        local id = tonumber(editor_id)
+
+        if jc_special.notices.update(id, title, description, name) then
+          core.chat_send_player(name, S("Notice updated.") )
+        else
+          core.chat_send_player(name, S("Notice not found.") )
+        end
+      end
+
+      show_notices(name)
+      return
+    end
+  end
+end)

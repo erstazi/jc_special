@@ -3031,7 +3031,7 @@ monsterDefinitions.unggoy = {
     { name = "ethereal:banana", chance = 4, min = 1, max = 2 },
     { name = "ethereal:mushroom_pore", chance = 5, min = 1, max = 1 },
     { name = "ethereal:fire_dust", chance = 8, min = 1, max = 1 },
-    { name = "mobs:lava_orb", chance = 30, min = 1, max = 1 },
+    { name = "mobs:lava_orb", chance = 15, min = 1, max = 3 },
   },
 }
 
@@ -3277,7 +3277,7 @@ monsterDefinitions.unggoy_large = {
     { name = "ethereal:crystal_ingot", chance = 15, min = 1, max = 1 },
     { name = "default:steel_ingot", chance = 5, min = 1, max = 3 },
     { name = "default:gold_ingot", chance = 12, min = 1, max = 1 },
-    { name = "mobs:lava_orb", chance = 25, min = 1, max = 1 },
+    { name = "mobs:lava_orb", chance = 10, min = 1, max = 3 },
   },
 }
 

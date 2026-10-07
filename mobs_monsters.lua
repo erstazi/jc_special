@@ -2690,7 +2690,7 @@ monsterDefinitions.michael_jackson = {
     enabled = true,
     interval_min = 0.4,
     interval_max = 1.8,
-    gain = 1.0,
+    gain = 0.6,
     sounds = {
       "michael_jackson_sound_001",
       "michael_jackson_sound_002",

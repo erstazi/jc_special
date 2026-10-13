@@ -220,6 +220,7 @@ function map.update_hud_flags(player)
   local flags = {}
   local has_mapping_kit = player:get_inventory():contains_item("main", "map:mapping_kit")
   if has_mapping_kit then
+    core.log("action", "[mapkit] Mapping kit found for " .. player:get_player_name() .. "; enabling minimap and radar")
     flags.minimap = true
     flags.minimap_radar = true
     player:hud_set_flags(flags)

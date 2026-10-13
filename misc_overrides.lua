@@ -217,7 +217,7 @@ end
 function map.update_hud_flags(player)
   local has_mapping_kit = player:get_inventory():contains_item("main", "map:mapping_kit")
 
-  core.log("action", "[mapkit] Player " .. player:get_player_name() .. " mapping kit: " .. tostring(has_mapping_kit))
+  -- core.log("action", "[mapkit] Player " .. player:get_player_name() .. " mapping kit: " .. tostring(has_mapping_kit))
 
   player:hud_set_flags({
     minimap = has_mapping_kit,

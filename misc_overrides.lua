@@ -214,11 +214,17 @@ if core.get_modpath("animalia") and core.get_modpath("creatura") then
 end
 
 core.register_on_joinplayer(function(player)
-  local inv = player:get_inventory()
+  core.after(1, function()
+    local inv = player:get_inventory()
 
-  if inv:contains_item("main", "mapkit:mapkit") then
-    player:hud_set_flags({
-      minimap = true
-    })
-  end
+    if inv:contains_item("main", "map:mapping_kit") then
+      core.log("action", "[mapkit] Mapping kit found for " .. player:get_player_name() .. "; enabling minimap")
+
+      player:hud_set_flags({
+        minimap = true
+      })
+    else
+      core.log("action", "[mapkit] No mapping kit found for " .. player:get_player_name())
+    end
+  end)
 end)

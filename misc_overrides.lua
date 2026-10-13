@@ -213,3 +213,12 @@ if core.get_modpath("animalia") and core.get_modpath("creatura") then
   })
 end
 
+core.register_on_joinplayer(function(player)
+  local inv = player:get_inventory()
+
+  if inv:contains_item("main", "mapkit:mapkit") then
+    player:hud_set_flags({
+      minimap = true
+    })
+  end
+end)

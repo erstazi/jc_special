@@ -213,16 +213,19 @@ if core.get_modpath("animalia") and core.get_modpath("creatura") then
   })
 end
 
--- Override HUD flags
+-- Override HUD flags to also check for mapping kit
+local old_map_update_func = map.update_hud_flags
+
 function map.update_hud_flags(player)
+  local flags = {}
   local has_mapping_kit = player:get_inventory():contains_item("main", "map:mapping_kit")
-
-  -- core.log("action", "[mapkit] Player " .. player:get_player_name() .. " mapping kit: " .. tostring(has_mapping_kit))
-
-  player:hud_set_flags({
-    minimap = has_mapping_kit,
-    minimap_radar = has_mapping_kit
-  })
+  if has_mapping_kit then
+    flags.minimap = true
+    flags.minimap_radar = true
+    player:hud_set_flags(flags)
+  else
+    old_map_update_func(player)
+  end
 end
 
 -- Set HUD flags on join

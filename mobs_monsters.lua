@@ -1664,6 +1664,7 @@ monsterDefinitions.castle_guard = {
   -- DROPS
   ----------------------------------------------------------------
   drops = {
+    { name = "animalia:feather", chance = 4, min = 1, max = 5, },
     { name = "default:sword_steel", chance = 4, min = 1, max = 1, },
     { name = "shields:shield_steel", chance = 15, min = 1, max = 1, },
     { name = "3d_armor:helmet_steel", chance = 8, min = 1, max = 1, },
@@ -2192,6 +2193,7 @@ monsterDefinitions.trooper = {
   -- DROPS
   ----------------------------------------------------------------
   drops = {
+    { name = "animalia:feather", chance = 3, min = 1, max = 5, },
     { name = "mobs_monster:trooper", chance = 5, min = 1, max = 1, },
     { name = "default:pick_steel", chance = 3, min = 1, max = 1, },
   },
@@ -2596,12 +2598,8 @@ monsterDefinitions.rhino = {
   },
 
   drops = {
-    {
-      name = "default:steel_ingot",
-      chance = 1,
-      min = 10,
-      max = 10,
-    },
+    { name = "animalia:feather", chance = 4, min = 1, max = 5, },
+    { name = "default:steel_ingot", chance = 1, min = 10, max = 10, },
   },
 
   mob_properties = {
@@ -3027,6 +3025,7 @@ monsterDefinitions.unggoy = {
     end
   end,
   drops = {
+    { name = "animalia:feather", chance = 4, min = 2, max = 7, },
     { name = "mobs:meat_raw", chance = 2, min = 1, max = 2 },
     { name = "ethereal:banana", chance = 4, min = 1, max = 2 },
     { name = "ethereal:mushroom_pore", chance = 5, min = 1, max = 1 },
@@ -3270,6 +3269,7 @@ monsterDefinitions.unggoy_large = {
     end
   end,
   drops = {
+    { name = "animalia:feather", chance = 3, min = 3, max = 10, },
     { name = "mobs:meat_raw", chance = 1, min = 2, max = 8 },
     { name = "ethereal:banana", chance = 2, min = 1, max = 3 },
     { name = "ethereal:mushroom_pore", chance = 3, min = 1, max = 2 },

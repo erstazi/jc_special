@@ -240,38 +240,47 @@ core.register_on_joinplayer(function(player)
 end)
 
 core.register_node("jc_special:ice_melter", {
-    description = "Ice Melter",
-    tiles = {
-        "default_mese_block.png",
-        "default_mese_block.png",
-        "default_mese_block.png",
-        "default_mese_block.png",
-        "default_mese_block.png",
-        "default_mese_block.png"
-    },
-    groups = {cracky = 2, oddly_breakable_by_hand = 1},
-    sounds = default.node_sound_stone_defaults(),
+  description = "Ice Melter",
+  tiles = {
+    "default_mese_block.png^default_steel_block.png",
+    "default_mese_block.png^default_steel_block.png",
+    "default_mese_block.png^default_steel_block.png",
+    "default_mese_block.png^default_steel_block.png",
+    "default_mese_block.png^default_steel_block.png",
+    "default_mese_block.png^default_steel_block.png"
+  },
+  groups = {cracky = 2, oddly_breakable_by_hand = 1},
+  sounds = default.node_sound_stone_defaults(),
+})
+
+core.register_craft({
+  output = "jc_special:ice_melter",
+  recipe = {
+    {"default:steel_ingot", "default:mese_crystal", "default:steel_ingot"},
+    {"default:copper_ingot", "default:ice", "default:copper_ingot"},
+    {"default:steel_ingot", "default:mese_crystal", "default:steel_ingot"}
+  }
 })
 
 core.register_abm({
-    label = "Ice Melter melts ice",
-    nodenames = {"default:ice"},
-    neighbors = {"jc_special:ice_melter"},
-    interval = 1,
-    chance = 1,
-    catch_up = false,
+  label = "Ice Melter melts ice",
+  nodenames = {"default:ice"},
+  neighbors = {"jc_special:ice_melter"},
+  interval = 1,
+  chance = 1,
+  catch_up = false,
 
-    action = function(pos, node)
-        local below = {
-            x = pos.x,
-            y = pos.y - 1,
-            z = pos.z
-        }
+  action = function(pos, node)
+    local below = {
+      x = pos.x,
+      y = pos.y - 1,
+      z = pos.z
+    }
 
-        if core.get_node(below).name ~= "jc_special:ice_melter" then
-            return
-        end
-
-        core.swap_node(pos, {name = "default:water_source"})
+    if core.get_node(below).name ~= "jc_special:ice_melter" then
+      return
     end
+
+    core.swap_node(pos, {name = "default:water_source"})
+  end
 })

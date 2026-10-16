@@ -239,15 +239,17 @@ core.register_on_joinplayer(function(player)
   end)
 end)
 
+
+--[[
 core.register_node("jc_special:ice_melter", {
   description = "Ice Melter",
   tiles = {
-    "default_mese_block.png^default_steel_block.png",
-    "default_mese_block.png^default_steel_block.png",
-    "default_mese_block.png^default_steel_block.png",
-    "default_mese_block.png^default_steel_block.png",
-    "default_mese_block.png^default_steel_block.png",
-    "default_mese_block.png^default_steel_block.png"
+    "default_steel_block.png^default_torch_on_floor.png",
+    "default_steel_block.png^default_torch_on_floor.png",
+    "default_steel_block.png^default_torch_on_floor.png",
+    "default_steel_block.png^default_torch_on_floor.png",
+    "default_steel_block.png^default_torch_on_floor.png",
+    "default_steel_block.png^default_torch_on_floor.png"
   },
   groups = {cracky = 2, oddly_breakable_by_hand = 1},
   sounds = default.node_sound_stone_defaults(),
@@ -263,7 +265,7 @@ core.register_craft({
 })
 
 core.register_abm({
-  label = "Ice Melter melts ice",
+  label = "Ice Melter melts nearby ice",
   nodenames = {"default:ice"},
   neighbors = {"jc_special:ice_melter"},
   interval = 1,
@@ -271,16 +273,31 @@ core.register_abm({
   catch_up = false,
 
   action = function(pos, node)
-    local below = {
-      x = pos.x,
-      y = pos.y - 1,
-      z = pos.z
-    }
+    local melter_pos = core.find_node_near( pos, 3, {"jc_special:ice_melter"} )
 
-    if core.get_node(below).name ~= "jc_special:ice_melter" then
+    if not melter_pos then
       return
     end
 
-    core.swap_node(pos, {name = "default:water_source"})
+    local ice_pos = vector.copy(pos)
+
+    core.after(5, function()
+      local current = core.get_node_or_nil(ice_pos)
+
+      if not current or current.name ~= "default:ice" then
+        return
+      end
+
+      local nearby_melter = core.find_node_near( ice_pos, 3, {"jc_special:ice_melter"} )
+
+      if not nearby_melter then
+        return
+      end
+
+      core.swap_node(ice_pos, {name = "default:water_source"})
+    end)
   end
 })
+]]
+
+core.register_alias("jc_special:ice_melter", "default:torch")

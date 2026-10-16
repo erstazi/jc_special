@@ -232,9 +232,46 @@ end
 
 -- Set HUD flags on join
 core.register_on_joinplayer(function(player)
-  core.after(1, function()
+  core.after(6, function()
     if player:is_player() then
       map.update_hud_flags(player)
     end
   end)
 end)
+
+core.register_node("jc_special:ice_melter", {
+    description = "Ice Melter",
+    tiles = {
+        "default_mese_block.png",
+        "default_mese_block.png",
+        "default_mese_block.png",
+        "default_mese_block.png",
+        "default_mese_block.png",
+        "default_mese_block.png"
+    },
+    groups = {cracky = 2, oddly_breakable_by_hand = 1},
+    sounds = default.node_sound_stone_defaults(),
+})
+
+core.register_abm({
+    label = "Ice Melter melts ice",
+    nodenames = {"default:ice"},
+    neighbors = {"jc_special:ice_melter"},
+    interval = 1,
+    chance = 1,
+    catch_up = false,
+
+    action = function(pos, node)
+        local below = {
+            x = pos.x,
+            y = pos.y - 1,
+            z = pos.z
+        }
+
+        if core.get_node(below).name ~= "jc_special:ice_melter" then
+            return
+        end
+
+        core.swap_node(pos, {name = "default:water_source"})
+    end
+})

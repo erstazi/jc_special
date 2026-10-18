@@ -3381,8 +3381,6 @@ monsterDefinitions.elmo = {
     seeing_player = {
       "elmo_seeing_player_01",
       "elmo_seeing_player_02",
-      "elmo_seeing_player_03",
-      "elmo_seeing_player_04",
     },
     seeing_gain = 0.2,
     seeing_max_hear_distance = 30,
@@ -3741,12 +3739,14 @@ monsterDefinitions.elmo_large = {
       "elmo_hit_02",
     },
     hit_gain = 1.0,
+
     seeing_player = {
       "elmo_seeing_player_01",
       "elmo_seeing_player_02",
     },
     seeing_gain = 0.4,
     seeing_max_hear_distance = 30,
+
     no_players_around = {
       "elmo_no_players_around_01",
       "elmo_no_players_around_02",

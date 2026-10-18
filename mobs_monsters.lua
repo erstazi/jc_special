@@ -3298,6 +3298,62 @@ monsterDefinitions.unggoy_large = {
 
 
 ----------------------------------------------------------------
+-- ELMO PATROL
+----------------------------------------------------------------
+local function elmo_patrol(self, dtime, speed)
+  local pos = self.object:get_pos()
+
+  if not pos then
+    return
+  end
+
+  self.jc_patrol_timer = (self.jc_patrol_timer or 0) - dtime
+
+  local target = self.jc_patrol_target
+
+  if not target or self.jc_patrol_timer <= 0 then
+    local angle = math.random() * math.pi * 2
+    local distance = math.random(4, 10)
+
+    target = {
+      x = pos.x + math.cos(angle) * distance,
+      y = pos.y,
+      z = pos.z + math.sin(angle) * distance,
+    }
+
+    self.jc_patrol_target = target
+    self.jc_patrol_timer = math.random(5, 12)
+  end
+
+  local dx = target.x - pos.x
+  local dz = target.z - pos.z
+  local distance = math.sqrt(dx * dx + dz * dz)
+
+  if distance < 1.0 then
+    self.jc_patrol_target = nil
+    self.object:set_velocity({
+      x = 0,
+      y = (self.object:get_velocity() or {y = 0}).y,
+      z = 0,
+    })
+    self:set_animation("stand")
+    return
+  end
+
+  self.object:set_yaw(math.atan2(-dx, dz))
+
+  local velocity = self.object:get_velocity() or {y = 0}
+
+  self.object:set_velocity({
+    x = dx / distance * speed,
+    y = velocity.y,
+    z = dz / distance * speed,
+  })
+
+  self:set_animation("walk")
+end
+
+----------------------------------------------------------------
 -- ELMO
 ----------------------------------------------------------------
 monsterDefinitions.elmo = {
@@ -3364,9 +3420,9 @@ monsterDefinitions.elmo = {
     enabled = true,
     radius = 30,
     see_through_nodes = true,
-    seeing_sound_cooldown = 3,
+    seeing_sound_cooldown = 4,
     idle_sound_min = 4,
-    idle_sound_max = 4,
+    idle_sound_max = 6,
   },
 
   ----------------------------------------------------------------
@@ -3382,8 +3438,17 @@ monsterDefinitions.elmo = {
     seeing_player = {
       "elmo_seeing_player_01",
       "elmo_seeing_player_02",
+      "elmo_no_players_around_01",
+      "elmo_no_players_around_02",
+      "elmo_no_players_around_03",
+      "elmo_no_players_around_04",
+      "elmo_no_players_around_05",
+      "elmo_no_players_around_06",
+      "elmo_no_players_around_07",
+      "elmo_no_players_around_08",
+      "elmo_no_players_around_09",
     },
-    seeing_gain = 0.2,
+    seeing_gain = 0.4,
     seeing_max_hear_distance = 30,
 
     no_players_around = {
@@ -3397,7 +3462,7 @@ monsterDefinitions.elmo = {
       "elmo_no_players_around_08",
       "elmo_no_players_around_09",
     },
-    idle_gain = 0.05,
+    idle_gain = 0.2,
     idle_max_hear_distance = 60,
   },
 
@@ -3512,14 +3577,8 @@ monsterDefinitions.elmo = {
         end
       end
     else
-      -- No visible player nearby. Stop and wait.
-      self.object:set_velocity({
-        x = 0,
-        y = velocity.y,
-        z = 0,
-      })
-
-      self:set_animation("stand")
+      -- No visible player nearby. Patrol the area.
+      elmo_patrol(self, dtime, def.walk_velocity or 0.8)
     end
 
     ------------------------------------------------------------
@@ -3648,7 +3707,7 @@ monsterDefinitions.elmo = {
         maxexptime = 1.5,
         minsize = 1,
         maxsize = 3,
-        texture = "default_mese_crystal.png",
+        texture = "spark.png",
         glow = 14,
       })
 
@@ -3732,7 +3791,7 @@ monsterDefinitions.elmo_large = {
     see_through_nodes = true,
     seeing_sound_cooldown = 4,
     idle_sound_min = 4,
-    idle_sound_max = 4,
+    idle_sound_max = 6,
   },
 
   sounds = {
@@ -3745,6 +3804,15 @@ monsterDefinitions.elmo_large = {
     seeing_player = {
       "elmo_seeing_player_01",
       "elmo_seeing_player_02",
+      "elmo_no_players_around_01",
+      "elmo_no_players_around_02",
+      "elmo_no_players_around_03",
+      "elmo_no_players_around_04",
+      "elmo_no_players_around_05",
+      "elmo_no_players_around_06",
+      "elmo_no_players_around_07",
+      "elmo_no_players_around_08",
+      "elmo_no_players_around_09",
     },
     seeing_gain = 0.4,
     seeing_max_hear_distance = 30,
@@ -3760,7 +3828,7 @@ monsterDefinitions.elmo_large = {
       "elmo_no_players_around_08",
       "elmo_no_players_around_09",
     },
-    idle_gain = 0.1,
+    idle_gain = 0.2,
     idle_max_hear_distance = 60,
   },
 
@@ -3883,13 +3951,8 @@ monsterDefinitions.elmo_large = {
       ----------------------------------------------------------
       -- NO PLAYER NEARBY: STOP AND PLAY IDLE SOUNDS
       ----------------------------------------------------------
-      self.object:set_velocity({
-        x = 0,
-        y = velocity.y,
-        z = 0,
-      })
+      elmo_patrol(self, dtime, def.walk_velocity or 0.8)
 
-      self:set_animation("stand")
       self.jc_attack_timer = nil
       self.jc_monster_detect_timer = nil
       self.jc_monster_seeing_cooldown = nil

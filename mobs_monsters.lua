@@ -3341,11 +3341,12 @@ monsterDefinitions.elmo = {
   egg_texture = "elmo_inv.png",
   is_egg = false,
 
-  stepheight = 1.6,
+  stepheight = 3.0,
   walk_velocity = 0.8,
   run_velocity = 1.2,
-  jump_height = 2,
+  jump_height = 3,
   view_range = 16,
+
   lava_damage = 8,
 
   animation = {
@@ -3709,11 +3710,12 @@ monsterDefinitions.elmo_large = {
   egg_texture = "elmo_inv.png",
   is_egg = false,
 
-  stepheight = 1.6,
+  stepheight = 3.0,
   walk_velocity = 1.2,
   run_velocity = 2.4,
   jump_height = 3,
-  view_range = 20,
+  view_range = 30,
+
   lava_damage = 8,
 
   animation = {

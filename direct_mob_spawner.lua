@@ -159,6 +159,33 @@ core.register_abm({
     end
 
     --------------------------------------------------------
+    -- Regional Balrog limit.
+    --------------------------------------------------------
+
+    if mob == "mobs_balrog:balrog" then
+      local balrog_radius = 200
+      local max_balrogs = 5
+      local balrog_count = 0
+
+      local nearby = core.get_objects_inside_radius(
+        pos,
+        balrog_radius
+      )
+
+      for _, obj in ipairs(nearby) do
+        local ent = obj:get_luaentity()
+
+        if ent and ent.name == mob then
+          balrog_count = balrog_count + 1
+
+          if balrog_count >= max_balrogs then
+            return
+          end
+        end
+      end
+    end
+
+    --------------------------------------------------------
     -- Count existing mobs.
     --
     -- This keeps the same 9-node radius behavior as the

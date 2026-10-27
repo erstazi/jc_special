@@ -3993,6 +3993,15 @@ monsterDefinitions.elmo_large = {
     -- Custom AI handles movement, attacking, and sounds.
     return true
   end,
+  ----------------------------------------------------------------
+  -- DROPS
+  ----------------------------------------------------------------
+  drops = {
+    { name = "animalia:feather", chance = 3, min = 3, max = 15, },
+    { name = "mobs_monster:elmo", chance = 6, min = 1, max = 1, },
+    { name = "dye:red", chance = 2, min = 5, max = 15, },
+    { name = "wool:red", chance = 3, min = 15, max = 99, },
+  },
 
 }
 

@@ -3726,6 +3726,14 @@ monsterDefinitions.elmo = {
       end
     end,
   },
+  ----------------------------------------------------------------
+  -- DROPS
+  ----------------------------------------------------------------
+  drops = {
+    { name = "animalia:feather", chance = 3, min = 3, max = 15, },
+    { name = "dye:red", chance = 2, min = 5, max = 15, },
+    { name = "wool:red", chance = 3, min = 15, max = 99, },
+  },
 
 }
 

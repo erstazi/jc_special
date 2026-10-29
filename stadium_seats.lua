@@ -67,22 +67,15 @@ local function stadium_seat_rightclick(pos, node, clicker, itemstack, pointed_th
   end
 
   if not was_attached and is_attached then
-    if cushion_alt_players[name] then
-      cushion_cycles[name] = (cushion_cycles[name] or 0) + 1
+    -- if cushion_alt_players[name] then
+    cushion_cycles[name] = (cushion_cycles[name] or 0) + 1
 
-      if cushion_cycles[name] % 3 == 1 then
-        core.sound_play("chair_cushion_down_alt", {
-          pos = pos,
-          gain = 1.0,
-          max_hear_distance = 20,
-        })
-      else
-        core.sound_play("chair_cushion_down", {
-          pos = pos,
-          gain = 0.2,
-          max_hear_distance = 20,
-        })
-      end
+    if cushion_cycles[name] % 3 == 1 then
+      core.sound_play("chair_cushion_down_alt", {
+        pos = pos,
+        gain = 1.0,
+        max_hear_distance = 20,
+      })
     else
       core.sound_play("chair_cushion_down", {
         pos = pos,
@@ -90,6 +83,13 @@ local function stadium_seat_rightclick(pos, node, clicker, itemstack, pointed_th
         max_hear_distance = 20,
       })
     end
+    -- else
+      -- core.sound_play("chair_cushion_down", {
+        -- pos = pos,
+        -- gain = 0.2,
+        -- max_hear_distance = 20,
+      -- })
+    -- end
   elseif was_attached and not is_attached then
     core.sound_play("chair_cushion_up", {
       pos = pos,

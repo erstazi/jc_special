@@ -4067,7 +4067,7 @@ monsterDefinitions.handsome_squidward = {
   detection = {
     enabled = true,
     radius = 10,
-    see_through_nodes = false,
+    see_through_nodes = true,
     seeing_sound_cooldown = 12,
     idle_sound_min = 8,
     idle_sound_max = 20,
@@ -4079,19 +4079,29 @@ monsterDefinitions.handsome_squidward = {
     },
     hit_gain = 1.0,
 
+    seeing_player = {
+      "handsome_squidward_idle_01",
+      "handsome_squidward_idle_02",
+      "handsome_squidward_idle_03",
+      "handsome_squidward_idle_04",
+    },
+    seeing_gain = 0.55,
+    seeing_max_hear_distance = 28,
+
     walk = {
       "handsome_squidward_walk_01",
     },
     walk_gain = 0.55,
-    walk_max_hear_distance = 28,
+    walk_max_hear_distance = 40,
 
     no_players_around = {
       "handsome_squidward_idle_01",
       "handsome_squidward_idle_02",
       "handsome_squidward_idle_03",
+      "handsome_squidward_idle_04",
     },
-    idle_gain = 0.55,
-    idle_max_hear_distance = 28,
+    idle_gain = 0.35,
+    idle_max_hear_distance = 40,
   },
 
   do_custom = function(self, dtime, def)
@@ -4123,7 +4133,7 @@ monsterDefinitions.handsome_squidward = {
             self,
             def.sounds.walk,
             def.sounds.walk_gain or 0.55,
-            def.sounds.walk_max_hear_distance or 28
+            def.sounds.walk_max_hear_distance or 40
           )
         end
       end
@@ -4132,21 +4142,54 @@ monsterDefinitions.handsome_squidward = {
     end
 
     ------------------------------------------------------------
-    -- Idle sounds when no player is nearby
+    -- Player detection (shared by seeing + idle)
     ------------------------------------------------------------
     local detection = def.detection or {}
     local radius = detection.radius or 10
-    local player_nearby = false
+    local see_through = detection.see_through_nodes or false
 
-    for _, player in ipairs(core.get_connected_players()) do
-      local ppos = player:get_pos()
-      if ppos and vector.distance(pos, ppos) <= radius then
-        player_nearby = true
-        break
+    local player = Monster:find_visible_player(self, radius, see_through)
+    local player_nearby = player ~= nil
+
+    ------------------------------------------------------------
+    -- Seeing-player sounds
+    ------------------------------------------------------------
+    if detection.enabled and player_nearby then
+      self.jc_monster_seeing_cooldown = math.max(
+        0,
+        (self.jc_monster_seeing_cooldown or 0) - dtime
+      )
+
+      self.jc_monster_detect_timer =
+        (self.jc_monster_detect_timer or 0) - dtime
+
+      if self.jc_monster_detect_timer <= 0 then
+        self.jc_monster_detect_timer = 0.4
+
+        if self.jc_monster_seeing_cooldown <= 0 then
+          if def.sounds and def.sounds.seeing_player then
+            Monster:play_random_sound(
+              self,
+              def.sounds.seeing_player,
+              def.sounds.seeing_gain or 0.55,
+              def.sounds.seeing_max_hear_distance or 28
+            )
+          end
+
+          self.jc_monster_seeing_cooldown =
+            detection.seeing_sound_cooldown or 12
+        end
       end
-    end
 
-    if not player_nearby then
+      -- Don't play idle while a player is around
+      self.jc_monster_idle_timer = nil
+    else
+      ------------------------------------------------------------
+      -- Idle sounds when no player is nearby
+      ------------------------------------------------------------
+      self.jc_monster_detect_timer = nil
+      self.jc_monster_seeing_cooldown = nil
+
       self.jc_monster_idle_timer =
         (self.jc_monster_idle_timer
           or math.random(
@@ -4164,13 +4207,11 @@ monsterDefinitions.handsome_squidward = {
           Monster:play_random_sound(
             self,
             def.sounds.no_players_around,
-            def.sounds.idle_gain or 0.55,
-            def.sounds.idle_max_hear_distance or 28
+            def.sounds.idle_gain or 0.35,
+            def.sounds.idle_max_hear_distance or 40
           )
         end
       end
-    else
-      self.jc_monster_idle_timer = nil
     end
 
     ------------------------------------------------------------

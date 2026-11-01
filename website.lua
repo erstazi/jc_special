@@ -228,6 +228,10 @@ end)
 -------------------------------------------------------------------------------
 -- Automatic 60-second update timer
 -------------------------------------------------------------------------------
+--[[
+This isn't really needed to be ran every 60 seconds
+So I am disabling it right now.
+
 local timer = 0
 
 core.register_globalstep(function(dtime)
@@ -238,6 +242,8 @@ core.register_globalstep(function(dtime)
     write_website_json()
   end
 end)
+]]
+
 
 -------------------------------------------------------------------------------
 -- When a player joins, write the website's server.json

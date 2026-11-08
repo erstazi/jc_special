@@ -3361,7 +3361,7 @@ monsterDefinitions.elmo = {
   type = "npc",
   description = "Elmo",
   alias = "mobs:elmo",
-  nametag = false,
+  nametag = true,
   nametag_color = "#FF0000",
 
   passive = true,
@@ -3738,7 +3738,7 @@ monsterDefinitions.elmo_large = {
   type = "monster",
   description = "Giant Elmo",
   alias = "mobs:elmo_large",
-  nametag = false,
+  nametag = true,
   nametag_color = "#FF0000",
 
   passive = false,

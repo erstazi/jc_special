@@ -225,8 +225,8 @@ function map.update_hud_flags(player)
     -- flags.minimap_radar = true
     player:hud_set_flags({ minimap = true, minimap_radar = true })
     -- player:hud_set_flags(flags)
-  else
-    old_map_update_func(player)
+  -- else
+    -- old_map_update_func(player)
   end
 end
 

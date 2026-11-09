@@ -220,10 +220,13 @@ function map.update_hud_flags(player)
   -- local flags = {}
   local has_mapping_kit = player:get_inventory():contains_item("main", "map:mapping_kit")
   if has_mapping_kit then
-    -- core.log("action", "[mapkit] Mapping kit found for " .. player:get_player_name() .. "; enabling minimap and radar")
+    core.log("action", "[mapkit] Mapping kit found for " .. player:get_player_name() .. "; enabling minimap and radar")
     -- flags.minimap = true
     -- flags.minimap_radar = true
-    player:hud_set_flags({ minimap = true, minimap_radar = true })
+    player:hud_set_flags({
+        minimap = true,
+        minimap_radar = true,
+    })
     -- player:hud_set_flags(flags)
   -- else
     -- old_map_update_func(player)
@@ -231,13 +234,13 @@ function map.update_hud_flags(player)
 end
 
 -- Set HUD flags on join
-core.register_on_joinplayer(function(player)
-  core.after(6, function()
-    if player:is_player() then
-      map.update_hud_flags(player)
-    end
-  end)
-end)
+-- core.register_on_joinplayer(function(player)
+  -- core.after(6, function()
+    -- if player:is_player() then
+      -- map.update_hud_flags(player)
+    -- end
+  -- end)
+-- end)
 
 
 --[[

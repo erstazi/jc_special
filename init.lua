@@ -24,6 +24,7 @@ function jc_special.get_ranked_name(name)
   return name
 end
 
+dofile(modpath .. "/minimap.lua")
 dofile(modpath .. "/prison.lua")
 dofile(modpath .. "/daybutton.lua")
 dofile(modpath .. "/welcomeplayers.lua")

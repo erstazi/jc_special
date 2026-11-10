@@ -95,23 +95,39 @@ local function show_bones_formspec(player, pos)
   core.show_formspec(player_name, "jc_special:bones", formspec)
 end
 
+-- core.override_item("bones:bones", {
+  -- on_rightclick = function(pos, node, clicker)
+    -- if not clicker or not clicker:is_player() then
+      -- return
+    -- end
+
+    -- local owner = core.get_meta(pos):get_string("owner")
+
+    -- if owner == "" then
+      -- return
+    -- end
+
+    -- if not is_owner(pos, clicker:get_player_name()) then
+      -- return
+    -- end
+
+    -- show_bones_formspec(clicker, pos)
+  -- end,
+-- })
+
 core.override_item("bones:bones", {
-  on_rightclick = function(pos, node, clicker)
+  on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
+    core.log("warning", "[jc_special] CUSTOM BONES RIGHT-CLICK FIRED")
+
     if not clicker or not clicker:is_player() then
-      return
+      return itemstack
     end
 
-    local owner = core.get_meta(pos):get_string("owner")
-
-    if owner == "" then
-      return
-    end
-
-    if not is_owner(pos, clicker:get_player_name()) then
-      return
-    end
+    core.log("warning", "[jc_special] Player: " .. clicker:get_player_name())
 
     show_bones_formspec(clicker, pos)
+
+    return itemstack
   end,
 })
 

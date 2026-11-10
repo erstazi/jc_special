@@ -117,19 +117,54 @@ end
 
 core.override_item("bones:bones", {
   on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
-    core.log("warning", "[jc_special] CUSTOM BONES RIGHT-CLICK FIRED")
-
     if not clicker or not clicker:is_player() then
       return itemstack
     end
 
-    core.log("warning", "[jc_special] Player: " .. clicker:get_player_name())
+    local name = clicker:get_player_name()
+    local owner = core.get_meta(pos):get_string("owner")
 
-    show_bones_formspec(clicker, pos)
+    if core.check_player_privs(name, {server = true}) then
+      show_bones_formspec(clicker, pos)
+      return itemstack
+    end
+
+    if owner == name then
+      show_bones_formspec(clicker, pos)
+      return itemstack
+    end
+
+    if owner == "" then
+      show_bones_formspec(clicker, pos)
+      return itemstack
+    end
 
     return itemstack
   end,
+
+  allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
+    local name = player:get_player_name()
+    local owner = core.get_meta(pos):get_string("owner")
+
+    if core.check_player_privs(name, {server = true}) or owner == "" or owner == name then
+      return count
+    end
+
+    return 0
+  end,
+
+  allow_metadata_inventory_take = function(pos, listname, index, stack, player)
+    local name = player:get_player_name()
+    local owner = core.get_meta(pos):get_string("owner")
+
+    if core.check_player_privs(name, {server = true}) or owner == "" or owner == name then
+      return stack:get_count()
+    end
+
+    return 0
+  end,
 })
+
 
 core.log("action", "[jc_special] bones on_rightclick override: " .. tostring(core.registered_nodes["bones:bones"].on_rightclick))
 

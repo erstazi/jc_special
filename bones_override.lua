@@ -98,26 +98,6 @@ local function show_bones_formspec(player, pos)
   core.show_formspec(player_name, "jc_special:bones", formspec)
 end
 
--- core.override_item("bones:bones", {
-  -- on_rightclick = function(pos, node, clicker)
-    -- if not clicker or not clicker:is_player() then
-      -- return
-    -- end
-
-    -- local owner = core.get_meta(pos):get_string("owner")
-
-    -- if owner == "" then
-      -- return
-    -- end
-
-    -- if not is_owner(pos, clicker:get_player_name()) then
-      -- return
-    -- end
-
-    -- show_bones_formspec(clicker, pos)
-  -- end,
--- })
-
 core.override_item("bones:bones", {
   on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
     if not clicker or not clicker:is_player() then
@@ -125,18 +105,28 @@ core.override_item("bones:bones", {
     end
 
     local name = clicker:get_player_name()
-    local owner = core.get_meta(pos):get_string("owner")
+    local meta = core.get_meta(pos)
+    local owner = meta:get_string("owner")
+    local infotext = meta:get_string("infotext")
 
+    -- Only allow bones originally placed by a player.
+    if infotext == "" then
+      return itemstack
+    end
+
+    -- Server privilege can always access player bones.
     if core.check_player_privs(name, {server = true}) then
       show_bones_formspec(clicker, pos)
       return itemstack
     end
 
+    -- The owner can always access their own bones.
     if owner == name then
       show_bones_formspec(clicker, pos)
       return itemstack
     end
 
+    -- Everyone can access player bones after the timeout.
     if owner == "" then
       show_bones_formspec(clicker, pos)
       return itemstack
@@ -147,7 +137,12 @@ core.override_item("bones:bones", {
 
   allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
     local name = player:get_player_name()
-    local owner = core.get_meta(pos):get_string("owner")
+    local meta = core.get_meta(pos)
+    local owner = meta:get_string("owner")
+
+    if meta:get_string("infotext") == "" then
+      return 0
+    end
 
     if core.check_player_privs(name, {server = true}) or owner == "" or owner == name then
       return count
@@ -158,7 +153,12 @@ core.override_item("bones:bones", {
 
   allow_metadata_inventory_take = function(pos, listname, index, stack, player)
     local name = player:get_player_name()
-    local owner = core.get_meta(pos):get_string("owner")
+    local meta = core.get_meta(pos)
+    local owner = meta:get_string("owner")
+
+    if meta:get_string("infotext") == "" then
+      return 0
+    end
 
     if core.check_player_privs(name, {server = true}) or owner == "" or owner == name then
       return stack:get_count()
@@ -168,8 +168,7 @@ core.override_item("bones:bones", {
   end,
 })
 
-
-core.log("action", "[jc_special] bones on_rightclick override: " .. tostring(core.registered_nodes["bones:bones"].on_rightclick))
+-- core.log("action", "[jc_special] bones on_rightclick override: " .. tostring(core.registered_nodes["bones:bones"].on_rightclick))
 
 core.register_on_player_receive_fields(function(player, formname, fields)
   if formname ~= "jc_special:bones" then

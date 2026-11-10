@@ -94,7 +94,7 @@ local function show_bones_formspec(player, pos)
     "listring[current_player;main]" ..
     ""
 
-  -- meta:set_string("formspec", formspec)
+  meta:set_string("formspec", formspec)
   core.show_formspec(player_name, "jc_special:bones", formspec)
 end
 

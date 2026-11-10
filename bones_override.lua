@@ -74,8 +74,10 @@ end
 
 local function show_bones_formspec(player, pos)
   local player_name = player:get_player_name()
+  local meta = core.get_meta(pos)
 
-  player:get_meta():set_string("jc_special_bones_pos", core.serialize(pos) )
+  meta:set_string("formspec", "")
+  player:get_meta():set_string("jc_special_bones_pos", core.serialize(pos))
 
   local bones_labels_x = 0.6
 
@@ -92,6 +94,7 @@ local function show_bones_formspec(player, pos)
     "listring[current_player;main]" ..
     ""
 
+  -- meta:set_string("formspec", formspec)
   core.show_formspec(player_name, "jc_special:bones", formspec)
 end
 

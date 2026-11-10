@@ -85,13 +85,11 @@ local function show_bones_formspec(player, pos)
     "label[" .. bones_labels_x .. ",0.5;" .. ESC(S("Bones")) .. "]" ..
     "list[nodemeta:" .. pos.x .. "," .. pos.y .. "," .. pos.z .. ";main;" .. bones_labels_x .. ",0.8;8,4;]" ..
     "button[" .. bones_labels_x .. ",5.8;3,1;get_items;" .. ESC(S("Get Items")) .. "]" ..
-    -- "button[7.3,5.8;3,1;drop_items;" .. ESC(S("Drop Items")) .. "]" ..
     "button[" .. bones_labels_x + 6.8 .. ",5.8;3,1;drop_items;" .. ESC(S("Drop Items")) .. "]" ..
     "label[" .. bones_labels_x .. ",7.2;" .. ESC(S("Your Inventory")) .. "]" ..
     "list[current_player;main;" .. bones_labels_x .. ",7.5;8,4;]" ..
     "listring[nodemeta:" .. pos.x .. "," .. pos.y .. "," .. pos.z .. ";main]" ..
     "listring[current_player;main]" ..
-    -- special_bones_get_hotbar_bg(bones_labels_x,7.5) ..
     ""
 
   core.show_formspec(player_name, "jc_special:bones", formspec)

@@ -115,6 +115,8 @@ core.override_item("bones:bones", {
   end,
 })
 
+core.log("action", "[jc_special] bones on_rightclick override: " .. tostring(core.registered_nodes["bones:bones"].on_rightclick))
+
 core.register_on_player_receive_fields(function(player, formname, fields)
   if formname ~= "jc_special:bones" then
     return
@@ -153,3 +155,5 @@ core.register_on_player_receive_fields(function(player, formname, fields)
     core.close_formspec(player:get_player_name(), formname)
   end
 end)
+
+core.log("action", "[jc_special] bones_override.lua is executing")

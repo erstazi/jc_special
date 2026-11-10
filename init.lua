@@ -47,6 +47,17 @@ dofile(modpath .. "/direct_mob_spawner.lua")
 dofile(modpath .. "/dumpnodes.lua")
 dofile(modpath .. "/sounds.lua")
 dofile(modpath .. "/bones_override.lua")
+
+local bones_def = core.registered_nodes["bones:bones"]
+core.log("warning", "[jc_special] bones on_rightclick after override: " .. tostring(bones_def and bones_def.on_rightclick))
+core.log("warning", "[jc_special] bones mod loaded: " .. tostring(core.get_modpath("bones")))
+
 dofile(modpath .. "/stadium_seats.lua")
 dofile(modpath .. "/geode_armor.lua")
 dofile(modpath .. "/website.lua")
+
+core.register_on_mods_loaded(function()
+  local def = core.registered_nodes["bones:bones"]
+
+  core.log("warning", "[jc_special] FINAL bones on_rightclick: " .. tostring(def and def.on_rightclick))
+end)

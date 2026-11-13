@@ -92,6 +92,7 @@ function jc_special_sounds.show_sounds_formspec(player)
     .. "button[5.8," .. (y + 0.5) .. ";1.7,0.8;sounds_save;" .. core.formspec_escape(S("Save")) .. "]"
 
   core.show_formspec(name, "jc_special:sounds", formspec)
+  return true
 end
 
 --------------------------------------------------------

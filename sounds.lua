@@ -70,7 +70,7 @@ function jc_special_sounds.show_sounds_formspec(player)
   jc_special_sounds.pending_sound_settings[name] = {}
 
   local formspec =
-    "formspec_version[4]"
+    "formspec_version[2]"
     .. "size[8,6]"
     .. "label[0.5,0.4;" .. core.formspec_escape(S("Sound Settings")) .. "  " .. core.formspec_escape(core.colorize("#FFFF00", "/sounds")) .. "]"
 

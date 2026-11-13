@@ -6,9 +6,7 @@
 -- Monsters are defined in the "monsterDefinitions" table below.
 -- Common monster functionality is handled by Monster.
 --
--- Currently:
---   - Castle Guard
---   - Trooper
+-- Monster definitions are maintained in individual files under mobs/.
 --
 ----------------------------------------------------------------
 
@@ -890,6 +888,15 @@ function Monster:custom_attack(self, to_attack, def)
     return false
   end
 
+  if def.sounds and def.sounds.attack then
+    Monster:play_random_sound(
+      self,
+      def.sounds.attack,
+      def.sounds.attack_gain or 1.0,
+      def.sounds.attack_max_hear_distance or 24
+    )
+  end
+
   local damage = def.damage
 
   if player_has_rainbow_armor(target) then
@@ -1160,7 +1167,7 @@ function Monster:build_definition(def)
       },
     visual = "mesh",
     mesh = def.mesh or "character.b3d",
-    textures = {
+    textures = def.textures or {
       {def.texture},
     },
     follow = def.follow or {},
@@ -1353,8 +1360,10 @@ function Monster:register_spawn(def)
 
     chance = def.spawn.chance,
 
+    active_object_count = def.spawn.active_object_count,
     min_height = def.spawn.min_height,
     max_height = def.spawn.max_height,
+    day_toggle = def.spawn.day_toggle,
   })
 end
 
@@ -1384,10 +1393,17 @@ end
 -- REGISTER ALIAS
 ----------------------------------------------------------------
 function Monster:register_alias(def)
-  mobs:alias_mob(
-    def.alias or ("mobs:" .. def.name:match("^[^:]+:(.+)$") ),
-    def.name
-  )
+  local aliases = def.aliases or {def.alias}
+
+  if not def.aliases and not def.alias then
+    aliases = {"mobs:" .. def.name:match("^[^:]+:(.+)$")}
+  end
+
+  for _, alias in ipairs(aliases) do
+    if alias and alias ~= "" then
+      mobs:alias_mob(alias, def.name)
+    end
+  end
 end
 
 ----------------------------------------------------------------
@@ -1497,6 +1513,7 @@ dofile(modpath .. "/mobs/unggoy.lua")
 dofile(modpath .. "/mobs/elmo_large.lua")
 dofile(modpath .. "/mobs/elmo.lua")
 dofile(modpath .. "/mobs/handsome_squidward.lua")
+dofile(modpath .. "/mobs/zombie.lua")
 
 ----------------------------------------------------------------
 -- REGISTER ALL MONSTERS

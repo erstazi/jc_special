@@ -36,6 +36,7 @@ local zombie_spawn = {
   min_light = 0,
   chance = 70,
   active_object_count = 3,
+  min_height = 0,
   max_height = 170,
   day_toggle = false,
 }
@@ -80,6 +81,12 @@ monsterDefinitions.zombie_1arm = {
   armor = 80,
   reach = 2,
   nametag = false,
+
+  attack_players = true,
+  attack_npcs = false,
+  attack_animals = false,
+  attack_monsters = false,
+  can_group_attack = true,
 
   collisionbox = {-0.4, -1, -0.4, 0.4, 0.8, 0.4},
   mesh = "zombie_one-arm.b3d",
@@ -139,6 +146,12 @@ monsterDefinitions.zombie_crawler = {
   reach = 2,
   nametag = false,
 
+  attack_players = true,
+  attack_npcs = false,
+  attack_animals = false,
+  attack_monsters = false,
+  can_group_attack = true,
+
   collisionbox = {-0.5, -0.5, -0.4, 0.5, 0.2, 0.4},
   mesh = "zombie_crawler.b3d",
   textures = zombie_textures,
@@ -196,6 +209,12 @@ monsterDefinitions.zombie_normal = {
   armor = 80,
   reach = 2,
   nametag = false,
+
+  attack_players = true,
+  attack_npcs = false,
+  attack_animals = false,
+  attack_monsters = false,
+  can_group_attack = true,
 
   collisionbox = {-0.4, -1, -0.4, 0.4, 0.8, 0.4},
   mesh = "zombie_normal.b3d",

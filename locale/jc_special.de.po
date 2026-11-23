@@ -575,3 +575,151 @@ msgstr "Sitz auf der Ersatzbank (Magenta)"
 #: stadium_seats.lua
 msgid "Dugout Seat (Pink)"
 msgstr "Sitz auf der Ersatzbank (Rosa)"
+
+#: mailbox.lua
+msgid "item"
+msgstr "Gegenstand"
+
+#: mailbox.lua
+msgid "items"
+msgstr "Gegenstände"
+
+#: mailbox.lua
+msgid "@1 (Owner: @2) @3"
+msgstr "@1 (Besitzer: @2) @3"
+
+#: mailbox.lua
+msgid "Coordinates: @1"
+msgstr "Koordinaten: @1"
+
+#: mailbox.lua
+msgid "Mailbox Name"
+msgstr "Briefkastenname"
+
+#: mailbox.lua
+msgid "Save Settings"
+msgstr "Einstellungen speichern"
+
+#: mailbox.lua
+msgid "Allow Starter Items"
+msgstr "Startgegenstände erlauben"
+
+#: mailbox.lua
+msgid "Public?"
+msgstr "Öffentlich?"
+
+#: mailbox.lua
+msgid "Enable Notifications"
+msgstr "Benachrichtigungen aktivieren"
+
+#: mailbox.lua
+msgid "Mailbox Contents"
+msgstr "Briefkasteninhalt"
+
+#: mailbox.lua
+msgid "Mailbox Owner: @1"
+msgstr "Briefkastenbesitzer: @1"
+
+#: mailbox.lua
+msgid "Mailbox Name: @1"
+msgstr "Briefkastenname: @1"
+
+#: mailbox.lua
+msgid "Place an item in the slot to deliver it."
+msgstr "Lege einen Gegenstand in das Fach, um ihn zuzustellen."
+
+#: mailbox.lua
+msgid "Deliver Mail"
+msgstr "Post zustellen"
+
+#: mailbox.lua
+msgid "This mailbox is not accepting public mail."
+msgstr "Dieser Briefkasten nimmt keine öffentliche Post an."
+
+#: mailbox.lua
+msgid "Mailbox session expired."
+msgstr "Die Briefkastensitzung ist abgelaufen."
+
+#: mailbox.lua
+msgid "This mailbox no longer exists."
+msgstr "Dieser Briefkasten existiert nicht mehr."
+
+#: mailbox.lua
+msgid "This mailbox is no longer accepting public mail."
+msgstr "Dieser Briefkasten nimmt keine öffentliche Post mehr an."
+
+#: mailbox.lua
+msgid "Please place an item in the delivery slot."
+msgstr "Bitte lege einen Gegenstand in das Zustellfach."
+
+#: mailbox.lua
+msgid "This mailbox does not accept starter items: @1"
+msgstr "Dieser Briefkasten akzeptiert keine Startgegenstände: @1"
+
+#: mailbox.lua
+msgid "The mailbox does not have enough room."
+msgstr "Der Briefkasten hat nicht genügend Platz."
+
+#: mailbox.lua
+msgid "[Mailbox] @1 delivered @2 @3 to your mailbox '@4' at @5."
+msgstr "[Briefkasten] @1 hat @2 @3 in deinen Briefkasten '@4' bei @5 zugestellt."
+
+#: mailbox.lua
+msgid "Successfully delivered @1 @2 to mailbox '@3' owned by @4 at @5."
+msgstr "@1 @2 erfolgreich an den Briefkasten '@3' von @4 bei @5 zugestellt."
+
+#: mailbox.lua
+msgid "Please select a recipient"
+msgstr "Bitte wähle einen Empfänger"
+
+#: mailbox.lua
+msgid "Select a recipient"
+msgstr "Empfänger auswählen"
+
+#: mailbox.lua
+msgid "No public mailboxes available"
+msgstr "Keine öffentlichen Briefkästen verfügbar"
+
+#: mailbox.lua
+msgid "Items to send"
+msgstr "Zu versendende Gegenstände"
+
+#: mailbox.lua
+msgid "Send Items"
+msgstr "Gegenstände versenden"
+
+#: mailbox.lua
+msgid "That mailbox is no longer available."
+msgstr "Dieser Briefkasten ist nicht mehr verfügbar."
+
+#: mailbox.lua
+msgid "Invalid mailbox owner."
+msgstr "Ungültiger Briefkastenbesitzer."
+
+#: mailbox.lua
+msgid "The destination mailbox could not be loaded."
+msgstr "Der Zielbriefkasten konnte nicht geladen werden."
+
+#: mailbox.lua
+msgid "The destination mailbox no longer exists."
+msgstr "Der Zielbriefkasten existiert nicht mehr."
+
+#: mailbox.lua
+msgid "The mailbox owner has changed."
+msgstr "Der Besitzer des Briefkastens hat sich geändert."
+
+#: mailbox.lua
+msgid "You have no items to send."
+msgstr "Du hast keine Gegenstände zum Versenden."
+
+#: mailbox.lua
+msgid "The recipient mailbox does not have enough room."
+msgstr "Der Briefkasten des Empfängers hat nicht genügend Platz."
+
+#: mailbox.lua
+msgid "[Mailbox] @1 sent @2 @3 to your mailbox '@4' at @5."
+msgstr "[Briefkasten] @1 hat @2 @3 an deinen Briefkasten '@4' bei @5 gesendet."
+
+#: mailbox.lua
+msgid "Please select a recipient."
+msgstr "Bitte wähle einen Empfänger."

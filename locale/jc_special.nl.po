@@ -575,3 +575,151 @@ msgstr "Bankstoel (Magenta)"
 #: stadium_seats.lua
 msgid "Dugout Seat (Pink)"
 msgstr "Bankstoel (Roze)"
+
+#: mailbox.lua
+msgid "item"
+msgstr "voorwerp"
+
+#: mailbox.lua
+msgid "items"
+msgstr "voorwerpen"
+
+#: mailbox.lua
+msgid "@1 (Owner: @2) @3"
+msgstr "@1 (Eigenaar: @2) @3"
+
+#: mailbox.lua
+msgid "Coordinates: @1"
+msgstr "Coördinaten: @1"
+
+#: mailbox.lua
+msgid "Mailbox Name"
+msgstr "Naam van de brievenbus"
+
+#: mailbox.lua
+msgid "Save Settings"
+msgstr "Instellingen opslaan"
+
+#: mailbox.lua
+msgid "Allow Starter Items"
+msgstr "Startvoorwerpen toestaan"
+
+#: mailbox.lua
+msgid "Public?"
+msgstr "Openbaar?"
+
+#: mailbox.lua
+msgid "Enable Notifications"
+msgstr "Meldingen inschakelen"
+
+#: mailbox.lua
+msgid "Mailbox Contents"
+msgstr "Inhoud van de brievenbus"
+
+#: mailbox.lua
+msgid "Mailbox Owner: @1"
+msgstr "Eigenaar van de brievenbus: @1"
+
+#: mailbox.lua
+msgid "Mailbox Name: @1"
+msgstr "Naam van de brievenbus: @1"
+
+#: mailbox.lua
+msgid "Place an item in the slot to deliver it."
+msgstr "Plaats een voorwerp in het vak om het te bezorgen."
+
+#: mailbox.lua
+msgid "Deliver Mail"
+msgstr "Post bezorgen"
+
+#: mailbox.lua
+msgid "This mailbox is not accepting public mail."
+msgstr "Deze brievenbus accepteert geen openbare post."
+
+#: mailbox.lua
+msgid "Mailbox session expired."
+msgstr "De brievenbussessie is verlopen."
+
+#: mailbox.lua
+msgid "This mailbox no longer exists."
+msgstr "Deze brievenbus bestaat niet meer."
+
+#: mailbox.lua
+msgid "This mailbox is no longer accepting public mail."
+msgstr "Deze brievenbus accepteert geen openbare post meer."
+
+#: mailbox.lua
+msgid "Please place an item in the delivery slot."
+msgstr "Plaats een voorwerp in het bezorgvak."
+
+#: mailbox.lua
+msgid "This mailbox does not accept starter items: @1"
+msgstr "Deze brievenbus accepteert geen startvoorwerpen: @1"
+
+#: mailbox.lua
+msgid "The mailbox does not have enough room."
+msgstr "De brievenbus heeft niet genoeg ruimte."
+
+#: mailbox.lua
+msgid "[Mailbox] @1 delivered @2 @3 to your mailbox '@4' at @5."
+msgstr "[Brievenbus] @1 heeft @2 @3 bezorgd in je brievenbus '@4' op @5."
+
+#: mailbox.lua
+msgid "Successfully delivered @1 @2 to mailbox '@3' owned by @4 at @5."
+msgstr "@1 @2 succesvol bezorgd in brievenbus '@3' van @4 op @5."
+
+#: mailbox.lua
+msgid "Please select a recipient"
+msgstr "Selecteer een ontvanger"
+
+#: mailbox.lua
+msgid "Select a recipient"
+msgstr "Selecteer een ontvanger"
+
+#: mailbox.lua
+msgid "No public mailboxes available"
+msgstr "Geen openbare brievenbussen beschikbaar"
+
+#: mailbox.lua
+msgid "Items to send"
+msgstr "Te verzenden voorwerpen"
+
+#: mailbox.lua
+msgid "Send Items"
+msgstr "Voorwerpen verzenden"
+
+#: mailbox.lua
+msgid "That mailbox is no longer available."
+msgstr "Die brievenbus is niet langer beschikbaar."
+
+#: mailbox.lua
+msgid "Invalid mailbox owner."
+msgstr "Ongeldige brievenbuseigenaar."
+
+#: mailbox.lua
+msgid "The destination mailbox could not be loaded."
+msgstr "De bestemmingsbrievenbus kon niet worden geladen."
+
+#: mailbox.lua
+msgid "The destination mailbox no longer exists."
+msgstr "De bestemmingsbrievenbus bestaat niet meer."
+
+#: mailbox.lua
+msgid "The mailbox owner has changed."
+msgstr "De eigenaar van de brievenbus is gewijzigd."
+
+#: mailbox.lua
+msgid "You have no items to send."
+msgstr "Je hebt geen voorwerpen om te verzenden."
+
+#: mailbox.lua
+msgid "The recipient mailbox does not have enough room."
+msgstr "De brievenbus van de ontvanger heeft niet genoeg ruimte."
+
+#: mailbox.lua
+msgid "[Mailbox] @1 sent @2 @3 to your mailbox '@4' at @5."
+msgstr "[Brievenbus] @1 heeft @2 @3 naar je brievenbus '@4' op @5 gestuurd."
+
+#: mailbox.lua
+msgid "Please select a recipient."
+msgstr "Selecteer een ontvanger."

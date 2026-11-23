@@ -575,3 +575,151 @@ msgstr "Сиденье на скамейке запасных (Пурпурно�
 #: stadium_seats.lua
 msgid "Dugout Seat (Pink)"
 msgstr "Сиденье на скамейке запасных (Розовое)"
+
+#: mailbox.lua
+msgid "item"
+msgstr "предмет"
+
+#: mailbox.lua
+msgid "items"
+msgstr "предметы"
+
+#: mailbox.lua
+msgid "@1 (Owner: @2) @3"
+msgstr "@1 (Владелец: @2) @3"
+
+#: mailbox.lua
+msgid "Coordinates: @1"
+msgstr "Координаты: @1"
+
+#: mailbox.lua
+msgid "Mailbox Name"
+msgstr "Название почтового ящика"
+
+#: mailbox.lua
+msgid "Save Settings"
+msgstr "Сохранить настройки"
+
+#: mailbox.lua
+msgid "Allow Starter Items"
+msgstr "Разрешить стартовые предметы"
+
+#: mailbox.lua
+msgid "Public?"
+msgstr "Общедоступный?"
+
+#: mailbox.lua
+msgid "Enable Notifications"
+msgstr "Включить уведомления"
+
+#: mailbox.lua
+msgid "Mailbox Contents"
+msgstr "Содержимое почтового ящика"
+
+#: mailbox.lua
+msgid "Mailbox Owner: @1"
+msgstr "Владелец почтового ящика: @1"
+
+#: mailbox.lua
+msgid "Mailbox Name: @1"
+msgstr "Название почтового ящика: @1"
+
+#: mailbox.lua
+msgid "Place an item in the slot to deliver it."
+msgstr "Поместите предмет в ячейку, чтобы отправить его."
+
+#: mailbox.lua
+msgid "Deliver Mail"
+msgstr "Доставить почту"
+
+#: mailbox.lua
+msgid "This mailbox is not accepting public mail."
+msgstr "Этот почтовый ящик не принимает общедоступную почту."
+
+#: mailbox.lua
+msgid "Mailbox session expired."
+msgstr "Сеанс почтового ящика истёк."
+
+#: mailbox.lua
+msgid "This mailbox no longer exists."
+msgstr "Этот почтовый ящик больше не существует."
+
+#: mailbox.lua
+msgid "This mailbox is no longer accepting public mail."
+msgstr "Этот почтовый ящик больше не принимает общедоступную почту."
+
+#: mailbox.lua
+msgid "Please place an item in the delivery slot."
+msgstr "Поместите предмет в ячейку отправки."
+
+#: mailbox.lua
+msgid "This mailbox does not accept starter items: @1"
+msgstr "Этот почтовый ящик не принимает стартовые предметы: @1"
+
+#: mailbox.lua
+msgid "The mailbox does not have enough room."
+msgstr "В почтовом ящике недостаточно места."
+
+#: mailbox.lua
+msgid "[Mailbox] @1 delivered @2 @3 to your mailbox '@4' at @5."
+msgstr "[Почтовый ящик] @1 доставил @2 @3 в ваш почтовый ящик '@4' по адресу @5."
+
+#: mailbox.lua
+msgid "Successfully delivered @1 @2 to mailbox '@3' owned by @4 at @5."
+msgstr "Успешно доставлено @2 @3 в почтовый ящик '@3', принадлежащий @4, по адресу @5."
+
+#: mailbox.lua
+msgid "Please select a recipient"
+msgstr "Выберите получателя"
+
+#: mailbox.lua
+msgid "Select a recipient"
+msgstr "Выбрать получателя"
+
+#: mailbox.lua
+msgid "No public mailboxes available"
+msgstr "Нет доступных общедоступных почтовых ящиков"
+
+#: mailbox.lua
+msgid "Items to send"
+msgstr "Предметы для отправки"
+
+#: mailbox.lua
+msgid "Send Items"
+msgstr "Отправить предметы"
+
+#: mailbox.lua
+msgid "That mailbox is no longer available."
+msgstr "Этот почтовый ящик больше недоступен."
+
+#: mailbox.lua
+msgid "Invalid mailbox owner."
+msgstr "Неверный владелец почтового ящика."
+
+#: mailbox.lua
+msgid "The destination mailbox could not be loaded."
+msgstr "Не удалось загрузить почтовый ящик назначения."
+
+#: mailbox.lua
+msgid "The destination mailbox no longer exists."
+msgstr "Почтовый ящик назначения больше не существует."
+
+#: mailbox.lua
+msgid "The mailbox owner has changed."
+msgstr "Владелец почтового ящика изменился."
+
+#: mailbox.lua
+msgid "You have no items to send."
+msgstr "У вас нет предметов для отправки."
+
+#: mailbox.lua
+msgid "The recipient mailbox does not have enough room."
+msgstr "В почтовом ящике получателя недостаточно места."
+
+#: mailbox.lua
+msgid "[Mailbox] @1 sent @2 @3 to your mailbox '@4' at @5."
+msgstr "[Почтовый ящик] @1 отправил @2 @3 в ваш почтовый ящик '@4' по адресу @5."
+
+#: mailbox.lua
+msgid "Please select a recipient."
+msgstr "Выберите получателя."

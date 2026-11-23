@@ -42,7 +42,7 @@ end
   -- })
 -- end
 
-
+--[[
 local function mailbox_formspec(pos)
   local spos = pos.x .. "," .. pos.y .. "," .. pos.z
 
@@ -252,3 +252,5 @@ core.register_on_player_receive_fields(function(player, formname, fields)
     mailbox_formspec(pos)
   )
 end)
+
+]]

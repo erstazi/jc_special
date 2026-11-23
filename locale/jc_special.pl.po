@@ -575,3 +575,151 @@ msgstr "Magenta siedzisko w ławce rezerwowych"
 #: stadium_seats.lua
 msgid "Dugout Seat (Pink)"
 msgstr "Różowe siedzisko w ławce rezerwowych"
+
+#: mailbox.lua
+msgid "item"
+msgstr "przedmiot"
+
+#: mailbox.lua
+msgid "items"
+msgstr "przedmioty"
+
+#: mailbox.lua
+msgid "@1 (Owner: @2) @3"
+msgstr "@1 (Właściciel: @2) @3"
+
+#: mailbox.lua
+msgid "Coordinates: @1"
+msgstr "Współrzędne: @1"
+
+#: mailbox.lua
+msgid "Mailbox Name"
+msgstr "Nazwa skrzynki pocztowej"
+
+#: mailbox.lua
+msgid "Save Settings"
+msgstr "Zapisz ustawienia"
+
+#: mailbox.lua
+msgid "Allow Starter Items"
+msgstr "Zezwalaj na przedmioty startowe"
+
+#: mailbox.lua
+msgid "Public?"
+msgstr "Publiczna?"
+
+#: mailbox.lua
+msgid "Enable Notifications"
+msgstr "Włącz powiadomienia"
+
+#: mailbox.lua
+msgid "Mailbox Contents"
+msgstr "Zawartość skrzynki pocztowej"
+
+#: mailbox.lua
+msgid "Mailbox Owner: @1"
+msgstr "Właściciel skrzynki pocztowej: @1"
+
+#: mailbox.lua
+msgid "Mailbox Name: @1"
+msgstr "Nazwa skrzynki pocztowej: @1"
+
+#: mailbox.lua
+msgid "Place an item in the slot to deliver it."
+msgstr "Umieść przedmiot w slocie, aby go dostarczyć."
+
+#: mailbox.lua
+msgid "Deliver Mail"
+msgstr "Dostarcz pocztę"
+
+#: mailbox.lua
+msgid "This mailbox is not accepting public mail."
+msgstr "Ta skrzynka pocztowa nie przyjmuje publicznej poczty."
+
+#: mailbox.lua
+msgid "Mailbox session expired."
+msgstr "Sesja skrzynki pocztowej wygasła."
+
+#: mailbox.lua
+msgid "This mailbox no longer exists."
+msgstr "Ta skrzynka pocztowa już nie istnieje."
+
+#: mailbox.lua
+msgid "This mailbox is no longer accepting public mail."
+msgstr "Ta skrzynka pocztowa nie przyjmuje już publicznej poczty."
+
+#: mailbox.lua
+msgid "Please place an item in the delivery slot."
+msgstr "Umieść przedmiot w slocie dostawy."
+
+#: mailbox.lua
+msgid "This mailbox does not accept starter items: @1"
+msgstr "Ta skrzynka pocztowa nie przyjmuje przedmiotów startowych: @1"
+
+#: mailbox.lua
+msgid "The mailbox does not have enough room."
+msgstr "W skrzynce pocztowej nie ma wystarczająco dużo miejsca."
+
+#: mailbox.lua
+msgid "[Mailbox] @1 delivered @2 @3 to your mailbox '@4' at @5."
+msgstr "[Skrzynka pocztowa] @1 dostarczył(a) @2 @3 do Twojej skrzynki '@4' pod adresem @5."
+
+#: mailbox.lua
+msgid "Successfully delivered @1 @2 to mailbox '@3' owned by @4 at @5."
+msgstr "Pomyślnie dostarczono @2 @3 do skrzynki '@3' należącej do @4 pod adresem @5."
+
+#: mailbox.lua
+msgid "Please select a recipient"
+msgstr "Wybierz odbiorcę"
+
+#: mailbox.lua
+msgid "Select a recipient"
+msgstr "Wybierz odbiorcę"
+
+#: mailbox.lua
+msgid "No public mailboxes available"
+msgstr "Brak dostępnych publicznych skrzynek pocztowych"
+
+#: mailbox.lua
+msgid "Items to send"
+msgstr "Przedmioty do wysłania"
+
+#: mailbox.lua
+msgid "Send Items"
+msgstr "Wyślij przedmioty"
+
+#: mailbox.lua
+msgid "That mailbox is no longer available."
+msgstr "Ta skrzynka pocztowa nie jest już dostępna."
+
+#: mailbox.lua
+msgid "Invalid mailbox owner."
+msgstr "Nieprawidłowy właściciel skrzynki pocztowej."
+
+#: mailbox.lua
+msgid "The destination mailbox could not be loaded."
+msgstr "Nie udało się załadować docelowej skrzynki pocztowej."
+
+#: mailbox.lua
+msgid "The destination mailbox no longer exists."
+msgstr "Docelowa skrzynka pocztowa już nie istnieje."
+
+#: mailbox.lua
+msgid "The mailbox owner has changed."
+msgstr "Właściciel skrzynki pocztowej uległ zmianie."
+
+#: mailbox.lua
+msgid "You have no items to send."
+msgstr "Nie masz żadnych przedmiotów do wysłania."
+
+#: mailbox.lua
+msgid "The recipient mailbox does not have enough room."
+msgstr "W skrzynce pocztowej odbiorcy nie ma wystarczająco dużo miejsca."
+
+#: mailbox.lua
+msgid "[Mailbox] @1 sent @2 @3 to your mailbox '@4' at @5."
+msgstr "[Skrzynka pocztowa] @1 wysłał(a) @2 @3 do Twojej skrzynki '@4' pod adresem @5."
+
+#: mailbox.lua
+msgid "Please select a recipient."
+msgstr "Wybierz odbiorcę."

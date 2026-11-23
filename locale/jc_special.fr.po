@@ -575,3 +575,151 @@ msgstr "Siège du banc de touche (Magenta)"
 #: stadium_seats.lua
 msgid "Dugout Seat (Pink)"
 msgstr "Siège du banc de touche (Rose)"
+
+#: mailbox.lua
+msgid "item"
+msgstr "objet"
+
+#: mailbox.lua
+msgid "items"
+msgstr "objets"
+
+#: mailbox.lua
+msgid "@1 (Owner: @2) @3"
+msgstr "@1 (Propriétaire : @2) @3"
+
+#: mailbox.lua
+msgid "Coordinates: @1"
+msgstr "Coordonnées : @1"
+
+#: mailbox.lua
+msgid "Mailbox Name"
+msgstr "Nom de la boîte aux lettres"
+
+#: mailbox.lua
+msgid "Save Settings"
+msgstr "Enregistrer les paramètres"
+
+#: mailbox.lua
+msgid "Allow Starter Items"
+msgstr "Autoriser les objets de départ"
+
+#: mailbox.lua
+msgid "Public?"
+msgstr "Publique ?"
+
+#: mailbox.lua
+msgid "Enable Notifications"
+msgstr "Activer les notifications"
+
+#: mailbox.lua
+msgid "Mailbox Contents"
+msgstr "Contenu de la boîte aux lettres"
+
+#: mailbox.lua
+msgid "Mailbox Owner: @1"
+msgstr "Propriétaire de la boîte aux lettres : @1"
+
+#: mailbox.lua
+msgid "Mailbox Name: @1"
+msgstr "Nom de la boîte aux lettres : @1"
+
+#: mailbox.lua
+msgid "Place an item in the slot to deliver it."
+msgstr "Placez un objet dans l'emplacement pour l'envoyer."
+
+#: mailbox.lua
+msgid "Deliver Mail"
+msgstr "Envoyer le courrier"
+
+#: mailbox.lua
+msgid "This mailbox is not accepting public mail."
+msgstr "Cette boîte aux lettres n'accepte pas le courrier public."
+
+#: mailbox.lua
+msgid "Mailbox session expired."
+msgstr "La session de la boîte aux lettres a expiré."
+
+#: mailbox.lua
+msgid "This mailbox no longer exists."
+msgstr "Cette boîte aux lettres n'existe plus."
+
+#: mailbox.lua
+msgid "This mailbox is no longer accepting public mail."
+msgstr "Cette boîte aux lettres n'accepte plus le courrier public."
+
+#: mailbox.lua
+msgid "Please place an item in the delivery slot."
+msgstr "Veuillez placer un objet dans l'emplacement de livraison."
+
+#: mailbox.lua
+msgid "This mailbox does not accept starter items: @1"
+msgstr "Cette boîte aux lettres n'accepte pas les objets de départ : @1"
+
+#: mailbox.lua
+msgid "The mailbox does not have enough room."
+msgstr "La boîte aux lettres n'a pas assez de place."
+
+#: mailbox.lua
+msgid "[Mailbox] @1 delivered @2 @3 to your mailbox '@4' at @5."
+msgstr "[Boîte aux lettres] @1 a livré @2 @3 dans votre boîte '@4' à @5."
+
+#: mailbox.lua
+msgid "Successfully delivered @1 @2 to mailbox '@3' owned by @4 at @5."
+msgstr "@1 @2 livré(s) avec succès dans la boîte '@3' appartenant à @4 à @5."
+
+#: mailbox.lua
+msgid "Please select a recipient"
+msgstr "Veuillez sélectionner un destinataire"
+
+#: mailbox.lua
+msgid "Select a recipient"
+msgstr "Sélectionner un destinataire"
+
+#: mailbox.lua
+msgid "No public mailboxes available"
+msgstr "Aucune boîte aux lettres publique disponible"
+
+#: mailbox.lua
+msgid "Items to send"
+msgstr "Objets à envoyer"
+
+#: mailbox.lua
+msgid "Send Items"
+msgstr "Envoyer les objets"
+
+#: mailbox.lua
+msgid "That mailbox is no longer available."
+msgstr "Cette boîte aux lettres n'est plus disponible."
+
+#: mailbox.lua
+msgid "Invalid mailbox owner."
+msgstr "Propriétaire de la boîte aux lettres invalide."
+
+#: mailbox.lua
+msgid "The destination mailbox could not be loaded."
+msgstr "Impossible de charger la boîte aux lettres de destination."
+
+#: mailbox.lua
+msgid "The destination mailbox no longer exists."
+msgstr "La boîte aux lettres de destination n'existe plus."
+
+#: mailbox.lua
+msgid "The mailbox owner has changed."
+msgstr "Le propriétaire de la boîte aux lettres a changé."
+
+#: mailbox.lua
+msgid "You have no items to send."
+msgstr "Vous n'avez aucun objet à envoyer."
+
+#: mailbox.lua
+msgid "The recipient mailbox does not have enough room."
+msgstr "La boîte aux lettres du destinataire n'a pas assez de place."
+
+#: mailbox.lua
+msgid "[Mailbox] @1 sent @2 @3 to your mailbox '@4' at @5."
+msgstr "[Boîte aux lettres] @1 a envoyé @2 @3 dans votre boîte '@4' à @5."
+
+#: mailbox.lua
+msgid "Please select a recipient."
+msgstr "Veuillez sélectionner un destinataire."

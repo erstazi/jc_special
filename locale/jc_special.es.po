@@ -575,3 +575,151 @@ msgstr "Asiento del banquillo (Magenta)"
 #: stadium_seats.lua
 msgid "Dugout Seat (Pink)"
 msgstr "Asiento del banquillo (Rosa)"
+
+#: mailbox.lua
+msgid "item"
+msgstr "objeto"
+
+#: mailbox.lua
+msgid "items"
+msgstr "objetos"
+
+#: mailbox.lua
+msgid "@1 (Owner: @2) @3"
+msgstr "@1 (Propietario: @2) @3"
+
+#: mailbox.lua
+msgid "Coordinates: @1"
+msgstr "Coordenadas: @1"
+
+#: mailbox.lua
+msgid "Mailbox Name"
+msgstr "Nombre del buzón"
+
+#: mailbox.lua
+msgid "Save Settings"
+msgstr "Guardar configuración"
+
+#: mailbox.lua
+msgid "Allow Starter Items"
+msgstr "Permitir objetos iniciales"
+
+#: mailbox.lua
+msgid "Public?"
+msgstr "¿Público?"
+
+#: mailbox.lua
+msgid "Enable Notifications"
+msgstr "Activar notificaciones"
+
+#: mailbox.lua
+msgid "Mailbox Contents"
+msgstr "Contenido del buzón"
+
+#: mailbox.lua
+msgid "Mailbox Owner: @1"
+msgstr "Propietario del buzón: @1"
+
+#: mailbox.lua
+msgid "Mailbox Name: @1"
+msgstr "Nombre del buzón: @1"
+
+#: mailbox.lua
+msgid "Place an item in the slot to deliver it."
+msgstr "Coloca un objeto en el espacio para enviarlo."
+
+#: mailbox.lua
+msgid "Deliver Mail"
+msgstr "Enviar correo"
+
+#: mailbox.lua
+msgid "This mailbox is not accepting public mail."
+msgstr "Este buzón no acepta correo público."
+
+#: mailbox.lua
+msgid "Mailbox session expired."
+msgstr "La sesión del buzón ha caducado."
+
+#: mailbox.lua
+msgid "This mailbox no longer exists."
+msgstr "Este buzón ya no existe."
+
+#: mailbox.lua
+msgid "This mailbox is no longer accepting public mail."
+msgstr "Este buzón ya no acepta correo público."
+
+#: mailbox.lua
+msgid "Please place an item in the delivery slot."
+msgstr "Coloca un objeto en el espacio de entrega."
+
+#: mailbox.lua
+msgid "This mailbox does not accept starter items: @1"
+msgstr "Este buzón no acepta objetos iniciales: @1"
+
+#: mailbox.lua
+msgid "The mailbox does not have enough room."
+msgstr "El buzón no tiene suficiente espacio."
+
+#: mailbox.lua
+msgid "[Mailbox] @1 delivered @2 @3 to your mailbox '@4' at @5."
+msgstr "[Buzón] @1 entregó @2 @3 en tu buzón '@4' en @5."
+
+#: mailbox.lua
+msgid "Successfully delivered @1 @2 to mailbox '@3' owned by @4 at @5."
+msgstr "Se entregaron correctamente @1 @2 al buzón '@3' de @4 en @5."
+
+#: mailbox.lua
+msgid "Please select a recipient"
+msgstr "Selecciona un destinatario"
+
+#: mailbox.lua
+msgid "Select a recipient"
+msgstr "Seleccionar destinatario"
+
+#: mailbox.lua
+msgid "No public mailboxes available"
+msgstr "No hay buzones públicos disponibles"
+
+#: mailbox.lua
+msgid "Items to send"
+msgstr "Objetos para enviar"
+
+#: mailbox.lua
+msgid "Send Items"
+msgstr "Enviar objetos"
+
+#: mailbox.lua
+msgid "That mailbox is no longer available."
+msgstr "Ese buzón ya no está disponible."
+
+#: mailbox.lua
+msgid "Invalid mailbox owner."
+msgstr "Propietario del buzón no válido."
+
+#: mailbox.lua
+msgid "The destination mailbox could not be loaded."
+msgstr "No se pudo cargar el buzón de destino."
+
+#: mailbox.lua
+msgid "The destination mailbox no longer exists."
+msgstr "El buzón de destino ya no existe."
+
+#: mailbox.lua
+msgid "The mailbox owner has changed."
+msgstr "El propietario del buzón ha cambiado."
+
+#: mailbox.lua
+msgid "You have no items to send."
+msgstr "No tienes objetos para enviar."
+
+#: mailbox.lua
+msgid "The recipient mailbox does not have enough room."
+msgstr "El buzón del destinatario no tiene suficiente espacio."
+
+#: mailbox.lua
+msgid "[Mailbox] @1 sent @2 @3 to your mailbox '@4' at @5."
+msgstr "[Buzón] @1 envió @2 @3 a tu buzón '@4' en @5."
+
+#: mailbox.lua
+msgid "Please select a recipient."
+msgstr "Selecciona un destinatario."

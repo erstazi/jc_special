@@ -575,3 +575,151 @@ msgstr "Сидіння на лаві запасних (Пурпурове)"
 #: stadium_seats.lua
 msgid "Dugout Seat (Pink)"
 msgstr "Сидіння на лаві запасних (Рожеве)"
+
+#: mailbox.lua
+msgid "item"
+msgstr "предмет"
+
+#: mailbox.lua
+msgid "items"
+msgstr "предмети"
+
+#: mailbox.lua
+msgid "@1 (Owner: @2) @3"
+msgstr "@1 (Власник: @2) @3"
+
+#: mailbox.lua
+msgid "Coordinates: @1"
+msgstr "Координати: @1"
+
+#: mailbox.lua
+msgid "Mailbox Name"
+msgstr "Назва поштової скриньки"
+
+#: mailbox.lua
+msgid "Save Settings"
+msgstr "Зберегти налаштування"
+
+#: mailbox.lua
+msgid "Allow Starter Items"
+msgstr "Дозволити стартові предмети"
+
+#: mailbox.lua
+msgid "Public?"
+msgstr "Публічна?"
+
+#: mailbox.lua
+msgid "Enable Notifications"
+msgstr "Увімкнути сповіщення"
+
+#: mailbox.lua
+msgid "Mailbox Contents"
+msgstr "Вміст поштової скриньки"
+
+#: mailbox.lua
+msgid "Mailbox Owner: @1"
+msgstr "Власник поштової скриньки: @1"
+
+#: mailbox.lua
+msgid "Mailbox Name: @1"
+msgstr "Назва поштової скриньки: @1"
+
+#: mailbox.lua
+msgid "Place an item in the slot to deliver it."
+msgstr "Помістіть предмет у комірку, щоб доставити його."
+
+#: mailbox.lua
+msgid "Deliver Mail"
+msgstr "Доставити пошту"
+
+#: mailbox.lua
+msgid "This mailbox is not accepting public mail."
+msgstr "Ця поштова скринька не приймає публічну пошту."
+
+#: mailbox.lua
+msgid "Mailbox session expired."
+msgstr "Сеанс поштової скриньки завершився."
+
+#: mailbox.lua
+msgid "This mailbox no longer exists."
+msgstr "Ця поштова скринька більше не існує."
+
+#: mailbox.lua
+msgid "This mailbox is no longer accepting public mail."
+msgstr "Ця поштова скринька більше не приймає публічну пошту."
+
+#: mailbox.lua
+msgid "Please place an item in the delivery slot."
+msgstr "Помістіть предмет у комірку доставки."
+
+#: mailbox.lua
+msgid "This mailbox does not accept starter items: @1"
+msgstr "Ця поштова скринька не приймає стартові предмети: @1"
+
+#: mailbox.lua
+msgid "The mailbox does not have enough room."
+msgstr "У поштовій скриньці недостатньо місця."
+
+#: mailbox.lua
+msgid "[Mailbox] @1 delivered @2 @3 to your mailbox '@4' at @5."
+msgstr "[Поштова скринька] @1 доставив @2 @3 до вашої скриньки '@4' за адресою @5."
+
+#: mailbox.lua
+msgid "Successfully delivered @1 @2 to mailbox '@3' owned by @4 at @5."
+msgstr "Успішно доставлено @2 @3 до поштової скриньки '@3', що належить @4, за адресою @5."
+
+#: mailbox.lua
+msgid "Please select a recipient"
+msgstr "Виберіть одержувача"
+
+#: mailbox.lua
+msgid "Select a recipient"
+msgstr "Вибрати одержувача"
+
+#: mailbox.lua
+msgid "No public mailboxes available"
+msgstr "Немає доступних публічних поштових скриньок"
+
+#: mailbox.lua
+msgid "Items to send"
+msgstr "Предмети для надсилання"
+
+#: mailbox.lua
+msgid "Send Items"
+msgstr "Надіслати предмети"
+
+#: mailbox.lua
+msgid "That mailbox is no longer available."
+msgstr "Ця поштова скринька більше недоступна."
+
+#: mailbox.lua
+msgid "Invalid mailbox owner."
+msgstr "Неправильний власник поштової скриньки."
+
+#: mailbox.lua
+msgid "The destination mailbox could not be loaded."
+msgstr "Не вдалося завантажити поштову скриньку призначення."
+
+#: mailbox.lua
+msgid "The destination mailbox no longer exists."
+msgstr "Поштова скринька призначення більше не існує."
+
+#: mailbox.lua
+msgid "The mailbox owner has changed."
+msgstr "Власник поштової скриньки змінився."
+
+#: mailbox.lua
+msgid "You have no items to send."
+msgstr "У вас немає предметів для надсилання."
+
+#: mailbox.lua
+msgid "The recipient mailbox does not have enough room."
+msgstr "У поштовій скриньці одержувача недостатньо місця."
+
+#: mailbox.lua
+msgid "[Mailbox] @1 sent @2 @3 to your mailbox '@4' at @5."
+msgstr "[Поштова скринька] @1 надіслав @2 @3 до вашої скриньки '@4' за адресою @5."
+
+#: mailbox.lua
+msgid "Please select a recipient."
+msgstr "Виберіть одержувача."

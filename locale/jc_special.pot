@@ -574,3 +574,155 @@ msgstr ""
 #: stadium_seats.lua
 msgid "Dugout Seat (Pink)"
 msgstr ""
+
+#: mailbox.lua
+msgid "item"
+msgstr ""
+
+#: mailbox.lua
+msgid "items"
+msgstr ""
+
+#: mailbox.lua
+msgid "@1 (Owner: @2) @3"
+msgstr ""
+
+#: mailbox.lua
+msgid "Coordinates: @1"
+msgstr ""
+
+#: mailbox.lua
+msgid "Mailbox Name"
+msgstr ""
+
+#: mailbox.lua
+msgid "Save Settings"
+msgstr ""
+
+#: mailbox.lua
+msgid "Allow Starter Items"
+msgstr ""
+
+#: mailbox.lua
+msgid "Public?"
+msgstr ""
+
+#: mailbox.lua
+msgid "Enable Notifications"
+msgstr ""
+
+#: mailbox.lua
+msgid "Mailbox Contents"
+msgstr ""
+
+#: mailbox.lua
+msgid "Mailbox Owner: @1"
+msgstr ""
+
+#: mailbox.lua
+msgid "Mailbox Name: @1"
+msgstr ""
+
+#: mailbox.lua
+msgid "Place an item in the slot to deliver it."
+msgstr ""
+
+#: mailbox.lua
+msgid "Deliver Mail"
+msgstr ""
+
+#: mailbox.lua
+msgid "This mailbox is not accepting public mail."
+msgstr ""
+
+#: mailbox.lua
+msgid "Mailbox session expired."
+msgstr ""
+
+#: mailbox.lua
+msgid "This mailbox no longer exists."
+msgstr ""
+
+#: mailbox.lua
+msgid "This mailbox is no longer accepting public mail."
+msgstr ""
+
+#: mailbox.lua
+msgid "Please place an item in the delivery slot."
+msgstr ""
+
+#: mailbox.lua
+msgid "This mailbox does not accept starter items: @1"
+msgstr ""
+
+#: mailbox.lua
+msgid "The mailbox does not have enough room."
+msgstr ""
+
+#: mailbox.lua
+msgid "[Mailbox] @1 delivered @2 @3 to your mailbox '@4' at @5."
+msgstr ""
+
+#: mailbox.lua
+msgid "Successfully delivered @1 @2 to mailbox '@3' owned by @4 at @5."
+msgstr ""
+
+#: mailbox.lua
+msgid "Please select a recipient"
+msgstr ""
+
+#: mailbox.lua
+msgid "Select a recipient"
+msgstr ""
+
+#: mailbox.lua
+msgid "No public mailboxes available"
+msgstr ""
+
+#: mailbox.lua
+msgid "Items to send"
+msgstr ""
+
+#: mailbox.lua
+msgid "Send Items"
+msgstr ""
+
+#: mailbox.lua
+msgid "That mailbox is no longer available."
+msgstr ""
+
+#: mailbox.lua
+msgid "Invalid mailbox owner."
+msgstr ""
+
+#: mailbox.lua
+msgid "The destination mailbox could not be loaded."
+msgstr ""
+
+#: mailbox.lua
+msgid "The destination mailbox no longer exists."
+msgstr ""
+
+#: mailbox.lua
+msgid "The mailbox owner has changed."
+msgstr ""
+
+#: mailbox.lua
+msgid "You have no items to send."
+msgstr ""
+
+#: mailbox.lua
+msgid "The recipient mailbox does not have enough room."
+msgstr ""
+
+#: mailbox.lua
+msgid "[Mailbox] @1 sent @2 @3 to your mailbox '@4' at @5."
+msgstr ""
+
+#: mailbox.lua
+msgid "Successfully delivered @1 @2 to mailbox '@3' owned by @4 at @5."
+msgstr ""
+
+#: mailbox.lua
+msgid "Please select a recipient."
+msgstr ""

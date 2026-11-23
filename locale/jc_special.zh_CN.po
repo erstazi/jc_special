@@ -575,3 +575,151 @@ msgstr "替补席座椅（品红色）"
 #: stadium_seats.lua
 msgid "Dugout Seat (Pink)"
 msgstr "替补席座椅（粉红色）"
+
+#: mailbox.lua
+msgid "item"
+msgstr "物品"
+
+#: mailbox.lua
+msgid "items"
+msgstr "物品"
+
+#: mailbox.lua
+msgid "@1 (Owner: @2) @3"
+msgstr "@1（所有者：@2）@3"
+
+#: mailbox.lua
+msgid "Coordinates: @1"
+msgstr "坐标：@1"
+
+#: mailbox.lua
+msgid "Mailbox Name"
+msgstr "邮箱名称"
+
+#: mailbox.lua
+msgid "Save Settings"
+msgstr "保存设置"
+
+#: mailbox.lua
+msgid "Allow Starter Items"
+msgstr "允许初始物品"
+
+#: mailbox.lua
+msgid "Public?"
+msgstr "公开？"
+
+#: mailbox.lua
+msgid "Enable Notifications"
+msgstr "启用通知"
+
+#: mailbox.lua
+msgid "Mailbox Contents"
+msgstr "邮箱内容"
+
+#: mailbox.lua
+msgid "Mailbox Owner: @1"
+msgstr "邮箱所有者：@1"
+
+#: mailbox.lua
+msgid "Mailbox Name: @1"
+msgstr "邮箱名称：@1"
+
+#: mailbox.lua
+msgid "Place an item in the slot to deliver it."
+msgstr "将物品放入槽位以进行投递。"
+
+#: mailbox.lua
+msgid "Deliver Mail"
+msgstr "投递邮件"
+
+#: mailbox.lua
+msgid "This mailbox is not accepting public mail."
+msgstr "此邮箱不接受公开邮件。"
+
+#: mailbox.lua
+msgid "Mailbox session expired."
+msgstr "邮箱会话已过期。"
+
+#: mailbox.lua
+msgid "This mailbox no longer exists."
+msgstr "此邮箱已不存在。"
+
+#: mailbox.lua
+msgid "This mailbox is no longer accepting public mail."
+msgstr "此邮箱已不再接受公开邮件。"
+
+#: mailbox.lua
+msgid "Please place an item in the delivery slot."
+msgstr "请将物品放入投递槽。"
+
+#: mailbox.lua
+msgid "This mailbox does not accept starter items: @1"
+msgstr "此邮箱不接受初始物品：@1"
+
+#: mailbox.lua
+msgid "The mailbox does not have enough room."
+msgstr "邮箱没有足够的空间。"
+
+#: mailbox.lua
+msgid "[Mailbox] @1 delivered @2 @3 to your mailbox '@4' at @5."
+msgstr "[邮箱] @1 已将 @2 @3 投递到你位于 @5 的邮箱“@4”。"
+
+#: mailbox.lua
+msgid "Successfully delivered @1 @2 to mailbox '@3' owned by @4 at @5."
+msgstr "已成功将 @1 @2 投递到位于 @5、属于 @4 的邮箱“@3”。"
+
+#: mailbox.lua
+msgid "Please select a recipient"
+msgstr "请选择收件人"
+
+#: mailbox.lua
+msgid "Select a recipient"
+msgstr "选择收件人"
+
+#: mailbox.lua
+msgid "No public mailboxes available"
+msgstr "没有可用的公共邮箱"
+
+#: mailbox.lua
+msgid "Items to send"
+msgstr "要发送的物品"
+
+#: mailbox.lua
+msgid "Send Items"
+msgstr "发送物品"
+
+#: mailbox.lua
+msgid "That mailbox is no longer available."
+msgstr "该邮箱已不可用。"
+
+#: mailbox.lua
+msgid "Invalid mailbox owner."
+msgstr "邮箱所有者无效。"
+
+#: mailbox.lua
+msgid "The destination mailbox could not be loaded."
+msgstr "无法加载目标邮箱。"
+
+#: mailbox.lua
+msgid "The destination mailbox no longer exists."
+msgstr "目标邮箱已不存在。"
+
+#: mailbox.lua
+msgid "The mailbox owner has changed."
+msgstr "邮箱所有者已更改。"
+
+#: mailbox.lua
+msgid "You have no items to send."
+msgstr "你没有可发送的物品。"
+
+#: mailbox.lua
+msgid "The recipient mailbox does not have enough room."
+msgstr "收件人的邮箱没有足够的空间。"
+
+#: mailbox.lua
+msgid "[Mailbox] @1 sent @2 @3 to your mailbox '@4' at @5."
+msgstr "[邮箱] @1 已将 @2 @3 发送到你位于 @5 的邮箱“@4”。"
+
+#: mailbox.lua
+msgid "Please select a recipient."
+msgstr "请选择收件人。"

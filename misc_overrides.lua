@@ -131,16 +131,16 @@ core.register_chatcommand("where", {
   end,
 })
 
-local old_shutdown = core.registered_chatcommands["shutdown"]
-if old_shutdown then
-  core.override_chatcommand("shutdown", {
-    func = function(name, param)
-      core.chat_send_player(name, S("The /shutdown command has been disabled on this server.") )
-      core.log("action", "[SHUTDOWN BLOCKED] " .. name .. " attempted /shutdown")
-      return true
-    end
-  })
-end
+-- local old_shutdown = core.registered_chatcommands["shutdown"]
+-- if old_shutdown then
+  -- core.override_chatcommand("shutdown", {
+    -- func = function(name, param)
+      -- core.chat_send_player(name, S("The /shutdown command has been disabled on this server.") )
+      -- core.log("action", "[SHUTDOWN BLOCKED] " .. name .. " attempted /shutdown")
+      -- return true
+    -- end
+  -- })
+-- end
 
 if core.get_modpath("ethereal") then
   core.override_item("ethereal:jungle_dirt", {

@@ -967,9 +967,17 @@ core.register_on_player_receive_fields(function(player, formname, fields)
 
     meta:set_string("mailbox_name", name)
 
-    meta:set_int("allow_starter_items", checkbox_value(fields.allow_starter_items, meta:get_int("allow_starter_items")))
-    meta:set_int("public", checkbox_value(fields.public, meta:get_int("public")))
-    meta:set_int("notifications", checkbox_value(fields.notifications, meta:get_int("notifications")))
+    if fields.allow_starter_items then
+      meta:set_int("allow_starter_items", fields.allow_starter_items == "true" and 1 or 0)
+    end
+
+    if fields.public then
+      meta:set_int("public", fields.public == "true" and 1 or 0)
+    end
+
+    if fields.notifications then
+      meta:set_int("notifications", fields.notifications == "true" and 1 or 0)
+    end
 
     update_mailbox(pos, name, get_settings(meta))
     update_mailbox_infotext(pos)

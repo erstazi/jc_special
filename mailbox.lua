@@ -850,6 +850,15 @@ core.register_node("jc_special:dropbox", {
   end,
 })
 
+core.register_craft({
+  output = "jc_special:dropbox",
+  recipe = {
+    {"default:steelblock", "dye:blue", "default:steelblock"},
+    {"dye:blue", "jc_special:mailbox", "dye:blue"},
+    {"default:steelblock", "dye:blue", "default:steelblock"},
+  },
+})
+
 -- ============================================================
 -- FORMSPEC CALLBACKS
 -- ============================================================

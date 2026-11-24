@@ -905,10 +905,6 @@ core.register_on_player_receive_fields(function(player, formname, fields)
   local posstr = formname:match("^jc_special:mailbox:(.+)$")
 
   if posstr then
-    if not fields.save and not fields.getitems then
-      return
-    end
-
     local pos = core.string_to_pos(posstr)
 
     if not pos then
@@ -924,6 +920,32 @@ core.register_on_player_receive_fields(function(player, formname, fields)
     local meta = core.get_meta(pos)
 
     if meta:get_string("owner") ~= player_name then
+      return
+    end
+
+    -- Save checkbox changes immediately.
+    local checkbox_changed = false
+
+    if fields.allow_starter_items ~= nil then
+      meta:set_int("allow_starter_items", fields.allow_starter_items == "true" and 1 or 0)
+      checkbox_changed = true
+    end
+
+    if fields.public ~= nil then
+      meta:set_int("public", fields.public == "true" and 1 or 0)
+      checkbox_changed = true
+    end
+
+    if fields.notifications ~= nil then
+      meta:set_int("notifications", fields.notifications == "true" and 1 or 0)
+      checkbox_changed = true
+    end
+
+    if checkbox_changed then
+      update_mailbox(pos, meta:get_string("mailbox_name"), get_settings(meta))
+    end
+
+    if not fields.save and not fields.getitems then
       return
     end
 
@@ -966,18 +988,6 @@ core.register_on_player_receive_fields(function(player, formname, fields)
     end
 
     meta:set_string("mailbox_name", name)
-
-    if fields.allow_starter_items then
-      meta:set_int("allow_starter_items", fields.allow_starter_items == "true" and 1 or 0)
-    end
-
-    if fields.public then
-      meta:set_int("public", fields.public == "true" and 1 or 0)
-    end
-
-    if fields.notifications then
-      meta:set_int("notifications", fields.notifications == "true" and 1 or 0)
-    end
 
     update_mailbox(pos, name, get_settings(meta))
     update_mailbox_infotext(pos)

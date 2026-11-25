@@ -629,8 +629,8 @@ msgid "Mailbox Name: @1"
 msgstr "Mailbox Name: @1"
 
 #: mailbox.lua
-msgid "Place an item in the slot to deliver it."
-msgstr "Place an item in the slot to deliver it."
+msgid "Place items in the slots to deliver them."
+msgstr "Place items in the slots to deliver them."
 
 #: mailbox.lua
 msgid "Deliver Mail"
@@ -653,8 +653,8 @@ msgid "This mailbox is no longer accepting public mail."
 msgstr "This mailbox is no longer accepting public mail."
 
 #: mailbox.lua
-msgid "Please place an item in the delivery slot."
-msgstr "Please place an item in the delivery slot."
+msgid "Please place items in the delivery slots."
+msgstr "Please place items in the delivery slots."
 
 #: mailbox.lua
 msgid "This mailbox does not accept starter items: @1"

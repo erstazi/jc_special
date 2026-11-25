@@ -629,8 +629,8 @@ msgid "Mailbox Name: @1"
 msgstr "邮箱名称：@1"
 
 #: mailbox.lua
-msgid "Place an item in the slot to deliver it."
-msgstr "将物品放入槽位以进行投递。"
+msgid "Place items in the slots to deliver them."
+msgstr "将物品放入格子中以发送。"
 
 #: mailbox.lua
 msgid "Deliver Mail"
@@ -653,8 +653,8 @@ msgid "This mailbox is no longer accepting public mail."
 msgstr "此邮箱已不再接受公开邮件。"
 
 #: mailbox.lua
-msgid "Please place an item in the delivery slot."
-msgstr "请将物品放入投递槽。"
+msgid "Please place items in the delivery slots."
+msgstr "请将物品放入投递格中。"
 
 #: mailbox.lua
 msgid "This mailbox does not accept starter items: @1"

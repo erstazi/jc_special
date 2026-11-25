@@ -246,7 +246,7 @@ local function maildrop_formspec(player, session)
     "label[0.5,0.7;" .. S("Mailbox Name: @1", name) .. "]" ..
     "label[0.5,1.1;" .. S("Coordinates: @1", coords) .. "]" ..
 
-    "label[0.5,1.8;" .. S("Place an item in the slot to deliver it.") .. "]" ..
+    "label[0.5,1.8;" .. S("Place items in the slots to deliver them.") .. "]" ..
     "list[detached:" .. inv_name .. ";mail;0.5,2.3;8,1;]" ..
     "button[3.875,3.8;3,0.8;deliver;" .. S("Deliver Mail") .. "]" ..
 
@@ -256,25 +256,6 @@ local function maildrop_formspec(player, session)
 
     "listring[detached:" .. inv_name .. ";mail]" ..
     "listring[current_player;main]"
-
-  -- return
-    -- "formspec_version[4]" ..
-    -- "size[10.5,10.5]" ..
-
-    -- "label[0.5,0.3;" .. S("Mailbox Owner: @1", owner) .. "]" ..
-    -- "label[0.5,0.7;" .. S("Mailbox Name: @1", name) .. "]" ..
-    -- "label[0.5,1.1;" .. S("Coordinates: @1", coords) .. "]" ..
-
-    -- "label[0.5,1.8;" .. S("Place an item in the slot to deliver it.") .. "]" ..
-    -- "list[detached:" .. inv_name .. ";mail;0.5,2.3;8,1;]" ..
-    -- "button[3.75,3.8;3,0.8;deliver;" .. S("Deliver Mail") .. "]" ..
-
-    -- "label[0.5,5.0;" .. S("Your Inventory") .. "]" ..
-    -- "list[current_player;main;0.5,5.4;8,1;]" ..
-    -- "list[current_player;main;0.5,6.6;8,3;8]" ..
-
-    -- "listring[detached:" .. inv_name .. ";mail]" ..
-    -- "listring[current_player;main]"
 end
 
 local function show_maildrop(player, pos)
@@ -353,7 +334,7 @@ local function deliver_maildrop(player)
   })
 
   if not source_inv or source_inv:is_empty("mail") then
-    return false, S("Please place an item in the delivery slot.")
+    return false, S("Please place items in the delivery slots.")
   end
 
   local item_count = 0
@@ -371,7 +352,7 @@ local function deliver_maildrop(player)
   end
 
   if item_count == 0 then
-    return false, S("Please place an item in the delivery slot.")
+    return false, S("Please place items in the delivery slots.")
   end
 
   local destination_inv = meta:get_inventory()

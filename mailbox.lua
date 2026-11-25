@@ -986,7 +986,7 @@ core.register_node("jc_special:dropbox", {
   wield_image = "jc_special_dropbox_inv.png",
 
   paramtype = "light",
-  paramtype2 = "facedir",
+  paramtype2 = "4dir",
 
   groups = {
     choppy = 2,
@@ -1013,24 +1013,37 @@ core.register_node("jc_special:dropbox", {
   on_construct = function(pos)
     ensure_dropbox_visual(pos)
   end,
-
   after_place_node = function(pos, placer, itemstack, pointed_thing)
-    if placer and placer:is_player() then
-      local direction = placer:get_look_dir()
-      local yaw = math.atan2(direction.z, direction.x) + math.pi / 2
-      local facedir = core.dir_to_facedir({
-        x = math.cos(yaw),
-        y = 0,
-        z = math.sin(yaw),
-      })
+    ensure_dropbox_visual(pos)
+  end,
 
-      core.set_node(pos, {
-        name = "jc_special:dropbox",
-        param2 = facedir,
-      })
-    end
+  -- after_place_node = function(pos, placer, itemstack, pointed_thing)
+    -- if placer and placer:is_player() then
+      -- local direction = placer:get_look_dir()
+      -- local yaw = math.atan2(direction.z, direction.x) + math.pi / 2
+      -- local facedir = core.dir_to_facedir({
+        -- x = math.cos(yaw),
+        -- y = 0,
+        -- z = math.sin(yaw),
+      -- })
+
+      -- core.set_node(pos, {
+        -- name = "jc_special:dropbox",
+        -- param2 = facedir,
+      -- })
+    -- end
+
+    -- ensure_dropbox_visual(pos)
+  -- end,
+  on_rotate = function(pos, node, user, mode, new_param2)
+    core.swap_node(pos, {
+      name = node.name,
+      param2 = new_param2,
+    })
 
     ensure_dropbox_visual(pos)
+
+    return true
   end,
 
   on_rightclick = function(pos, node, clicker)

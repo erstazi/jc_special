@@ -16,9 +16,9 @@ core.register_chatcommand("dice", {
       local result = math.random(1, chance_den)
       -- Player jesus spun the wheel, and won with a 50% chance!
       if result == 1 then
-        core.chat_send_all( S("Player @1 won the 1/@2 chance!", name, chance_den) )
+        core.chat_send_all( S("Player @1 won the 1/@2 chance!", core.colorize("#00FF00", name), chance_den) )
       else
-        core.chat_send_all( S("Player @1 lost the 1/@2 chance.", name, chance_den) )
+        core.chat_send_all( S("Player @1 lost the 1/@2 chance.", core.colorize("#00FF00", name), chance_den) )
       end
       return true
     end
@@ -40,7 +40,7 @@ core.register_chatcommand("dice", {
 
     -- Random number between 1 and max.
     local result = math.random(1, max)
-    core.chat_send_all( S("Player @1 rolled the dice, and got @2 out of @3!", name, result, max) )
+    core.chat_send_all( S("Player @1 rolled the dice, and got @2 out of @3!", core.colorize("#00FF00", name), core.colorize("#FFFF00", result), core.colorize("#FFFF00",max) ) )
     return true
   end
 })

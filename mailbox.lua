@@ -407,7 +407,7 @@ core.register_node("jc_special:mailbox", {
   paramtype2 = "facedir",
 
   groups = {
-    choppy = 2,
+    cracky = 2,
     oddly_breakable_by_hand = 2,
   },
 
@@ -597,12 +597,13 @@ local function get_public_mailboxes()
   return result
 end
 
--- ============================================================
+-- ============================================================================
 -- DROPBOX ANIMATION
 -- The B3D contains 53 keyed frames at 60 FPS.
 -- The root bone has been fixed in the model so only the door moves:
 -- 1-10 opens, 10 is the open pose, 37-46 closes, 46 is closed.
--- ============================================================
+-- https://blockbenchworkshop.com/model/polyjo/blue-low-poly-mail-box
+-- ============================================================================
 
 local dropbox_entity_name = "jc_special:dropbox_visual"
 
@@ -990,7 +991,7 @@ core.register_node("jc_special:dropbox", {
   paramtype2 = "4dir",
 
   groups = {
-    choppy = 2,
+    cracky = 2,
     oddly_breakable_by_hand = 2,
   },
 

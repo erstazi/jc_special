@@ -723,3 +723,27 @@ msgstr "[邮箱] @1 已将 @2 @3 发送到你位于 @5 的邮箱“@4”。"
 #: mailbox.lua
 msgid "Please select a recipient."
 msgstr "请选择收件人。"
+
+#: dice.lua
+msgid "[2-1000]"
+msgstr "[2-1000]"
+
+#: dice.lua
+msgid "Roll a dice"
+msgstr "掷骰子"
+
+#: dice.lua
+msgid "Usage: /dice [2-1000]"
+msgstr "用法：/dice [2-1000]"
+
+#: dice.lua
+msgid "Player @1 rolled the dice, and got @2 out of @3!"
+msgstr "玩家 @1 掷骰子，结果是 @3 中的 @2！"
+
+#: dice.lua
+msgid "Player @1 won the 1/@2 chance!"
+msgstr "玩家 @1 赢得了 1/@2 的机会！"
+
+#: dice.lua
+msgid "Player @1 lost the 1/@2 chance."
+msgstr "玩家 @1 输掉了 1/@2 的机会。"

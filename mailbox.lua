@@ -412,7 +412,7 @@ core.register_node("jc_special:mailbox", {
   },
 
   is_ground_content = false,
-  sounds = default.node_sound_wood_defaults(),
+  sounds = default.node_sound_metal_defaults(),
 
   on_construct = function(pos)
     local meta = core.get_meta(pos)
@@ -996,7 +996,7 @@ core.register_node("jc_special:dropbox", {
   },
 
   is_ground_content = false,
-  sounds = default.node_sound_wood_defaults(),
+  sounds = default.node_sound_metal_defaults(),
 
   collision_box = {
     type = "fixed",
@@ -1019,24 +1019,6 @@ core.register_node("jc_special:dropbox", {
     ensure_dropbox_visual(pos)
   end,
 
-  -- after_place_node = function(pos, placer, itemstack, pointed_thing)
-    -- if placer and placer:is_player() then
-      -- local direction = placer:get_look_dir()
-      -- local yaw = math.atan2(direction.z, direction.x) + math.pi / 2
-      -- local facedir = core.dir_to_facedir({
-        -- x = math.cos(yaw),
-        -- y = 0,
-        -- z = math.sin(yaw),
-      -- })
-
-      -- core.set_node(pos, {
-        -- name = "jc_special:dropbox",
-        -- param2 = facedir,
-      -- })
-    -- end
-
-    -- ensure_dropbox_visual(pos)
-  -- end,
   on_rotate = function(pos, node, user, mode, new_param2)
     core.swap_node(pos, {
       name = node.name,

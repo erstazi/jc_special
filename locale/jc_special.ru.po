@@ -723,3 +723,27 @@ msgstr "[Почтовый ящик] @1 отправил @2 @3 в ваш почт
 #: mailbox.lua
 msgid "Please select a recipient."
 msgstr "Выберите получателя."
+
+#: dice.lua
+msgid "[2-1000]"
+msgstr "[2-1000]"
+
+#: dice.lua
+msgid "Roll a dice"
+msgstr "Бросить кубик"
+
+#: dice.lua
+msgid "Usage: /dice [2-1000]"
+msgstr "Использование: /dice [2-1000]"
+
+#: dice.lua
+msgid "Player @1 rolled the dice, and got @2 out of @3!"
+msgstr "Игрок @1 бросил кубик и выбросил @2 из @3!"
+
+#: dice.lua
+msgid "Player @1 won the 1/@2 chance!"
+msgstr "Игрок @1 выиграл с шансом 1/@2!"
+
+#: dice.lua
+msgid "Player @1 lost the 1/@2 chance."
+msgstr "Игрок @1 проиграл с шансом 1/@2."

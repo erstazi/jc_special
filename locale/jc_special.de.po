@@ -723,3 +723,27 @@ msgstr "[Briefkasten] @1 hat @2 @3 an deinen Briefkasten '@4' bei @5 gesendet."
 #: mailbox.lua
 msgid "Please select a recipient."
 msgstr "Bitte wähle einen Empfänger."
+
+#: dice.lua
+msgid "[2-1000]"
+msgstr "[2-1000]"
+
+#: dice.lua
+msgid "Roll a dice"
+msgstr "Würfle"
+
+#: dice.lua
+msgid "Usage: /dice [2-1000]"
+msgstr "Verwendung: /dice [2-1000]"
+
+#: dice.lua
+msgid "Player @1 rolled the dice, and got @2 out of @3!"
+msgstr "Spieler @1 hat gewürfelt und eine @2 von @3 gewürfelt!"
+
+#: dice.lua
+msgid "Player @1 won the 1/@2 chance!"
+msgstr "Spieler @1 hat die 1/@2-Chance gewonnen!"
+
+#: dice.lua
+msgid "Player @1 lost the 1/@2 chance."
+msgstr "Spieler @1 hat die 1/@2-Chance verloren."

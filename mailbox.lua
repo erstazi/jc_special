@@ -643,7 +643,7 @@ local function ensure_dropbox_visual(pos, node)
     })
 
     local direction = core.facedir_to_dir(node.param2 or 0)
-    object:set_yaw(core.dir_to_yaw(direction))
+    object:set_yaw(core.dir_to_yaw(direction) - math.pi / 2)
     object:set_animation({x = 46, y = 46}, 60, 0, false)
   end
 end

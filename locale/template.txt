@@ -143,6 +143,7 @@ Dugout Seat (Magenta)=
 Dugout Seat (Pink)=
 item=
 items=
+Modern Mailbox=
 @1 (Owner: @2) @3=
 Coordinates: @1=
 Mailbox Name=

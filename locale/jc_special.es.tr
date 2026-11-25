@@ -143,6 +143,7 @@ Dugout Seat (Magenta)=Asiento del banquillo (Magenta)
 Dugout Seat (Pink)=Asiento del banquillo (Rosa)
 item=objeto
 items=objetos
+Modern Mailbox=Buzón moderno
 @1 (Owner: @2) @3=@1 (Propietario: @2) @3
 Coordinates: @1=Coordenadas: @1
 Mailbox Name=Nombre del buzón

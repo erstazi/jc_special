@@ -584,6 +584,10 @@ msgid "items"
 msgstr ""
 
 #: mailbox.lua
+msgid "Modern Mailbox"
+msgstr ""
+
+#: mailbox.lua
 msgid "@1 (Owner: @2) @3"
 msgstr ""
 

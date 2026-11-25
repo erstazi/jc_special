@@ -1,3 +1,4 @@
+
 -- mailbox.lua
 local S = core.get_translator("jc_special")
 local modpath = core.get_modpath("jc_special")
@@ -9,6 +10,19 @@ local mailboxes = core.deserialize(storage:get_string("mailbox_registry")) or {}
 local dropbox_sessions = {}
 local starter_items = {}
 local maildrop_sessions = {}
+
+-- ============================================================
+-- MAILBOX NODE TYPES
+-- ============================================================
+
+local mailbox_node_names = {
+  ["jc_special:mailbox"] = true,
+  ["jc_special:mailbox_modern"] = true,
+}
+
+local function is_mailbox_node(name)
+  return mailbox_node_names[name] == true
+end
 
 -- ============================================================
 -- STARTER ITEMS
@@ -135,10 +149,10 @@ local function mailbox_formspec(pos)
     "listcolors[#80808080;#c0c0c0;#000000;#686868;#ffffff]" ..
     "list[nodemeta:" .. spos .. ";main;0.4,3.4;8,4;]" ..
 
-    "button[3,8.3;4,0.8;getitems;" .. ESC(S("Get Mailbox Items")) .. "]" .. -- took away 0.5
+    "button[3,8.3;4,0.8;getitems;" .. ESC(S("Get Mailbox Items")) .. "]" ..
 
-    "label[0.4,9.5;" .. S("Your Inventory") .. "]" .. -- was y = 10.0
-    "list[current_player;main;0.4,9.9;8,1;]" .. -- was y = 10.4
+    "label[0.4,9.5;" .. S("Your Inventory") .. "]" ..
+    "list[current_player;main;0.4,9.9;8,1;]" ..
     "list[current_player;main;0.4,11.1;8,3;8]" ..
 
     "listring[nodemeta:" .. spos .. ";main]" ..
@@ -300,7 +314,7 @@ local function deliver_maildrop(player)
 
   local node = core.get_node_or_nil(pos)
 
-  if not node or node.name ~= "jc_special:mailbox" then
+  if not node or not is_mailbox_node(node.name) then
     return false, S("This mailbox no longer exists.")
   end
 
@@ -367,8 +381,155 @@ local function deliver_maildrop(player)
 end
 
 -- ============================================================
--- MAILBOX NODE
+-- MAILBOX NODE REGISTRATION
+-- Both mailbox designs share the same behavior and inventory.
 -- ============================================================
+
+local function register_mailbox_node(name, description, default_mailbox_name, tiles, node_box)
+  core.register_node(name, {
+    description = S(description),
+
+    drawtype = "nodebox",
+    node_box = node_box,
+
+    tiles = tiles,
+
+    paramtype = "light",
+    paramtype2 = "facedir",
+
+    groups = {
+      mailbox = 1,
+      cracky = 2,
+      oddly_breakable_by_hand = 2,
+    },
+
+    is_ground_content = false,
+    sounds = default.node_sound_metal_defaults(),
+
+    on_construct = function(pos)
+      local meta = core.get_meta(pos)
+      local inv = meta:get_inventory()
+
+      inv:set_size("main", 8 * 4)
+
+      meta:set_string("mailbox_name", S(default_mailbox_name))
+      meta:set_int("allow_starter_items", 0)
+      meta:set_int("public", 1)
+      meta:set_int("notifications", 1)
+    end,
+
+    after_place_node = function(pos, placer)
+      local owner = placer:get_player_name()
+      local meta = core.get_meta(pos)
+
+      meta:set_string("owner", owner)
+
+      register_mailbox(pos, owner, meta:get_string("mailbox_name"), get_settings(meta))
+      update_mailbox_infotext(pos)
+    end,
+
+    on_rightclick = function(pos, node, clicker)
+      local meta = core.get_meta(pos)
+      local owner = meta:get_string("owner")
+      local player = clicker:get_player_name()
+
+      if player == owner then
+        core.show_formspec(player, "jc_special:mailbox:" .. core.pos_to_string(pos), mailbox_formspec(pos))
+      else
+        show_maildrop(clicker, pos)
+      end
+    end,
+
+    can_dig = function(pos, player)
+      local meta = core.get_meta(pos)
+      local inv = meta:get_inventory()
+
+      return player:get_player_name() == meta:get_string("owner") and inv:is_empty("main")
+    end,
+
+    on_destruct = function(pos)
+      unregister_mailbox(pos)
+    end,
+
+    allow_metadata_inventory_put = function(pos, listname, index, stack, player)
+      local meta = core.get_meta(pos)
+
+      if listname == "main" and player:get_player_name() == meta:get_string("owner") then
+        return stack:get_count()
+      end
+
+      return 0
+    end,
+
+    allow_metadata_inventory_take = function(pos, listname, index, stack, player)
+      local meta = core.get_meta(pos)
+
+      if listname == "main" and player:get_player_name() == meta:get_string("owner") then
+        return stack:get_count()
+      end
+
+      return 0
+    end,
+
+    allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
+      local meta = core.get_meta(pos)
+
+      if player:get_player_name() == meta:get_string("owner") then
+        return count
+      end
+
+      return 0
+    end,
+
+    on_blast = function()
+    end,
+  })
+end
+
+-- Original mailbox.
+register_mailbox_node(
+  "jc_special:mailbox",
+  "Mailbox",
+  "Mailbox",
+  {
+    "jc_mailbox_top.png",
+    "jc_mailbox_bottom.png",
+    "jc_mailbox_east.png",
+    "jc_mailbox_west.png",
+    "jc_mailbox_back.png",
+    "jc_mailbox_front.png",
+  },
+  {
+    type = "fixed",
+    fixed = {
+      {-4/12, -6/12, -6/12, 4/12, 0/12, 6/12},
+      {-3/12, 0/12, -6/12, 3/12, 2/12, 6/12},
+      {3/12, 0/12, -6/12, 4/12, 5/12, -2/12},
+      {3/12, 3/12, -2/12, 4/12, 5/12, 0/12},
+    },
+  }
+)
+
+-- Modern box-shaped mailbox.
+register_mailbox_node(
+  "jc_special:mailbox_modern",
+  "Modern Mailbox",
+  "Modern Mailbox",
+  {
+    "jc_mailbox2_mailbox_top.png",
+    "jc_mailbox2_mailbox_bottom.png",
+    "jc_mailbox2_mailbox_side.png",
+    "jc_mailbox2_mailbox_side.png",
+    "jc_mailbox2_mailbox.png",
+    "jc_mailbox2_mailbox.png",
+  },
+  {
+    type = "fixed",
+    fixed = {
+      {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
+    },
+  }
+)
 
 core.register_craft({
   output = "jc_special:mailbox",
@@ -379,125 +540,18 @@ core.register_craft({
   },
 })
 
-core.register_node("jc_special:mailbox", {
-  description = S("Mailbox"),
-
-  drawtype = "nodebox",
-
-  node_box = {
-    type = "fixed",
-    fixed = {
-      {-4/12, -6/12, -6/12, 4/12, 0/12, 6/12},
-      {-3/12, 0/12, -6/12, 3/12, 2/12, 6/12},
-      {3/12, 0/12, -4/12, 4/12, 5/12, -2/12},
-      {3/12, 3/12, -2/12, 4/12, 5/12, 0/12},
-    },
+core.register_craft({
+  output = "jc_special:mailbox_modern",
+  recipe = {
+    {"dye:red", "default:steel_ingot", "dye:red"},
+    {"default:steel_ingot", "", "default:steel_ingot"},
+    {"default:steel_ingot", "default:steel_ingot", "default:steel_ingot"},
   },
-
-  tiles = {
-    "jc_mailbox_top.png",
-    "jc_mailbox_bottom.png",
-    "jc_mailbox_east.png",
-    "jc_mailbox_west.png",
-    "jc_mailbox_back.png",
-    "jc_mailbox_front.png",
-  },
-
-  paramtype = "light",
-  paramtype2 = "facedir",
-
-  groups = {
-    cracky = 2,
-    oddly_breakable_by_hand = 2,
-  },
-
-  is_ground_content = false,
-  sounds = default.node_sound_metal_defaults(),
-
-  on_construct = function(pos)
-    local meta = core.get_meta(pos)
-    local inv = meta:get_inventory()
-
-    inv:set_size("main", 8 * 4)
-
-    meta:set_string("mailbox_name", S("Mailbox"))
-    meta:set_int("allow_starter_items", 0)
-    meta:set_int("public", 1)
-    meta:set_int("notifications", 1)
-  end,
-
-  after_place_node = function(pos, placer)
-    local owner = placer:get_player_name()
-    local meta = core.get_meta(pos)
-
-    meta:set_string("owner", owner)
-
-    register_mailbox(pos, owner, meta:get_string("mailbox_name"), get_settings(meta))
-    update_mailbox_infotext(pos)
-  end,
-
-  on_rightclick = function(pos, node, clicker)
-    local meta = core.get_meta(pos)
-    local owner = meta:get_string("owner")
-    local player = clicker:get_player_name()
-
-    if player == owner then
-      core.show_formspec(player, "jc_special:mailbox:" .. core.pos_to_string(pos), mailbox_formspec(pos))
-    else
-      show_maildrop(clicker, pos)
-    end
-  end,
-
-  can_dig = function(pos, player)
-    local meta = core.get_meta(pos)
-    local inv = meta:get_inventory()
-
-    return player:get_player_name() == meta:get_string("owner") and inv:is_empty("main")
-  end,
-
-  on_destruct = function(pos)
-    unregister_mailbox(pos)
-  end,
-
-  allow_metadata_inventory_put = function(pos, listname, index, stack, player)
-    local meta = core.get_meta(pos)
-
-    if listname == "main" and player:get_player_name() == meta:get_string("owner") then
-      return stack:get_count()
-    end
-
-    return 0
-  end,
-
-  allow_metadata_inventory_take = function(pos, listname, index, stack, player)
-    local meta = core.get_meta(pos)
-
-    if listname == "main" and player:get_player_name() == meta:get_string("owner") then
-      return stack:get_count()
-    end
-
-    return 0
-  end,
-
-  allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
-    local meta = core.get_meta(pos)
-
-    if player:get_player_name() == meta:get_string("owner") then
-      return count
-    end
-
-    return 0
-  end,
-
-  on_blast = function()
-  end,
 })
 
 -- ============================================================
 -- OFFLINE NOTIFICATION QUEUE
 -- ============================================================
-
-
 
 core.register_on_joinplayer(function(player)
   local owner = player:get_player_name()
@@ -873,7 +927,7 @@ local function send_mail(player, mailbox)
     return false, S("The destination mailbox could not be loaded.")
   end
 
-  if node.name ~= "jc_special:mailbox" then
+  if not is_mailbox_node(node.name) then
     unregister_mailbox(pos)
     return false, S("The destination mailbox no longer exists.")
   end
@@ -1015,6 +1069,7 @@ core.register_node("jc_special:dropbox", {
   on_construct = function(pos)
     ensure_dropbox_visual(pos)
   end,
+
   after_place_node = function(pos, placer, itemstack, pointed_thing)
     ensure_dropbox_visual(pos)
   end,
@@ -1115,7 +1170,7 @@ core.register_on_player_receive_fields(function(player, formname, fields)
 
     local node = core.get_node_or_nil(pos)
 
-    if not node or node.name ~= "jc_special:mailbox" then
+    if not node or not is_mailbox_node(node.name) then
       return
     end
 
@@ -1186,7 +1241,7 @@ core.register_on_player_receive_fields(function(player, formname, fields)
     name = string.sub(name, 1, 40)
 
     if name == "" then
-      name = S("Mailbox")
+      name = node.name == "jc_special:mailbox_modern" and S("Modern Mailbox") or S("Mailbox")
     end
 
     meta:set_string("mailbox_name", name)

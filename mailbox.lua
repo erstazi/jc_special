@@ -598,10 +598,156 @@ local function get_public_mailboxes()
 end
 
 -- ============================================================
+-- DROPBOX ANIMATION
+-- The B3D contains 53 keyed frames at 60 FPS.
+-- The root bone has been fixed in the model so only the door moves:
+-- 1-10 opens, 10 is the open pose, 37-46 closes, 46 is closed.
+-- ============================================================
+
+local dropbox_entity_name = "jc_special:dropbox_visual"
+
+local function same_position(a, b)
+  return a and b and a.x == b.x and a.y == b.y and a.z == b.z
+end
+
+local function get_dropbox_visual(pos)
+  for _, object in ipairs(core.get_objects_inside_radius(pos, 0.75)) do
+    local entity = object:get_luaentity()
+
+    if entity and entity.name == dropbox_entity_name and same_position(entity.node_pos, pos) then
+      return object
+    end
+  end
+end
+
+local function ensure_dropbox_visual(pos, node)
+  node = node or core.get_node_or_nil(pos)
+
+  if not node or node.name ~= "jc_special:dropbox" then
+    return
+  end
+
+  local object = get_dropbox_visual(pos)
+
+  if not object then
+    object = core.add_entity(pos, dropbox_entity_name, core.serialize(pos))
+  end
+
+  if object then
+    -- Keep the entity's logical node position unchanged.
+    -- Move only its visual origin down to floor level.
+    object:set_pos({
+      x = pos.x,
+      y = pos.y - 0.5,
+      z = pos.z,
+    })
+
+    local direction = core.facedir_to_dir(node.param2 or 0)
+    object:set_yaw(core.dir_to_yaw(direction))
+    object:set_animation({x = 46, y = 46}, 60, 0, false)
+  end
+end
+
+local function set_dropbox_animation(pos, start_frame, end_frame)
+  local object = get_dropbox_visual(pos)
+
+  if not object then
+    ensure_dropbox_visual(pos)
+    object = get_dropbox_visual(pos)
+  end
+
+  if object then
+    object:set_animation({
+      x = start_frame,
+      y = end_frame,
+    }, 60, 0, false)
+  end
+end
+
+local function animate_dropbox_open(pos)
+  set_dropbox_animation(pos, 1, 10)
+
+  core.sound_play("default_chest_open", {
+    pos = pos,
+    gain = 0.7,
+    max_hear_distance = 12,
+  })
+end
+
+local function animate_dropbox_close(pos)
+  set_dropbox_animation(pos, 37, 46)
+
+  core.sound_play("default_chest_close", {
+    pos = pos,
+    gain = 0.7,
+    max_hear_distance = 12,
+  })
+end
+
+local function remove_dropbox_visual(pos)
+  local object = get_dropbox_visual(pos)
+
+  if object then
+    object:remove()
+  end
+end
+
+core.register_entity(dropbox_entity_name, {
+  initial_properties = {
+    physical = false,
+    collide_with_objects = false,
+    collisionbox = {0, 0, 0, 0, 0, 0},
+    selectionbox = {0, 0, 0, 0, 0, 0},
+    pointable = false,
+    visual = "mesh",
+    mesh = "jc_dropbox_animated_textured.b3d",
+    textures = {"jc_dropbox.png"},
+    -- visual_size = {x = 10, y = 10, z = 10},
+    visual_size = {x = 11, y = 12, z = 11},
+    static_save = false,
+  },
+
+  on_activate = function(self, staticdata)
+    self.node_pos = core.deserialize(staticdata)
+
+    if self.node_pos then
+      self.object:set_pos({
+        x = self.node_pos.x,
+        y = self.node_pos.y - 0.5,
+        z = self.node_pos.z,
+      })
+
+      self.object:set_animation({x = 46, y = 46}, 60, 0, false)
+    end
+  end,
+})
+
+local function dropbox_has_other_open_session(pos, except_player)
+  for player_name, session in pairs(dropbox_sessions) do
+    if player_name ~= except_player and same_position(session.pos, pos) then
+      return true
+    end
+  end
+
+  return false
+end
+
+local function close_dropbox_session(player)
+  local player_name = player:get_player_name()
+  local session = dropbox_sessions[player_name]
+
+  dropbox_sessions[player_name] = nil
+
+  if session and session.pos and not dropbox_has_other_open_session(session.pos, player_name) then
+    animate_dropbox_close(session.pos)
+  end
+end
+
+-- ============================================================
 -- DROPBOX FORMSPEC
 -- ============================================================
 
-local function dropbox_formspec(player)
+local function dropbox_formspec(player, pos)
   local player_name = player:get_player_name()
   local inv_name = dropbox_inventory_name(player_name)
   local recipients = get_public_mailboxes()
@@ -634,14 +780,36 @@ local function dropbox_formspec(player)
     "listring[detached:" .. inv_name .. ";send]" ..
     "listring[current_player;main]"
 
-  dropbox_sessions[player_name] = { recipients = recipients }
+  dropbox_sessions[player_name] = {
+    recipients = recipients,
+    pos = {x = pos.x, y = pos.y, z = pos.z},
+  }
 
   return formspec
 end
 
-local function show_dropbox(player)
+local function show_dropbox(player, pos, animate)
+  local player_name = player:get_player_name()
+  local previous_session = dropbox_sessions[player_name]
+
+  if not pos and previous_session then
+    pos = previous_session.pos
+  end
+
+  if not pos then
+    return
+  end
+
+  if previous_session and previous_session.pos and not same_position(previous_session.pos, pos) then
+    close_dropbox_session(player)
+  end
+
+  if animate ~= false then
+    animate_dropbox_open(pos)
+  end
+
   get_dropbox_inventory(player)
-  core.show_formspec(player:get_player_name(), "jc_special:dropbox", dropbox_formspec(player))
+  core.show_formspec(player_name, "jc_special:dropbox", dropbox_formspec(player, pos))
 end
 
 -- ============================================================
@@ -807,11 +975,11 @@ end
 core.register_node("jc_special:dropbox", {
   description = S("Dropbox"),
 
-  drawtype = "mesh",
-  mesh = "jc_dropbox.obj",
-
-  tiles = {
-    "jc_dropbox.png",
+  -- The visible B3D model is supplied by the animated entity above.
+  drawtype = "nodebox",
+  node_box = {
+    type = "fixed",
+    fixed = {},
   },
 
   inventory_image = "jc_special_dropbox_inv.png",
@@ -842,11 +1010,33 @@ core.register_node("jc_special:dropbox", {
     },
   },
 
+  on_construct = function(pos)
+    ensure_dropbox_visual(pos)
+  end,
+
+  after_place_node = function(pos, placer, itemstack, pointed_thing)
+    ensure_dropbox_visual(pos)
+  end,
+
   on_rightclick = function(pos, node, clicker)
-    show_dropbox(clicker)
+    show_dropbox(clicker, pos, true)
+  end,
+
+  on_destruct = function(pos)
+    remove_dropbox_visual(pos)
   end,
 
   on_blast = function()
+  end,
+})
+
+core.register_lbm({
+  label = "Restore Dropbox visuals",
+  name = "jc_special:restore_dropbox_visuals",
+  nodenames = {"jc_special:dropbox"},
+  run_at_every_load = true,
+  action = function(pos, node)
+    ensure_dropbox_visual(pos, node)
   end,
 })
 
@@ -1006,6 +1196,7 @@ core.register_on_player_receive_fields(function(player, formname, fields)
 
   if fields.quit then
     return_dropbox_items(player)
+    close_dropbox_session(player)
     return
   end
 
@@ -1023,7 +1214,7 @@ core.register_on_player_receive_fields(function(player, formname, fields)
 
   if not selected or selected == 1 or not session.recipients[selected - 1] then
     core.chat_send_player(player_name, S("Please select a recipient."))
-    show_dropbox(player)
+    show_dropbox(player, nil, false)
     return
   end
 
@@ -1032,7 +1223,7 @@ core.register_on_player_receive_fields(function(player, formname, fields)
 
   if not mailbox or not mailbox.public then
     core.chat_send_player(player_name, S("That mailbox is no longer available."))
-    show_dropbox(player)
+    show_dropbox(player, nil, false)
     return
   end
 
@@ -1042,7 +1233,7 @@ core.register_on_player_receive_fields(function(player, formname, fields)
     core.chat_send_player(player_name, message)
   end
 
-  show_dropbox(player)
+  show_dropbox(player, nil, false)
 end)
 
 -- Return any unsent items when a player disconnects.
@@ -1050,7 +1241,7 @@ core.register_on_leaveplayer(function(player)
   return_dropbox_items(player)
   return_maildrop_items(player)
 
-  dropbox_sessions[player:get_player_name()] = nil
+  close_dropbox_session(player)
   maildrop_sessions[player:get_player_name()] = nil
 end)
 

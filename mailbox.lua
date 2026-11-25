@@ -192,8 +192,10 @@ local function get_maildrop_inventory(player)
         return 0
       end,
     }, player_name)
+  end
 
-    inv:set_size("mail", 1)
+  if inv:get_size("mail") ~= 8 then
+    inv:set_size("mail", 8)
   end
 
   return inv
@@ -206,17 +208,25 @@ local function return_maildrop_items(player)
     name = maildrop_inventory_name(player_name),
   })
 
-  if not inv or inv:is_empty("mail") then
+  if not inv then
     return
   end
 
-  local leftover = player:get_inventory():add_item("main", inv:get_stack("mail", 1))
+  local player_inv = player:get_inventory()
 
-  if not leftover:is_empty() then
-    core.add_item(player:get_pos(), leftover)
+  for i = 1, inv:get_size("mail") do
+    local stack = inv:get_stack("mail", i)
+
+    if not stack:is_empty() then
+      local leftover = player_inv:add_item("main", stack)
+
+      if not leftover:is_empty() then
+        core.add_item(player:get_pos(), leftover)
+      end
+
+      inv:set_stack("mail", i, ItemStack(""))
+    end
   end
-
-  inv:set_stack("mail", 1, ItemStack(""))
 end
 
 local function maildrop_formspec(player, session)
@@ -230,15 +240,15 @@ local function maildrop_formspec(player, session)
 
   return
     "formspec_version[4]" ..
-    "size[10.5,10.5]" ..
+    "size[10.75,10.5]" ..
 
     "label[0.5,0.3;" .. S("Mailbox Owner: @1", owner) .. "]" ..
     "label[0.5,0.7;" .. S("Mailbox Name: @1", name) .. "]" ..
     "label[0.5,1.1;" .. S("Coordinates: @1", coords) .. "]" ..
 
     "label[0.5,1.8;" .. S("Place an item in the slot to deliver it.") .. "]" ..
-    "list[detached:" .. inv_name .. ";mail;4.75,2.3;1,1;]" ..
-    "button[3.75,3.8;3,0.8;deliver;" .. S("Deliver Mail") .. "]" ..
+    "list[detached:" .. inv_name .. ";mail;0.5,2.3;8,1;]" ..
+    "button[3.875,3.8;3,0.8;deliver;" .. S("Deliver Mail") .. "]" ..
 
     "label[0.5,5.0;" .. S("Your Inventory") .. "]" ..
     "list[current_player;main;0.5,5.4;8,1;]" ..
@@ -246,6 +256,25 @@ local function maildrop_formspec(player, session)
 
     "listring[detached:" .. inv_name .. ";mail]" ..
     "listring[current_player;main]"
+
+  -- return
+    -- "formspec_version[4]" ..
+    -- "size[10.5,10.5]" ..
+
+    -- "label[0.5,0.3;" .. S("Mailbox Owner: @1", owner) .. "]" ..
+    -- "label[0.5,0.7;" .. S("Mailbox Name: @1", name) .. "]" ..
+    -- "label[0.5,1.1;" .. S("Coordinates: @1", coords) .. "]" ..
+
+    -- "label[0.5,1.8;" .. S("Place an item in the slot to deliver it.") .. "]" ..
+    -- "list[detached:" .. inv_name .. ";mail;0.5,2.3;8,1;]" ..
+    -- "button[3.75,3.8;3,0.8;deliver;" .. S("Deliver Mail") .. "]" ..
+
+    -- "label[0.5,5.0;" .. S("Your Inventory") .. "]" ..
+    -- "list[current_player;main;0.5,5.4;8,1;]" ..
+    -- "list[current_player;main;0.5,6.6;8,3;8]" ..
+
+    -- "listring[detached:" .. inv_name .. ";mail]" ..
+    -- "listring[current_player;main]"
 end
 
 local function show_maildrop(player, pos)
@@ -259,13 +288,7 @@ local function show_maildrop(player, pos)
 
   local inv = get_maildrop_inventory(player)
 
-  if not inv:is_empty("mail") then
-    local leftover = player:get_inventory():add_item("main", inv:get_stack("mail", 1))
-    if not leftover:is_empty() then
-      core.add_item(player:get_pos(), leftover)
-    end
-    inv:set_stack("mail", 1, ItemStack(""))
-  end
+  return_maildrop_items(player)
 
   maildrop_sessions[player_name] = {
     pos = pos,
@@ -333,23 +356,43 @@ local function deliver_maildrop(player)
     return false, S("Please place an item in the delivery slot.")
   end
 
-  local stack = source_inv:get_stack("mail", 1)
-  local item_count = stack:get_count()
+  local item_count = 0
 
-  if meta:get_int("allow_starter_items") ~= 1 and is_starter_item(stack) then
-    return false, S("This mailbox does not accept starter items: @1", stack:get_name())
+  for i = 1, source_inv:get_size("mail") do
+    local stack = source_inv:get_stack("mail", i)
+
+    if not stack:is_empty() then
+      if meta:get_int("allow_starter_items") ~= 1 and is_starter_item(stack) then
+        return false, S("This mailbox does not accept starter items: @1", stack:get_name())
+      end
+
+      item_count = item_count + stack:get_count()
+    end
+  end
+
+  if item_count == 0 then
+    return false, S("Please place an item in the delivery slot.")
   end
 
   local destination_inv = meta:get_inventory()
   local backup = destination_inv:get_list("main")
-  local leftover = destination_inv:add_item("main", stack)
 
-  if not leftover:is_empty() then
-    destination_inv:set_list("main", backup)
-    return false, S("The mailbox does not have enough room.")
+  for i = 1, source_inv:get_size("mail") do
+    local stack = source_inv:get_stack("mail", i)
+
+    if not stack:is_empty() then
+      local leftover = destination_inv:add_item("main", stack)
+
+      if not leftover:is_empty() then
+        destination_inv:set_list("main", backup)
+        return false, S("The mailbox does not have enough room.")
+      end
+    end
   end
 
-  source_inv:set_stack("mail", 1, ItemStack(""))
+  for i = 1, source_inv:get_size("mail") do
+    source_inv:set_stack("mail", i, ItemStack(""))
+  end
 
   local mailbox_name = meta:get_string("mailbox_name")
   local coords = core.colorize("#FFFF00", core.pos_to_string(pos))

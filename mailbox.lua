@@ -668,7 +668,7 @@ end
 local function animate_dropbox_open(pos)
   set_dropbox_animation(pos, 1, 10)
 
-  core.sound_play("default_chest_open", {
+  core.sound_play("dropbox_open", {
     pos = pos,
     gain = 0.7,
     max_hear_distance = 12,
@@ -678,7 +678,7 @@ end
 local function animate_dropbox_close(pos)
   set_dropbox_animation(pos, 37, 46)
 
-  core.sound_play("default_chest_close", {
+  core.sound_play("dropbox_close", {
     pos = pos,
     gain = 0.7,
     max_hear_distance = 12,

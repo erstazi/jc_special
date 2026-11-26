@@ -828,6 +828,17 @@ register_mailbox_node(
       { 3/12,  0/12, -4/12,  4/12,  5/12, -2/12},  -- vertical flag post
       { 3/12,  3/12, -2/12,  4/12,  5/12,  0/12},  -- horizontal flag
     },
+
+    --[[
+    fixed = {
+      {-4/12, -6/12, -6/12,  4/12,  0/12,  6/12},  -- main body
+      {-3/12,  0/12, -6/12,  3/12,  2/12,  6/12},  -- lid
+
+      -- Lowered flag.
+      { 3/12, -1/12, -3/12,  4/12,  1/12,  2/12},  -- horizontal flag post
+      { 3/12, -3/12,  0/12,  4/12, -1/12,  2/12},  -- vertical flag
+    },
+    ]]
   }
 )
 
@@ -927,7 +938,7 @@ core.register_node(community_mailbox_node, {
   tiles = {"jc_community_mailbox.png"},
   paramtype = "light",
   paramtype2 = "4dir",
-  sunlight_propagates = true,
+  sunlight_propagates = false,
   walkable = true,
   pointable = true,
   diggable = true,

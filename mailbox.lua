@@ -1353,6 +1353,10 @@ local function dropbox_formspec(player, pos, category)
   local recipients = get_public_mailboxes(category)
   local options = {S("Please select a recipient")}
 
+  table.sort(recipients, function(a, b)
+    return a.owner:lower() < b.owner:lower()
+  end)
+
   for _, mailbox in ipairs(recipients) do
     local label
 

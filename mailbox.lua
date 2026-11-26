@@ -573,6 +573,78 @@ core.register_craft({
   },
 })
 
+
+-- Community Mailbox Model Test
+-- Temporary node for testing the B3D model and texture.
+
+
+core.register_node("jc_special:community_mailbox_test", {
+  description = "Community Mailbox (Model Test)",
+  drawtype = "mesh",
+  mesh = "jc_community_mailbox.obj",
+  tiles = {"jc_community_mailbox.png"},
+
+  paramtype = "light",
+  paramtype2 = "facedir",
+
+  sunlight_propagates = true,
+  walkable = true,
+  pointable = true,
+  diggable = true,
+
+  groups = {
+    cracky = 2,
+    oddly_breakable_by_hand = 2
+  },
+
+  -- Cabinet is approximately 2 nodes tall.
+  -- Model origin is centered horizontally at its bottom.
+  selection_box = {
+    type = "fixed",
+    fixed = {
+      -1.02, -0.5, -0.46,
+       1.02,  1.5,  0.46
+    }
+  },
+
+  collision_box = {
+    type = "fixed",
+    fixed = {
+      -1.02, -0.5, -0.46,
+       1.02,  1.5,  0.46
+    }
+  },
+
+  on_place = function(itemstack, placer, pointed_thing)
+    local pos = pointed_thing.above
+    local node = core.get_node(pos)
+
+    local dir = placer:get_look_dir()
+    local facedir = core.dir_to_facedir({x = -dir.x, y = 0, z = -dir.z})
+
+    core.set_node(pos, {
+      name = "jc_special:community_mailbox_test",
+      param2 = facedir
+    })
+
+    if not core.is_creative_enabled(placer:get_player_name()) then
+      itemstack:take_item()
+    end
+
+    return itemstack
+  end,
+
+  on_construct = function(pos)
+    core.log("action", "[jc_special] Community Mailbox test placed at " .. core.pos_to_string(pos))
+  end,
+
+  on_destruct = function(pos)
+    core.log("action", "[jc_special] Community Mailbox test removed at " .. core.pos_to_string(pos))
+  end
+})
+
+
+
 -- ============================================================
 -- OFFLINE NOTIFICATION QUEUE
 -- ============================================================

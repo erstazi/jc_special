@@ -48,6 +48,303 @@ local function item_word(count)
 end
 
 -- ============================================================
+-- COMMUNITY / APARTMENT MAILBOX BACKEND
+-- ============================================================
+
+local community_mailboxes = core.deserialize(storage:get_string("community_mailbox_registry")) or {}
+local apartment_mailbox_sessions = {}
+local apartment_mailbox_inventory_size = 32
+
+local function apartment_mailbox_id(category, descr)
+  return category .. "\0" .. descr
+end
+
+local function apartment_mailbox_storage_key(category, descr)
+  return "apartment_mailbox:" .. core.sha1(apartment_mailbox_id(category, descr))
+end
+
+local function apartment_mailbox_inventory_name(category, descr)
+  return "jc_special_apartment_mailbox_" .. core.sha1(apartment_mailbox_id(category, descr))
+end
+
+local function get_apartment_original_owner(record)
+  if record.original_owner ~= nil then
+    return record.original_owner
+  end
+
+  -- Older apartment.data migrations may omit original_owner from the registry.
+  -- The apartment panel metadata remains authoritative for that value.
+  if record.pos then
+    core.load_area(record.pos, record.pos)
+    return core.get_meta(record.pos):get_string("original_owner")
+  end
+
+  return ""
+end
+
+local function get_apartment_record(category, descr)
+  if not apartment or not apartment.apartments then
+    return nil
+  end
+
+  local category_data = apartment.apartments[category]
+  local record = category_data and category_data[descr]
+
+  if not record or not record.pos then
+    return nil
+  end
+
+  local owner = record.owner or ""
+  local original_owner = get_apartment_original_owner(record)
+
+  -- The apartment mod represents a vacant apartment with owner == original_owner.
+  if owner == "" or owner == original_owner then
+    return nil
+  end
+
+  return record
+end
+
+local function find_player_apartment(player_name, category)
+  if not apartment or not apartment.apartments or not apartment.apartments[category] then
+    return nil
+  end
+
+  for descr, record in pairs(apartment.apartments[category]) do
+    if record and record.owner == player_name and record.owner ~= get_apartment_original_owner(record) then
+      return descr, record
+    end
+  end
+end
+
+local function save_apartment_mailbox_inventory(category, descr, inv)
+  local items = {}
+
+  for i = 1, inv:get_size("main") do
+    items[i] = inv:get_stack("main", i):to_string()
+  end
+
+  storage:set_string(apartment_mailbox_storage_key(category, descr), core.serialize(items))
+end
+
+local function apartment_mailbox_access_allowed(player, category, descr)
+  if not player then
+    return false
+  end
+
+  local player_name = player:get_player_name()
+  local session = apartment_mailbox_sessions[player_name]
+  local record = get_apartment_record(category, descr)
+
+  return session ~= nil
+    and session.category == category
+    and session.descr == descr
+    and record ~= nil
+    and record.owner == player_name
+end
+
+local function get_apartment_mailbox_inventory(category, descr)
+  local inv_name = apartment_mailbox_inventory_name(category, descr)
+  local inv = core.get_inventory({type = "detached", name = inv_name})
+
+  if inv then
+    return inv
+  end
+
+  inv = core.create_detached_inventory(inv_name, {
+    allow_put = function(inventory, listname, index, stack, player)
+      if listname == "main" and apartment_mailbox_access_allowed(player, category, descr) then
+        return stack:get_count()
+      end
+      return 0
+    end,
+
+    allow_take = function(inventory, listname, index, stack, player)
+      if listname == "main" and apartment_mailbox_access_allowed(player, category, descr) then
+        return stack:get_count()
+      end
+      return 0
+    end,
+
+    allow_move = function(inventory, from_list, from_index, to_list, to_index, count, player)
+      if from_list == "main" and to_list == "main"
+          and apartment_mailbox_access_allowed(player, category, descr) then
+        return count
+      end
+      return 0
+    end,
+
+    on_put = function(inventory)
+      save_apartment_mailbox_inventory(category, descr, inventory)
+    end,
+
+    on_take = function(inventory)
+      save_apartment_mailbox_inventory(category, descr, inventory)
+    end,
+
+    on_move = function(inventory)
+      save_apartment_mailbox_inventory(category, descr, inventory)
+    end,
+  })
+
+  inv:set_size("main", apartment_mailbox_inventory_size)
+
+  local saved = core.deserialize(storage:get_string(apartment_mailbox_storage_key(category, descr))) or {}
+
+  for i = 1, apartment_mailbox_inventory_size do
+    if saved[i] then
+      inv:set_stack("main", i, ItemStack(saved[i]))
+    end
+  end
+
+  return inv
+end
+
+local function destroy_apartment_mailbox(category, descr)
+  local inv_name = apartment_mailbox_inventory_name(category, descr)
+  local storage_key = apartment_mailbox_storage_key(category, descr)
+
+  -- Remove the persistent data first: a future rental must start empty.
+  storage:set_string(storage_key, "")
+
+  -- Empty the live detached inventory before removing it. This also protects
+  -- against an engine refusing removal while a stale formspec is still open.
+  local inv = core.get_inventory({type = "detached", name = inv_name})
+  if inv then
+    for i = 1, inv:get_size("main") do
+      inv:set_stack("main", i, ItemStack(""))
+    end
+  end
+
+  if core.remove_detached_inventory then
+    core.remove_detached_inventory(inv_name)
+  end
+
+  local id = apartment_mailbox_id(category, descr)
+
+  for player_name, session in pairs(apartment_mailbox_sessions) do
+    if session.id == id then
+      apartment_mailbox_sessions[player_name] = nil
+      if core.close_formspec then
+        core.close_formspec(player_name, "jc_special:apartment_mailbox")
+      end
+    end
+  end
+
+  core.log("action", "[jc_special] Destroyed apartment mailbox " .. descr .. "@" .. category)
+end
+
+local function save_community_mailboxes()
+  storage:set_string("community_mailbox_registry", core.serialize(community_mailboxes))
+end
+
+local function register_community_mailbox(pos, owner, category)
+  community_mailboxes[core.pos_to_string(pos)] = {
+    pos = pos,
+    owner = owner,
+    category = category,
+  }
+  save_community_mailboxes()
+end
+
+local function unregister_community_mailbox(pos)
+  community_mailboxes[core.pos_to_string(pos)] = nil
+  save_community_mailboxes()
+end
+
+local function has_community_mailbox_category(category)
+  for _, cabinet in pairs(community_mailboxes) do
+    if cabinet.category == category then
+      return true
+    end
+  end
+  return false
+end
+
+local function apartment_mailbox_formspec(pos, category, descr)
+  local inv_name = apartment_mailbox_inventory_name(category, descr)
+  local inventory_location = "detached:" .. inv_name
+  local display_name = S("Apartment @1 Mailbox", descr)
+  local display_coords = ESC(core.pos_to_string(pos))
+
+  return
+    "formspec_version[4]" ..
+    "size[10.5,15.0]" ..
+    "label[0.4,0.25;" .. S("Coordinates: @1", display_coords) .. "]" ..
+    "label[0.4,1.0;" .. S("Mailbox Name") .. ": " .. ESC(display_name) .. "]" ..
+    "label[0.4,2.1;" .. S("Mailbox Contents") .. "]" ..
+    "listcolors[#80808080;#c0c0c0;#000000;#686868;#ffffff]" ..
+    "list[" .. inventory_location .. ";main;0.4,3.4;8,4;]" ..
+    "button[3,8.3;4,0.8;getitems;" .. ESC(S("Get Mailbox Items")) .. "]" ..
+    "label[0.4,9.5;" .. S("Your Inventory") .. "]" ..
+    "list[current_player;main;0.4,9.9;8,1;]" ..
+    "list[current_player;main;0.4,11.1;8,3;8]" ..
+    "listring[" .. inventory_location .. ";main]" ..
+    "listring[current_player;main]"
+end
+
+local function show_apartment_mailbox(player, category, descr)
+  local player_name = player:get_player_name()
+  local record = get_apartment_record(category, descr)
+
+  if not record or record.owner ~= player_name then
+    core.chat_send_player(player_name, S("You do not currently rent this apartment."))
+    return false
+  end
+
+  apartment_mailbox_sessions[player_name] = {
+    id = apartment_mailbox_id(category, descr),
+    category = category,
+    descr = descr,
+  }
+
+  get_apartment_mailbox_inventory(category, descr)
+  core.show_formspec(player_name, "jc_special:apartment_mailbox", apartment_mailbox_formspec(record.pos, category, descr))
+  return true
+end
+
+local function install_apartment_rental_hook()
+  if not apartment or type(apartment.rent) ~= "function" or apartment._jc_special_mailbox_hook then
+    return
+  end
+
+  local original_rent = apartment.rent
+
+  apartment.rent = function(pos, new_owner, oldmetadata, actor)
+    local fields = oldmetadata and oldmetadata.fields
+    local category = fields and fields.category or core.get_meta(pos):get_string("category")
+    local descr = fields and fields.descr or core.get_meta(pos):get_string("descr")
+    local original_owner = fields and fields.original_owner or core.get_meta(pos):get_string("original_owner")
+    local previous_owner = fields and fields.owner or core.get_meta(pos):get_string("owner")
+
+    local success, result = original_rent(pos, new_owner, oldmetadata, actor)
+
+    if success and category ~= "" and descr ~= "" then
+      local apartment_removed = oldmetadata ~= nil
+      local tenant_relinquished = previous_owner ~= ""
+        and previous_owner ~= original_owner
+        and new_owner ~= previous_owner
+
+      if apartment_removed or tenant_relinquished then
+        destroy_apartment_mailbox(category, descr)
+      end
+    end
+
+    return success, result
+  end
+
+  apartment._jc_special_mailbox_hook = true
+  core.log("action", "[jc_special] Hooked apartment rental lifecycle for mailbox cleanup.")
+end
+
+core.register_on_mods_loaded(function()
+  install_apartment_rental_hook()
+  if not apartment then
+    core.log("warning", "[jc_special] Apartment mod is not loaded; Community Mailboxes will be unavailable.")
+  end
+end)
+
+-- ============================================================
 -- MAILBOX REGISTRY
 -- ============================================================
 
@@ -574,75 +871,187 @@ core.register_craft({
 })
 
 
--- Community Mailbox Model Test
--- Temporary node for testing the B3D model and texture.
+-- ============================================================
+-- COMMUNITY MAILBOX NODE
+-- One OBJ-backed cabinet serves every apartment in its configured category.
+-- The node itself is the functional anchor; the mesh is rendered directly.
+-- ============================================================
+
+local community_mailbox_node = "jc_special:community_mailbox"
+
+local function community_mailbox_formspec(pos, player)
+  local meta = core.get_meta(pos)
+  local owner = meta:get_string("owner")
+  local category = meta:get_string("category")
+  local player_name = player:get_player_name()
+  local descr = category ~= "" and find_player_apartment(player_name, category) or nil
+  local coords = ESC(core.pos_to_string(pos))
+
+  local formspec =
+    "formspec_version[4]" ..
+    "size[8,5.5]"
+
+  if category ~= "" then
+    formspec = formspec ..
+      "label[0.5,0.35;" .. S("Community Mailbox: @1 @2", ESC(category), coords) .. "]"
+  else
+    formspec = formspec ..
+      "label[0.5,0.35;" .. S("Community Mailbox") .. "]"
+
+    if player_name == owner then
+      formspec = formspec ..
+        "field[0.5,1.5;5.5,0.8;category;" .. S("Apartment Category") .. ";]" ..
+        "button[6.0,1.5;1.5,0.8;save_category;" .. S("Save") .. "]"
+    else
+      formspec = formspec ..
+        "label[0.5,1.1;" .. S("This cabinet has not been configured.") .. "]"
+    end
+  end
+
+  if descr then
+    formspec = formspec ..
+      "button[0.5,2.5;7,0.9;my_apartment_mailbox;" .. S("My Apartment Mailbox") .. "]"
+  end
+
+  formspec = formspec ..
+    "button[0.5,3.7;7,0.9;send_mail;" .. S("Send Mail") .. "]"
+
+  return formspec
+end
 
 
-core.register_node("jc_special:community_mailbox_test", {
-  description = "Community Mailbox (Model Test)",
+core.register_node(community_mailbox_node, {
+  description = S("Community Mailbox"),
   drawtype = "mesh",
   mesh = "jc_community_mailbox.obj",
   tiles = {"jc_community_mailbox.png"},
-
   paramtype = "light",
-  paramtype2 = "facedir",
-
+  paramtype2 = "4dir",
   sunlight_propagates = true,
   walkable = true,
   pointable = true,
   diggable = true,
-
-  groups = {
-    cracky = 2,
-    oddly_breakable_by_hand = 2
-  },
-
-  -- Cabinet is approximately 2 nodes tall.
-  -- Model origin is centered horizontally at its bottom.
+  is_ground_content = false,
+  sounds = default.node_sound_metal_defaults(),
+  groups = {cracky = 2, oddly_breakable_by_hand = 2},
   selection_box = {
     type = "fixed",
-    fixed = {
-      -1.02, -0.5, -0.46,
-       1.02,  1.5,  0.46
-    }
+    fixed = {-1.02, -0.5, -0.46, 1.02, 1.5, 0.46},
   },
-
   collision_box = {
     type = "fixed",
-    fixed = {
-      -1.02, -0.5, -0.46,
-       1.02,  1.5,  0.46
-    }
+    fixed = {-1.02, -0.5, -0.46, 1.02, 1.5, 0.46},
   },
 
   on_place = function(itemstack, placer, pointed_thing)
-    local pos = pointed_thing.above
-    local node = core.get_node(pos)
-
-    local dir = placer:get_look_dir()
-    local facedir = core.dir_to_facedir({x = -dir.x, y = 0, z = -dir.z})
-
-    core.set_node(pos, {
-      name = "jc_special:community_mailbox_test",
-      param2 = facedir
-    })
-
-    if not core.is_creative_enabled(placer:get_player_name()) then
-      itemstack:take_item()
+    if not pointed_thing or pointed_thing.type ~= "node" or not placer then
+      return itemstack
     end
 
-    return itemstack
+    local pos = pointed_thing.above
+    local upper_pos = {x = pos.x, y = pos.y + 1, z = pos.z}
+    local player_name = placer:get_player_name()
+
+    if core.is_protected(pos, player_name) or core.is_protected(upper_pos, player_name) then
+      core.record_protection_violation(pos, player_name)
+      return itemstack
+    end
+
+    local lower_node = core.get_node_or_nil(pos)
+    local upper_node = core.get_node_or_nil(upper_pos)
+
+    if not lower_node or not upper_node then
+      return itemstack
+    end
+
+    if not core.registered_nodes[lower_node.name].buildable_to
+        or not core.registered_nodes[upper_node.name].buildable_to then
+      return itemstack
+    end
+
+    return core.item_place_node(itemstack, placer, pointed_thing)
   end,
 
   on_construct = function(pos)
-    core.log("action", "[jc_special] Community Mailbox test placed at " .. core.pos_to_string(pos))
+    local meta = core.get_meta(pos)
+    meta:set_string("owner", "")
+    meta:set_string("category", "")
+    meta:set_string("infotext", S("Community Mailbox (unconfigured)"))
+  end,
+
+  after_place_node = function(pos, placer)
+    local owner = placer:get_player_name()
+    local meta = core.get_meta(pos)
+
+    meta:set_string("owner", owner)
+    meta:set_string("infotext", S("Community Mailbox (Owner: @1)", owner))
+
+    -- Match the Dropbox model's 180-degree orientation offset.
+    local node = core.get_node(pos)
+    core.swap_node(pos, {
+      name = node.name,
+      param2 = (node.param2 + 2) % 4,
+    })
+
+    register_community_mailbox(pos, owner, meta:get_string("category"))
+  end,
+
+  on_rotate = function(pos, node, user, mode, new_param2)
+    local player_name = user:get_player_name()
+    local upper_pos = {x = pos.x, y = pos.y + 1, z = pos.z}
+
+    if core.is_protected(pos, player_name) or core.is_protected(upper_pos, player_name) then
+      core.record_protection_violation(pos, player_name)
+      return false
+    end
+
+    core.swap_node(pos, {name = node.name, param2 = new_param2 % 4})
+    return true
+  end,
+
+  on_rightclick = function(pos, node, clicker)
+    core.show_formspec(
+      clicker:get_player_name(),
+      "jc_special:community_mailbox:" .. core.pos_to_string(pos),
+      community_mailbox_formspec(pos, clicker)
+    )
+  end,
+
+  can_dig = function(pos, player)
+    local owner = core.get_meta(pos):get_string("owner")
+    return owner == "" or player:get_player_name() == owner
   end,
 
   on_destruct = function(pos)
-    core.log("action", "[jc_special] Community Mailbox test removed at " .. core.pos_to_string(pos))
-  end
+    unregister_community_mailbox(pos)
+  end,
+
+  on_blast = function()
+  end,
 })
 
+-- Convert already-placed temporary test nodes to the functional node.
+core.register_alias("jc_special:community_mailbox_test", community_mailbox_node)
+
+core.register_lbm({
+  label = "Restore Community Mailbox registry",
+  name = "jc_special:restore_community_mailbox_registry",
+  nodenames = {community_mailbox_node},
+  run_at_every_load = true,
+  action = function(pos)
+    local meta = core.get_meta(pos)
+    register_community_mailbox(pos, meta:get_string("owner"), meta:get_string("category"))
+  end,
+})
+
+-- core.register_craft({
+--   output = community_mailbox_node,
+--   recipe = {
+--     {"default:steel_ingot", "default:steel_ingot", "default:steel_ingot"},
+--     {"default:steel_ingot", "jc_special:mailbox", "default:steel_ingot"},
+--     {"default:steel_ingot", "default:steel_ingot", "default:steel_ingot"},
+--   },
+-- })
 
 
 -- ============================================================
@@ -651,24 +1060,26 @@ core.register_node("jc_special:community_mailbox_test", {
 
 core.register_on_joinplayer(function(player)
   local owner = player:get_player_name()
-  local key = notification_key(owner)
-  local notifications = core.deserialize(storage:get_string(key)) or {}
 
-  if #notifications == 0 then
-    return
-  end
+  core.after(2, function()
+    local key = notification_key(owner)
+    local notifications = core.deserialize(storage:get_string(key)) or {}
 
-  -- Clear before sending to avoid duplicate notifications.
-  storage:set_string(key, "")
+    if #notifications == 0 then
+      return
+    end
 
-  for _, message in ipairs(notifications) do
-    core.chat_send_player(owner, message)
-  end
+    storage:set_string(key, "")
 
-  core.sound_play("incoming_mailbox", {
-    to_player = owner,
-    gain = 0.6,
-  })
+    for _, message in ipairs(notifications) do
+      core.chat_send_player(owner, message)
+    end
+
+    core.sound_play("incoming_mailbox", {
+      to_player = owner,
+      gain = 0.6
+    })
+  end)
 end)
 
 -- ============================================================
@@ -723,12 +1134,13 @@ end
 -- PUBLIC MAILBOX LIST
 -- ============================================================
 
-local function get_public_mailboxes()
+local function get_public_mailboxes(category_filter)
   local result = {}
 
   for id, mailbox in pairs(mailboxes) do
-    if mailbox.public then
+    if not category_filter and mailbox.public then
       result[#result + 1] = {
+        type = "mailbox",
         id = id,
         owner = mailbox.owner,
         name = mailbox.name,
@@ -737,11 +1149,47 @@ local function get_public_mailboxes()
     end
   end
 
-  table.sort(result, function(a, b)
-    if a.owner == b.owner then
-      return a.name < b.name
+  local categories = {}
+
+  if category_filter and category_filter ~= "" then
+    categories[category_filter] = true
+  elseif not category_filter then
+    for _, cabinet in pairs(community_mailboxes) do
+      if cabinet.category and cabinet.category ~= "" then
+        categories[cabinet.category] = true
+      end
     end
-    return a.owner < b.owner
+  end
+
+  if apartment and apartment.apartments then
+    for category in pairs(categories) do
+      local category_data = apartment.apartments[category] or {}
+
+      for descr, record in pairs(category_data) do
+        if record and record.owner and record.owner ~= ""
+            and record.owner ~= get_apartment_original_owner(record) then
+          result[#result + 1] = {
+            type = "apartment",
+            id = "apartment:" .. apartment_mailbox_id(category, descr),
+            category = category,
+            descr = descr,
+            owner = record.owner,
+            name = S("Apartment @1", descr),
+            pos = record.pos,
+          }
+        end
+      end
+    end
+  end
+
+  table.sort(result, function(a, b)
+    local a_name = a.type == "apartment"
+      and (a.name .. " - " .. a.owner .. " (" .. a.category .. ")")
+      or (a.owner .. " - " .. a.name)
+    local b_name = b.type == "apartment"
+      and (b.name .. " - " .. b.owner .. " (" .. b.category .. ")")
+      or (b.owner .. " - " .. b.name)
+    return a_name < b_name
   end)
 
   return result
@@ -890,7 +1338,7 @@ local function close_dropbox_session(player)
 
   dropbox_sessions[player_name] = nil
 
-  if session and session.pos and not dropbox_has_other_open_session(session.pos, player_name) then
+  if session and session.animate and session.pos and not dropbox_has_other_open_session(session.pos, player_name) then
     animate_dropbox_close(session.pos)
   end
 end
@@ -899,15 +1347,23 @@ end
 -- DROPBOX FORMSPEC
 -- ============================================================
 
-local function dropbox_formspec(player, pos)
+local function dropbox_formspec(player, pos, category)
   local player_name = player:get_player_name()
   local inv_name = dropbox_inventory_name(player_name)
-  local recipients = get_public_mailboxes()
+  local recipients = get_public_mailboxes(category)
   local options = {S("Please select a recipient")}
 
   for _, mailbox in ipairs(recipients) do
-    local coords = mailbox.pos and core.pos_to_string(mailbox.pos) or mailbox.id
-    options[#options + 1] = ESC(mailbox.owner .. " - " .. mailbox.name .. " " .. coords .. "")
+    local label
+
+    if mailbox.type == "apartment" then
+      label = S("Apartment @1 - @2 (@3)", mailbox.descr, mailbox.owner, mailbox.category)
+    else
+      local coords = mailbox.pos and core.pos_to_string(mailbox.pos) or mailbox.id
+      label = mailbox.owner .. " - " .. mailbox.name .. " " .. coords
+    end
+
+    options[#options + 1] = ESC(label)
   end
 
   local formspec =
@@ -935,17 +1391,22 @@ local function dropbox_formspec(player, pos)
   dropbox_sessions[player_name] = {
     recipients = recipients,
     pos = {x = pos.x, y = pos.y, z = pos.z},
+    category = category,
   }
 
   return formspec
 end
 
-local function show_dropbox(player, pos, animate)
+local function show_dropbox(player, pos, animate, category)
   local player_name = player:get_player_name()
   local previous_session = dropbox_sessions[player_name]
+  local reopening = pos == nil
 
-  if not pos and previous_session then
+  if reopening and previous_session then
     pos = previous_session.pos
+    if category == nil then
+      category = previous_session.category
+    end
   end
 
   if not pos then
@@ -961,7 +1422,11 @@ local function show_dropbox(player, pos, animate)
   end
 
   get_dropbox_inventory(player)
-  core.show_formspec(player_name, "jc_special:dropbox", dropbox_formspec(player, pos))
+  core.show_formspec(player_name, "jc_special:dropbox", dropbox_formspec(player, pos, category))
+
+  if dropbox_sessions[player_name] then
+    dropbox_sessions[player_name].animate = animate ~= false
+  end
 end
 
 -- ============================================================
@@ -1004,39 +1469,70 @@ end
 local function send_mail(player, mailbox)
   local player_name = player:get_player_name()
 
-  if not mailbox or not mailbox.public then
-    return false, S("That mailbox is no longer available.")
-  end
-
-  if mailbox.owner == "" then
+  if not mailbox then
     return false, S("Invalid mailbox owner.")
   end
 
-  local pos = mailbox.pos
+  local destination_inv
+  local recipient_owner
+  local mailbox_name
+  local mailbox_pos
+  local allow_starter_items
+  local notifications
+  local is_apartment_mailbox = mailbox.type == "apartment"
 
-  -- Load the destination area before accessing the mailbox.
-  core.load_area(pos, pos)
+  if is_apartment_mailbox then
+    local record = get_apartment_record(mailbox.category, mailbox.descr)
 
-  local node = core.get_node_or_nil(pos)
+    if not has_community_mailbox_category(mailbox.category) then
+      return false, S("That apartment mailbox is no longer served by a Community Mailbox.")
+    end
 
-  if not node then
-    return false, S("The destination mailbox could not be loaded.")
+    if not record or record.owner ~= mailbox.owner then
+      return false, S("That apartment mailbox is no longer available.")
+    end
+
+    mailbox_pos = record.pos
+    core.load_area(mailbox_pos, mailbox_pos)
+
+    destination_inv = get_apartment_mailbox_inventory(mailbox.category, mailbox.descr)
+    recipient_owner = record.owner
+    mailbox_name = S("Apartment @1", mailbox.descr)
+    allow_starter_items = false
+    notifications = true
+  else
+    if not mailbox.public or mailbox.owner == "" then
+      return false, S("That mailbox is no longer available.")
+    end
+
+    mailbox_pos = mailbox.pos
+    core.load_area(mailbox_pos, mailbox_pos)
+
+    local node = core.get_node_or_nil(mailbox_pos)
+
+    if not node then
+      return false, S("The destination mailbox could not be loaded.")
+    end
+
+    if not is_mailbox_node(node.name) then
+      unregister_mailbox(mailbox_pos)
+      return false, S("The destination mailbox no longer exists.")
+    end
+
+    local meta = core.get_meta(mailbox_pos)
+
+    if meta:get_string("owner") ~= mailbox.owner then
+      unregister_mailbox(mailbox_pos)
+      return false, S("The mailbox owner has changed.")
+    end
+
+    local settings = get_settings(meta)
+    destination_inv = meta:get_inventory()
+    recipient_owner = mailbox.owner
+    mailbox_name = meta:get_string("mailbox_name")
+    allow_starter_items = settings.allow_starter_items
+    notifications = settings.notifications
   end
-
-  if not is_mailbox_node(node.name) then
-    unregister_mailbox(pos)
-    return false, S("The destination mailbox no longer exists.")
-  end
-
-  local meta = core.get_meta(pos)
-
-  if meta:get_string("owner") ~= mailbox.owner then
-    unregister_mailbox(pos)
-    return false, S("The mailbox owner has changed.")
-  end
-
-  local settings = get_settings(meta)
-  local destination_inv = meta:get_inventory()
 
   local source_inv = core.get_inventory({
     type = "detached",
@@ -1047,14 +1543,13 @@ local function send_mail(player, mailbox)
     return false, S("You have no items to send.")
   end
 
-  -- Validate every item before changing either inventory.
   local item_count = 0
 
   for i = 1, source_inv:get_size("send") do
     local stack = source_inv:get_stack("send", i)
 
     if not stack:is_empty() then
-      if not settings.allow_starter_items and is_starter_item(stack) then
+      if not allow_starter_items and is_starter_item(stack) then
         return false, S("This mailbox does not accept starter items: @1", stack:get_name())
       end
 
@@ -1066,10 +1561,8 @@ local function send_mail(player, mailbox)
     return false, S("You have no items to send.")
   end
 
-  -- Back up the destination inventory.
   local backup = destination_inv:get_list("main")
 
-  -- Attempt the entire transfer.
   for i = 1, source_inv:get_size("send") do
     local stack = source_inv:get_stack("send", i)
 
@@ -1077,23 +1570,24 @@ local function send_mail(player, mailbox)
       local leftover = destination_inv:add_item("main", stack)
 
       if not leftover:is_empty() then
-        -- Restore the destination if anything failed.
         destination_inv:set_list("main", backup)
         return false, S("The recipient mailbox does not have enough room.")
       end
     end
   end
 
-  -- Delivery succeeded. Clear the sending inventory.
+  if is_apartment_mailbox then
+    save_apartment_mailbox_inventory(mailbox.category, mailbox.descr, destination_inv)
+  end
+
   for i = 1, source_inv:get_size("send") do
     source_inv:set_stack("send", i, ItemStack(""))
   end
 
-  local mailbox_name = meta:get_string("mailbox_name")
-  local coords = core.colorize("#FFFF00", core.pos_to_string(pos))
+  local coords = core.colorize("#FFFF00", core.pos_to_string(mailbox_pos))
   local colored_count = core.colorize("#FFFF00", tostring(item_count))
 
-  if settings.notifications then
+  if notifications then
     local message = S(
       "[Mailbox] @1 sent @2 @3 to your mailbox '@4' at @5.",
       core.colorize("#00FF00", player_name),
@@ -1103,7 +1597,7 @@ local function send_mail(player, mailbox)
       coords
     )
 
-    queue_notification(mailbox.owner, message)
+    queue_notification(recipient_owner, message)
   end
 
   core.sound_play("default_item_smoke", {to_player = player_name, gain = 0.6})
@@ -1113,7 +1607,7 @@ local function send_mail(player, mailbox)
     colored_count,
     item_word(item_count),
     mailbox_name,
-    core.colorize("#00FF00", mailbox.owner),
+    core.colorize("#00FF00", recipient_owner),
     coords
   ))
 
@@ -1228,6 +1722,124 @@ end
 
 core.register_on_player_receive_fields(function(player, formname, fields)
   local player_name = player:get_player_name()
+
+  -- ----------------------------------------------------------
+  -- COMMUNITY MAILBOX MENU
+  -- ----------------------------------------------------------
+
+  local community_posstr = formname:match("^jc_special:community_mailbox:(.+)$")
+
+  if community_posstr then
+    local pos = core.string_to_pos(community_posstr)
+    if not pos then
+      return
+    end
+
+    local node = core.get_node_or_nil(pos)
+    if not node or node.name ~= community_mailbox_node then
+      return
+    end
+
+    local meta = core.get_meta(pos)
+    local owner = meta:get_string("owner")
+    local category = meta:get_string("category")
+
+    if fields.quit then
+      return
+    end
+
+    if fields.save_category then
+      if owner ~= player_name then
+        return
+      end
+
+      category = (fields.category or ""):match("^%s*(.-)%s*$")
+      category = string.sub(category, 1, 64)
+      meta:set_string("category", category)
+      meta:set_string("infotext", S("Community Mailbox - Category: @1", category))
+      register_community_mailbox(pos, owner, category)
+      core.chat_send_player(player_name, S("Community Mailbox category saved: @1", category))
+      core.show_formspec(player_name, formname, community_mailbox_formspec(pos, player))
+      return
+    end
+
+    if fields.my_apartment_mailbox then
+      local descr = category ~= "" and find_player_apartment(player_name, category) or nil
+      if descr then
+        show_apartment_mailbox(player, category, descr)
+      else
+        core.chat_send_player(player_name, S("You do not currently rent an apartment in this category."))
+      end
+      return
+    end
+
+    if fields.send_mail then
+      if category == "" then
+        core.chat_send_player(player_name, S("This Community Mailbox has not been configured."))
+        return
+      end
+      -- Community Mailboxes provide the full recipient list, not just this category.
+      show_dropbox(player, pos, false)
+      return
+    end
+
+    return
+  end
+
+  -- ----------------------------------------------------------
+  -- PRIVATE APARTMENT MAILBOX
+  -- ----------------------------------------------------------
+
+  if formname == "jc_special:apartment_mailbox" then
+    local session = apartment_mailbox_sessions[player_name]
+
+    if fields.quit then
+      apartment_mailbox_sessions[player_name] = nil
+      return
+    end
+
+    if not session or not apartment_mailbox_access_allowed(player, session.category, session.descr) then
+      apartment_mailbox_sessions[player_name] = nil
+      if core.close_formspec then
+        core.close_formspec(player_name, formname)
+      end
+      return
+    end
+
+    if fields.getitems then
+      local inv = get_apartment_mailbox_inventory(session.category, session.descr)
+      local player_inv = player:get_inventory()
+      local total_moved = 0
+
+      for i = 1, inv:get_size("main") do
+        local stack = inv:get_stack("main", i)
+
+        if not stack:is_empty() then
+          local original_count = stack:get_count()
+          local leftover = player_inv:add_item("main", stack)
+          local moved = original_count - leftover:get_count()
+          total_moved = total_moved + moved
+          inv:set_stack("main", i, leftover)
+        end
+      end
+
+      save_apartment_mailbox_inventory(session.category, session.descr, inv)
+      core.chat_send_player(player_name, S(
+        "Retrieved @1 @2 from your mailbox at @3.",
+        core.colorize("#FFFF00", tostring(total_moved)),
+        item_word(total_moved),
+        core.colorize("#FFFF00", core.pos_to_string(get_apartment_record(session.category, session.descr).pos))
+      ))
+
+      core.show_formspec(player_name, formname, apartment_mailbox_formspec(
+        get_apartment_record(session.category, session.descr).pos,
+        session.category,
+        session.descr
+      ))
+    end
+
+    return
+  end
 
   -- ----------------------------------------------------------
   -- MAILBOX SETTINGS
@@ -1382,9 +1994,25 @@ core.register_on_player_receive_fields(function(player, formname, fields)
   end
 
   local selected_mailbox = session.recipients[selected - 1]
-  local mailbox = mailboxes[selected_mailbox.id]
+  local mailbox
 
-  if not mailbox or not mailbox.public then
+  if selected_mailbox.type == "apartment" then
+    mailbox = selected_mailbox
+  else
+    local registered_mailbox = mailboxes[selected_mailbox.id]
+    if registered_mailbox and registered_mailbox.public then
+      mailbox = {
+        type = "mailbox",
+        id = selected_mailbox.id,
+        owner = registered_mailbox.owner,
+        name = registered_mailbox.name,
+        pos = registered_mailbox.pos,
+        public = registered_mailbox.public,
+      }
+    end
+  end
+
+  if not mailbox then
     core.chat_send_player(player_name, S("That mailbox is no longer available."))
     show_dropbox(player, nil, false)
     return
@@ -1406,6 +2034,7 @@ core.register_on_leaveplayer(function(player)
 
   close_dropbox_session(player)
   maildrop_sessions[player:get_player_name()] = nil
+  apartment_mailbox_sessions[player:get_player_name()] = nil
 end)
 
 core.register_on_joinplayer(function(player)
@@ -1436,4 +2065,4 @@ else
   core.register_alias("homedecor:inbox", "jc_special:mailbox")
 end
 
-core.log("action", "[jc_special] Mailbox and Dropbox system loaded.")
+core.log("action", "[jc_special] Mailbox, Dropbox, and Community Mailbox system loaded.")

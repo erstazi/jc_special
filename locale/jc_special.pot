@@ -731,6 +731,82 @@ msgstr ""
 msgid "Please select a recipient."
 msgstr ""
 
+#: mailbox.lua
+msgid "Apartment @1"
+msgstr ""
+
+#: mailbox.lua
+msgid "Apartment @1 - @2 (@3)"
+msgstr ""
+
+#: mailbox.lua
+msgid "Apartment @1 Mailbox"
+msgstr ""
+
+#: mailbox.lua
+msgid "Apartment Category"
+msgstr ""
+
+#: mailbox.lua
+msgid "Category: @1"
+msgstr ""
+
+#: mailbox.lua
+msgid "Community Mailbox"
+msgstr ""
+
+#: mailbox.lua
+msgid "Community Mailbox (Owner: @1)"
+msgstr ""
+
+#: mailbox.lua
+msgid "Community Mailbox (unconfigured)"
+msgstr ""
+
+#: mailbox.lua
+msgid "Community Mailbox - Category: @1"
+msgstr ""
+
+#: mailbox.lua
+msgid "Community Mailbox category saved: @1"
+msgstr ""
+
+#: mailbox.lua
+msgid "My Apartment Mailbox"
+msgstr ""
+
+#: mailbox.lua
+msgid "Send Mail"
+msgstr ""
+
+#: mailbox.lua
+msgid "That apartment mailbox is no longer available."
+msgstr ""
+
+#: mailbox.lua
+msgid "That apartment mailbox is no longer served by a Community Mailbox."
+msgstr ""
+
+#: mailbox.lua
+msgid "This Community Mailbox has not been configured."
+msgstr ""
+
+#: mailbox.lua
+msgid "This cabinet has not been configured."
+msgstr ""
+
+#: mailbox.lua
+msgid "You do not currently rent an apartment in this category."
+msgstr ""
+
+#: mailbox.lua
+msgid "You do not currently rent this apartment."
+msgstr ""
+
+#: mailbox.lua
+msgid "Community Mailbox: @1 @2"
+msgstr ""
+
 #: dice.lua
 msgid "[2-1000]"
 msgstr ""

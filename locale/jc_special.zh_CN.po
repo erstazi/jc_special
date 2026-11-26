@@ -728,6 +728,82 @@ msgstr "[邮箱] @1 已将 @2 @3 发送到你位于 @5 的邮箱“@4”。"
 msgid "Please select a recipient."
 msgstr "请选择收件人。"
 
+#: mailbox.lua
+msgid "Apartment @1"
+msgstr "@1号公寓"
+
+#: mailbox.lua
+msgid "Apartment @1 - @2 (@3)"
+msgstr "@1号公寓 - @2 (@3)"
+
+#: mailbox.lua
+msgid "Apartment @1 Mailbox"
+msgstr "@1号公寓邮箱"
+
+#: mailbox.lua
+msgid "Apartment Category"
+msgstr "公寓类别"
+
+#: mailbox.lua
+msgid "Category: @1"
+msgstr "类别：@1"
+
+#: mailbox.lua
+msgid "Community Mailbox"
+msgstr "公共邮箱"
+
+#: mailbox.lua
+msgid "Community Mailbox (Owner: @1)"
+msgstr "公共邮箱（所有者：@1）"
+
+#: mailbox.lua
+msgid "Community Mailbox (unconfigured)"
+msgstr "公共邮箱（未配置）"
+
+#: mailbox.lua
+msgid "Community Mailbox - Category: @1"
+msgstr "公共邮箱 - 类别：@1"
+
+#: mailbox.lua
+msgid "Community Mailbox category saved: @1"
+msgstr "已保存公共邮箱类别：@1"
+
+#: mailbox.lua
+msgid "My Apartment Mailbox"
+msgstr "我的公寓邮箱"
+
+#: mailbox.lua
+msgid "Send Mail"
+msgstr "发送邮件"
+
+#: mailbox.lua
+msgid "That apartment mailbox is no longer available."
+msgstr "该公寓邮箱已不再可用。"
+
+#: mailbox.lua
+msgid "That apartment mailbox is no longer served by a Community Mailbox."
+msgstr "该公寓邮箱已不再由公共邮箱提供服务。"
+
+#: mailbox.lua
+msgid "This Community Mailbox has not been configured."
+msgstr "此公共邮箱尚未配置。"
+
+#: mailbox.lua
+msgid "This cabinet has not been configured."
+msgstr "此柜子尚未配置。"
+
+#: mailbox.lua
+msgid "You do not currently rent an apartment in this category."
+msgstr "你目前没有租用此类别中的公寓。"
+
+#: mailbox.lua
+msgid "You do not currently rent this apartment."
+msgstr "你目前没有租用此公寓。"
+
+#: mailbox.lua
+msgid "Community Mailbox: @1 @2"
+msgstr "公共邮箱：@1 @2"
+
 #: dice.lua
 msgid "[2-1000]"
 msgstr "[2-1000]"

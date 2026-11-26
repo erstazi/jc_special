@@ -728,6 +728,82 @@ msgstr "[Mailbox] @1 sent @2 @3 to your mailbox '@4' at @5."
 msgid "Please select a recipient."
 msgstr "Please select a recipient."
 
+#: mailbox.lua
+msgid "Apartment @1"
+msgstr "Apartment @1"
+
+#: mailbox.lua
+msgid "Apartment @1 - @2 (@3)"
+msgstr "Apartment @1 - @2 (@3)"
+
+#: mailbox.lua
+msgid "Apartment @1 Mailbox"
+msgstr "Apartment @1 Mailbox"
+
+#: mailbox.lua
+msgid "Apartment Category"
+msgstr "Apartment Category"
+
+#: mailbox.lua
+msgid "Category: @1"
+msgstr "Category: @1"
+
+#: mailbox.lua
+msgid "Community Mailbox"
+msgstr "Community Mailbox"
+
+#: mailbox.lua
+msgid "Community Mailbox (Owner: @1)"
+msgstr "Community Mailbox (Owner: @1)"
+
+#: mailbox.lua
+msgid "Community Mailbox (unconfigured)"
+msgstr "Community Mailbox (unconfigured)"
+
+#: mailbox.lua
+msgid "Community Mailbox - Category: @1"
+msgstr "Community Mailbox - Category: @1"
+
+#: mailbox.lua
+msgid "Community Mailbox category saved: @1"
+msgstr "Community Mailbox category saved: @1"
+
+#: mailbox.lua
+msgid "My Apartment Mailbox"
+msgstr "My Apartment Mailbox"
+
+#: mailbox.lua
+msgid "Send Mail"
+msgstr "Send Mail"
+
+#: mailbox.lua
+msgid "That apartment mailbox is no longer available."
+msgstr "That apartment mailbox is no longer available."
+
+#: mailbox.lua
+msgid "That apartment mailbox is no longer served by a Community Mailbox."
+msgstr "That apartment mailbox is no longer served by a Community Mailbox."
+
+#: mailbox.lua
+msgid "This Community Mailbox has not been configured."
+msgstr "This Community Mailbox has not been configured."
+
+#: mailbox.lua
+msgid "This cabinet has not been configured."
+msgstr "This cabinet has not been configured."
+
+#: mailbox.lua
+msgid "You do not currently rent an apartment in this category."
+msgstr "You do not currently rent an apartment in this category."
+
+#: mailbox.lua
+msgid "You do not currently rent this apartment."
+msgstr "You do not currently rent this apartment."
+
+#: mailbox.lua
+msgid "Community Mailbox: @1 @2"
+msgstr "Community Mailbox: @1 @2"
+
 #: dice.lua
 msgid "[2-1000]"
 msgstr "[2-1000]"

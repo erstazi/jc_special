@@ -728,6 +728,82 @@ msgstr "[Buzón] @1 envió @2 @3 a tu buzón '@4' en @5."
 msgid "Please select a recipient."
 msgstr "Selecciona un destinatario."
 
+#: mailbox.lua
+msgid "Apartment @1"
+msgstr "Apartamento @1"
+
+#: mailbox.lua
+msgid "Apartment @1 - @2 (@3)"
+msgstr "Apartamento @1 - @2 (@3)"
+
+#: mailbox.lua
+msgid "Apartment @1 Mailbox"
+msgstr "Buzón del apartamento @1"
+
+#: mailbox.lua
+msgid "Apartment Category"
+msgstr "Categoría de apartamento"
+
+#: mailbox.lua
+msgid "Category: @1"
+msgstr "Categoría: @1"
+
+#: mailbox.lua
+msgid "Community Mailbox"
+msgstr "Buzón comunitario"
+
+#: mailbox.lua
+msgid "Community Mailbox (Owner: @1)"
+msgstr "Buzón comunitario (Propietario: @1)"
+
+#: mailbox.lua
+msgid "Community Mailbox (unconfigured)"
+msgstr "Buzón comunitario (sin configurar)"
+
+#: mailbox.lua
+msgid "Community Mailbox - Category: @1"
+msgstr "Buzón comunitario - Categoría: @1"
+
+#: mailbox.lua
+msgid "Community Mailbox category saved: @1"
+msgstr "Categoría del buzón comunitario guardada: @1"
+
+#: mailbox.lua
+msgid "My Apartment Mailbox"
+msgstr "Mi buzón del apartamento"
+
+#: mailbox.lua
+msgid "Send Mail"
+msgstr "Enviar correo"
+
+#: mailbox.lua
+msgid "That apartment mailbox is no longer available."
+msgstr "Ese buzón del apartamento ya no está disponible."
+
+#: mailbox.lua
+msgid "That apartment mailbox is no longer served by a Community Mailbox."
+msgstr "Ese buzón del apartamento ya no está atendido por un buzón comunitario."
+
+#: mailbox.lua
+msgid "This Community Mailbox has not been configured."
+msgstr "Este buzón comunitario no ha sido configurado."
+
+#: mailbox.lua
+msgid "This cabinet has not been configured."
+msgstr "Este armario no ha sido configurado."
+
+#: mailbox.lua
+msgid "You do not currently rent an apartment in this category."
+msgstr "Actualmente no alquilas un apartamento en esta categoría."
+
+#: mailbox.lua
+msgid "You do not currently rent this apartment."
+msgstr "Actualmente no alquilas este apartamento."
+
+#: mailbox.lua
+msgid "Community Mailbox: @1 @2"
+msgstr "Buzón comunitario: @1 @2"
+
 #: dice.lua
 msgid "[2-1000]"
 msgstr "[2-1000]"

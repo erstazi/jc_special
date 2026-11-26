@@ -728,6 +728,82 @@ msgstr "[Brievenbus] @1 heeft @2 @3 naar je brievenbus '@4' op @5 gestuurd."
 msgid "Please select a recipient."
 msgstr "Selecteer een ontvanger."
 
+#: mailbox.lua
+msgid "Apartment @1"
+msgstr "Appartement @1"
+
+#: mailbox.lua
+msgid "Apartment @1 - @2 (@3)"
+msgstr "Appartement @1 - @2 (@3)"
+
+#: mailbox.lua
+msgid "Apartment @1 Mailbox"
+msgstr "Brievenbus van appartement @1"
+
+#: mailbox.lua
+msgid "Apartment Category"
+msgstr "Appartementcategorie"
+
+#: mailbox.lua
+msgid "Category: @1"
+msgstr "Categorie: @1"
+
+#: mailbox.lua
+msgid "Community Mailbox"
+msgstr "Gemeenschappelijke brievenbus"
+
+#: mailbox.lua
+msgid "Community Mailbox (Owner: @1)"
+msgstr "Gemeenschappelijke brievenbus (Eigenaar: @1)"
+
+#: mailbox.lua
+msgid "Community Mailbox (unconfigured)"
+msgstr "Gemeenschappelijke brievenbus (niet ingesteld)"
+
+#: mailbox.lua
+msgid "Community Mailbox - Category: @1"
+msgstr "Gemeenschappelijke brievenbus - Categorie: @1"
+
+#: mailbox.lua
+msgid "Community Mailbox category saved: @1"
+msgstr "Categorie van gemeenschappelijke brievenbus opgeslagen: @1"
+
+#: mailbox.lua
+msgid "My Apartment Mailbox"
+msgstr "Mijn appartementsbrievenbus"
+
+#: mailbox.lua
+msgid "Send Mail"
+msgstr "Post versturen"
+
+#: mailbox.lua
+msgid "That apartment mailbox is no longer available."
+msgstr "Die appartementsbrievenbus is niet langer beschikbaar."
+
+#: mailbox.lua
+msgid "That apartment mailbox is no longer served by a Community Mailbox."
+msgstr "Die appartementsbrievenbus wordt niet langer bediend door een gemeenschappelijke brievenbus."
+
+#: mailbox.lua
+msgid "This Community Mailbox has not been configured."
+msgstr "Deze gemeenschappelijke brievenbus is nog niet ingesteld."
+
+#: mailbox.lua
+msgid "This cabinet has not been configured."
+msgstr "Deze kast is nog niet ingesteld."
+
+#: mailbox.lua
+msgid "You do not currently rent an apartment in this category."
+msgstr "Je huurt momenteel geen appartement in deze categorie."
+
+#: mailbox.lua
+msgid "You do not currently rent this apartment."
+msgstr "Je huurt dit appartement momenteel niet."
+
+#: mailbox.lua
+msgid "Community Mailbox: @1 @2"
+msgstr "Gemeenschappelijke brievenbus: @1 @2"
+
 #: dice.lua
 msgid "[2-1000]"
 msgstr "[2-1000]"

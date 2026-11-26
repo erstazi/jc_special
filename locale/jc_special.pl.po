@@ -728,6 +728,82 @@ msgstr "[Skrzynka pocztowa] @1 wysłał(a) @2 @3 do Twojej skrzynki '@4' pod adr
 msgid "Please select a recipient."
 msgstr "Wybierz odbiorcę."
 
+#: mailbox.lua
+msgid "Apartment @1"
+msgstr "Mieszkanie @1"
+
+#: mailbox.lua
+msgid "Apartment @1 - @2 (@3)"
+msgstr "Mieszkanie @1 - @2 (@3)"
+
+#: mailbox.lua
+msgid "Apartment @1 Mailbox"
+msgstr "Skrzynka pocztowa mieszkania @1"
+
+#: mailbox.lua
+msgid "Apartment Category"
+msgstr "Kategoria mieszkań"
+
+#: mailbox.lua
+msgid "Category: @1"
+msgstr "Kategoria: @1"
+
+#: mailbox.lua
+msgid "Community Mailbox"
+msgstr "Wspólna skrzynka pocztowa"
+
+#: mailbox.lua
+msgid "Community Mailbox (Owner: @1)"
+msgstr "Wspólna skrzynka pocztowa (Właściciel: @1)"
+
+#: mailbox.lua
+msgid "Community Mailbox (unconfigured)"
+msgstr "Wspólna skrzynka pocztowa (nieskonfigurowana)"
+
+#: mailbox.lua
+msgid "Community Mailbox - Category: @1"
+msgstr "Wspólna skrzynka pocztowa - Kategoria: @1"
+
+#: mailbox.lua
+msgid "Community Mailbox category saved: @1"
+msgstr "Zapisano kategorię wspólnej skrzynki pocztowej: @1"
+
+#: mailbox.lua
+msgid "My Apartment Mailbox"
+msgstr "Moja skrzynka pocztowa"
+
+#: mailbox.lua
+msgid "Send Mail"
+msgstr "Wyślij pocztę"
+
+#: mailbox.lua
+msgid "That apartment mailbox is no longer available."
+msgstr "Ta skrzynka pocztowa mieszkania nie jest już dostępna."
+
+#: mailbox.lua
+msgid "That apartment mailbox is no longer served by a Community Mailbox."
+msgstr "Ta skrzynka pocztowa mieszkania nie jest już obsługiwana przez wspólną skrzynkę pocztową."
+
+#: mailbox.lua
+msgid "This Community Mailbox has not been configured."
+msgstr "Ta wspólna skrzynka pocztowa nie została jeszcze skonfigurowana."
+
+#: mailbox.lua
+msgid "This cabinet has not been configured."
+msgstr "Ta szafka nie została jeszcze skonfigurowana."
+
+#: mailbox.lua
+msgid "You do not currently rent an apartment in this category."
+msgstr "Obecnie nie wynajmujesz mieszkania w tej kategorii."
+
+#: mailbox.lua
+msgid "You do not currently rent this apartment."
+msgstr "Obecnie nie wynajmujesz tego mieszkania."
+
+#: mailbox.lua
+msgid "Community Mailbox: @1 @2"
+msgstr "Wspólna skrzynka pocztowa: @1 @2"
+
 #: dice.lua
 msgid "[2-1000]"
 msgstr "[2-1000]"

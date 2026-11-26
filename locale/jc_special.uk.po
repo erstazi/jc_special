@@ -728,6 +728,82 @@ msgstr "[Поштова скринька] @1 надіслав @2 @3 до ваш�
 msgid "Please select a recipient."
 msgstr "Виберіть одержувача."
 
+#: mailbox.lua
+msgid "Apartment @1"
+msgstr "Квартира @1"
+
+#: mailbox.lua
+msgid "Apartment @1 - @2 (@3)"
+msgstr "Квартира @1 - @2 (@3)"
+
+#: mailbox.lua
+msgid "Apartment @1 Mailbox"
+msgstr "Поштова скринька квартири @1"
+
+#: mailbox.lua
+msgid "Apartment Category"
+msgstr "Категорія квартир"
+
+#: mailbox.lua
+msgid "Category: @1"
+msgstr "Категорія: @1"
+
+#: mailbox.lua
+msgid "Community Mailbox"
+msgstr "Спільна поштова скринька"
+
+#: mailbox.lua
+msgid "Community Mailbox (Owner: @1)"
+msgstr "Спільна поштова скринька (Власник: @1)"
+
+#: mailbox.lua
+msgid "Community Mailbox (unconfigured)"
+msgstr "Спільна поштова скринька (не налаштована)"
+
+#: mailbox.lua
+msgid "Community Mailbox - Category: @1"
+msgstr "Спільна поштова скринька - Категорія: @1"
+
+#: mailbox.lua
+msgid "Community Mailbox category saved: @1"
+msgstr "Категорію спільної поштової скриньки збережено: @1"
+
+#: mailbox.lua
+msgid "My Apartment Mailbox"
+msgstr "Моя поштова скринька квартири"
+
+#: mailbox.lua
+msgid "Send Mail"
+msgstr "Надіслати пошту"
+
+#: mailbox.lua
+msgid "That apartment mailbox is no longer available."
+msgstr "Ця поштова скринька квартири більше недоступна."
+
+#: mailbox.lua
+msgid "That apartment mailbox is no longer served by a Community Mailbox."
+msgstr "Ця поштова скринька квартири більше не обслуговується спільною поштовою скринькою."
+
+#: mailbox.lua
+msgid "This Community Mailbox has not been configured."
+msgstr "Цю спільну поштову скриньку ще не налаштовано."
+
+#: mailbox.lua
+msgid "This cabinet has not been configured."
+msgstr "Цю шафу ще не налаштовано."
+
+#: mailbox.lua
+msgid "You do not currently rent an apartment in this category."
+msgstr "Наразі ви не орендуєте квартиру в цій категорії."
+
+#: mailbox.lua
+msgid "You do not currently rent this apartment."
+msgstr "Наразі ви не орендуєте цю квартиру."
+
+#: mailbox.lua
+msgid "Community Mailbox: @1 @2"
+msgstr "Спільна поштова скринька: @1 @2"
+
 #: dice.lua
 msgid "[2-1000]"
 msgstr "[2-1000]"

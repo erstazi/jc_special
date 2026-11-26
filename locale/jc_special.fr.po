@@ -728,6 +728,82 @@ msgstr "[Boîte aux lettres] @1 a envoyé @2 @3 dans votre boîte '@4' à @5."
 msgid "Please select a recipient."
 msgstr "Veuillez sélectionner un destinataire."
 
+#: mailbox.lua
+msgid "Apartment @1"
+msgstr "Appartement @1"
+
+#: mailbox.lua
+msgid "Apartment @1 - @2 (@3)"
+msgstr "Appartement @1 - @2 (@3)"
+
+#: mailbox.lua
+msgid "Apartment @1 Mailbox"
+msgstr "Boîte aux lettres de l'appartement @1"
+
+#: mailbox.lua
+msgid "Apartment Category"
+msgstr "Catégorie d'appartement"
+
+#: mailbox.lua
+msgid "Category: @1"
+msgstr "Catégorie : @1"
+
+#: mailbox.lua
+msgid "Community Mailbox"
+msgstr "Boîte aux lettres commune"
+
+#: mailbox.lua
+msgid "Community Mailbox (Owner: @1)"
+msgstr "Boîte aux lettres commune (Propriétaire : @1)"
+
+#: mailbox.lua
+msgid "Community Mailbox (unconfigured)"
+msgstr "Boîte aux lettres commune (non configurée)"
+
+#: mailbox.lua
+msgid "Community Mailbox - Category: @1"
+msgstr "Boîte aux lettres commune - Catégorie : @1"
+
+#: mailbox.lua
+msgid "Community Mailbox category saved: @1"
+msgstr "Catégorie de la boîte aux lettres commune enregistrée : @1"
+
+#: mailbox.lua
+msgid "My Apartment Mailbox"
+msgstr "Ma boîte aux lettres d'appartement"
+
+#: mailbox.lua
+msgid "Send Mail"
+msgstr "Envoyer du courrier"
+
+#: mailbox.lua
+msgid "That apartment mailbox is no longer available."
+msgstr "Cette boîte aux lettres d'appartement n'est plus disponible."
+
+#: mailbox.lua
+msgid "That apartment mailbox is no longer served by a Community Mailbox."
+msgstr "Cette boîte aux lettres d'appartement n'est plus desservie par une boîte aux lettres commune."
+
+#: mailbox.lua
+msgid "This Community Mailbox has not been configured."
+msgstr "Cette boîte aux lettres commune n'a pas été configurée."
+
+#: mailbox.lua
+msgid "This cabinet has not been configured."
+msgstr "Cette armoire n'a pas été configurée."
+
+#: mailbox.lua
+msgid "You do not currently rent an apartment in this category."
+msgstr "Vous ne louez actuellement aucun appartement dans cette catégorie."
+
+#: mailbox.lua
+msgid "You do not currently rent this apartment."
+msgstr "Vous ne louez actuellement pas cet appartement."
+
+#: mailbox.lua
+msgid "Community Mailbox: @1 @2"
+msgstr "Boîte aux lettres commune : @1 @2"
+
 #: dice.lua
 msgid "[2-1000]"
 msgstr "[2-1000]"

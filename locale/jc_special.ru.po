@@ -728,6 +728,82 @@ msgstr "[Почтовый ящик] @1 отправил @2 @3 в ваш почт
 msgid "Please select a recipient."
 msgstr "Выберите получателя."
 
+#: mailbox.lua
+msgid "Apartment @1"
+msgstr "Квартира @1"
+
+#: mailbox.lua
+msgid "Apartment @1 - @2 (@3)"
+msgstr "Квартира @1 - @2 (@3)"
+
+#: mailbox.lua
+msgid "Apartment @1 Mailbox"
+msgstr "Почтовый ящик квартиры @1"
+
+#: mailbox.lua
+msgid "Apartment Category"
+msgstr "Категория квартир"
+
+#: mailbox.lua
+msgid "Category: @1"
+msgstr "Категория: @1"
+
+#: mailbox.lua
+msgid "Community Mailbox"
+msgstr "Общий почтовый ящик"
+
+#: mailbox.lua
+msgid "Community Mailbox (Owner: @1)"
+msgstr "Общий почтовый ящик (Владелец: @1)"
+
+#: mailbox.lua
+msgid "Community Mailbox (unconfigured)"
+msgstr "Общий почтовый ящик (не настроен)"
+
+#: mailbox.lua
+msgid "Community Mailbox - Category: @1"
+msgstr "Общий почтовый ящик - Категория: @1"
+
+#: mailbox.lua
+msgid "Community Mailbox category saved: @1"
+msgstr "Категория общего почтового ящика сохранена: @1"
+
+#: mailbox.lua
+msgid "My Apartment Mailbox"
+msgstr "Мой квартирный почтовый ящик"
+
+#: mailbox.lua
+msgid "Send Mail"
+msgstr "Отправить почту"
+
+#: mailbox.lua
+msgid "That apartment mailbox is no longer available."
+msgstr "Этот почтовый ящик квартиры больше недоступен."
+
+#: mailbox.lua
+msgid "That apartment mailbox is no longer served by a Community Mailbox."
+msgstr "Этот почтовый ящик квартиры больше не обслуживается общим почтовым ящиком."
+
+#: mailbox.lua
+msgid "This Community Mailbox has not been configured."
+msgstr "Этот общий почтовый ящик ещё не настроен."
+
+#: mailbox.lua
+msgid "This cabinet has not been configured."
+msgstr "Этот шкаф ещё не настроен."
+
+#: mailbox.lua
+msgid "You do not currently rent an apartment in this category."
+msgstr "В настоящее время вы не арендуете квартиру в этой категории."
+
+#: mailbox.lua
+msgid "You do not currently rent this apartment."
+msgstr "В настоящее время вы не арендуете эту квартиру."
+
+#: mailbox.lua
+msgid "Community Mailbox: @1 @2"
+msgstr "Общий почтовый ящик: @1 @2"
+
 #: dice.lua
 msgid "[2-1000]"
 msgstr "[2-1000]"

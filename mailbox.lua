@@ -1356,10 +1356,11 @@ local function dropbox_formspec(player, pos, category)
   for _, mailbox in ipairs(recipients) do
     local label
 
+    local coords = mailbox.pos and core.pos_to_string(mailbox.pos) or mailbox.id
+
     if mailbox.type == "apartment" then
-      label = S("Apartment @1 - @2 (@3)", mailbox.descr, mailbox.owner, mailbox.category)
+      label = mailbox.owner .. " - " .. mailbox.descr .. " - " .. mailbox.category .. " - " .. coords
     else
-      local coords = mailbox.pos and core.pos_to_string(mailbox.pos) or mailbox.id
       label = mailbox.owner .. " - " .. mailbox.name .. " " .. coords
     end
 

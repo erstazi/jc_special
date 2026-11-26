@@ -180,7 +180,6 @@ The recipient mailbox does not have enough room.=La boîte aux lettres du destin
 [Mailbox] @1 sent @2 @3 to your mailbox '@4' at @5.=[Boîte aux lettres] @1 a envoyé @2 @3 dans votre boîte '@4' à @5.
 Please select a recipient.=Veuillez sélectionner un destinataire.
 Apartment @1=Appartement @1
-Apartment @1 - @2 (@3)=Appartement @1 - @2 (@3)
 Apartment @1 Mailbox=Boîte aux lettres de l'appartement @1
 Apartment Category=Catégorie d'appartement
 Category: @1=Catégorie : @1

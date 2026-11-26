@@ -180,7 +180,6 @@ The recipient mailbox does not have enough room.=收件人的邮箱没有足够�
 [Mailbox] @1 sent @2 @3 to your mailbox '@4' at @5.=[邮箱] @1 已将 @2 @3 发送到你位于 @5 的邮箱“@4”。
 Please select a recipient.=请选择收件人。
 Apartment @1=@1号公寓
-Apartment @1 - @2 (@3)=@1号公寓 - @2 (@3)
 Apartment @1 Mailbox=@1号公寓邮箱
 Apartment Category=公寓类别
 Category: @1=类别：@1

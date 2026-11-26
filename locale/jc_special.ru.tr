@@ -180,7 +180,6 @@ The recipient mailbox does not have enough room.=В почтовом ящике 
 [Mailbox] @1 sent @2 @3 to your mailbox '@4' at @5.=[Почтовый ящик] @1 отправил @2 @3 в ваш почтовый ящик '@4' по адресу @5.
 Please select a recipient.=Выберите получателя.
 Apartment @1=Квартира @1
-Apartment @1 - @2 (@3)=Квартира @1 - @2 (@3)
 Apartment @1 Mailbox=Почтовый ящик квартиры @1
 Apartment Category=Категория квартир
 Category: @1=Категория: @1

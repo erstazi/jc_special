@@ -180,7 +180,6 @@ The recipient mailbox does not have enough room.=De brievenbus van de ontvanger 
 [Mailbox] @1 sent @2 @3 to your mailbox '@4' at @5.=[Brievenbus] @1 heeft @2 @3 naar je brievenbus '@4' op @5 gestuurd.
 Please select a recipient.=Selecteer een ontvanger.
 Apartment @1=Appartement @1
-Apartment @1 - @2 (@3)=Appartement @1 - @2 (@3)
 Apartment @1 Mailbox=Brievenbus van appartement @1
 Apartment Category=Appartementcategorie
 Category: @1=Categorie: @1

@@ -733,10 +733,6 @@ msgid "Apartment @1"
 msgstr "@1号公寓"
 
 #: mailbox.lua
-msgid "Apartment @1 - @2 (@3)"
-msgstr "@1号公寓 - @2 (@3)"
-
-#: mailbox.lua
 msgid "Apartment @1 Mailbox"
 msgstr "@1号公寓邮箱"
 
